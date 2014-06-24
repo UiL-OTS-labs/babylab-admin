@@ -1,0 +1,140 @@
+/* Main CSS */
+
+body {
+	background: none repeat scroll 0% 0% rgb(243, 247, 250) !important;
+	margin: 0;
+	padding: 0;
+	font-size: 10pt;
+}
+
+#header-img { 
+	float: right;
+}
+
+#wrapper {
+	width: 1000px;
+	margin: 30px auto 20px auto;
+	padding: 20px 20px 30px 20px;
+	background: none repeat scroll 0% 0% rgb(255, 255, 255);
+	text-align: left;
+	position: relative;
+}
+
+#validator {
+	position: absolute;
+	bottom: 0px;
+	right: 18px;
+}
+
+#welcome {
+	float: right;
+	margin-right: 3px;
+	margin-top: 10px;
+}
+
+#info {
+	margin-bottom: 10px;
+}
+
+.data {
+	margin-bottom: 30px;
+}
+
+#actions {
+	margin-top: 30px;
+}
+
+table {
+	font-size: 12px;
+	border: 1px solid #999;
+	padding: 5px;
+}
+
+a {
+	color: #003399;
+ 	background-color: transparent;
+ 	font-weight: normal;
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	text-align: center;
+	padding: 10px; 
+	margin-bottom: 10px;
+	border: 1px solid #00C008;
+	background-color: #DFF0D8;
+}
+
+.failed {
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #F2DEDE;
+	border: 1px solid red;
+}
+
+.warning {
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #FCF8E3;
+	border: 1px solid yellow;
+}
+
+.ui-widget {
+	font-family: inherit;	
+	font-size: inherit;	
+}
+
+.ui-widget-content a {
+	color: #003399;
+}
+
+/* Datatables add-ons */
+
+.dataTable .center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Pure CSS add-ons */
+
+.pure-menu-custom { 
+	box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4); 
+	margin-bottom: 10px;
+}
+
+.pure-form input, .pure-form select, .pure-form textarea {
+	font-size: 0.8em;
+}
+
+.pure-form input[type="submit"], .pure-form input[type="reset"] {
+	font-size: 1em;
+}
+
+.pure-form legend {
+	font-size: 1.2em;
+}
+
+/* Larger pure-control-group */
+.pure-form-aligned .pure-control-group label {
+	width: 25em; 
+}
+
+.pure-form-aligned .pure-control-group .pure-radio {
+	text-align: left;
+	width: 7.5em;
+	font-size: 0.9em;
+}
+
+.pure-form-aligned .pure-controls {
+	margin-left: 23.5em;
+}
+
+.pure-form-aligned .pure-control-group label.error {
+	width: 12.5em;
+}
