@@ -6,7 +6,7 @@
 	    $("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable( {
 	    	"bProcessing": true,
 	    	"bServerSide": true,
-	    	"sAjaxSource": "<?=isset($ajax_source) ? 'index.php/' . $ajax_source : ''; ?>",
+	    	"sAjaxSource": "<?=isset($ajax_source) ? $ajax_source : ''; ?>",
             "fnServerData": function (sSource, aoData, fnCallback) {
                 $.ajax
                 ({
