@@ -31,7 +31,7 @@
 <!-- Sparkline -->
 	<script type="text/javascript" src="js/jquery.sparkline.js"></script>
 	<script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
-<!-- Auto tabindex for inputs -->
+<!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 	<script>
 	$(function() {
 		$('select, input').each(function(index) {

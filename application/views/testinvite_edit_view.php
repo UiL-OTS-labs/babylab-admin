@@ -1,16 +1,4 @@
-<script>
-	$(function() {
-		$('#participant').autocomplete({
-			minLength: 2,
-      		source: 'testinvite/filter_participants',
-			select: function( event, ui ) {
-				$('#participant').val( ui.item.label );
-				$('input[name="participant_id"]').val( ui.item.value );
-				return false;
-			}
-    	});
-  	});
-</script>
+<script type="text/javascript" src="js/participants_filter.js"></script>
 
 <?=heading(lang('testinvites'), 2); ?>
 

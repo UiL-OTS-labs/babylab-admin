@@ -10,6 +10,7 @@ $lang['edit_all_scores']	= "Bewerk alle resultaten voor een test";
 $lang['all_scores_edited']	= "Testresultaten voor %s op test %s succesvol bewerkt.";
 $lang['sure_delete_score']	= "Weet u zeker dat u dit testresultaat wilt verwijderen?";
 $lang['score_deleted'] 		= "Testresultaat succesvol verwijderd.";
+
 $lang['unique_score']		= "Voor deze proefpersoon bestaat al een testresultaat voor deze testcategorie.";
 $lang['select_test_participant']	= "Selecteer alstublieft een proefpersoon en test.";
 $lang['raw_score']			= "Ruwe score";

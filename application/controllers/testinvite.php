@@ -137,19 +137,6 @@ class TestInvite extends CI_Controller
 	}
 	
 	/////////////////////////
-	// AJAX
-	/////////////////////////
-	
-	/** Checks whether the given parameter is higher than 0 */
-	public function filter_participants()
-	{
-		$term = $this->input->get('term');
-		$participants = $this->participantModel->find_participants_by_name($term);
-		
-		echo json_encode($participants);
-	}	
-	
-	/////////////////////////
 	// Table
 	/////////////////////////
 

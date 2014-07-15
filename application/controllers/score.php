@@ -30,10 +30,11 @@ class Score extends CI_Controller
 	}
 
 	/** Specifies the contents of the add (single) score page */
-	public function add($test_id = 0, $testcat_id = 0, $participant_id = 0)
+	public function add($test_id = 0, $testcat_id = 0, $testsurvey_id = 0, $participant_id = 0)
 	{
 		$data['tests'] = $this->testModel->get_all_tests();
 		$data['testcats'] = $this->testCatModel->get_all_testcats();
+		$data['testsurveys'] = $this->testSurveyModel->get_all_testsurveys();
 		$data['participants'] = $this->participantModel->get_all_participants(TRUE);
 
 		$data['page_title'] = lang('add_score');
@@ -43,7 +44,12 @@ class Score extends CI_Controller
 
 		$data['test_id'] = $test_id;
 		$data['testcat_id'] = $testcat_id;
+		$data['testsurvey_id'] = $testsurvey_id;
 		$data['participant_id'] = $participant_id;
+		if (!empty($participant_id)) 
+		{
+			$data['participant'] = name($this->participantModel->get_participant_by_id($participant_id));
+		}
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('score_edit_view', $data);
@@ -54,12 +60,13 @@ class Score extends CI_Controller
 	public function add_submit()
 	{
 		// Run validation
-		if (!$this->validate_score(TRUE)) 
+		if (!$this->validate_score(TRUE))
 		{
 			// If not succeeded, show form again with error messages
-			$this->add($this->input->post('test'), $this->input->post('testcat'), $this->input->post('participant'));
+			$this->add($this->input->post('test'), $this->input->post('testcat'),
+						$this->input->post('testsurvey'), $this->input->post('participant_id'));
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$score = $this->post_score(TRUE);
@@ -77,6 +84,7 @@ class Score extends CI_Controller
 		$score = $this->scoreModel->get_score_by_id($score_id);
 		$data['test'] = $this->scoreModel->get_test_by_score($score);
 		$data['testcat'] = $this->scoreModel->get_testcat_by_score($score);
+		$data['testsurvey'] = $this->scoreModel->get_testsurvey_by_score($score);
 		$data['participant'] = $this->scoreModel->get_participant_by_score($score);
 
 		$data['page_title'] = lang('edit_score');
@@ -95,12 +103,12 @@ class Score extends CI_Controller
 	public function edit_submit($score_id)
 	{
 		// Run validation
-		if (!$this->validate_score(FALSE)) 
+		if (!$this->validate_score(FALSE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->edit($score_id);
 		}
-		else 
+		else
 		{
 			// If succeeded, update data into database
 			$score = $this->post_score(FALSE);
@@ -140,24 +148,25 @@ class Score extends CI_Controller
 		$testcats = $this->testCatModel->get_testcats_by_test($test_id, FALSE, TRUE);
 
 		$input_scores = array();
-		foreach ($testcats as $tc) 
+		foreach ($testcats as $tc)
 		{
 			$score = array('testcat' => $tc->id, 'score' => $this->input->post($tc->id));
 			array_push($input_scores, $score);
 		}
 
 		// Run validation
-		if (!$this->validate_all_scores($input_scores)) 
+		if (!$this->validate_all_scores($input_scores))
 		{
 			// If not succeeded, show form again with error messages
 			$this->edit_all($test_id, $participant_id);
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$scores = $this->post_all_scores($input_scores);
-			foreach ($scores as $s) 
+			foreach ($scores as $s)
 			{
+				// TODO: replace
 				$this->scoreModel->add_or_update_score($s);
 			}
 
@@ -184,7 +193,7 @@ class Score extends CI_Controller
 	public function participant($participant_id)
 	{
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
-		
+
 		create_score_table(NULL, 'participant');
 		$data['ajax_source'] = 'score/table_by_participant/' . $participant_id;
 		$data['page_title'] = sprintf(lang('scores_for'), name($participant));
@@ -198,7 +207,7 @@ class Score extends CI_Controller
 	public function testcat($testcat_id)
 	{
 		$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
-		
+
 		create_score_table(NULL, 'testcat');
 		$data['ajax_source'] = 'score/table_by_testcat/' . $testcat_id;
 		$data['page_title'] = sprintf(lang('scores_for'), $testcat->name);
@@ -207,12 +216,12 @@ class Score extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Specifies the content of a page with the scores for a specific testsurvey */
 	public function testsurvey($testsurvey_id)
 	{
 		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
-		
+
 		create_score_table(NULL, 'testsurvey');
 		$data['ajax_source'] = 'score/table_by_testsurvey/' . $testsurvey_id;
 		$data['page_title'] = sprintf(lang('scores_for'), $testsurvey->name);
@@ -221,14 +230,14 @@ class Score extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Specifies the content of a page with the scores for a specific testsurvey */
 	public function testinvite($testinvite_id)
 	{
 		$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
 		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
 		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-		
+
 		create_score_table(NULL, 'testinvite');
 		$data['ajax_source'] = 'score/table_by_testinvite/' . $testinvite_id;
 		$data['page_title'] = sprintf(lang('scores_for'), name($participant));
@@ -248,8 +257,9 @@ class Score extends CI_Controller
 	{
 		if ($new_score)
 		{
-			$this->form_validation->set_rules('testcat', lang('testcat'), 'callback_not_zero|callback_unique_score');
-			$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_zero');
+			$this->form_validation->set_rules('testcat', lang('testcat'), 'callback_not_zero');
+			$this->form_validation->set_rules('testsurvey', lang('testsurvey'), 'callback_not_zero');
+			$this->form_validation->set_rules('participant_id', lang('participant'), 'callback_not_zero|callback_testinvite_exists|callback_unique_score');
 		}
 		$this->form_validation->set_rules('score', lang('score'), 'trim|required|integer');
 		$this->form_validation->set_rules('date', lang('date'), 'trim|required');
@@ -262,9 +272,13 @@ class Score extends CI_Controller
 	{
 		if ($new_score)
 		{
+			$testsurvey_id = $this->input->post('testsurvey');
+			$participant_id = $this->input->post('participant_id');
+			$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
+
 			return array(
 					'testcat_id'	=> $this->input->post('testcat'),
-					'participant_id'=> $this->input->post('participant'),
+					'testinvite_id' => $testinvite->id,
 					'score' 		=> $this->input->post('score'),
 					'date' 			=> input_date($this->input->post('date'))
 			);
@@ -294,9 +308,9 @@ class Score extends CI_Controller
 	private function post_all_scores($scores)
 	{
 		$result = array();
-		foreach ($scores as $s) 
+		foreach ($scores as $s)
 		{
-			if (!empty($s['score'])) 
+			if (!empty($s['score']))
 			{
 				$score = array(
 					'participant_id'=> $this->input->post('participant'),
@@ -325,13 +339,32 @@ class Score extends CI_Controller
 	}
 
 	/** Checks whether the current score does not exist for this test category and participant */
-	public function unique_score($testcat_id)
+	public function unique_score($testsurvey_id)
 	{
-		$participant_id = $this->input->post('participant');
-		$score = $this->scoreModel->get_score($testcat_id, $participant_id);
+		$participant_id = $this->input->post('participant_id');
+		$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
+		if (empty($testinvite)) return FALSE;
+		
+		$testcat_id = $this->input->post('testcat');
+		$score = $this->scoreModel->get_score_by_testcat_testinvite($testcat_id, $testinvite->id);
 		if (!empty($score))
 		{
 			$this->form_validation->set_message('unique_score', lang('unique_score'));
+			return FALSE;
+		}
+		return TRUE;
+	}
+
+	/** Checks whether the for this participant an invitation has already been created */
+	public function testinvite_exists($participant_id)
+	{
+		$testsurvey_id = $this->input->post('testsurvey');
+		$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
+		if (empty($testinvite))
+		{
+			$participant = $this->participantModel->get_participant_by_id($participant_id);
+			$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
+			$this->form_validation->set_message('testinvite_exists', sprintf(lang('testinvite_not_exists'), name($participant), testsurvey_name($testsurvey)));
 			return FALSE;
 		}
 		return TRUE;
@@ -346,7 +379,15 @@ class Score extends CI_Controller
 	{
 		$test_id = $this->input->post('test_id');
 		$testcats = $this->testCatModel->get_testcats_by_test($test_id, FALSE, TRUE);
-		echo form_dropdown_and_label('testcat', testcat_options($testcats));
+		echo form_dropdown_and_label('testcat', testcat_options($testcats, FALSE));
+	}
+	
+	/** Filters the testsurveys by test on the add (single) page. */
+	public function filter_testsurveys()
+	{
+		$test_id = $this->input->post('test_id');
+		$testsurveys = $this->testSurveyModel->get_testsurveys_by_test($test_id);
+		echo form_dropdown_and_label('testsurvey', testsurvey_options($testsurveys));
 	}
 
 	/** Shows all testcats and scores by test on the add (all) page. */
@@ -355,7 +396,7 @@ class Score extends CI_Controller
 		$participant_id = $this->input->post('participant');
 		$test_id = $this->input->post('test');
 
-		if (empty($participant_id) || empty($test_id)) 
+		if (empty($participant_id) || empty($test_id))
 		{
 			echo lang('select_test_participant');
 			return;
@@ -363,7 +404,7 @@ class Score extends CI_Controller
 
 		$testcats = $this->testCatModel->get_testcats_by_test($test_id, FALSE, TRUE);
 
-		if (empty($testcats)) 
+		if (empty($testcats))
 		{
 			echo lang('no_results_found');
 			return;
@@ -371,7 +412,7 @@ class Score extends CI_Controller
 
 		echo '<div class="pure-g-r">';
 
-		foreach ($testcats as $tc) 
+		foreach ($testcats as $tc)
 		{
 			$score = $this->scoreModel->get_score($tc->id, $participant_id);
 			$value = !empty($score) ? $score->score : '';
@@ -393,14 +434,14 @@ class Score extends CI_Controller
 	{
 		$this->datatables->select('test.name AS ts, CONCAT(testcat.code, testcat.name) AS tc, CONCAT(firstname, lastname) AS p,
 			score, date, date AS age, score.id AS id, 
-			testsurvey_id, testcat_id, score.participant_id AS participant_id', FALSE);
+			testsurvey_id, testcat_id, participant.id AS participant_id', FALSE);
 		$this->datatables->from('score');
-		$this->datatables->join('participant', 'participant.id = score.participant_id');
 		$this->datatables->join('testcat', 'testcat.id = score.testcat_id');
 		$this->datatables->join('test', 'test.id = testcat.test_id');
 		$this->datatables->join('testinvite', 'testinvite.id = score.testinvite_id');
+		$this->datatables->join('participant', 'participant.id = testinvite.participant_id');
 		$this->datatables->join('testsurvey', 'testsurvey.id = testinvite.testsurvey_id');
-		
+
 		$this->datatables->edit_column('ts', '$1', 'testsurvey_get_link_by_id(testsurvey_id)');
 		$this->datatables->edit_column('tc', '$1', 'testcat_get_link_by_id(testcat_id)');
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
@@ -414,28 +455,28 @@ class Score extends CI_Controller
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_participant($participant_id)
 	{
-		$this->datatables->where('score.participant_id', $participant_id);
+		$this->datatables->where('participant.id', $participant_id);
 		$this->datatables->unset_column('p');
 		$this->table();
 	}
-	
+
 	public function table_by_testcat($testcat_id)
 	{
 		$this->datatables->where('testcat_id', $testcat_id);
 		$this->datatables->unset_column('tc');
 		$this->table();
 	}
-	
+
 	public function table_by_testsurvey($testsurvey_id)
 	{
 		$this->datatables->where('testsurvey_id', $testsurvey_id);
 		$this->datatables->unset_column('ts');
 		$this->table();
 	}
-	
+
 	public function table_by_testinvite($testinvite_id)
 	{
 		$this->datatables->where('testinvite_id', $testinvite_id);

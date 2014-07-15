@@ -552,6 +552,19 @@ class Participant extends CI_Controller
 		}
 		return TRUE;
 	}
+	
+	/////////////////////////
+	// AJAX
+	/////////////////////////
+	
+	/** Checks whether the given parameter is higher than 0 */
+	public function filter_participants()
+	{
+		$term = $this->input->get('term');
+		$participants = $this->participantModel->find_participants_by_name($term);
+		
+		echo json_encode($participants);
+	}
 
 	/////////////////////////
 	// Table

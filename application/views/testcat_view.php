@@ -1,7 +1,5 @@
 <?=heading($page_title, 2); ?>
 
-<?=$this->session->flashdata('message'); ?>
-
 <div>
 	<!-- General info -->
 	<h3><?=lang('testcat'); ?></h3>

@@ -24,7 +24,7 @@ if (!function_exists('create_testcat_table'))
 if (!function_exists('testcat_options'))
 {
 	/** Returns an option list of testcats */
-	function testcat_options($testcats)
+	function testcat_options($testcats, $empty = TRUE)
 	{
 		$CI =& get_instance();
 		$t_options = array();
@@ -34,7 +34,7 @@ if (!function_exists('testcat_options'))
 			$t_options[$t->id] = testcat_code_name($t);
 		}
 		asort($t_options);
-		return array('null' => lang('none')) + $t_options;
+		return $empty ? array('null' => lang('none')) + $t_options : $t_options;
 	}
 }
 

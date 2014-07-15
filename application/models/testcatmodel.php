@@ -132,14 +132,6 @@ class TestCatModel extends CI_Model
 	/////////////////////////
 	// Scores
 	/////////////////////////
-	
-	/** Retrieves a score for a test category and a participant */
-	public function get_score($testcat_id, $participant_id)
-	{
-		$this->db->where('testcat_id', $testcat_id);
-		$this->db->where('participant_id', $participant_id);
-		return $this->db->get('score')->row();
-	}
 
 	/** Returns the total score (an array) for a testcat per testinvite */
 	public function total_score($testcat_id, $testinvite_id)

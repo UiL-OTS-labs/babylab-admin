@@ -33,6 +33,7 @@ class ScoreModel extends CI_Model
 	/** Adds a score to the DB, updates when already exists */
 	public function add_or_update_score($score)
 	{
+		// TODO: has to be changed
 		$s = $this->get_score($score['testcat_id'], $score['participant_id']);
 		
 		if (!empty($s)) 
@@ -55,29 +56,12 @@ class ScoreModel extends CI_Model
 		return $this->db->get_where('score', array('id' => $score_id))->row();
 	}
 	
-	/** Retrieves a score for a test category and a participant */
-	public function get_score($testcat_id, $participant_id)
+	/** Retrieves a score for a test category and a testinvite (unique key) */
+	public function get_score_by_testcat_testinvite($testcat_id, $testinvite_id)
 	{
 		$this->db->where('testcat_id', $testcat_id);
-		$this->db->where('participant_id', $participant_id);
+		$this->db->where('testinvite_id', $testinvite_id);
 		return $this->db->get('score')->row();
-	}
-
-	/////////////////////////
-	// Participants
-	/////////////////////////
-
-	/** Returns the scores for a participant */
-	public function get_scores_by_participant($participant_id)
-	{
-		$this->db->where('participant_id', $participant_id);
-		return $this->db->get('score')->result();
-	}
-
-	/** Returns the participant for a score */
-	public function get_participant_by_score($score)
-	{
-		return $this->db->get_where('participant', array('id' => $score->participant_id))->row();
 	}
 	
 	/////////////////////////
@@ -95,6 +79,54 @@ class ScoreModel extends CI_Model
 	public function get_testinvite_by_score($score)
 	{
 		return $this->db->get_where('testinvite', array('id' => $score->testinvite_id))->row();
+	}
+	
+	/////////////////////////
+	// Testsurvey
+	/////////////////////////
+
+	/** Returns the scores for a testsurvey */
+	public function get_scores_by_testsurvey($testsurvey_id)
+	{
+		$this->db->join('testinvite', 'score.testinvite_id = testinvite.id');
+		$this->db->join('testsurvey', 'testinvite.testsurvey_id = testsurvey.id');
+		$this->db->where('testsurvey.id', $testsurvey_id);
+		return $this->db->get('score')->result();
+	}
+
+	/** Returns the testsurvey for a score */
+	public function get_testsurvey_by_score($score)
+	{
+		$this->db->select('testsurvey.*');
+		$this->db->from('testsurvey');
+		$this->db->join('testinvite', 'testinvite.testsurvey_id = testsurvey.id');
+		$this->db->join('score', 'score.testinvite_id = testinvite.id');
+		$this->db->where('testinvite.id', $score->testinvite_id);
+		return $this->db->get()->row();
+	}
+
+	/////////////////////////
+	// Participants
+	/////////////////////////
+
+	/** Returns the scores for a participant */
+	public function get_scores_by_participant($participant_id)
+	{
+		$this->db->join('testinvite', 'score.testinvite_id = testinvite.id');
+		$this->db->join('participant', 'testinvite.participant_id = participant.id');
+		$this->db->where('participant.id', $participant_id);
+		return $this->db->get('score')->result();
+	}
+
+	/** Returns the participant for a score */
+	public function get_participant_by_score($score)
+	{
+		$this->db->select('participant.*');
+		$this->db->from('participant');
+		$this->db->join('testinvite', 'testinvite.participant_id = participant.id');
+		$this->db->join('score', 'score.testinvite_id = testinvite.id');
+		$this->db->where('testinvite.id', $score->testinvite_id);
+		return $this->db->get()->row();
 	}
 	
 	/////////////////////////
