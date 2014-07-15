@@ -21,6 +21,7 @@
 	            this.fnAdjustColumnSizing(true);
             },
 			"sPaginationType": "full_numbers",
+			"iDisplayLength": <?=isset($id) ? '10' : '25'; ?>,
 			"oLanguage": {
 				"sUrl": "<?=lang('table_language'); ?>"
 			},
