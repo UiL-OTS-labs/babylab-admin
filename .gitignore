@@ -1,4 +1,5 @@
 .buildpath
 .project
 .settings/org.eclipse.php.core.prefs
+application/config/email.php
 
