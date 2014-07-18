@@ -20,7 +20,7 @@ define('FROM_EMAIL',		'babylabutrecht@uu.nl');
 /** Sender name */
 define('FROM_EMAIL_NAME',	'Babylab Utrecht');
 /** Development override for recipient */
-define('TO_EMAIL_OVERRIDE',	'M.H.vanderKlis@uu.nl');
+define('TO_EMAIL_OVERRIDE',	'A.J.deMooij@uu.nl');
 /** Development mode on or off */
 define('DEV_MODE',			TRUE);
 

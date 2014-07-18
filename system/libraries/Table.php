@@ -20,14 +20,13 @@
  *
  * Lets you create tables manually or from database result objects, or arrays.
  *
- * @package		CodeIgniter
+ * @package	CodeIgniter
  * @subpackage	Libraries
  * @category	HTML Tables
  * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/uri.html
  */
 class CI_Table {
-
 	var $rows				= array();
 	var $heading			= array();
 	var $auto_heading		= TRUE;
@@ -36,7 +35,7 @@ class CI_Table {
 	var $newline			= "\n";
 	var $empty_cells		= "";
 	var	$function			= FALSE;
-
+	
 	public function __construct()
 	{
 		log_message('debug', "Table Class Initialized");
@@ -57,7 +56,6 @@ class CI_Table {
 		{
 			return FALSE;
 		}
-
 		$this->template = $template;
 	}
 
@@ -302,7 +300,7 @@ class CI_Table {
 			$out .= $this->template['thead_close'];
 			$out .= $this->newline;
 		}
-
+		
 		// Build the table rows
 		if (count($this->rows) > 0)
 		{

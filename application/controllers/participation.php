@@ -344,7 +344,7 @@ class Participation extends CI_Controller
 
 		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
 		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
-
+		
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');
@@ -368,14 +368,14 @@ class Participation extends CI_Controller
 	public function table_by_caller()
 	{
 		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
-		$this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
+		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
 		$this->table();
 	}
 
 	public function table_by_leader()
 	{
 		$experiment_ids = $this->leaderModel->get_experiment_ids_by_leader(current_user_id());
-		$this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
+		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
 		$this->table();
 	}
 }

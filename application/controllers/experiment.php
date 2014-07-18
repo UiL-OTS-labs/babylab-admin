@@ -67,7 +67,7 @@ class Experiment extends CI_Controller
 	public function add_submit()
 	{
 		// Validate experiment
-		if (!$this->validate_experiment()) 
+		if (!$this->validate_experiment())
 		{
 			// Show form again with error messages
 			$this->add();
@@ -126,7 +126,7 @@ class Experiment extends CI_Controller
 	public function edit_submit($experiment_id)
 	{
 		// Validate experiment
-		if (!$this->validate_experiment()) 
+		if (!$this->validate_experiment())
 		{
 			// Show form again with error messages
 			$this->edit($experiment_id);
@@ -285,9 +285,11 @@ class Experiment extends CI_Controller
 
 	public function table($archived = FALSE, $caller_id = '', $leader_id = '')
 	{
-		$experiment_ids = array();
+		$experiment_ids = array(); // where id IN een niet lege array, dat is wel handig
 		if (!empty($caller_id)) $experiment_ids += $this->callerModel->get_experiment_ids_by_caller($caller_id);
 		if (!empty($leader_id)) $experiment_ids += $this->leaderModel->get_experiment_ids_by_leader($leader_id);
+		
+		if (empty($experiment_ids)) array_push($experiment_ids, 0);
 
 		$this->datatables->select('name, agefrommonths, dyslexic, multilingual, id AS callers, id AS leaders, id');
 		$this->datatables->from('experiment');
@@ -304,8 +306,9 @@ class Experiment extends CI_Controller
 		$this->datatables->edit_column('id', '$1', 'experiment_actions(id)');
 
 		echo $this->datatables->generate();
+
 	}
-	
+
 	public function table_by_user($user_id)
 	{
 		$this->table(FALSE, $user_id, $user_id);

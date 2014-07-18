@@ -239,7 +239,10 @@
 
       $this->get_ordering();
       $this->get_filtering();
-      return $this->produce_output(strtolower($output), strtolower($charset));
+      
+      $result = $this->produce_output(strtolower($output), strtolower($charset));
+      
+      return $result;
     }
 
     /**

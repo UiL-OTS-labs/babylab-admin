@@ -6,7 +6,6 @@ if (!function_exists('base_table'))
 	function base_table($id = NULL)
 	{
 		$CI =& get_instance();
-		
 		$tmpl = array (
 				'table_open'	=> '<table border="0" cellpadding="0" cellspacing="0" ' . (!empty($id) ? 'id="' . $id . '">' : 'class="dataTable">'),
 		);
