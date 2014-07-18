@@ -77,7 +77,7 @@ class Leader extends CI_Controller
 	public function table_by_experiment($experiment_id) 
 	{
 		$this->datatables->where('experiment_id', $experiment_id);
-		$this->datatables->unset_column('experiment_id');
+		//$this->datatables->unset_column('experiment_id');
 		$this->table();
 	}
 }
