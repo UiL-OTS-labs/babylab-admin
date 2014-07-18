@@ -15,7 +15,10 @@ class User extends CI_Controller
 	// CRUD-actions
 	/////////////////////////
 	
-	/** Specifies the contents of the default page. */
+	/** 
+	 * 
+	 * Specifies the contents of the default page.
+	 */
 	public function index()
 	{
 		$add_url = array('url' => 'user/add', 'title' => lang('add_user'));
@@ -30,7 +33,11 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Shows the page for a single user */
+	/** 
+	 * 
+	 * Shows the page for a single user
+	 * @param int $user_id
+	 */
 	public function get($user_id)
 	{
 		$user = $this->userModel->get_user_by_id($user_id);
@@ -43,7 +50,10 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Specifies the contents of the add user page */
+	/** 
+	 * 
+	 * Specifies the contents of the add user page
+	 */
 	public function add()
 	{
 		if (!is_admin()) return;
@@ -58,7 +68,10 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the addition of a user */
+	/** 
+	 * 
+	 * Submits the addition of a user 
+	 */
 	public function add_submit()
 	{
 		if (!is_admin()) return;
@@ -68,7 +81,7 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('username', lang('username'), 'trim|required|max_length[20]|regex_match[ ' . $regex . ']|is_unique[user.username]');
 		$this->form_validation->set_rules('password', lang('password'), 'required|min_length[8]|max_length[72]|matches[password_conf]');
 		$this->form_validation->set_rules('password_conf', lang('password_conf'), 'required');
-		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email|callback_unique_email');
+		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
 		$this->validate_user();
 
 		// Run validation
@@ -88,7 +101,11 @@ class User extends CI_Controller
 		}
 	}
 
-	/** Specifies the contents of the edit user page */
+	/** 
+	 * 
+	 * Specifies the contents of the edit user page
+	 * @param $user_id
+	 */
 	public function edit($user_id)
 	{
 		if (!is_admin() && !correct_user($user_id)) return;
@@ -105,13 +122,17 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the edit of a user */
+	/** 
+	 * 
+	 * Submits the edit of a user
+	 * @param $user_id
+	 */
 	public function edit_submit($user_id)
 	{
 		if (!is_admin() && !correct_user($user_id)) return;
 
 		// Validation rules
-		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email|callback_unique_email[' . $user_id . ']');
+		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
 		$this->validate_user();
 
 		// Run validation
@@ -139,7 +160,13 @@ class User extends CI_Controller
 		}
 	}
 	
-	/** Deletes a user */
+	/** 
+	 * 
+	 * Deletes a user 
+	 * TODO: check whether we are logged in
+	 * TODO: check whether user exists (404)
+	 * @param $user_id
+	 */
 	public function delete($user_id)
 	{
 		$user = $this->userModel->get_user_by_id($user_id);
@@ -152,7 +179,11 @@ class User extends CI_Controller
 	// Registration
 	/////////////////////////
 	
-	/** Specifies the contents of the register page */
+	/** 
+	 * 
+	 * Specifies the contents of the register page
+	 * @param $language The language for this page
+	 */
 	public function register($language = L::English)
 	{
 		reset_language($language);
@@ -168,7 +199,11 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 	
-	/** Submits the registration of a user */
+	/** 
+	 * 
+	 * Submits the registration of a user
+	 * @param $language The language for this page
+	 */
 	public function register_submit($language = L::English)
 	{
 		// Reset the language
@@ -179,7 +214,7 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('username', lang('username'), 'trim|required|max_length[20]|regex_match[ ' . $regex . ']|is_unique[user.username]');
 		$this->form_validation->set_rules('password', lang('password'), 'required|min_length[8]|max_length[72]|matches[password_conf]');
 		$this->form_validation->set_rules('password_conf', lang('password_conf'), 'required');
-		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email|is_unique[user.email]');
+		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
 		$this->validate_user();
 
 		// Run validation
@@ -224,7 +259,11 @@ class User extends CI_Controller
 		}
 	}
 	
-	/** Specifies the contents of the finish registration page */
+	/** 
+	 * 
+	 * Specifies the contents of the finish registration page
+	 * @param $language The language for this page
+	 */
 	public function register_finish($language = L::English)
 	{
 		reset_language($language);
@@ -240,7 +279,11 @@ class User extends CI_Controller
 	// Other actions
 	/////////////////////////
 	
-	/** Activates the specified user */
+	/** 
+	 * 
+	 * Activates the specified user
+	 * @param $user_id
+	 */
 	public function activate($user_id)
 	{
 		$this->userModel->set_activate($user_id, TRUE);
@@ -249,7 +292,11 @@ class User extends CI_Controller
 		redirect('/user/', 'refresh');
 	}
 	
-	/** Deactivates the specified user */
+	/** 
+	 * 
+	 * Deactivates the specified user
+	 * @param $user_id
+	 */
 	public function deactivate($user_id)
 	{
 		if (current_user_id() == $user_id) 
@@ -265,7 +312,11 @@ class User extends CI_Controller
 		redirect('/user/', 'refresh');
 	}
 
-	/** Specifies the contents of the change password page */
+	/** 
+	 * 
+	 * Specifies the contents of the change password page
+	 * @param $user_id
+	 */
 	public function change_password($user_id)
 	{
 		if (!correct_user($user_id)) return;
@@ -281,7 +332,11 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the password change of a user */
+	/** 
+	 * 
+	 * Submits the password change of a user
+	 * @param $user_id
+	 */
 	public function change_password_submit($user_id)
 	{
 		if (!correct_user($user_id)) return;
@@ -310,7 +365,11 @@ class User extends CI_Controller
 		}
 	}
 
-	/** Specifies the contents of the forgot password page */
+	/** 
+	 * 
+	 * Specifies the contents of the forgot password page
+	 * @param $language
+	 */
 	public function forgot_password($language = L::English)
 	{
 		reset_language($language);
@@ -324,7 +383,11 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the password reset request */
+	/** 
+	 * 
+	 * Submits the password reset request
+	 * @param $language
+	 */
 	public function forgot_password_submit($language = L::English)
 	{
 		reset_language($language);
@@ -377,7 +440,11 @@ class User extends CI_Controller
 		}
 	}
 
-	/** Specifies the contents of the reset password page */
+	/** 
+	 * 
+	 * Specifies the contents of the reset password page
+	 * @param $resetstring
+	 */
 	public function reset_password($resetstring = '')
 	{
 		$user = $this->userModel->get_user_by_resetstring($resetstring);
@@ -397,7 +464,11 @@ class User extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the password reset */
+	/** 
+	 * 
+	 * Submits the password reset
+	 * @param $resetstring
+	 */
 	public function reset_password_submit($resetstring)
 	{
 		// Validation rules
@@ -430,7 +501,10 @@ class User extends CI_Controller
 	// Form handling
 	/////////////////////////
 	
-	/** Validates a user */
+	/** 
+	 * 
+	 * Validates a user
+	 */
 	private function validate_user()
 	{
 		$this->form_validation->set_rules('role', lang('role'), 'trim|required');
@@ -439,7 +513,10 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('preferredlanguage', lang('preferredlanguage'), 'trim|required');
 	}
 	
-	/** Posts the data for a user */
+	/** 
+	 * 
+	 * Posts the data for a user
+	 */
 	private function post_user() 
 	{
 		return array(
@@ -457,7 +534,12 @@ class User extends CI_Controller
 	// Callbacks
 	/////////////////////////
 
-	/** Checks whether the entered password matches the previous one */
+	/** 
+	 * 
+	 * Checks whether the entered password matches the previous one
+	 * @param $password
+	 * @param $user_id
+	 */
 	public function matches_password($password, $user_id)
 	{
 		$user = $this->userModel->get_user_by_id($user_id);
@@ -469,7 +551,11 @@ class User extends CI_Controller
 		return TRUE;
 	}
 
-	/** Checks whether the entered e-mail exists in the database */
+	/** 
+	 * 
+	 * Checks whether the entered e-mail exists in the database
+	 * @param $email
+	 */
 	public function email_exists($email)
 	{
 		$user = $this->userModel->get_user_by_email($email);
@@ -481,7 +567,13 @@ class User extends CI_Controller
 		return TRUE;
 	}
 	
-	/** Checks whether the entered e-mail exists in the database */
+	/** 
+	 * 
+	 * Checks whether the entered e-mail is unique (apart from for the specified user).
+	 * @param $email the e-mail address
+	 * @param $user_id the user id (can be left empty)
+	 * @deprecated No longer in use.
+	 */
 	public function unique_email($email, $user_id = NULL)
 	{
 		$user = $this->userModel->get_user_by_email($email);
@@ -493,7 +585,11 @@ class User extends CI_Controller
 		return TRUE;
 	}
 
-	/** Checks whether there has already been sent a reset request */
+	/** 
+	 * 
+	 * Checks whether there has already been sent a reset request
+	 * @param $email
+	 */
 	public function reset_request_sent($email)
 	{
 		$user = $this->userModel->get_user_by_email($email);
@@ -509,6 +605,10 @@ class User extends CI_Controller
 	// Table
 	/////////////////////////
 
+	/**
+	 * 
+	 * Specifies the user table
+	 */
 	public function table()
 	{
 		$this->datatables->select('username, role, email, phone, mobile, id');
