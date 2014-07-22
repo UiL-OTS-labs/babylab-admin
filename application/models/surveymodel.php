@@ -88,7 +88,7 @@ class SurveyModel extends CI_Model
 		$this->survey_db->where('sid', $survey_id);
 		$this->survey_db->where('gid', $group_id);
 
-		if (strpos($question_id, "E") !== FALSE) $q_array = explode("E", $question_id);
+		if (strpos($question_id, "E") !== FALSE) $q_array = explode("E", $question_id); // TODO: magic variable
 		if (!empty($q_array))
 		{
 			$this->survey_db->where('parent_qid', $q_array[0]);

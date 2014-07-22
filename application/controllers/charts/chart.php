@@ -44,16 +44,16 @@ class Chart extends CI_Controller
 			$testinvite = $data['testinvite'];
 			$scores = create_ncdi_score_array($test, $testinvite);
 			$data['ncdi_table'] = create_ncdi_table($scores);
-				
+
 			// Add some comments on the results
 			$comments = $this->add_comments_to_score($scores);
 			$data['ncdi_text'] = ul($comments);
-				
+
 			// Find any existing previous scores for this participant
 			$participant = $this->participantModel->get_participant_by_id($data['participant_id']);
 			$prev_testinvites = $this->testInviteModel->get_previous_testinvites($participant, $testinvite);
 			$data['has_prev_results'] = FALSE;
-				
+
 			// Loop over the scores and add them to the page (without comments)
 			$prev_tables = array();
 			$prev_descs = array();
@@ -67,7 +67,7 @@ class Chart extends CI_Controller
 				array_push($prev_tables, create_ncdi_table($scores));
 				array_push($prev_descs, sprintf('Resultaten van %s. Uw %s was toen <strong>%s maanden</strong> oud.', $date, $gender, $age));
 			}
-				
+
 			$data['ncdi_prev_tables'] = $prev_tables;
 			$data['ncdi_prev_descs'] = $prev_descs;
 		}
@@ -168,50 +168,53 @@ class Chart extends CI_Controller
 	 */
 	public function fill_scores($test_code, $token)
 	{
-		$test = $this->testModel->get_test_by_code($test_code);
-		$testinvite = $this->testInviteModel->get_testinvite_by_token($token);
-		$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
-
-		sleep(2); // Explicitly wait some time to make sure results are stored
-
-		$this->load->model('surveyModel');
-		$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
-
-		foreach ($result as $question => $answer)
+		if (!SURVEY_DEV_MODE)
 		{
-			$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
+			$test = $this->testModel->get_test_by_code($test_code);
+			$testinvite = $this->testInviteModel->get_testinvite_by_token($token);
+			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 
-			if (!empty($testcat))
+			sleep(2); // Explicitly wait some time to make sure results are stored
+
+			$this->load->model('surveyModel');
+			$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
+
+			foreach ($result as $question => $answer)
 			{
-				$score_type = $testcat->score_type;
+				$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
 
-				switch ($score_type)
+				if (!empty($testcat))
 				{
-					case 'bool':
-						switch ($answer)
-						{
-							case 'Y'	: $answer = true; break;
-							case 'N'	: $answer = false; break;
-						}
-					case 'int': 	$answer = (int) $answer; break;
-					case 'date': 	break;
-					case 'string': 	break;
-				}
+					$score_type = $testcat->score_type;
 
-				$score = array(
+					switch ($score_type)
+					{
+						case 'bool':
+							switch ($answer)
+							{
+								case 'Y'	: $answer = true; break;
+								case 'N'	: $answer = false; break;
+							}
+						case 'int': 	$answer = (int) $answer; break;
+						case 'date': 	break;
+						case 'string': 	break;
+					}
+
+					$score = array(
 					'testcat_id'			=> $testcat->id,
 					'participant_id'		=> $testinvite->participant_id,
 					'testinvite_id' 		=> $testinvite->id,
 					'score'					=> $answer,
 					'date'					=> input_date()
-				);
+					);
 
-				$this->scoreModel->add_score($score);
+					$this->scoreModel->add_score($score);
+				}
 			}
-		}
 
-		$this->testInviteModel->set_completed($testinvite->id);
-		redirect('c/' . $test_code . '/' . $token . '/home');
+			$this->testInviteModel->set_completed($testinvite->id);
+			redirect('c/' . $test_code . '/' . $token . '/home');
+		}
 	}
 
 	private function get_test_or_die($test_code)
@@ -255,7 +258,7 @@ class Chart extends CI_Controller
 					$data['gender'] = gender_sex($participant->gender);
 					$data['gender_child'] = gender_child($participant->gender);
 					$data['age_in_months'] = age_in_months($participant, $testinvite->datecompleted);
-						
+
 					return $data;
 				}
 			}
@@ -433,9 +436,9 @@ class Chart extends CI_Controller
 	{
 		$table = array();
 		$table['cols'] = array(
-			array('label' => 'Age', 'type' => 'number'),
-			array('label' => 'Male 50th percentile', 'type' => 'number'),
-			array('label' => 'Female 50th percentile', 'type' => 'number')
+		array('label' => 'Age', 'type' => 'number'),
+		array('label' => 'Male 50th percentile', 'type' => 'number'),
+		array('label' => 'Female 50th percentile', 'type' => 'number')
 		);
 
 		$percentiles = $this->percentileModel->get_percentiles_by_testcat(1);
