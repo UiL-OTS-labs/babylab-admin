@@ -20,9 +20,9 @@ define('FROM_EMAIL',		'babylabutrecht@uu.nl');
 /** Sender name */
 define('FROM_EMAIL_NAME',	'Babylab Utrecht');
 /** Development override for recipient */
-define('TO_EMAIL_OVERRIDE',	'A.J.deMooij@uu.nl');
+define('TO_EMAIL_OVERRIDE',	'M.H.vanderKlis@uu.nl');
 /** Development mode on or off */
-define('DEV_MODE',			TRUE);
+define('EMAIL_DEV_MODE',	TRUE);
 
 /* End of file email.php */
 /* Location: ./application/config/email.php */

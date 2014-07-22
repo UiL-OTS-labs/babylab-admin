@@ -179,7 +179,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		$this->email->send();
@@ -203,7 +203,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
 		$this->email->send();

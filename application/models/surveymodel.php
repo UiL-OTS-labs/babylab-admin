@@ -121,7 +121,7 @@ class SurveyModel extends CI_Model
 		$token_insert = array(
 			'firstname'		=> $participant->firstname,
 			'lastname'		=> $participant->lastname,
-			'email'			=> DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email, 
+			'email'			=> EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email, 
 			'emailstatus'	=> 'OK',
 			'token'			=> $token,
 			'language'		=> 'nl',
