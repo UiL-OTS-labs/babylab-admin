@@ -6,8 +6,6 @@
 
 <?=form_fieldset(lang('completed')); ?>
 <?=form_input('comment', '', 'placeholder="' . lang('comment') . '"'); ?>
-<?=form_input('comment', '', 'placeholder="' . lang('comment') . '"'); ?>
-<?=form_input('comment', '', 'placeholder="' . lang('comment') . '"'); ?>
 
 <!-- TODO: add result file here. -->
 
