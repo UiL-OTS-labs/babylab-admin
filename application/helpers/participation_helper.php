@@ -15,17 +15,17 @@ if (!function_exists('create_participation_table'))
 	}
 }
 
-if (!function_exists('create_no_show_table'))
+if (!function_exists('create_participation_counter_table'))
 {
-	/** Creates the table with participation data */
-	function create_no_show_table($participations)
+	/** Creates the table with participation data with a specific counter column (no_shows, interruptions) */
+	function create_participation_counter_table($participations, $title)
 	{
 		if (empty($participations)) return lang('no_results_found');
 
 		$CI =& get_instance();
 
 		base_table();
-		$CI->table->set_heading(lang('participant'), lang('no_shows'), lang('actions'));
+		$CI->table->set_heading(lang('participant'), $title, lang('actions'));
 
 		foreach ($participations as $pp)
 		{
@@ -34,7 +34,7 @@ if (!function_exists('create_no_show_table'))
 			$p_link = participant_get_link($participant);
 			$act_link = participant_activate_link($participant);
 
-			$CI->table->add_row($p_link, $pp->noshows, $act_link);
+			$CI->table->add_row($p_link, $pp->count_column, $act_link);
 		}
 
 		return $CI->table->generate();

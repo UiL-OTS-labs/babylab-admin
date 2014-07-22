@@ -103,14 +103,15 @@ if (!function_exists('form_single_checkbox_and_label'))
 
 if (!function_exists('form_controls'))
 {
-	function form_controls()
+	function form_controls($cancel_link = '')
 	{
 		$div_start = '<div class="pure-controls">';
 		$submit = form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"');
 		$reset = form_reset('reset', lang('reset'), 'class="pure-button pure-button-secondary"');
+		$cancel = !empty($cancel_link) ? form_cancel($cancel_link) : '';
 		$div_end = '</div>';
 
-		return $div_start . $submit . $reset . $div_end;
+		return $div_start . $submit . $reset . $cancel . $div_end;
 	}
 }
 
@@ -126,6 +127,6 @@ if (!function_exists('form_cancel'))
 {
 	function form_cancel($link)
 	{
-		return anchor($link, lang('cancel'), 'class="pure-button pure-button-secondary"');
+		return anchor($link, lang('cancel'), 'class="pure-button pure-button-secondary" style="background: rgb(202, 60, 60);"');
 	}
 }

@@ -60,7 +60,7 @@ class Participation extends CI_Controller
 		$this->authenticate->authenticate_redirect('participation_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Deletes a participation */
 	public function delete($participation_id)
 	{
@@ -110,21 +110,21 @@ class Participation extends CI_Controller
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 
 		// Check current user is caller for experiment
-		if (!$this->callerModel->is_caller_for_experiment(current_user_id(), $experiment_id)) 
+		if (!$this->callerModel->is_caller_for_experiment(current_user_id(), $experiment_id))
 		{
 			$data['error'] = sprintf(lang('not_caller'), $experiment->name);
 			$this->load->view('templates/error', $data);
 			return;
 		}
 		// Check current participant is callable for experiment
-		if (!in_array($participant, $this->participantModel->find_participants($experiment, $weeks_ahead))) 
+		if (!in_array($participant, $this->participantModel->find_participants($experiment, $weeks_ahead)))
 		{
 			$data['error'] = sprintf(lang('not_callable_for'), name($participant), $experiment->name);
 			$this->load->view('templates/error', $data);
 			return;
 		}
 		// Check current participant is not being called
-		if ($this->participationModel->is_locked_participant($participant_id, $experiment_id)) 
+		if ($this->participationModel->is_locked_participant($participant_id, $experiment_id))
 		{
 			$data['error'] = sprintf(lang('in_conversation'), name($participant));
 			$this->load->view('templates/error', $data);
@@ -140,28 +140,28 @@ class Participation extends CI_Controller
 
 		// Retrieve or create participation record
 		$participation = $this->participationModel->get_participation($experiment_id, $participant_id);
-		if (!empty($participation)) 
+		if (!empty($participation))
 		{
 			$participation_id = $participation->id;
 		}
-		else 
+		else
 		{
 			$participation_id = $this->participationModel->create_participation($experiment, $participant);
 			$participation = $this->participationModel->get_participation_by_id($participation_id);
 		}
-		
+
 		// Find the previous call (if is exists)
 		$previous_call = $this->callModel->last_call($participation_id);
 
 		// Lock the participation record
 		$this->participationModel->lock($participation_id);
-		
+
 		// Create call record
 		$call_id = $this->callModel->create_call($participation_id);
-		
+
 		// Check whether the participant is multilingual and has languages defined
 		$verify_languages = FALSE;
-		if ($participant->multilingual) 
+		if ($participant->multilingual)
 		{
 			$languages = $this->languageModel->get_languages_by_participant($participant_id);
 			$verify_languages = count($languages) <= 1; // Less than one language => not multilingual...
@@ -195,17 +195,41 @@ class Participation extends CI_Controller
 		if (isset($experiment_id))
 		{
 			$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
-			$participations = $this->participationModel->get_no_shows($experiment_id);
+			$participations = $this->participationModel->count_participations('noshow', $experiment_id);
 			$data['page_title'] = sprintf(lang('no_shows_for'), $experiment->name);
 		}
 		else
 		{
-			$participations = $this->participationModel->get_no_shows();
+			$participations = $this->participationModel->count_participations('noshow');
 			$data['page_title'] = sprintf(lang('no_shows'));
 		}
 
-		$data['table'] = create_no_show_table($participations);
+		$data['table'] = create_participation_counter_table($participations, lang('no_shows'));
 		$data['sort_column'] = 1;	// sort on count of no shows
+		$data['sort_order'] = 'desc';
+
+		$this->load->view('templates/header', $data);
+		$this->authenticate->authenticate_redirect('templates/table_view', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/** Shows an overview of the interrupted participations per participant */
+	public function interruptions($experiment_id = NULL)
+	{
+		if (isset($experiment_id))
+		{
+			$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+			$participations = $this->participationModel->count_participations('interrupted', $experiment_id);
+			$data['page_title'] = sprintf(lang('interruptions_for'), $experiment->name);
+		}
+		else
+		{
+			$participations = $this->participationModel->count_participations('interrupted');
+			$data['page_title'] = sprintf(lang('interruptions'));
+		}
+
+		$data['table'] = create_participation_counter_table($participations, lang('interruptions'));
+		$data['sort_column'] = 1;	// sort on count of interruptions
 		$data['sort_order'] = 'desc';
 
 		$this->load->view('templates/header', $data);
@@ -244,12 +268,12 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
 
 		// Run validation
-		if (!$this->form_validation->run()) 
+		if (!$this->form_validation->run())
 		{
 			// If not succeeded, return to previous page
 			redirect('/participation/reschedule/' . $participation_id, 'refresh');
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$appointment = input_datetime($this->input->post('appointment'));
@@ -260,7 +284,7 @@ class Participation extends CI_Controller
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}
 	}
-	
+
 	/** Cancels a participation */
 	public function cancel($participation_id)
 	{
@@ -286,47 +310,76 @@ class Participation extends CI_Controller
 	}
 
 	/** Completes a participation */
-	public function completed($participation_id)
+	public function completed($participation_id, $pp_comment = '')
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 
-		$data['participation'] = $participation;
+		$data['participation_id'] = $participation_id;
 		$data['participant_name'] = name($participant);
+		$data['participant'] = $participant;
 		$data['experiment_name'] = $experiment->name;
 		$data['experiment_id'] = $experiment->id;
+		$data = add_fields($data, 'participation', $participation);
+		
+		// Interrupted and pp_comment are a bit silly...
+		$data['interrupted'] = '';
+		$data['pp_comment'] = $pp_comment;
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('participation_complete', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Submits the rescheduling of a participation */
 	public function completed_submit($participation_id)
 	{
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 
-		$this->form_validation->set_rules('comment', lang('comment'), 'trim');
+		$this->form_validation->set_rules('part_number', lang('part_number'), 'trim|required');
+		$this->form_validation->set_rules('interrupted', lang('interrupted'), 'required');
+		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required');
 
 		// Run validation
-		if (!$this->form_validation->run()) 
+		if (!$this->form_validation->run())
 		{
 			// If not succeeded, return to previous page
-			redirect('/participation/completed/' . $participation_id, 'refresh');
+			$pp_comment = $this->input->post('pp_comment');
+			$this->completed($participation_id, $pp_comment);
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
-			$comment = $this->input->post('comment');
-			$this->participationModel->completed($participation_id, $comment);
+			$participation = array(
+				'part_number' 	=> $this->input->post('part_number'),
+				'interrupted' 	=> $this->input->post('interrupted'),
+				'comment'  		=> $this->input->post('comment')
+			);
+			$this->participationModel->completed($participation_id, $participation);
+			
+			// Add (possible) comment
+			$comment = $this->post_comment($participant->id);
+			if (!empty($comment)) $this->commentModel->add_comment($comment);
 
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));
-
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}
-	}	
+	}
+	
+	/** Posts the data for a comment */
+	private function post_comment($participant_id)
+	{
+		$comment = $this->input->post('pp_comment');
+		if (empty($comment)) return NULL;
+		
+		return array(
+				'body'				=> $comment,
+				'participant_id' 	=> $participant_id,
+				'user_id'		 	=> current_user_id()
+		);
+	}
 
 	/////////////////////////
 	// Table
@@ -345,7 +398,7 @@ class Participation extends CI_Controller
 
 		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
 		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
-		
+
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');

@@ -61,7 +61,8 @@
 		<ul>
 			<li><?=anchor('call', lang('calls')); ?></li>
 			<li><?=anchor('result', lang('results')); ?></li>
-			<li class='last'><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
+			<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
+			<li class='last'><?=anchor('participation/interruptions', lang('interruptions')); ?></li>
 		</ul>
 		</li>
 		<li class='has-sub'><?=anchor('participant', lang('participants')); ?>

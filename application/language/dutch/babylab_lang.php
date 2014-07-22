@@ -268,6 +268,13 @@ $lang['call_action']		= "<strong><i>Nadat u gebeld heeft</i></strong>, klik dan 
 $lang['call_dates']			= "%s kan deelnemen aan dit experiment van %s tot en met %s.";
 $lang['risk_group']	 		= "Risicogroep";
 $lang['control_group']	 	= "Controlegroep";
+$lang['part_number']	 	= "Proefpersoonnummer";
+$lang['interrupted']	 	= "Afgebroken";
+$lang['part_interrupted']	= "Deze deelname is afgebroken.";
+$lang['interruptions']		= "Afgebroken deelnames";
+$lang['interruptions_for']	= "Afgebroken deelnames voor %s";
+$lang['part_comment']		= "Opmerking bij deelname";
+$lang['pp_comment']			= "Opmerking bij proefpersoon";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";
