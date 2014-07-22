@@ -75,7 +75,7 @@ $lang['reason']				= "Reden afmelding";
 /* Mails */
 $lang['mail_heading']		= "Beste %s,";
 $lang['mail_ending']		= "Bedankt, Babylab Utrecht";
-$lang['mail_disclaimer']	= "Deze e-mail is automatisch gegenereerd.";
+$lang['mail_disclaimer']	= "<em>Deze e-mail is automatisch gegenereerd.</em>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab Utrecht:";
@@ -244,6 +244,9 @@ $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows voor %s";
 $lang['completed']			= "Voltooid";
+$lang['complete_part']		= "Deelname voltooien";
+$lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> aan experiment <em>%s</em> voltooien. 
+							   Vul alle velden in alvorens op bevestigen te klikken.";
 $lang['message_left']		= "Bericht achtergelaten?";
 $lang['none']				= "Geen";
 $lang['voicemail']			= "Voicemail";

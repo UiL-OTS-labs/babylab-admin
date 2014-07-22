@@ -293,8 +293,9 @@ class Participation extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 
 		$data['participation'] = $participation;
-		$data['participant'] = $participant;
-		$data['experiment'] = $experiment;
+		$data['participant_name'] = name($participant);
+		$data['experiment_name'] = $experiment->name;
+		$data['experiment_id'] = $experiment->id;
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('participation_complete', $data);
