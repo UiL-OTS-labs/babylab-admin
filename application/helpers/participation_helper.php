@@ -88,10 +88,17 @@ if (!function_exists('get_min_max_days'))
 	{
 		$min = $participant->dateofbirth . '+' . $experiment->agefrommonths . ' months +' . $experiment->agefromdays . ' days';
 		$max = $participant->dateofbirth . '+' . $experiment->agetomonths . ' months +' . $experiment->agetodays . ' days';
+		
 		$data['min_date'] = output_date($min);
 		$data['max_date'] = output_date($max);
 		$data['min_date_js'] = output_date($min, TRUE);
 		$data['max_date_js'] = output_date($max, TRUE);
+		
+		// Don't allow planning of an appointment before today.
+		if (input_date($min) < input_date('now')) 
+		{
+			$data['min_date_js'] = output_date('now', TRUE);
+		}
 
 		return $data;
 	}

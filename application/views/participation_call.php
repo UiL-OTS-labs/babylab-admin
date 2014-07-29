@@ -1,5 +1,6 @@
 <script>
 	$(function() {
+		// Accordion display
 		$( "#accordion" ).accordion({
 			collapsible: true,
 			heightStyle: "content",
@@ -7,14 +8,13 @@
 					   ($this->session->flashdata('impediment_message') ? 2 : 0); ?>
 		});
 
-		$( ".show", this ).hide();
+		// Show/hide actions
+		$( ".show" ).hide();
 		$( ".click" ).click(function() {
 			$( ".show", this ).show( "slow" );
 		});
-	});
-</script>
-<script>
-	$(function() {
+
+		// Appointment scheduling
 		$( "#appointment" ).datetimepicker({
 			changeMonth : true,
 			changeYear : true,
@@ -69,7 +69,7 @@
 		<?=$this->session->flashdata('message'); ?>
 		<ul>
 			<li class="click"><u class="call_link"><?=lang('confirmed'); ?></u>
-				<div class="show" style="display: none">
+				<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 					<p><?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
 					<?=form_submit_only(); ?></p>
@@ -85,7 +85,7 @@
 				</div>
 			</li>
 			<li class="click"><u class="call_link"><?=lang('no_reply'); ?></u>
-				<div class="show" style="display: none">
+				<div class="show">
 					<?=form_open('call/no_reply/' . $call_id); ?>
 					<p><?=lang('message_left'); ?>
 					<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
