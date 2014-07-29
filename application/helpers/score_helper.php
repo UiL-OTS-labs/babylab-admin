@@ -92,7 +92,8 @@ if (!function_exists('create_ncdi_score_array'))
 					'name' 			=> $tc->name, 
 					'score' 		=> $score->score, 
 					'percentile' 	=> $percentile, 
-					'age' 			=> $language_age));
+					'age' 			=> $language_age, 
+					'score_age' 	=> $score_age));
 			}
 		}
 

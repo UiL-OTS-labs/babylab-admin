@@ -45,14 +45,14 @@ class Chart extends CI_Controller
 			$scores = create_ncdi_score_array($test, $testinvite);
 			$data['ncdi_table'] = create_ncdi_table($scores);
 
-			// Add some comments on the results
-			$comments = $this->add_comments_to_score($scores);
-			$data['ncdi_text'] = ul($comments);
-
 			// Find any existing previous scores for this participant
 			$participant = $this->participantModel->get_participant_by_id($data['participant_id']);
 			$prev_testinvites = $this->testInviteModel->get_previous_testinvites($participant, $testinvite);
 			$data['has_prev_results'] = FALSE;
+
+			// Add some comments on the results
+			$comments = $this->add_comments_to_score($scores, $participant);
+			$data['ncdi_text'] = ul($comments);
 
 			// Loop over the scores and add them to the page (without comments)
 			$prev_tables = array();
@@ -75,51 +75,6 @@ class Chart extends CI_Controller
 		$this->load->view($test->code . '/header', $data);
 		$this->load->view($test->code . '/scores', $data);
 		$this->load->view('templates/footer');
-	}
-
-	private function add_comments_to_score($scores)
-	{
-		$comments = array();
-		// Check for the minimum percentile
-		if ($this->check_minimum_percentile($scores, NCDI_MINIMUM_PERCENTILE)) // TODO: maybe add this as a column on test
-		{
-			array_push($comments, lang('ncdi_normal'));
-		}
-		else
-		{
-			array_push($comments, lang('ncdi_abnormal'));
-		}
-
-		// Check the competence score against the production score
-		if ($this->check_comp_vs_prod($scores))
-		{
-			array_push($comments, lang('ncdi_comp_vs_prod'));
-		}
-
-		return $comments;
-	}
-
-	/** Checks for a minimum score.
-	 *  Under normal circumstances, no score should be below the minimum score. */
-	private function check_minimum_percentile($scores, $minimum)
-	{
-		foreach ($scores as $score)
-		{
-			if ($score['percentile'] < $minimum) return FALSE;
-		}
-		return TRUE;
-	}
-
-	/** Checks competence vs. production.
-	 *  Under normal circumstances, competence should be at least as high as production. */
-	private function check_comp_vs_prod($scores)
-	{
-		foreach ($scores as $score)
-		{
-			if ($score['code'] === 'b') $comp = $score['percentile'];
-			if ($score['code'] === 'p') $prod = $score['percentile'];
-		}
-		return $comp < $prod;
 	}
 
 	/** Percentile page */
@@ -214,6 +169,122 @@ class Chart extends CI_Controller
 			$this->testInviteModel->set_completed($testinvite->id);
 			redirect('c/' . $test_code . '/' . $token . '/home');
 		}
+	}
+
+	/////////////////////////
+	// Helpers
+	/////////////////////////
+
+	private function add_comments_to_score($scores, $participant)
+	{
+		$comments = array();
+
+		// Check for the minimum percentile and language age TODO: maybe add this as a column on test
+		$percentile_check = $this->check_minimum_percentile($scores);
+		$language_age_check = $this->check_language_age($scores);
+
+		// Situation C: trouble in all sections.
+		if ($percentile_check == 2 && $language_age_check == 2)
+		{
+			array_push($comments, sprintf(lang('ncdi_A'), gender_child($participant->gender), gender_sex($participant->gender)));
+		}
+		// Situation B: trouble in some sections.
+		else if ($percentile_check == 1 || $language_age_check == 1)
+		{
+			array_push($comments, lang('ncdi_B'));
+			// TODO: in this case we should create a new testinvite
+		}
+		// Situation A: all is fine.
+		else
+		{
+			array_push($comments, lang('ncdi_C'));
+		}
+
+		// Check the competence score against the production score
+		if ($this->check_comp_vs_prod($scores))
+		{
+			// Add comment if not OK.
+			array_push($comments, lang('ncdi_comp_vs_prod'));
+		}
+
+		return $comments;
+	}
+
+	/**
+	 *
+	 * Checks for a minimum score.
+	 * Under normal circumstances, no score should be below the minimum score.
+	 * @param $scores
+	 * @return integer Returns 2 if all scores below minimum, 1 for at least one, and 0 for no scores below minimum.
+	 */
+	private function check_minimum_percentile($scores)
+	{
+		$one = FALSE;
+		$all = TRUE;
+
+		foreach ($scores as $score)
+		{
+			if (in_array($score['code'], array('b', 'p')))
+			{
+				if ($score['percentile'] < NCDI_MINIMUM_PERCENTILE)
+				{
+					$one = TRUE;
+				}
+				else
+				{
+					$all = FALSE;
+				}
+			}
+		}
+
+		return $all ? 2 : ($one ? 1 : 0);
+	}
+
+	/**
+	 *
+	 * Checks for language age.
+	 * Under normal circumstances, no score should more than 4 months behind.
+	 * @param $scores
+	 * @return integer Returns 2 if all scores more than 4 months behind, 1 for at least one, and 0 for no scores behind.
+	 */
+	private function check_language_age($scores)
+	{
+		$one = FALSE;
+		$all = TRUE;
+
+		foreach ($scores as $score)
+		{
+			if (in_array($score['code'], array('b', 'p')))
+			{
+				if ($score['score_age'] - $score['age'] >= NCDI_LANGUAGE_AGE_DIFF)
+				{
+					$one = TRUE;
+				}
+				else
+				{
+					$all = FALSE;
+				}
+			}
+		}
+
+		return $all ? 2 : ($one ? 1 : 0);
+	}
+
+	/**
+	 *
+	 * Checks competence vs. production.
+	 * Under normal circumstances, competence should be at least as high as production.
+	 * TODO: this is quick and dirty...
+	 * @param array $scores
+	 */
+	private function check_comp_vs_prod($scores)
+	{
+		foreach ($scores as $score)
+		{
+			if ($score['code'] === 'b') $comp = $score['percentile'];
+			if ($score['code'] === 'p') $prod = $score['percentile'];
+		}
+		return $comp < $prod;
 	}
 
 	private function get_test_or_die($test_code)
