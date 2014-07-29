@@ -84,6 +84,11 @@ a {
 	border: 1px solid yellow;
 }
 
+.call_link {
+	cursor: pointer;
+	color: #003399;
+}
+
 .ui-widget {
 	font-family: inherit;	
 	font-size: inherit;	
