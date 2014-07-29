@@ -358,15 +358,16 @@ class Chart extends CI_Controller
 				{
 					$testinvite = $this->testInviteModel->get_testinvite_by_id($score->testinvite_id);
 					$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-					$age = explode(';', age_in_months_and_days($participant,$testinvite->datecompleted));
-					$age = $age[0] + $age[1] / 31; // to evenly divide over months. TODO: remove the labels
+					$age = explode(';', age_in_months_and_days($participant, $testinvite->datecompleted));
+					$age = $age[0] + $age[1] / 31; // to evenly divide over months.
 
 					if ($age >= 10 && $age <= 40)
 					{
-						$testcat = $this->testCatModel->get_testcat_by_id($testcat_id)->name;
-						$gender = gender_sex($participant->gender);
+						$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
+						// FIXME: quick and dirty fix for percentiles without gender...
+						$gender = in_array($testcat->code, array('w', 'z')) ? NULL : gender_sex($participant->gender);
 
-						$rows[$nr][0] = array('v' => $testcat);
+						$rows[$nr][0] = array('v' => $testcat->name);
 						$rows[$nr][1] = array('v' => $gender);
 						$rows[$nr][2] = array('v' => $age);
 						$rows[$nr][3] = array('v' => $score->score);
@@ -382,8 +383,7 @@ class Chart extends CI_Controller
 		foreach ($percentiles as $percentile)
 		{
 			$testcat = $this->testCatModel->get_testcat_by_id($percentile->testcat_id)->name;
-			if (!empty($percentile->gender)) $gender = gender_sex($percentile->gender);
-			else $gender = NULL;
+			$gender = !empty($percentile->gender) ? gender_sex($percentile->gender) : NULL;
 
 			$rows[$nr][0] = array('v' => $testcat);
 			$rows[$nr][1] = array('v' => $gender);
