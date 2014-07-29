@@ -202,7 +202,6 @@ class Chart extends CI_Controller
 
 					$score = array(
 					'testcat_id'			=> $testcat->id,
-					'participant_id'		=> $testinvite->participant_id,
 					'testinvite_id' 		=> $testinvite->id,
 					'score'					=> $answer,
 					'date'					=> input_date()
