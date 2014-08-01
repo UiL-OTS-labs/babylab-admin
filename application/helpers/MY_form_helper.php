@@ -117,9 +117,9 @@ if (!function_exists('form_controls'))
 
 if (!function_exists('form_submit_only'))
 {
-	function form_submit_only()
+	function form_submit_only($extra = '')
 	{
-		return form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"');
+		return form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"' . $extra);
 	}
 }
 

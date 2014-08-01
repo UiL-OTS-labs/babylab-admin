@@ -29,6 +29,28 @@
 		$( "#appointment" ).attr({
 			readOnly : true
 		});
+
+		// Navigation handling: only allow navigation from forms or the cancel link.
+		var correct = false; 
+
+		// 
+		$( "form" ).submit(function() {
+			correct = true;
+		});
+		$( "#cancel_link" ).click(function() {
+			correct = true;
+		});
+
+		// Final handling with onbeforeload
+		window.onbeforeunload = confirmExit;
+		function confirmExit() {
+			if (!correct) {
+				return "Please only use the navigation buttons provided on this page.";
+    		}
+			else {
+				return null;
+			}
+		}
 	});
 </script>
 
@@ -95,7 +117,7 @@
 					<?=form_close(); ?>
 				</div>
 			</li>
-			<li><?=anchor('call/undo/' . $call_id, lang('cancel')); ?></li>
+			<li><?=anchor('call/undo/' . $call_id, lang('cancel'), array('id' => 'cancel_link')); ?></li>
 		</ul>
 	</div>
 	
