@@ -63,7 +63,7 @@ class Participant extends CI_Controller
 		$data['comment'] = $this->input->post('comment');
 		$data['languages'] = $this->create_language_objects($language_array);
 		$data['is_registration'] = FALSE;
-		
+
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('participant_edit_view', $data);
 		$this->load->view('templates/footer');
@@ -73,25 +73,25 @@ class Participant extends CI_Controller
 	public function add_submit()
 	{
 		// Run validation
-		if (!$this->validate_participant()) 
+		if (!$this->validate_participant())
 		{
 			// If not succeeded, show form again with error messages
 			$language_array = $this->create_language_array();
 			$this->add($language_array);
 		}
-		else 
+		else
 		{
 			// If succeeded, create the participant
 			$participant = $this->post_participant();
 			$participant_id = $this->participantModel->add_participant($participant);
-			
+				
 			// Add (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
-			
+				
 			// Create the languages
 			$this->create_languages($participant_id);
-			
+				
 			// Activate the participant (only on manual creation from the application!)
 			$this->participantModel->set_activate($participant_id, TRUE);
 
@@ -114,9 +114,9 @@ class Participant extends CI_Controller
 		// dob is a bit of a nasty one, as is the languages component...
 		$data['dob'] = output_date($participant->dateofbirth, TRUE);
 		$data['comment'] = $this->input->post('comment');;
-		$languages = empty($language_array) 
-			? $this->languageModel->get_languages_by_participant($participant_id) 
-			: $this->create_language_objects($language_array);
+		$languages = empty($language_array)
+		? $this->languageModel->get_languages_by_participant($participant_id)
+		: $this->create_language_objects($language_array);
 		if (empty($languages)) $languages = $this->create_language_objects($language_array);
 		$data['languages'] = $languages;
 		$data['is_registration'] = FALSE;
@@ -130,22 +130,22 @@ class Participant extends CI_Controller
 	public function edit_submit($participant_id)
 	{
 		// Run validation
-		if (!$this->validate_participant()) 
+		if (!$this->validate_participant())
 		{
 			// If not succeeded, show form again with error messages
 			$language_array = $this->create_language_array();
 			$this->edit($participant_id, $language_array);
 		}
-		else 
+		else
 		{
 			// If succeeded, update the pariticipant
 			$participant = $this->post_participant();
 			$this->participantModel->update_participant($participant_id, $participant);
-			
+				
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
-			
+				
 			// Create/update the languages
 			$this->create_languages($participant_id);
 
@@ -187,17 +187,17 @@ class Participant extends CI_Controller
 		reset_language($language);
 
 		// Run validation
-		if (!$this->validate_participant()) 
+		if (!$this->validate_participant())
 		{
 			// If not succeeded, show form again with error messages
 			$this->register($language);
 		}
-		else 
+		else
 		{
 			// If succeeded, create the pariticipant
 			$participant = $this->post_participant();
 			$participant_id = $this->participantModel->add_participant($participant);
-			
+				
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
@@ -245,7 +245,7 @@ class Participant extends CI_Controller
 		$this->load->view('register_finish_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// De-registration
 	/////////////////////////
@@ -275,19 +275,19 @@ class Participant extends CI_Controller
 		reset_language($language);
 
 		// Run validation
-		if (!$this->validate_deregister()) 
+		if (!$this->validate_deregister())
 		{
 			// If not succeeded, show form again with error messages
 			$this->deregister($language);
 		}
-		else 
+		else
 		{
 			// If succeeded, send e-mail
 			$name = $this->input->post('firstname') . ' ' . $this->input->post('lastname');
-			$dob = $this->input->post('dob'); 
-			$email = $this->input->post('email'); 
-			$reason = $this->input->post('reason'); 
-			
+			$dob = $this->input->post('dob');
+			$email = $this->input->post('email');
+			$reason = $this->input->post('reason');
+				
 			$users = $this->userModel->get_all_admins();
 			foreach ($users as $user)
 			{
@@ -328,21 +328,28 @@ class Participant extends CI_Controller
 		$this->load->view('register_finish_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// Other views
 	/////////////////////////
 
-	/** Finds available participants for an experiment */
+	/**
+	 *
+	 * Finds available participants for an experiment
+	 * @param integer $experiment_id
+	 * @param integer $weeks_ahead
+	 */
 	public function find($experiment_id, $weeks_ahead = WEEKS_AHEAD)
 	{
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 
-		create_participant_table();
-		$data['ajax_source'] = 'participant/table/' . $experiment_id . '/' . $weeks_ahead;
+		// Create the table
+		create_participant_table(NULL, TRUE);
+		$data['ajax_source'] = 'participant/table_by_experiment/' . $experiment_id . '/' . $weeks_ahead;
 		$data['sort_column'] = 1; // Sort on date of birth
 		$data['page_title'] = sprintf(lang('callable_for'), $experiment->name);
 
+		// Display some information on current participants. TODO: translate
 		$info = sprintf(lang('call_info'), $experiment->name, $weeks_ahead);
 		$info .= '<p>Dit experiment heeft momenteel:</p>';
 		if (is_risk($experiment))
@@ -350,7 +357,7 @@ class Participant extends CI_Controller
 			$risks = $this->participationModel->get_participations_by_experiment($experiment_id, TRUE);
 			$controls = $this->participationModel->get_participations_by_experiment($experiment_id, FALSE);
 			$risk = lcfirst($experiment->dyslexic ? lang('dyslexic') : lang('multilingual'));
-			$participations = array(count($risks) . ' proefpersonn in de risicogroep (risico: ' . $risk . ')',
+			$participations = array(count($risks) . ' proefpersonen in de risicogroep (risico: ' . $risk . ')',
 			count($controls) . ' proefpersonen in de controlegroep');
 			$info .= ul($participations);
 		}
@@ -416,7 +423,7 @@ class Participant extends CI_Controller
 
 		return $this->form_validation->run();
 	}
-	
+
 	/** Validates deregistration of a participant */
 	private function validate_deregister()
 	{
@@ -434,7 +441,7 @@ class Participant extends CI_Controller
 	{
 		$dyslexicparent = $this->input->post('dyslexicparent');
 		$problemsparent = $this->input->post('problemsparent');
-		
+
 		return array(
 				'firstname' 			=> $this->input->post('firstname'),
 				'lastname' 				=> $this->input->post('lastname'),
@@ -455,32 +462,32 @@ class Participant extends CI_Controller
 				'origin'				=> $this->input->post('origin')
 		);
 	}
-	
+
 	/** Posts the data for a comment */
 	private function post_comment($participant_id)
 	{
 		$comment = $this->input->post('comment');
 		if (empty($comment)) return NULL;
-		
-		$user_id = current_user_id(); 
+
+		$user_id = current_user_id();
 		if (empty($user_id)) $user_id = system_user_id();
-		
+
 		return array(
 				'body'				=> $comment,
 				'participant_id' 	=> $participant_id,
 				'user_id'		 	=> $user_id
 		);
 	}
-	
+
 	/////////////////////////
 	// Dealing with languages
 	/////////////////////////
-	
+
 	private function create_language_array()
 	{
 		$languages = $this->input->post('language');
 		$percentages = $this->input->post('percentage');
-		
+
 		$language_array = array();
 		for ($i = 0; $i < count($languages); $i++)
 		{
@@ -490,14 +497,14 @@ class Participant extends CI_Controller
 			);
 			array_push($language_array, $l);
 		}
-		
+
 		return $language_array;
 	}
 
 	private function create_languages($participant_id)
 	{
 		$this->languageModel->delete_languages_by_participant($participant_id);
-		
+
 		$language_array = $this->create_language_array();
 		if (empty($language_array)) return;
 
@@ -507,23 +514,23 @@ class Participant extends CI_Controller
 			$this->languageModel->add_language($l);
 		}
 	}
-	
-	private function create_language_objects($language_array) 
-	{
-		$languages = array((object) array('language' => '', 'percentage' => '')); 
 
-		if (!empty($language_array)) 
+	private function create_language_objects($language_array)
+	{
+		$languages = array((object) array('language' => '', 'percentage' => ''));
+
+		if (!empty($language_array))
 		{
 			$languages = array();
 			foreach ($language_array as $l)
 			{
 				array_push($languages, (object) $l);
-			}			
+			}
 		}
-		
-		return $languages; 
+
+		return $languages;
 	}
-	
+
 	/////////////////////////
 	// Callbacks
 	/////////////////////////
@@ -544,7 +551,7 @@ class Participant extends CI_Controller
 	{
 		$multilingual = $this->input->post('multilingual');
 		if (!$multilingual) return TRUE;
-		
+
 		if (isset($percentage) && array_sum($percentage) != 100)
 		{
 			$this->form_validation->set_message('sum_percentage', lang('sum_percentage_wrong'));
@@ -552,17 +559,17 @@ class Participant extends CI_Controller
 		}
 		return TRUE;
 	}
-	
+
 	/////////////////////////
 	// AJAX
 	/////////////////////////
-	
+
 	/** Checks whether the given parameter is higher than 0 */
 	public function filter_participants()
 	{
 		$term = $this->input->get('term');
 		$participants = $this->participantModel->find_participants_by_name($term);
-		
+
 		echo json_encode($participants);
 	}
 
@@ -570,42 +577,29 @@ class Participant extends CI_Controller
 	// Table
 	/////////////////////////
 
-	public function table($experiment_id = NULL, $weeks_ahead = WEEKS_AHEAD)
+	public function table()
 	{
-		if (isset($experiment_id))
-		{
-			$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
-			$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
-			$participant_ids = get_object_ids($participants);
-		}
-
 		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id', FALSE);
 		$this->datatables->from('participant');
-
-		if (isset($experiment_id))
-		{
-			if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
-			else $this->datatables->where('id IN (' . implode(",", $participant_ids) . ')');
-		}
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
-		$this->datatables->edit_column('id', '$1', 'participant_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
+		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
 
 		echo $this->datatables->generate();
 	}
-	
-	public function table_by_testsurvey($testsurvey_id) 
+
+	public function table_by_testsurvey($testsurvey_id)
 	{
 		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
 		$participants = $this->participantModel->find_participants_by_testsurvey($testsurvey);
 		$participant_ids = get_object_ids($participants);
-		
+
 		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id', FALSE);
 		$this->datatables->from('participant');
-		
+
 		if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
 		else $this->datatables->where('id IN (' . implode(",", $participant_ids) . ')');
 
@@ -614,6 +608,31 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('id', '$1', 'testsurvey_participant_actions(' . $testsurvey_id . ', id)');
+
+		echo $this->datatables->generate();
+	}
+
+	public function table_by_experiment($experiment_id = NULL, $weeks_ahead = WEEKS_AHEAD)
+	{
+		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+		$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
+		$participant_ids = get_object_ids($participants);
+
+		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, 
+			lastcalled, participant.id AS id', FALSE);
+		$this->datatables->from('participant');
+		// Don't split this in two lines, see https://github.com/EllisLab/CodeIgniter/pull/759
+		$this->datatables->join('participation', 'participation.participant_id = participant.id AND participation.experiment_id = ' . $experiment_id, 'left');
+
+		if (empty($participant_ids)) $this->datatables->where('participant.id', 0)	; // no participants then
+		else $this->datatables->where('participant.id IN (' . implode(",", $participant_ids) . ')');
+
+		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
+		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
+		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
+		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('lastcalled', '$1', 'last_called(id, ' . $experiment_id . ')');
+		$this->datatables->edit_column('id', '$1', 'participant_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
 
 		echo $this->datatables->generate();
 	}

@@ -101,8 +101,14 @@ class Participation extends CI_Controller
 			$this->load->view('templates/footer');
 		}
 	}
-
-	/** Shows the page for calling a participant */
+	
+	/**
+	 * 
+	 * Shows the page for calling a participant
+	 * @param integer $participant_id
+	 * @param integer $experiment_id
+	 * @param integer $weeks_ahead
+	 */
 	public function call($participant_id, $experiment_id, $weeks_ahead = WEEKS_AHEAD)
 	{
 		// Retrieve entities
@@ -179,7 +185,7 @@ class Participation extends CI_Controller
 		$data['impediment_table'] = create_impediment_table($impediments);
 		$data['impediment_size'] = count($impediments);
 		$data['last_experiment'] = $this->participantModel->last_experiment($participant_id);
-		$data['last_called'] = $this->participantModel->last_called($participant_id, $experiment_id);
+		$data['last_called'] = $this->participantModel->last_called($participant_id);
 		$data['nr_participations'] = count($participations);
 		$data['verify_languages'] = $verify_languages;
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
