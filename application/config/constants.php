@@ -96,6 +96,9 @@ define('WEEKS_AHEAD', 2);
 /** Duration of instructions: 20 minutes */
 define('INSTRUCTION_DURATION', 20);
 
+/** After how many calls to send a request for participation */
+define('SEND_REQUEST_AFTER_CALLS', 2);
+
 /** Minimum NCDI percentile: 10th percentile */
 define('NCDI_MINIMUM_PERCENTILE', 10);
 /** NCDI language age difference: 4 months */

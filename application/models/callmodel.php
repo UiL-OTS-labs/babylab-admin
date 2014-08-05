@@ -31,13 +31,6 @@ class CallModel extends CI_Model
 		$this->db->insert('call', $call);
 		return $this->db->insert_id();
 	}
-	
-	/** Updates the call specified by the id with the details of the call */
-	public function update_call($call_id, $call)
-	{
-		$this->db->where('id', $call_id);
-		$this->db->update('call', $call);
-	}
 
 	/** Deletes a call from the DB */
 	public function delete_call($call_id)
@@ -80,6 +73,15 @@ class CallModel extends CI_Model
 		$this->db->update('call', array(
 			'status' 		=> $call_status,
 			'timeend' 		=> input_datetime()
+		));
+	}
+	
+	/** Updates the call specified by the id with the details of the call */
+	public function update_call($call_id, $call_status)
+	{
+		$this->db->where('id', $call_id);
+		$this->db->update('call', array(
+			'status' => $call_status
 		));
 	}
 	

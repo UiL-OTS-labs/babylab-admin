@@ -1,6 +1,10 @@
 <?php
 class TestTemplate extends CI_Controller
 {
+	/////////////////////////
+	// TODO: This controller is far from finished and largely unused. Consider deleting.
+	/////////////////////////
+	
 	public function __construct()
 	{
 		parent::__construct();

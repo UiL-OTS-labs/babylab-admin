@@ -49,7 +49,7 @@ class SurveyInvite extends CI_Controller
 					}
 						
 					// Email to participant
-					email_testinvite($participant, $testinvite);
+					email_testinvite($participant, $testinvite, TRUE);
 				}
 			}
 		}

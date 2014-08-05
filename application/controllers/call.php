@@ -95,8 +95,9 @@ class Call extends CI_Controller
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
 			$flashdata = '';
-			$flashdata .= $this->send_confirmation_email($participation->id);
-			$flashdata .= $this->create_test_invitations($participant);
+			$invites = $this->create_test_invitations($participant);
+			$flashdata .= br() . $invites[0];
+			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1]);
 			$this->participationModel->release_lock($participation->id);
 
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
@@ -134,10 +135,10 @@ class Call extends CI_Controller
 			$this->participationModel->release_lock($participation->id);
 
 			$participation = $this->participationModel->get_participation_by_id($participation->id);
-			if ($participation->nrcalls == 2) // TODO: magic number
+			if ($participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
 			{
-				$flashdata = $this->send_request_participation_email($participation->id);
-				$message = CallStatus::Email;
+				$flashdata = br() . $this->send_request_participation_email($participation->id);
+				$this->callModel->update_call($call_id, CallStatus::Email);
 			}
 
 			flashdata(sprintf(lang('part_no_reply'), name($participant), $experiment->name) . $flashdata);
@@ -173,16 +174,14 @@ class Call extends CI_Controller
 	/////////////////////////
 
 	/** Send confirmation e-mail */
-	private function send_confirmation_email($participation_id)
+	private function send_confirmation_email($participation_id, $testinvites)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
-
-		$flashdata = '';
-
-		$template = file_get_contents('mail/confirmation.html');
-		$message = email_replace($template, $participant, $participation, $experiment);
+		$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
+		
+		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite);
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
@@ -191,9 +190,7 @@ class Call extends CI_Controller
 		$this->email->message($message);
 		$this->email->send();
 
-		$flashdata .= br() . sprintf(lang('confirmation_sent'), $participant->email);
-
-		return $flashdata;
+		return sprintf(lang('confirmation_sent'), $participant->email);
 	}
 
 	/** Send request for participation e-mail */
@@ -203,10 +200,7 @@ class Call extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 
-		$flashdata = '';
-
-		$template = file_get_contents('mail/request_participation.html');
-		$message = email_replace($template, $participant, $participation, $experiment);
+		$message = email_replace('mail/request_participation', $participant, $participation, $experiment);
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
@@ -215,12 +209,11 @@ class Call extends CI_Controller
 		$this->email->message($message);
 		$this->email->send();
 
-		$flashdata .= br() . sprintf(lang('request_participation_sent'), $participant->email);
-
-		return $flashdata;
+		return sprintf(lang('request_participation_sent'), $participant->email);
 	}
 
-	/** Create test invitations (based on number of participations) */
+	/** Create test invitations (based on number of participations), 
+	 * but don't send mail (should be in confirmation e-mail already) */
 	private function create_test_invitations($participant)
 	{
 		$testinvites = $this->testInviteModel->create_testinvites_by_participation($participant);
@@ -228,11 +221,11 @@ class Call extends CI_Controller
 		$flashdata = '';
 		foreach ($testinvites as $testinvite)
 		{
-			$result = email_testinvite($participant, $testinvite);
-			$flashdata .= br() . $result;
+			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+			$flashdata .= sprintf(lang('testinvite_added'), name($participant), $test->name);
 		}
 
-		return $flashdata;
+		return array($flashdata, $testinvites);
 	}
 
 	/////////////////////////
