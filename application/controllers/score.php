@@ -120,7 +120,7 @@ class Score extends CI_Controller
 		}
 	}
 
-	/** Specifies the contents of the edit all scores for a test page */
+	/** Specifies the contents of the edit all scores for a test page TODO: does not work now */
 	public function edit_all($test_id = 0, $participant_id = 0)
 	{
 		$data['tests'] = $this->testModel->get_all_tests();
@@ -140,7 +140,7 @@ class Score extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the edit of all scores for a test */
+	/** Submits the edit of all scores for a test TODO: does not work now */
 	public function edit_all_submit()
 	{
 		$test_id = $this->input->post('test');

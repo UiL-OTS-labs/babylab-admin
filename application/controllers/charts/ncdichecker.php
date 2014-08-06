@@ -79,7 +79,7 @@ class NCDIChecker extends CI_Controller
 						'ip_address' 	=> $this->input->ip_address(),
 						'p_number' 		=> $data[0],
 						'ageinmonths' 	=> intval($data[1]),
-						'gender'		=> $data[2] === 'Boy' ? Gender::Male : Gender::Female,
+						'gender'		=> $data[2] === 'M' ? Gender::Male : Gender::Female,
 						'b_score'		=> intval($data[3]),
 						'p_score'		=> intval($data[4]),				
 					);

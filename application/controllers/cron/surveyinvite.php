@@ -21,7 +21,7 @@ class SurveyInvite extends CI_Controller
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
 		}
-		
+
 		// Set the language to Dutch (TODO: set to language of participant?)
 		reset_language(L::Dutch);
 
@@ -41,10 +41,13 @@ class SurveyInvite extends CI_Controller
 				{
 					$testinvite = $this->testInviteModel->create_testinvite($testsurvey->id, $participant->id);
 
-					// Create the token in LimeSurvey
-					$this->load->model('surveyModel');
-					$this->surveyModel->create_token($participant, $testsurvey->limesurvey_id, $testinvite->token);
-					
+					// Create the token in LimeSurvey (if we're on production)
+					if (!SURVEY_DEV_MODE)
+					{
+						$this->load->model('surveyModel');
+						$this->surveyModel->create_token($participant, $testsurvey->limesurvey_id, $testinvite->token);
+					}
+						
 					// Email to participant
 					email_testinvite($participant, $testinvite);
 				}

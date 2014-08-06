@@ -211,8 +211,8 @@ class Percentile extends CI_Controller
 	{
 		$params = $this->get_params();
 		$percentile = $this->percentileModel->find_percentile($params['testcat_id'], $params['gender'], $params['age'], $params['score']);
-		//echo $this->input->get('callback') . '(' . json_encode(array("percentile" => $percentile)) . ')'; // for JSONP
-		echo json_encode(array("percentile" => $percentile));
+		echo $this->input->get('callback') . '(' . json_encode(array("percentile" => $percentile)) . ')'; // for JSONP
+		//echo json_encode(array("percentile" => $percentile));
 	}
 
 	/** Finds the language age via AJAX */
@@ -220,8 +220,8 @@ class Percentile extends CI_Controller
 	{
 		$params = $this->get_params();
 		$age = $this->percentileModel->find_50percentile_age($params['testcat_id'], $params['gender'], $params['score']);
-		//echo $this->input->get('callback') . '(' . json_encode(array("age" => $age)) . ')'; // for JSONP
-		echo json_encode(array("age" => $age));
+		echo $this->input->get('callback') . '(' . json_encode(array("age" => $age)) . ')'; // for JSONP
+		//echo json_encode(array("age" => $age));
 	}
 
 	/** Gets the parameters for the above functions */

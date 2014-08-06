@@ -2,6 +2,10 @@
 
 <?=$this->session->flashdata('message'); ?>
 
+<?php if ($participation->interrupted) { ?>
+	<p class="warning"><?=lang('part_interrupted'); ?></p>
+<?php } ?>
+
 <!-- Participation info -->
 <div>
 	<table class="pure-table">
@@ -14,6 +18,9 @@
 	<?php if (!empty($participation->appointment)) { ?>
 	<tr><th><?=lang('appointment'); ?></th><td><?=output_datetime($participation->appointment); ?></td></tr>
 	<tr><th><?=lang('age'); ?></th><td><?=age_in_months_and_days($participant, $participation->appointment); ?></td></tr>
+	<?php } ?>
+	<?php if (!empty($participation->completed)) { ?>
+	<tr><th><?=lang('part_number'); ?></th><td><?=$participation->part_number; ?></td></tr>
 	<?php } ?>
 	</table>
 </div>

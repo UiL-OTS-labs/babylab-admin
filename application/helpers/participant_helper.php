@@ -7,11 +7,16 @@
 if (!function_exists('create_participant_table'))
 {
 	/** Creates the table with participant data */
-	function create_participant_table($id = NULL)
+	function create_participant_table($id = NULL, $find = FALSE)
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$CI->table->set_heading(lang('name'), lang('dob'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
+		$heading = array(lang('name'), lang('dob'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
+		if ($find)
+		{
+			array_splice($heading, -1, 1, array(lang('test'), lang('actions')));
+		}
+		$CI->table->set_heading($heading);
 	}
 }
 
@@ -42,15 +47,15 @@ if (!function_exists('gender'))
 	/** Returns the gender of the participant in html */
 	function gender($gender)
 	{
-		if (strcasecmp($gender, Gender::Male) == 0) 
+		if (strcasecmp($gender, Gender::Male) == 0)
 		{
 			return '<font color="blue">&#9794</font>';
 		}
-		else if (strcasecmp($gender, Gender::Female) == 0) 
+		else if (strcasecmp($gender, Gender::Female) == 0)
 		{
 			return '<font color="pink">&#9792</font>';
 		}
-		else 
+		else
 		{
 			return lang('none');
 		}
@@ -62,7 +67,7 @@ if (!function_exists('gender_sex'))
 	/** Returns the gender, sex form */
 	function gender_sex($gender)
 	{
-		switch ($gender) 
+		switch ($gender)
 		{
 			case Gender::Male: 		$result = lang('boy');		break;
 			case Gender::Female: 	$result = lang('girl');		break;
@@ -77,7 +82,7 @@ if (!function_exists('gender_child'))
 	/** Returns the gender, child form */
 	function gender_child($gender)
 	{
-		switch ($gender) 
+		switch ($gender)
 		{
 			case Gender::Male: 		$result = lang('son');		break;
 			case Gender::Female: 	$result = lang('daughter');	break;
@@ -92,7 +97,7 @@ if (!function_exists('gender_pos'))
 	/** Returns the gender, possessive form */
 	function gender_pos($gender)
 	{
-		switch ($gender) 
+		switch ($gender)
 		{
 			case Gender::Male: 		$result = lang('his');		break;
 			case Gender::Female: 	$result = lang('her');		break;
@@ -107,7 +112,7 @@ if (!function_exists('gender_parent'))
 	/** Returns the gender, parental form */
 	function gender_parent($gender)
 	{
-		switch ($gender) 
+		switch ($gender)
 		{
 			case Gender::Male: 		$result = lang('father');	break;
 			case Gender::Female: 	$result = lang('mother');	break;
@@ -198,6 +203,30 @@ if (!function_exists('participant_options'))
 	}
 }
 
+if (!function_exists('last_called'))
+{
+	/** Returns the time last called for a participant */
+	function last_called($participant_id, $experiment_id)
+	{
+		$result = '';
+
+		$CI =& get_instance();
+		$participation = $CI->participationModel->get_participation($experiment_id, $participant_id);
+		if (!empty($participation))
+		{
+			$call = $CI->callModel->last_call($participation->id);
+			if (!empty($call) && !empty($call->timeend))
+			{
+				$result = '<abbr title="' . format_datetime($call->timeend) . '">';
+				$result .= lang($call->status);
+				$result .= '</abbr>';
+			}
+		}
+
+		return $result;
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////
@@ -256,7 +285,7 @@ if (!function_exists('participant_impediment_link'))
 if (!function_exists('participant_actions'))
 {
 	/** Possible actions for a participant: edit, activate, comments, score, call */
-	function participant_actions($participant_id, $experiment_id, $weeks_ahead = WEEKS_AHEAD)
+	function participant_actions($participant_id, $experiment_id = NULL, $weeks_ahead = WEEKS_AHEAD)
 	{
 		$CI =& get_instance();
 		$pp = $CI->participantModel->get_participant_by_id($participant_id);

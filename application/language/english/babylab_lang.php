@@ -63,7 +63,7 @@ $lang['reg_pp'] 			= "Participant registration";
 /* Mails */
 $lang['mail_heading']		= "Dear %s,";
 $lang['mail_ending']		= "Thanks, Babylab Utrecht"; 
-$lang['mail_disclaimer']	= "This e-mail was generated automatically.";
+$lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab call center reminder";
 $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:";

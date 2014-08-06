@@ -33,16 +33,16 @@ class Call extends CI_Controller
 		flashdata(lang('call_deleted'));
 		redirect($this->agent->referrer(), 'refresh');
 	}
-	
+
 	/////////////////////////
 	// Other views
 	/////////////////////////
-	
+
 	/** Gets all calls for a user. */
 	public function user($user_id)
 	{
 		if (!is_admin() && !correct_user($user_id)) return;
-		
+
 		create_call_table(NULL, TRUE);
 		$data['ajax_source'] = 'call/table_by_user/' . $user_id;
 		$data['sort_column'] = 5;	// Sort on timestart
@@ -68,7 +68,7 @@ class Call extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 		flashdata(sprintf(lang('part_cancel_call'), name($participant), $experiment->name));
-		
+
 		redirect('/participant/find/' . $experiment->id, 'refresh');
 	}
 
@@ -100,7 +100,7 @@ class Call extends CI_Controller
 			$this->participationModel->release_lock($participation->id);
 
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
-			
+
 			redirect('/participant/find/' . $experiment->id, 'refresh');
 		}
 	}
@@ -126,22 +126,22 @@ class Call extends CI_Controller
 			// If succeeded, insert data into database
 			$message = $this->input->post('message');
 			$message = $message === 'none' ? CallStatus::NoReply : $message;
-			
+
 			$flashdata = '';
-			
+
 			$this->callModel->end_call($call_id, $message);
 			$this->participationModel->no_reply($participation->id);
 			$this->participationModel->release_lock($participation->id);
-			
+
 			$participation = $this->participationModel->get_participation_by_id($participation->id);
 			if ($participation->nrcalls == 2) // TODO: magic number
 			{
 				$flashdata = $this->send_request_participation_email($participation->id);
 				$message = CallStatus::Email;
-			} 
+			}
 
 			flashdata(sprintf(lang('part_no_reply'), name($participant), $experiment->name) . $flashdata);
-			
+
 			redirect('/participant/find/' . $experiment->id, 'refresh');
 		}
 	}
@@ -150,6 +150,13 @@ class Call extends CI_Controller
 	public function cancel($call_id)
 	{
 		$participation = $this->callModel->get_participation_by_call($call_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation->id);
+
+		// Add (possible) comment
+		$comment = $this->post_comment($participant->id);
+		if (!empty($comment)) $this->commentModel->add_comment($comment);
+
+		// End the call
 		$this->callModel->end_call($call_id, CallStatus::Cancelled);
 		$this->participationModel->cancel($participation->id, TRUE);
 		$this->participationModel->release_lock($participation->id);
@@ -179,7 +186,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		$this->email->send();
@@ -188,7 +195,7 @@ class Call extends CI_Controller
 
 		return $flashdata;
 	}
-	
+
 	/** Send request for participation e-mail */
 	private function send_request_participation_email($participation_id)
 	{
@@ -203,7 +210,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
 		$this->email->send();
@@ -226,6 +233,26 @@ class Call extends CI_Controller
 		}
 
 		return $flashdata;
+	}
+
+	/////////////////////////
+	// Form handling
+	/////////////////////////
+
+	/** Posts the data for a comment */
+	private function post_comment($participant_id)
+	{
+		$comment = $this->input->post('comment');
+		if (empty($comment)) return NULL;
+		
+		$user_id = current_user_id(); 
+		if (empty($user_id)) $user_id = system_user_id();
+		
+		return array(
+				'body'				=> $comment,
+				'participant_id' 	=> $participant_id,
+				'user_id'		 	=> $user_id
+		);
 	}
 
 	/////////////////////////

@@ -33,11 +33,15 @@ class TestInviteModel extends CI_Model
 	/** Deletes a testinvite from the DB */
 	public function delete_testinvite($testinvite_id)
 	{
-		// Delete results from LimeSurvey database
 		$testinvite = $this->get_testinvite_by_id($testinvite_id);
 		$testsurvey = $this->get_testsurvey_by_testinvite($testinvite);
-		$this->load->model('surveyModel');
-		$this->surveyModel->invalidate_token($testsurvey->limesurvey_id, $testinvite->token);
+
+		// Delete results from LimeSurvey database (if we're on production)
+		if (!SURVEY_DEV_MODE)
+		{
+			$this->load->model('surveyModel');
+			$this->surveyModel->invalidate_token($testsurvey->limesurvey_id, $testinvite->token);
+		}
 
 		// Delete references to scores
 		$this->db->delete('score', array('testinvite_id' => $testinvite_id));
@@ -50,7 +54,7 @@ class TestInviteModel extends CI_Model
 	{
 		return $this->db->get_where('testinvite', array('id' => $testinvite_id))->row();
 	}
-	
+
 	/** Returns the testinvite for a testsurvey and a participant (unique key) */
 	public function get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id)
 	{
@@ -66,11 +70,11 @@ class TestInviteModel extends CI_Model
 	/** Returns the testinvite for a token (unique key) */
 	public function set_completed($testinvite_id)
 	{
-		$this->db->set('datecompleted', input_datetime()); 
+		$this->db->set('datecompleted', input_datetime());
 		$this->db->where('id', $testinvite_id);
 		$this->db->update('testinvite');
 	}
-	
+
 	/////////////////////////
 	// Test Surveys
 	/////////////////////////
@@ -126,13 +130,13 @@ class TestInviteModel extends CI_Model
 	{
 		return $this->db->get_where('participant', array('id' => $testinvite->participant_id))->row();
 	}
-	
+
 	/** Returns the previous testinvites */
 	public function get_previous_testinvites($participant, $testinvite)
 	{
 		$test = $this->get_test_by_testinvite($testinvite);
 		$testsurvey = $this->get_testsurvey_by_testinvite($testinvite);
-		
+
 		$this->db->select('testinvite.*');
 		$this->db->from('testinvite');
 		$this->db->join('testsurvey', 'testsurvey.id = testinvite.testsurvey_id');
@@ -158,12 +162,14 @@ class TestInviteModel extends CI_Model
 		foreach ($surveys AS $survey)
 		{
 			$testinvite = $this->create_testinvite($survey->id, $participant->id);
-
-			// Create the token in LimeSurvey
-			$this->load->model('surveyModel');
-			$this->surveyModel->create_token($participant, $survey->limesurvey_id, $testinvite->token);
-				
 			array_push($result, $testinvite);
+
+			// Create the token in LimeSurvey (if we're on production)
+			if (!SURVEY_DEV_MODE)
+			{
+				$this->load->model('surveyModel');
+				$this->surveyModel->create_token($participant, $survey->limesurvey_id, $testinvite->token);
+			}
 		}
 
 		return $result;

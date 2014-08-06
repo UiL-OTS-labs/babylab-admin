@@ -64,6 +64,9 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+/** Don't connect to LimeSurvey database when this is true */
+define('SURVEY_DEV_MODE', TRUE);
+
 $db['survey']['hostname'] = 'mysql.let.uu.nl';
 $db['survey']['username'] = 'limesurvey';
 $db['survey']['password'] = 'slijmbal3';

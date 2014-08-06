@@ -122,14 +122,14 @@ class ParticipationModel extends CI_Model
 	// No-shows
 	/////////////////////////
 	
-	/** Retrieves all no-shows for an experiment */
-	public function get_no_shows($experiment_id = NULL)
+	/** Retrieves a sum of participations for an experiment, given a count column */
+	public function count_participations($count_column, $experiment_id = NULL)
 	{
 		$this->db->select('participant_id');
-		$this->db->select_sum('noshow', 'noshows');
+		$this->db->select_sum($count_column, 'count_column');
 		if (isset($experiment_id)) $this->db->where('experiment_id', $experiment_id);
 		$this->db->group_by('participant_id'); 
-		$this->db->having('noshows > 0'); 
+		$this->db->having('count_column > 0'); 
 
 		return $this->db->get('participation')->result();
 	}
@@ -212,15 +212,14 @@ class ParticipationModel extends CI_Model
 	}
 
 	/** Completes the specified participation */
-	public function completed($participation_id, $comment)
+	public function completed($participation_id, $participation)
 	{
 		$this->db->where('id', $participation_id);
-		$this->db->update('participation', array(
+		$this->db->update('participation', array_merge($participation, array(
 			'cancelled'	=> 0, 
 			'noshow' 	=> 0, 
 			'completed' => 1, 
-			'status' 	=> ParticipationStatus::Completed, 
-			'comment' 	=> $comment));
+			'status' 	=> ParticipationStatus::Completed)));
 	}
 
 	/////////////////////////

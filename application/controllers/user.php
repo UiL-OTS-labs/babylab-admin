@@ -239,7 +239,7 @@ class User extends CI_Controller
 			
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $admin->email);
+				$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $admin->email);
 				$this->email->subject(lang('reg_user_subject'));
 			
 				$message = sprintf(lang('mail_heading'), $admin->username);
@@ -420,7 +420,7 @@ class User extends CI_Controller
 			
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $user->email);
+			$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $user->email);
 			$this->email->subject(lang('resetpw_subject'));
 			
 			$message = sprintf(lang('mail_heading'), $user->username);

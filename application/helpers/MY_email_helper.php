@@ -13,7 +13,7 @@ if (!function_exists('email_testinvite'))
 
 		$CI->email->clear();
 		$CI->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$CI->email->to(DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$CI->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$CI->email->subject('Babylab Utrecht: Uitnoding voor vragenlijst');
 		$CI->email->message($message);
 		$CI->email->send();

@@ -6,8 +6,8 @@
 	<title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+	<script type="text/javascript" src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <!-- (default) CSS -->
 	<?=link_tag('css/pure-min.css'); ?>
 	<?=link_tag('css/style.css'); ?>
@@ -61,7 +61,8 @@
 		<ul>
 			<li><?=anchor('call', lang('calls')); ?></li>
 			<li><?=anchor('result', lang('results')); ?></li>
-			<li class='last'><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
+			<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
+			<li class='last'><?=anchor('participation/interruptions', lang('interruptions')); ?></li>
 		</ul>
 		</li>
 		<li class='has-sub'><?=anchor('participant', lang('participants')); ?>

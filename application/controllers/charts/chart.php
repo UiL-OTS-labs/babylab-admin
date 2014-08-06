@@ -44,16 +44,16 @@ class Chart extends CI_Controller
 			$testinvite = $data['testinvite'];
 			$scores = create_ncdi_score_array($test, $testinvite);
 			$data['ncdi_table'] = create_ncdi_table($scores);
-				
-			// Add some comments on the results
-			$comments = $this->add_comments_to_score($scores);
-			$data['ncdi_text'] = ul($comments);
-				
+
 			// Find any existing previous scores for this participant
 			$participant = $this->participantModel->get_participant_by_id($data['participant_id']);
 			$prev_testinvites = $this->testInviteModel->get_previous_testinvites($participant, $testinvite);
 			$data['has_prev_results'] = FALSE;
-				
+
+			// Add some comments on the results
+			$comments = $this->add_comments_to_score($scores, $participant);
+			$data['ncdi_text'] = ul($comments);
+
 			// Loop over the scores and add them to the page (without comments)
 			$prev_tables = array();
 			$prev_descs = array();
@@ -67,7 +67,7 @@ class Chart extends CI_Controller
 				array_push($prev_tables, create_ncdi_table($scores));
 				array_push($prev_descs, sprintf('Resultaten van %s. Uw %s was toen <strong>%s maanden</strong> oud.', $date, $gender, $age));
 			}
-				
+
 			$data['ncdi_prev_tables'] = $prev_tables;
 			$data['ncdi_prev_descs'] = $prev_descs;
 		}
@@ -75,51 +75,6 @@ class Chart extends CI_Controller
 		$this->load->view($test->code . '/header', $data);
 		$this->load->view($test->code . '/scores', $data);
 		$this->load->view('templates/footer');
-	}
-
-	private function add_comments_to_score($scores)
-	{
-		$comments = array();
-		// Check for the minimum percentile
-		if ($this->check_minimum_percentile($scores, NCDI_MINIMUM_PERCENTILE)) // TODO: maybe add this as a column on test
-		{
-			array_push($comments, lang('ncdi_normal'));
-		}
-		else
-		{
-			array_push($comments, lang('ncdi_abnormal'));
-		}
-
-		// Check the competence score against the production score
-		if ($this->check_comp_vs_prod($scores))
-		{
-			array_push($comments, lang('ncdi_comp_vs_prod'));
-		}
-
-		return $comments;
-	}
-
-	/** Checks for a minimum score.
-	 *  Under normal circumstances, no score should be below the minimum score. */
-	private function check_minimum_percentile($scores, $minimum)
-	{
-		foreach ($scores as $score)
-		{
-			if ($score['percentile'] < $minimum) return FALSE;
-		}
-		return TRUE;
-	}
-
-	/** Checks competence vs. production.
-	 *  Under normal circumstances, competence should be at least as high as production. */
-	private function check_comp_vs_prod($scores)
-	{
-		foreach ($scores as $score)
-		{
-			if ($score['code'] === 'b') $comp = $score['percentile'];
-			if ($score['code'] === 'p') $prod = $score['percentile'];
-		}
-		return $comp < $prod;
 	}
 
 	/** Percentile page */
@@ -168,50 +123,168 @@ class Chart extends CI_Controller
 	 */
 	public function fill_scores($test_code, $token)
 	{
-		$test = $this->testModel->get_test_by_code($test_code);
-		$testinvite = $this->testInviteModel->get_testinvite_by_token($token);
-		$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
-
-		sleep(2); // Explicitly wait some time to make sure results are stored
-
-		$this->load->model('surveyModel');
-		$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
-
-		foreach ($result as $question => $answer)
+		if (!SURVEY_DEV_MODE)
 		{
-			$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
+			$test = $this->testModel->get_test_by_code($test_code);
+			$testinvite = $this->testInviteModel->get_testinvite_by_token($token);
+			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 
-			if (!empty($testcat))
+			sleep(2); // Explicitly wait some time to make sure results are stored
+
+			$this->load->model('surveyModel');
+			$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
+
+			foreach ($result as $question => $answer)
 			{
-				$score_type = $testcat->score_type;
+				$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
 
-				switch ($score_type)
+				if (!empty($testcat))
 				{
-					case 'bool':
-						switch ($answer)
-						{
-							case 'Y'	: $answer = true; break;
-							case 'N'	: $answer = false; break;
-						}
-					case 'int': 	$answer = (int) $answer; break;
-					case 'date': 	break;
-					case 'string': 	break;
-				}
+					$score_type = $testcat->score_type;
 
-				$score = array(
+					switch ($score_type)
+					{
+						case 'bool':
+							switch ($answer)
+							{
+								case 'Y'	: $answer = true; break;
+								case 'N'	: $answer = false; break;
+							}
+						case 'int': 	$answer = (int) $answer; break;
+						case 'date': 	break;
+						case 'string': 	break;
+					}
+
+					$score = array(
 					'testcat_id'			=> $testcat->id,
-					'participant_id'		=> $testinvite->participant_id,
 					'testinvite_id' 		=> $testinvite->id,
 					'score'					=> $answer,
 					'date'					=> input_date()
-				);
+					);
 
-				$this->scoreModel->add_score($score);
+					$this->scoreModel->add_score($score);
+				}
+			}
+
+			$this->testInviteModel->set_completed($testinvite->id);
+			redirect('c/' . $test_code . '/' . $token . '/home');
+		}
+	}
+
+	/////////////////////////
+	// Helpers
+	/////////////////////////
+
+	private function add_comments_to_score($scores, $participant)
+	{
+		$comments = array();
+
+		// Check for the minimum percentile and language age TODO: maybe add this as a column on test
+		$percentile_check = $this->check_minimum_percentile($scores);
+		$language_age_check = $this->check_language_age($scores);
+
+		// Situation C: trouble in all sections.
+		if ($percentile_check == 2 && $language_age_check == 2)
+		{
+			array_push($comments, sprintf(lang('ncdi_A'), gender_child($participant->gender), gender_sex($participant->gender)));
+		}
+		// Situation B: trouble in some sections.
+		else if ($percentile_check == 1 || $language_age_check == 1)
+		{
+			array_push($comments, lang('ncdi_B'));
+			// TODO: in this case we should create a new testinvite
+		}
+		// Situation A: all is fine.
+		else
+		{
+			array_push($comments, lang('ncdi_C'));
+		}
+
+		// Check the competence score against the production score
+		if ($this->check_comp_vs_prod($scores))
+		{
+			// Add comment if not OK.
+			array_push($comments, lang('ncdi_comp_vs_prod'));
+		}
+
+		return $comments;
+	}
+
+	/**
+	 *
+	 * Checks for a minimum score.
+	 * Under normal circumstances, no score should be below the minimum score.
+	 * @param $scores
+	 * @return integer Returns 2 if all scores below minimum, 1 for at least one, and 0 for no scores below minimum.
+	 */
+	private function check_minimum_percentile($scores)
+	{
+		$one = FALSE;
+		$all = TRUE;
+
+		foreach ($scores as $score)
+		{
+			if (in_array($score['code'], array('b', 'p')))
+			{
+				if ($score['percentile'] < NCDI_MINIMUM_PERCENTILE)
+				{
+					$one = TRUE;
+				}
+				else
+				{
+					$all = FALSE;
+				}
 			}
 		}
 
-		$this->testInviteModel->set_completed($testinvite->id);
-		redirect('c/' . $test_code . '/' . $token . '/home');
+		return $all ? 2 : ($one ? 1 : 0);
+	}
+
+	/**
+	 *
+	 * Checks for language age.
+	 * Under normal circumstances, no score should more than 4 months behind.
+	 * @param $scores
+	 * @return integer Returns 2 if all scores more than 4 months behind, 1 for at least one, and 0 for no scores behind.
+	 */
+	private function check_language_age($scores)
+	{
+		$one = FALSE;
+		$all = TRUE;
+
+		foreach ($scores as $score)
+		{
+			if (in_array($score['code'], array('b', 'p')))
+			{
+				if ($score['score_age'] - $score['age'] >= NCDI_LANGUAGE_AGE_DIFF)
+				{
+					$one = TRUE;
+				}
+				else
+				{
+					$all = FALSE;
+				}
+			}
+		}
+
+		return $all ? 2 : ($one ? 1 : 0);
+	}
+
+	/**
+	 *
+	 * Checks competence vs. production.
+	 * Under normal circumstances, competence should be at least as high as production.
+	 * TODO: this is quick and dirty...
+	 * @param array $scores
+	 */
+	private function check_comp_vs_prod($scores)
+	{
+		foreach ($scores as $score)
+		{
+			if ($score['code'] === 'b') $comp = $score['percentile'];
+			if ($score['code'] === 'p') $prod = $score['percentile'];
+		}
+		return $comp < $prod;
 	}
 
 	private function get_test_or_die($test_code)
@@ -255,7 +328,7 @@ class Chart extends CI_Controller
 					$data['gender'] = gender_sex($participant->gender);
 					$data['gender_child'] = gender_child($participant->gender);
 					$data['age_in_months'] = age_in_months($participant, $testinvite->datecompleted);
-						
+
 					return $data;
 				}
 			}
@@ -356,15 +429,16 @@ class Chart extends CI_Controller
 				{
 					$testinvite = $this->testInviteModel->get_testinvite_by_id($score->testinvite_id);
 					$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-					$age = explode(';', age_in_months_and_days($participant,$testinvite->datecompleted));
-					$age = $age[0] + $age[1] / 31; // to evenly divide over months. TODO: remove the labels
+					$age = explode(';', age_in_months_and_days($participant, $testinvite->datecompleted));
+					$age = $age[0] + $age[1] / 31; // to evenly divide over months.
 
 					if ($age >= 10 && $age <= 40)
 					{
-						$testcat = $this->testCatModel->get_testcat_by_id($testcat_id)->name;
-						$gender = gender_sex($participant->gender);
+						$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
+						// FIXME: quick and dirty fix for percentiles without gender...
+						$gender = in_array($testcat->code, array('w', 'z')) ? NULL : gender_sex($participant->gender);
 
-						$rows[$nr][0] = array('v' => $testcat);
+						$rows[$nr][0] = array('v' => $testcat->name);
 						$rows[$nr][1] = array('v' => $gender);
 						$rows[$nr][2] = array('v' => $age);
 						$rows[$nr][3] = array('v' => $score->score);
@@ -380,8 +454,7 @@ class Chart extends CI_Controller
 		foreach ($percentiles as $percentile)
 		{
 			$testcat = $this->testCatModel->get_testcat_by_id($percentile->testcat_id)->name;
-			if (!empty($percentile->gender)) $gender = gender_sex($percentile->gender);
-			else $gender = NULL;
+			$gender = !empty($percentile->gender) ? gender_sex($percentile->gender) : NULL;
 
 			$rows[$nr][0] = array('v' => $testcat);
 			$rows[$nr][1] = array('v' => $gender);
@@ -433,9 +506,9 @@ class Chart extends CI_Controller
 	{
 		$table = array();
 		$table['cols'] = array(
-			array('label' => 'Age', 'type' => 'number'),
-			array('label' => 'Male 50th percentile', 'type' => 'number'),
-			array('label' => 'Female 50th percentile', 'type' => 'number')
+		array('label' => 'Age', 'type' => 'number'),
+		array('label' => 'Male 50th percentile', 'type' => 'number'),
+		array('label' => 'Female 50th percentile', 'type' => 'number')
 		);
 
 		$percentiles = $this->percentileModel->get_percentiles_by_testcat(1);

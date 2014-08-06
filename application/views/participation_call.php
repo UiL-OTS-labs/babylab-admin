@@ -1,23 +1,20 @@
 <script>
 	$(function() {
+		// Accordion display
 		$( "#accordion" ).accordion({
 			collapsible: true,
 			heightStyle: "content",
 			active: <?=$this->session->flashdata('comment_message') ? 3 : 
 					   ($this->session->flashdata('impediment_message') ? 2 : 0); ?>
 		});
-		
-		$( "#click" ).click(function() {
-			$( "#show" ).show( "slow" );
+
+		// Show/hide actions
+		$( ".show" ).hide();
+		$( ".click" ).click(function() {
+			$( ".show", this ).show( "slow" );
 		});
 
-		$( "#click2" ).click(function() {
-			$( "#show2" ).show( "slow" );
-		});
-	});
-</script>
-<script>
-	$(function() {
+		// Appointment scheduling
 		$( "#appointment" ).datetimepicker({
 			changeMonth : true,
 			changeYear : true,
@@ -32,6 +29,28 @@
 		$( "#appointment" ).attr({
 			readOnly : true
 		});
+
+		// Navigation handling: only allow navigation from forms or the cancel link.
+		var correct = false; 
+
+		// 
+		$( "form" ).submit(function() {
+			correct = true;
+		});
+		$( "#cancel_link" ).click(function() {
+			correct = true;
+		});
+
+		// Final handling with onbeforeload
+		window.onbeforeunload = confirmExit;
+		function confirmExit() {
+			if (!correct) {
+				return "Please only use the navigation buttons provided on this page.";
+    		}
+			else {
+				return null;
+			}
+		}
 	});
 </script>
 
@@ -71,17 +90,24 @@
 		<p><?=lang('call_action'); ?></p>
 		<?=$this->session->flashdata('message'); ?>
 		<ul>
-			<li id="click"><u style="cursor: pointer;"><?=lang('confirmed'); ?></u>
-				<div id="show" style="display: none">
+			<li class="click"><u class="call_link"><?=lang('confirmed'); ?></u>
+				<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 					<p><?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
 					<?=form_submit_only(); ?></p>
 					<?=form_close(); ?>
 				</div>
 			</li>
-			<li><?=anchor('call/cancel/' . $call_id, lang('cancelled')); ?></li>
-			<li id="click2"><u style="cursor: pointer;"><?=lang('no_reply'); ?></u>
-				<div id="show2" style="display: none">
+			<li class="click"><u class="call_link"><?=lang('cancelled'); ?></u>
+				<div class="show">
+					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
+					<p><?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
+					<?=form_submit_only(); ?></p>
+					<?=form_close(); ?>
+				</div>
+			</li>
+			<li class="click"><u class="call_link"><?=lang('no_reply'); ?></u>
+				<div class="show">
 					<?=form_open('call/no_reply/' . $call_id); ?>
 					<p><?=lang('message_left'); ?>
 					<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
@@ -91,7 +117,7 @@
 					<?=form_close(); ?>
 				</div>
 			</li>
-			<li><?=anchor('call/undo/' . $call_id, lang('cancel')); ?></li>
+			<li><?=anchor('call/undo/' . $call_id, lang('cancel'), array('id' => 'cancel_link')); ?></li>
 		</ul>
 	</div>
 	

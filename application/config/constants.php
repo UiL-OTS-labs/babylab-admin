@@ -96,8 +96,10 @@ define('WEEKS_AHEAD', 2);
 /** Duration of instructions: 20 minutes */
 define('INSTRUCTION_DURATION', 20);
 
-/** Minimum NCDI percentile */
-define('NCDI_MINIMUM_PERCENTILE', 20);
+/** Minimum NCDI percentile: 10th percentile */
+define('NCDI_MINIMUM_PERCENTILE', 10);
+/** NCDI language age difference: 4 months */
+define('NCDI_LANGUAGE_AGE_DIFF', 4);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

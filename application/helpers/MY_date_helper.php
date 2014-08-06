@@ -28,11 +28,19 @@ if (!function_exists('output_datetime'))
 	{
 		if ($date == NULL) return '';
 		
-		$abbr = $input ? '' : '<abbr title="' . strftime("%A %e %B %Y %R", strtotime($date)) . '">';
+		$abbr = $input ? '' : '<abbr title="' . format_datetime($date) . '">';
 		$date_output = date('d-m-Y H:i', strtotime($date));
 		$abbr_end = $input ? '' : '</abbr>';
 		
 		return $abbr . $date_output . $abbr_end;
+	}
+}
+
+if (!function_exists('format_datetime'))
+{
+	function format_datetime($date = 'now')
+	{
+		return strftime("%A %e %B %Y %R", strtotime($date));
 	}
 }
 

@@ -8,7 +8,7 @@
 | whenever you intend to do a schema migration.
 |
 */
-$config['migration_enabled'] = FALSE;
+$config['migration_enabled'] = TRUE;
 
 
 /*
@@ -21,7 +21,7 @@ $config['migration_enabled'] = FALSE;
 | be upgraded / downgraded to.
 |
 */
-$config['migration_version'] = 0;
+$config['migration_version'] = 1;
 
 
 /*
@@ -35,7 +35,6 @@ $config['migration_version'] = 0;
 |
 */
 $config['migration_path'] = APPPATH . 'migrations/';
-
 
 /* End of file migration.php */
 /* Location: ./application/config/migration.php */
