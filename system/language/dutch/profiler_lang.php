@@ -9,6 +9,7 @@ $lang['profiler_post_data'] = 'POST DATA';
 $lang['profiler_uri_string'] = 'URI STRING';
 $lang['profiler_memory_usage'] = 'GEHEUGEN GEBRUIK';
 $lang['profiler_config'] = 'CONFIG VARIABELEN';
+$lang['profiler_session_data']	= 'SESSIE DATA';
 $lang['profiler_headers'] = 'HTTP HEADERS';
 $lang['profiler_no_db'] = 'Database driver is momenteel niet geladen';
 $lang['profiler_no_queries'] = 'Er zijn geen queries uitgevoerd';
