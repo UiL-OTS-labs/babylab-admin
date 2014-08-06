@@ -1,4 +1,5 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class Caller extends CI_Controller
 {
 	public function __construct()
@@ -31,9 +32,16 @@ class Caller extends CI_Controller
 	/** Deletes the given caller */
 	public function delete($caller_id)
 	{
+		/*if (!$this->authenticate->authenticate_session('admin'))
+		{
+			flashdata('Access denied', false);
+			redirect($this->agent->referrer(), 'refresh');
+		}*/
+		
 		$this->callerModel->delete_caller($caller_id);
 		flashdata(lang('deleted_caller'));
 		redirect($this->agent->referrer(), 'refresh');
+		
 	}
 	
 	/////////////////////////
