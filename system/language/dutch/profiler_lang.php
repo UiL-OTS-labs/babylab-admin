@@ -17,6 +17,6 @@ $lang['profiler_no_get'] = 'Er is geen GET data';
 $lang['profiler_no_uri'] = 'Er is geen URI data';
 $lang['profiler_no_memory'] = 'Geheugen gebruik niet beschikbaar';
 $lang['profiler_no_profiles'] = 'Geen Profile gegevens - alle Profile onderdelen zijn uitgeschakeld';
-$lang['profiler_section_show'] = 'Toon'
-$lang['profiler_section_hide'] = 'Verberg'
+$lang['profiler_section_show'] = 'Toon';
+$lang['profiler_section_hide'] = 'Verberg';
 ?>

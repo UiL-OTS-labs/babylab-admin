@@ -7,6 +7,7 @@ $lang['edit_testsurvey']	= "Bewerk vragenlijst voor test <em>%s</em>";
 $lang['testsurvey_edited'] 	= "Vragenlijst voor test <em>%s</em> succesvol bewerkt.";
 $lang['sure_delete_testsurvey']	= "Weet u zeker dat u deze vragenlijst wilt verwijderen?";
 $lang['testsurvey_deleted'] = "Vragenlijst succesvol verwijderd.";
+$lang['data_for_testsurvey'] = "Data for LimeSurvey-connections <em>%s</em>";
 
 $lang['limesurvey_id']		= "LimeSurvey ID";
 $lang['whensent']			= "Wanneer verzenden?";
