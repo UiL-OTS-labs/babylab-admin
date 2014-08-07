@@ -113,7 +113,7 @@ class PercentileModel extends CI_Model
 
 		// If no result found, return max percentile
 		if (empty($percentile)) return $this->max_percentile($testcat_id, $gender, $age);
-		
+
 		return $percentile->percentile;
 	}
 
@@ -126,10 +126,10 @@ class PercentileModel extends CI_Model
 		$this->db->order_by('percentile', 'desc');
 		$this->db->limit(1);
 		$percentile = $this->db->get('percentile')->row();
-		
+
 		// If no result found, return 0
 		if (empty($percentile)) return 0;
-		
+
 		return $percentile->percentile;
 	}
 
@@ -162,7 +162,7 @@ class PercentileModel extends CI_Model
 		$percentile = $this->db->get('percentile')->row();
 		return $percentile->age;
 	}
-	
+
 	private function gender_where($testcat_id)
 	{
 		$this->db->where('testcat_id', $testcat_id);

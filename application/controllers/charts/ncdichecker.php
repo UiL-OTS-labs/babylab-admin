@@ -2,7 +2,7 @@
 
 /////////////////////////
 // WORK IN PROGRESS:
-// This is a rudimentary implementation of a calculator of NCDI scores. 
+// This is a rudimentary implementation of a calculator of NCDI scores.
 /////////////////////////
 
 class NCDIChecker extends CI_Controller
@@ -68,9 +68,9 @@ class NCDIChecker extends CI_Controller
 		echo implode(",", array('PPnr', 'Percentiel begrip', 'Percentiel productie', 'Taalleeftijd begrip', 'Taalleeftijd productie'));
 		echo '<br>';
 
-		if (($handle = fopen($filename, "r")) !== FALSE) 
+		if (($handle = fopen($filename, "r")) !== FALSE)
 		{
-			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
 			{
 				$row++;
 				if ($row != 1) // skip header and empties
@@ -83,25 +83,25 @@ class NCDIChecker extends CI_Controller
 						'b_score'		=> intval($data[3]),
 						'p_score'		=> intval($data[4]),				
 					);
-					
+						
 					$test = $this->testModel->get_test_by_code('ncdi_wz');
 					$testcat_b = $this->testCatModel->get_testcat_by_code($test, 'b');
 					$testcat_p = $this->testCatModel->get_testcat_by_code($test, 'p');
-					
-					$perc_b = $this->percentileModel->find_percentile($testcat_b->id, 
-						$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['b_score']);
-					$perc_p = $this->percentileModel->find_percentile($testcat_p->id, 
-						$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['p_score']);
-					$age_b = $this->percentileModel->find_50percentile_age($testcat_b->id, 
-						$ncdi_check['gender'], $ncdi_check['b_score']);
-					$age_p = $this->percentileModel->find_50percentile_age($testcat_p->id, 
-						$ncdi_check['gender'], $ncdi_check['p_score']);
-					
+						
+					$perc_b = $this->percentileModel->find_percentile($testcat_b->id,
+					$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['b_score']);
+					$perc_p = $this->percentileModel->find_percentile($testcat_p->id,
+					$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['p_score']);
+					$age_b = $this->percentileModel->find_50percentile_age($testcat_b->id,
+					$ncdi_check['gender'], $ncdi_check['b_score']);
+					$age_p = $this->percentileModel->find_50percentile_age($testcat_p->id,
+					$ncdi_check['gender'], $ncdi_check['p_score']);
+						
 					echo implode(",", array($ncdi_check['p_number'], $perc_b, $perc_p, $age_b, $age_p));
 					echo '<br>';
-					
+						
 					//$this->NCDICheckModel->add_ncdi_check($ncdi_check);
-				}			
+				}
 			}
 			fclose($handle);
 		}

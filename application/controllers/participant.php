@@ -84,14 +84,14 @@ class Participant extends CI_Controller
 			// If succeeded, create the participant
 			$participant = $this->post_participant();
 			$participant_id = $this->participantModel->add_participant($participant);
-				
+
 			// Add (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
-				
+
 			// Create the languages
 			$this->create_languages($participant_id);
-				
+
 			// Activate the participant (only on manual creation from the application!)
 			$this->participantModel->set_activate($participant_id, TRUE);
 
@@ -141,11 +141,11 @@ class Participant extends CI_Controller
 			// If succeeded, update the pariticipant
 			$participant = $this->post_participant();
 			$this->participantModel->update_participant($participant_id, $participant);
-				
+
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
-				
+
 			// Create/update the languages
 			$this->create_languages($participant_id);
 
@@ -197,7 +197,7 @@ class Participant extends CI_Controller
 			// If succeeded, create the pariticipant
 			$participant = $this->post_participant();
 			$participant_id = $this->participantModel->add_participant($participant);
-				
+
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
@@ -287,7 +287,7 @@ class Participant extends CI_Controller
 			$dob = $this->input->post('dob');
 			$email = $this->input->post('email');
 			$reason = $this->input->post('reason');
-				
+
 			$users = $this->userModel->get_all_admins();
 			foreach ($users as $user)
 			{
@@ -618,7 +618,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, 
+		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone,
 			lastcalled, participant.id AS id', FALSE);
 		$this->datatables->from('participant');
 		// Don't split this in two lines, see https://github.com/EllisLab/CodeIgniter/pull/759

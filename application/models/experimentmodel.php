@@ -45,7 +45,7 @@ class ExperimentModel extends CI_Model
 
 		// Delete references to participations
 		$this->db->delete('participation', array('experiment_id' => $experiment_id));
-		
+
 		// Delete references to relations
 		$this->db->delete('relation', array('experiment_id' => $experiment_id));
 		$this->db->delete('relation', array('rel_exp_id' => $experiment_id));
@@ -93,7 +93,7 @@ class ExperimentModel extends CI_Model
 		$participations = $this->db->get('participation')->result();
 
 		$experiments = array();
-		foreach ($participations as $p) 
+		foreach ($participations as $p)
 		{
 			array_push($experiments, $this->get_experiment_by_id($p->experiment_id));
 		}

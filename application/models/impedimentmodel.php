@@ -5,42 +5,42 @@ class ImpedimentModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
 
-	/** Returns all impediments as an array. 
+	/** Returns all impediments as an array.
 	 * If $future is set to false, past impediments are also included. */
 	public function get_all_impediments($future = TRUE)
 	{
 		if ($future) $this->db->where('to >=', input_date());
 		return $this->db->get('impediment')->result();
 	}
-	
+
 	/** Adds an impediment to the DB */
 	public function add_impediment($impediment)
 	{
 		$this->db->insert('impediment', $impediment);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Deletes an impediment from the DB */
 	public function delete_impediment($impediment_id)
 	{
 		$this->db->delete('impediment', array('id' => $impediment_id));
 	}
-	
-	/** Returns the impediment for an id */ 
-	public function get_impediment_by_id($impediment_id) 
+
+	/** Returns the impediment for an id */
+	public function get_impediment_by_id($impediment_id)
 	{
 		return $this->db->get_where('impediment', array('id' => $impediment_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Participants
 	/////////////////////////
-	
+
 	/** Returns the next impediment for a participant */
 	public function next_impediment_by_participant($participant_id)
 	{
@@ -50,7 +50,7 @@ class ImpedimentModel extends CI_Model
 		$imp = $this->db->get('impediment')->result();
 		return !empty($imp) ? $imp[0] : NULL;
 	}
-	
+
 	/** Returns all future impediments for a participant */
 	public function get_future_impediments_by_participant($participant_id)
 	{
@@ -58,7 +58,7 @@ class ImpedimentModel extends CI_Model
 		$this->db->where('to >=', input_date());
 		return $this->db->get('impediment')->result();
 	}
-	
+
 	/** Returns all impediments for a participant */
 	public function get_impediments_by_participant($participant_id)
 	{
@@ -71,7 +71,7 @@ class ImpedimentModel extends CI_Model
 	{
 		return $this->db->get_where('participant', array('id' => $impediment->participant_id))->row();
 	}
-	
+
 	/** Returns whether there is already an impediment for the given date and participant */
 	public function within_bounds($date, $participant_id)
 	{

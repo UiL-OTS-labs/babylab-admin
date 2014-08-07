@@ -19,8 +19,8 @@ if (!function_exists('create_leader_table'))
 
 if (!function_exists('leader_actions'))
 {
-	/** Possible actions for a leader: delete */ 
-	function leader_actions($leader_id) 
+	/** Possible actions for a leader: delete */
+	function leader_actions($leader_id)
 	{
 		return anchor('leader/delete/' . $leader_id, img_delete(), warning(lang('sure_delete_leader')));
 	}

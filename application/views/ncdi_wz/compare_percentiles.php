@@ -103,6 +103,7 @@
 .google-visualization-controls-label {
 	width: 100px;
 }
+
 .gc-filter {
 	margin-bottom: 5px;
 }

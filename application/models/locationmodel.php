@@ -5,7 +5,7 @@ class LocationModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,14 +15,14 @@ class LocationModel extends CI_Model
 	{
 		return $this->db->get('location')->result();
 	}
-	
+
 	/** Adds a location to the DB */
 	public function add_location($location)
 	{
 		$this->db->insert('location', $location);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the location specified by the id with the details of the location */
 	public function update_location($location_id, $location)
 	{
@@ -41,7 +41,7 @@ class LocationModel extends CI_Model
 	{
 		return $this->db->get_where('location', array('id' => $location_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Experiments
 	/////////////////////////
@@ -52,7 +52,7 @@ class LocationModel extends CI_Model
 		$this->db->where('location_id', $location_id);
 		return $this->db->get('experiment')->result();
 	}
-	
+
 	/** Retrieves a location by the experiment id */
 	public function get_location_by_experiment($experiment)
 	{

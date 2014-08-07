@@ -44,7 +44,7 @@ class Impediment extends CI_Controller
 	public function add_submit($p_id = NULL)
 	{
 		$participant_id = empty($p_id) ? $this->input->post('participant') : $p_id;
-		
+
 		// Run validation
 		if (!$this->validate_impediment($participant_id, empty($p_id)))
 		{
@@ -107,7 +107,7 @@ class Impediment extends CI_Controller
 		$this->form_validation->set_rules('from', lang('from_date'), 'trim|required|callback_check_within_bounds[' . $participant_id . ']');
 		$this->form_validation->set_rules('to', lang('to_date'), 'trim|required|callback_check_within_bounds[' . $participant_id . ']');
 		if ($check_participant) $this->form_validation->set_rules('participant', lang('participant'), 'callback_not_zero');
-		
+
 		return $this->form_validation->run();
 	}
 
@@ -136,7 +136,7 @@ class Impediment extends CI_Controller
 		}
 		return TRUE;
 	}
-	
+
 	/** Checks whether the given parameter is higher than 0 */
 	public function not_zero($value)
 	{
@@ -146,7 +146,7 @@ class Impediment extends CI_Controller
 			return FALSE;
 		}
 		return TRUE;
-	}	
+	}
 
 	/////////////////////////
 	// Table

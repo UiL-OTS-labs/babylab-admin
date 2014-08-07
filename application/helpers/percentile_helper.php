@@ -23,14 +23,14 @@ if (!function_exists('create_percentile_table'))
 
 if (!function_exists('percentile_actions'))
 {
-	/** Possible actions for a caller: delete */ 
-	function percentile_actions($percentile_id) 
+	/** Possible actions for a caller: delete */
+	function percentile_actions($percentile_id)
 	{
 		$CI =& get_instance();
-		
+
 		$edit_link = anchor('percentile/edit/' . $percentile_id, img_edit());
 		$delete_link = anchor('percentile/delete/' . $percentile_id, img_delete(), warning(lang('sure_delete_percentile')));
-		
+
 		return implode(' ', array($edit_link, $delete_link));
 	}
 }

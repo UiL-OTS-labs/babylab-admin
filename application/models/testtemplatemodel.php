@@ -5,7 +5,7 @@ class TestTemplateModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,14 +15,14 @@ class TestTemplateModel extends CI_Model
 	{
 		return $this->db->get('testtemplate')->result();
 	}
-	
+
 	/** Adds a testtemplate to the DB */
 	public function add_testtemplate($testtemplate)
 	{
 		$this->db->insert('testtemplate', $testtemplate);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the testtemplate specified by the id with the details of the testtemplate */
 	public function update_testtemplate($testtemplate_id, $testtemplate)
 	{

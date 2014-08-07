@@ -244,10 +244,10 @@ class Call extends CI_Controller
 	{
 		$comment = $this->input->post('comment');
 		if (empty($comment)) return NULL;
-		
-		$user_id = current_user_id(); 
+
+		$user_id = current_user_id();
 		if (empty($user_id)) $user_id = system_user_id();
-		
+
 		return array(
 				'body'				=> $comment,
 				'participant_id' 	=> $participant_id,

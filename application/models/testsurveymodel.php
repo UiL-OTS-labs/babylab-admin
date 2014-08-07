@@ -5,7 +5,7 @@ class TestSurveyModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,14 +15,14 @@ class TestSurveyModel extends CI_Model
 	{
 		return $this->db->get('testsurvey')->result();
 	}
-	
+
 	/** Adds a testsurvey to the DB */
 	public function add_testsurvey($testsurvey)
 	{
 		$this->db->insert('testsurvey', $testsurvey);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the testsurvey specified by the id with the details of the testsurvey */
 	public function update_testsurvey($testsurvey_id, $testsurvey)
 	{
@@ -35,7 +35,7 @@ class TestSurveyModel extends CI_Model
 	{
 		// Delete references to test invitations
 		$this->db->delete('testinvite', array('testsurvey_id' => $testsurvey_id));
-		
+
 		$this->db->delete('testsurvey', array('id' => $testsurvey_id));
 	}
 
@@ -61,12 +61,12 @@ class TestSurveyModel extends CI_Model
 	{
 		return $this->db->get_where('test', array('id' => $testsurvey->test_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Extra
 	/////////////////////////
-	
-	public function get_testsurveys_by_when($whensent, $whennr = NULL) 
+
+	public function get_testsurveys_by_when($whensent, $whennr = NULL)
 	{
 		$this->db->where('whensent', $whensent);
 		if (!empty($whennr)) $this->db->where('whennr', $whennr);

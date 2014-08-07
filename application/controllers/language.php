@@ -27,13 +27,13 @@ class Language extends CI_Controller
 	public function add_submit($participant_id)
 	{
 		// Run validation
-		if (!$this->validate_language()) 
+		if (!$this->validate_language())
 		{
 			// Show form again with error messages
 			flashdata(validation_errors(), FALSE, 'language_message');
 			redirect($this->agent->referrer(), 'refresh');
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$language = $this->post_language($participant_id);
@@ -86,12 +86,12 @@ class Language extends CI_Controller
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('id', '$1', 'language_actions(id)');
-		
+
 		$this->datatables->unset_column('participant_id');
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_participant($participant_id)
 	{
 		$this->datatables->where('participant_id', $participant_id);

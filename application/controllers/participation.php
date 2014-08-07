@@ -101,9 +101,9 @@ class Participation extends CI_Controller
 			$this->load->view('templates/footer');
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Shows the page for calling a participant
 	 * @param integer $participant_id
 	 * @param integer $experiment_id
@@ -328,7 +328,7 @@ class Participation extends CI_Controller
 		$data['experiment_name'] = $experiment->name;
 		$data['experiment_id'] = $experiment->id;
 		$data = add_fields($data, 'participation', $participation);
-		
+
 		// Interrupted and pp_comment are a bit silly...
 		$data['interrupted'] = '';
 		$data['pp_comment'] = $pp_comment;
@@ -364,7 +364,7 @@ class Participation extends CI_Controller
 				'comment'  		=> $this->input->post('comment')
 			);
 			$this->participationModel->completed($participation_id, $participation);
-			
+				
 			// Add (possible) comment
 			$comment = $this->post_comment($participant->id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
@@ -373,13 +373,13 @@ class Participation extends CI_Controller
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}
 	}
-	
+
 	/** Posts the data for a comment */
 	private function post_comment($participant_id)
 	{
 		$comment = $this->input->post('pp_comment');
 		if (empty($comment)) return NULL;
-		
+
 		return array(
 				'body'				=> $comment,
 				'participant_id' 	=> $participant_id,

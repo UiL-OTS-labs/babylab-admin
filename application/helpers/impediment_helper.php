@@ -31,7 +31,7 @@ if (!function_exists('impediment_dates_by_id'))
 	{
 		$CI =& get_instance();
 		$impediment = $CI->impedimentModel->get_impediment_by_id($impediment_id);
-		
+
 		return impediment_dates($impediment);
 	}
 }
@@ -53,7 +53,7 @@ if (!function_exists('impediment_past_url'))
 	{
 		$include_past_url = array('url' => 'impediment/index/1', 'title' => lang('include_past'));
 		$dont_include_past_url = array(	'url' => 'impediment/index/0', 'title' => lang('not_include_past'));
-		
+
 		return $include_past ? $dont_include_past_url : $include_past_url;
 	}
 }

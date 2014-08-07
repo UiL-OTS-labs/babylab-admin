@@ -3,10 +3,20 @@
 <head>
 <title>404 Page Not Found</title>
 <style type="text/css">
+::selection {
+	background-color: #E13300;
+	color: white;
+}
 
-::selection{ background-color: #E13300; color: white; }
-::moz-selection{ background-color: #E13300; color: white; }
-::webkit-selection{ background-color: #E13300; color: white; }
+::moz-selection {
+	background-color: #E13300;
+	color: white;
+}
+
+::webkit-selection {
+	background-color: #E13300;
+	color: white;
+}
 
 body {
 	background-color: #fff;
@@ -55,7 +65,9 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
+		<h1>
+		<?php echo $heading; ?>
+		</h1>
 		<?php echo $message; ?>
 	</div>
 </body>

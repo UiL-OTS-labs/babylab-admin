@@ -5,7 +5,7 @@ class TestModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,14 +15,14 @@ class TestModel extends CI_Model
 	{
 		return $this->db->get('test')->result();
 	}
-	
+
 	/** Adds a test to the DB */
 	public function add_test($test)
 	{
 		$this->db->insert('test', $test);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the test specified by the id with the details of the test */
 	public function update_test($test_id, $test)
 	{
@@ -35,7 +35,7 @@ class TestModel extends CI_Model
 	{
 		// Delete references to test categories
 		$this->db->delete('testcat', array('test_id' => $test_id));
-		
+
 		$this->db->delete('test', array('id' => $test_id));
 	}
 

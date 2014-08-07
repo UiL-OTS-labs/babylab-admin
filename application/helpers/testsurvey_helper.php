@@ -62,7 +62,7 @@ if (!function_exists('testsurvey_participant_actions'))
 	function testsurvey_participant_actions($testsurvey_id, $participant_id)
 	{
 		$find_link = anchor('testinvite/invite/' . $testsurvey_id . '/' . $participant_id, img_email());
-		
+
 		return implode(' ', array($find_link));
 	}
 }
@@ -139,6 +139,6 @@ if (!function_exists('testsurvey_whensent_options'))
 	function testsurvey_whensent_options()
 	{
 		return array(TestWhenSent::Participation => lcfirst(lang(TestWhenSent::Participation)),
-			TestWhenSent::Months => lang(TestWhenSent::Months));
+		TestWhenSent::Months => lang(TestWhenSent::Months));
 	}
 }

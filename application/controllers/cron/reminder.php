@@ -13,8 +13,8 @@ class Reminder extends CI_Controller
 		$this->load->library(array('input'));
 	}
 
-	/** 
-	 * Sends out reminders for appointments. 
+	/**
+	 * Sends out reminders for appointments.
 	 */
 	public function appointments()
 	{
@@ -27,15 +27,15 @@ class Reminder extends CI_Controller
 		$participations = $this->participationModel->get_confirmed_participations();
 		foreach ($participations as $participation)
 		{
-			$appointment = strtotime($participation->appointment); 
-			if ($appointment > time() && $appointment < strtotime('+1 day')) 
-			{					
+			$appointment = strtotime($participation->appointment);
+			if ($appointment > time() && $appointment < strtotime('+1 day'))
+			{
 				reset_language(L::Dutch);
-				
+
 				$participant = $this->participationModel->get_participant_by_participation($participation->id);
 				$template = file_get_contents('mail/reminder.html');
 				$message = email_replace($template, $participant, $participation);
-		
+
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 				$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
@@ -46,9 +46,9 @@ class Reminder extends CI_Controller
 			}
 		}
 	}
-	
-	/** 
-	 * Sends out reminders for callers. 
+
+	/**
+	 * Sends out reminders for callers.
 	 */
 	public function callers()
 	{

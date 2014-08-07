@@ -47,7 +47,7 @@ class SurveyInvite extends CI_Controller
 						$this->load->model('surveyModel');
 						$this->surveyModel->create_token($participant, $testsurvey->limesurvey_id, $testinvite->token);
 					}
-						
+
 					// Email to participant
 					email_testinvite($participant, $testinvite);
 				}

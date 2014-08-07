@@ -13,10 +13,10 @@ $lang['back']				= "Terug";
 $lang['welcome']			= "Welkom <i>%s</i>!";
 $lang['welcome_admin']		= "Welkom in de administratieve interface van het Babylab call center.";
 $lang['welcome_caller']		= "Welkom in het Babylab call center.";
-$lang['info_caller']		= "U staat ingeschreven als beller voor %s experiment(en) (hieronder weergegeven). 
+$lang['info_caller']		= "U staat ingeschreven als beller voor %s experiment(en) (hieronder weergegeven).
 								Momenteel kunt u %s proefperso(o)n(en) bellen. 
 							   	Kies een van de experimenten hieronder en klik het bel-icoon om te beginnen met bellen.";
-$lang['info_leader']		= "U staat ingeschreven als leider voor %s experiment(en) (hieronder weergegeven). 
+$lang['info_leader']		= "U staat ingeschreven als leider voor %s experiment(en) (hieronder weergegeven).
 							  	Door op het deelname-icoon te klikken ziet u de huidige deelnemers aan het experiment.
 							  	Met het potloodje kunt u de eigenschappen van het experiment wijzigen.";
 $lang['error']				= "Oeps, er ging iets fout...";
@@ -96,7 +96,7 @@ $lang['reset_request_sent'] = "Er is al een verzoek tot wachtwoordherstel voor d
 /* Confirmation */
 $lang['confirmation_sent']	= "Bevestigingsmail verstuurd naar <em>%s</em>.";
 $lang['request_participation_sent']	= "Verzoek tot deelname verstuurd naar <em>%s</em>.";
-		
+
 /* Experiments */
 $lang['experiment'] 		= "Experiment";
 $lang['experiments'] 		= "Experimenten";
@@ -105,6 +105,7 @@ $lang['exp_added']			= "Nieuw experiment succesvol toegevoegd.";
 $lang['edit_experiment'] 	= "Bewerk experiment";
 $lang['exp_edited']			= "Experiment succesvol bewerkt.";
 $lang['type'] 				= "Taaksoort";
+$lang['wbs_number']			= "WBS Nummer";
 $lang['description'] 		= "Taakomschrijving";
 $lang['duration'] 			= "Duur (minuten)";
 $lang['multilingual']		= "Tweetalig";
@@ -120,13 +121,13 @@ $lang['agetodays']			= "Leeftijd tot (dagen)";
 $lang['callable'] 			= "Belbaar";
 $lang['callable_for']		= "Bellen voor <em>%s</em>";
 $lang['data_for_experiment']= "Data voor experiment %s";
-$lang['show_archived_exps'] = "Laat ook gearchiveerde experimenten zien"; 
-$lang['not_show_archived_exps'] = "Laat geen gearchiveerde experimenten zien"; 
+$lang['show_archived_exps'] = "Laat ook gearchiveerde experimenten zien";
+$lang['not_show_archived_exps'] = "Laat geen gearchiveerde experimenten zien";
 $lang['sure_delete_experiment']	= "Weet u zeker dat u dit experiment wilt verwijderen?";
 $lang['deleted_exp']		= "Experiment succesvol verwijderd.";
 $lang['archived_exp']		= "Experiment succesvol gearchiveerd.";
 $lang['unarchived_exp']		= "Experiment succesvol uit het archief gehaald.";
-$lang['age_from_before_to'] = "De 'tot'-leeftijd ligt voor de 'vanaf'-leeftijd."; 
+$lang['age_from_before_to'] = "De 'tot'-leeftijd ligt voor de 'vanaf'-leeftijd.";
 $lang['act_nr_part']		= "Huidig aantal proefpersonen";
 
 /* Relations */
@@ -229,7 +230,7 @@ $lang['never_called']		= "Nog nooit gebeld voor een experiment";
 $lang['never_participated']	= "Nog nooit aan een experiment meegedaan";
 $lang['call_participant']	= "Bel proefpersoon %s";
 $lang['in_conversation']	= "Proefpersoon %s wordt momenteel gebeld";
-$lang['include_callable']	= "Belbare proefpersonen ook tonen"; 
+$lang['include_callable']	= "Belbare proefpersonen ook tonen";
 $lang['exclude_callable']	= "Belbare proefpersonen verbergen";
 $lang['nr_calls']			= "# gebeld";
 $lang['appointment']		= "Afspraak";
@@ -246,7 +247,7 @@ $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows voor %s";
 $lang['completed']			= "Voltooid";
 $lang['complete_part']		= "Deelname voltooien";
-$lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> aan experiment <em>%s</em> voltooien. 
+$lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> aan experiment <em>%s</em> voltooien.
 							   Vul alle velden in alvorens op bevestigen te klikken.";
 $lang['message_left']		= "Bericht achtergelaten?";
 $lang['none']				= "Geen";

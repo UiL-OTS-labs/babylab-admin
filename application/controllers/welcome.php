@@ -8,7 +8,7 @@ class Welcome extends CI_Controller
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
 	}
-	
+
 	/////////////////////////
 	// Caller/Leader redirect
 	/////////////////////////
@@ -32,7 +32,7 @@ class Welcome extends CI_Controller
 				break;
 		}
 	}
-	
+
 	/////////////////////////
 	// Admin interface view
 	/////////////////////////
@@ -44,12 +44,12 @@ class Welcome extends CI_Controller
 		$data['prio_comment_nr'] = count($this->commentModel->get_all_comments(TRUE));
 		$data['call_min_exp'] = count($this->callerModel->get_experiments_without_callers());
 		$data['leader_min_exp'] = count($this->leaderModel->get_experiments_without_leaders());
-		
+
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('admin_interface', $data, UserRole::Admin);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// Caller interface view
 	/////////////////////////
@@ -63,7 +63,7 @@ class Welcome extends CI_Controller
 		$experiments = $this->callerModel->get_experiments_by_caller($user_id);
 
 		$nr_participants = 0;
-		foreach ($experiments as $e) 
+		foreach ($experiments as $e)
 		{
 			$nr_participants += count($this->participantModel->find_participants($e));
 		}
@@ -78,11 +78,11 @@ class Welcome extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Caller);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// Leader interface view
 	/////////////////////////
-	
+
 	/** Specifies the content for the caller interface view. */
 	public function leader_interface($user_id)
 	{

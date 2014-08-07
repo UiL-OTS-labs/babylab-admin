@@ -1,9 +1,14 @@
 <script type="text/javascript" src="js/score.js"></script>
-<script type="text/javascript" src="js/testcats_filter_score.js"></script>
-<script type="text/javascript" src="js/testsurveys_filter.js"></script>
-<script type="text/javascript" src="js/participants_filter.js"></script>
+<script
+	type="text/javascript" src="js/testcats_filter_score.js"></script>
+<script
+	type="text/javascript" src="js/testsurveys_filter.js"></script>
+<script
+	type="text/javascript" src="js/participants_filter.js"></script>
 
-<h2><?=lang('scores'); ?></h2>
+<h2>
+<?=lang('scores'); ?>
+</h2>
 
 <?=$this->session->flashdata('message'); ?>
 
@@ -26,13 +31,13 @@
 	}
 	echo form_input_and_label('participant');
 	echo form_hidden('participant_id', $participant_id);
-} else { 
+} else {
 	echo form_input_and_label('test', $test->name, 'readonly');
 	echo form_input_and_label('testcat', testcat_code_name($testcat), 'readonly');
 	echo form_input_and_label('participant', name($participant), 'readonly');
 	echo form_input_and_label('testsurvey', testsurvey_when($testsurvey->whensent, $testsurvey->whennr), 'readonly');
 } ?>
-	
+
 <?=form_input_and_label('score', $score, 'class="positive-integer"'); ?>
 <?=form_input_and_label('date', $date, 'id="score_datepicker"'); ?>
 

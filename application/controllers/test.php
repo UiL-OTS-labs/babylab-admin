@@ -121,8 +121,8 @@ class Test extends CI_Controller
 	// Results
 	/////////////////////////
 
-	/** 
-	 * 
+	/**
+	 *
 	 * Specifies the contents of the result page.
 	 * @deprecated
 	 * @param int $testinvite_id

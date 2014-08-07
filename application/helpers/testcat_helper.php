@@ -65,8 +65,8 @@ if (!function_exists('testcat_get_link_by_id'))
 
 if (!function_exists('testcat_actions'))
 {
-	/** Possible actions for a testcat: prioritize and delete */ 
-	function testcat_actions($testcat_id) 
+	/** Possible actions for a testcat: prioritize and delete */
+	function testcat_actions($testcat_id)
 	{
 		$CI =& get_instance();
 		$scores = $CI->scoreModel->get_scores_by_testcat($testcat_id);
@@ -74,8 +74,8 @@ if (!function_exists('testcat_actions'))
 		$edit_link = anchor('testcat/edit/' . $testcat_id, img_edit());
 		$score_link = count($scores) > 0 ? anchor('score/testcat/' . $testcat_id, img_scores()) : img_scores(TRUE);
 		$delete_link = anchor('testcat/delete/' . $testcat_id, img_delete(), warning(lang('sure_delete_testcat')));
-		
-		return implode(' ', array($edit_link, $score_link, $delete_link));	
+
+		return implode(' ', array($edit_link, $score_link, $delete_link));
 	}
 }
 

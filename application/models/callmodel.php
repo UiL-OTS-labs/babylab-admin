@@ -5,7 +5,7 @@ class CallModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,13 +15,13 @@ class CallModel extends CI_Model
 	{
 		return $this->db->get('call')->result();
 	}
-	
+
 	/** Creates a call, returns the id of the created call */
 	public function create_call($participation_id)
 	{
 		$previous_call = $this->last_call($participation_id);
-		$nr = empty($previous_call) ? 1 : $previous_call->nr + 1; 
-		
+		$nr = empty($previous_call) ? 1 : $previous_call->nr + 1;
+
 		$call = array(
 				'participation_id'	=> $participation_id,
 				'user_id'			=> current_user_id(),
@@ -31,7 +31,7 @@ class CallModel extends CI_Model
 		$this->db->insert('call', $call);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the call specified by the id with the details of the call */
 	public function update_call($call_id, $call)
 	{
@@ -50,7 +50,7 @@ class CallModel extends CI_Model
 	{
 		return $this->db->get_where('call', array('id' => $call_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Participations
 	/////////////////////////
@@ -61,14 +61,14 @@ class CallModel extends CI_Model
 		$this->db->where('participation', $participation_id);
 		return $this->db->get('call')->result();
 	}
-	
+
 	/** Retrieves a call by the participation id */
 	public function get_participation_by_call($call_id)
 	{
 		$call = $this->get_call_by_id($call_id);
 		return $this->db->get_where('participation', array('id' => $call->participation_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Ending a call
 	/////////////////////////
@@ -82,11 +82,11 @@ class CallModel extends CI_Model
 			'timeend' 		=> input_datetime()
 		));
 	}
-	
+
 	/////////////////////////
 	// Helpers
 	/////////////////////////
-	
+
 	/** Returns the date on and experiment for which the given participant was last called */
 	public function last_call($participation_id)
 	{
@@ -94,7 +94,7 @@ class CallModel extends CI_Model
 		$this->db->order_by('timestart', 'DESC');
 		$this->db->limit(1);
 		$call = $this->db->get('call')->row();
-		
+
 		return empty($call) ? NULL : $call;
 	}
 }

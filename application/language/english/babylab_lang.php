@@ -13,7 +13,7 @@ $lang['back']				= "Back";
 $lang['welcome']			= "Welcome <i>%s</i>!";
 $lang['welcome_admin']		= "Welcome to the administrative interface of the Babylab call center.";
 $lang['welcome_caller']		= "Welcome to the caller interface of the Babylab call center.";
-$lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown below). 
+$lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown below).
 								Curerntly you can call %s participant(s). 
 							   	Choose one of the experiments below and click the phone icon to start calling.";
 $lang['info_leader']		= "You are enrolled as leader for %s experiment(s) (shown below).";
@@ -50,7 +50,7 @@ $lang['no_results_found']	= "No results found.";
 /* Register */
 $lang['register']			= "Register";
 $lang['register_finish']	= "Thanks for your registration!";
-$lang['register_info']		= "Your registration has been processed. 
+$lang['register_info']		= "Your registration has been processed.
 								Click " . anchor(base_url(), 'here') . " to return to the Babylab Utrecht website.";
 $lang['deregister']			= "Deregister";
 $lang['deregister_finish']	= "Thank you for your deregistration!";
@@ -74,7 +74,7 @@ $lang['reason']				= "Reason for unregistration";
 
 /* Mails */
 $lang['mail_heading']		= "Dear %s,";
-$lang['mail_ending']		= "Thanks, Babylab Utrecht"; 
+$lang['mail_ending']		= "Thanks, Babylab Utrecht";
 $lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab call center reminder";
@@ -105,6 +105,7 @@ $lang['exp_added']			= "New experiment successfully added.";
 $lang['edit_experiment'] 	= "Edit experiment";
 $lang['exp_edited']			= "Experiment successfully edited.";
 $lang['type'] 				= "Task type";
+$lang['wbs_number']			= "WBS Number";
 $lang['description'] 		= "Task description";
 $lang['duration'] 			= "Duration";
 $lang['multilingual']		= "Multilingual";
@@ -120,13 +121,13 @@ $lang['agetodays']			= "Age range to (days)";
 $lang['callable'] 			= "Callable";
 $lang['callable_for']		= "Participants callable for experiment %s";
 $lang['data_for_experiment']= "Data for experiment %s";
-$lang['show_archived_exps'] = "Show archived experiments"; 
-$lang['not_show_archived_exps'] = "Don't show archived experiments"; 
+$lang['show_archived_exps'] = "Show archived experiments";
+$lang['not_show_archived_exps'] = "Don't show archived experiments";
 $lang['sure_delete_experiment']	= "Are you sure you want to delete this experiment?";
 $lang['deleted_exp']		= "Deleted experiment successfully.";
 $lang['archived_exp']		= "Archived experiment successfully.";
 $lang['unarchived_exp']		= "Acitvated experiment successfully.";
-$lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range."; 
+$lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range.";
 $lang['act_nr_part']		= "Current number of participants";
 
 /* Relations */
@@ -153,7 +154,7 @@ $lang['roomnumber']			= "Room number";
 $lang['caller'] 			= "Caller";
 $lang['callers']	 		= "Callers";
 $lang['callers_for_exp']	= "Callers for experiment %s";
-$lang['call_info'] 			= "You are now calling for experiment %s. 
+$lang['call_info'] 			= "You are now calling for experiment %s.
 								Participants are shown that can participate in two weeks from now.  
 								Choose one of the participants below and click on the phone icon to proceed.";
 $lang['call_participants']	= "Call participants";
@@ -229,7 +230,7 @@ $lang['never_called']		= "Never called for an experiment";
 $lang['never_participated']	= "Never participated in an experiment";
 $lang['call_participant']	= "Call participant %s";
 $lang['in_conversation']	= "Participant %s is being called right now";
-$lang['include_callable']	= "Include callable participants"; 
+$lang['include_callable']	= "Include callable participants";
 $lang['exclude_callable']	= "Exclude callable participants";
 $lang['nr_calls']			= "Number of calls";
 $lang['appointment']		= "Appointment";
@@ -246,7 +247,7 @@ $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows for %s";
 $lang['completed']			= "Completed";
 $lang['complete_part']		= "Complete participation";
-$lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>. 
+$lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>.
 							   Please complete all the fields before confirming.";
 $lang['message_left']		= "Left a message?";
 $lang['none']				= "None";

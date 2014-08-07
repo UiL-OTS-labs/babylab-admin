@@ -6,8 +6,8 @@
 
 if (!function_exists('create_dyslexia_table'))
 {
-	/** Creates the table with dyslexia data */ 
-	function create_dyslexia_table($id = NULL) 
+	/** Creates the table with dyslexia data */
+	function create_dyslexia_table($id = NULL)
 	{
 		$CI =& get_instance();
 		base_table($id);
@@ -17,12 +17,12 @@ if (!function_exists('create_dyslexia_table'))
 
 if (!function_exists('dyslexia_actions'))
 {
-	/** Possible actions for a dyslexia: prioritize and delete */ 
-	function dyslexia_actions($dyslexia_id) 
+	/** Possible actions for a dyslexia: prioritize and delete */
+	function dyslexia_actions($dyslexia_id)
 	{
 		$edit_link = anchor('dyslexia/edit/' . $dyslexia_id, img_edit());
 		$delete_link = anchor('dyslexia/delete/' . $dyslexia_id, img_delete(), warning(lang('sure_delete_dyslexia')));
-		
+
 		return implode(' ', array($edit_link, $delete_link));
 	}
 }

@@ -33,17 +33,17 @@ class Caller extends CI_Controller
 	public function delete($caller_id)
 	{
 		/*if (!$this->authenticate->authenticate_session('admin'))
-		{
+		 {
 			flashdata('Access denied', false);
 			redirect($this->agent->referrer(), 'refresh');
-		}*/
-		
+			}*/
+
 		$this->callerModel->delete_caller($caller_id);
 		flashdata(lang('deleted_caller'));
 		redirect($this->agent->referrer(), 'refresh');
-		
+
 	}
-	
+
 	/////////////////////////
 	// Other views
 	/////////////////////////
@@ -52,9 +52,9 @@ class Caller extends CI_Controller
 	public function experiment($experiment_id)
 	{
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
-		
+
 		if (empty($experiment)) return;
-		
+
 		create_caller_table();
 		$data['ajax_source'] = 'caller/table_by_experiment/' . $experiment_id;
 		$data['page_title'] = sprintf(lang('callers_for_exp'), $experiment->name);
@@ -64,25 +64,25 @@ class Caller extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// Table
 	/////////////////////////
-	
+
 	/** Creates the table with caller data */
 	public function table()
 	{
 		$this->datatables->select('experiment_id, user_id_caller, id');
 		$this->datatables->from('caller');
-		
+
 		$this->datatables->edit_column('experiment_id', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('user_id_caller', '$1', 'user_get_link_by_id(user_id_caller)');
 		$this->datatables->edit_column('id', '$1', 'caller_actions(id)');
-		
+
 		echo $this->datatables->generate();
 	}
-	
-	public function table_by_experiment($experiment_id) 
+
+	public function table_by_experiment($experiment_id)
 	{
 		$this->datatables->where('experiment_id', $experiment_id);
 		//$this->datatables->unset_column('experiment_id');
