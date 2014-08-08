@@ -106,13 +106,13 @@ class LeaderModel extends CI_Model
 		$leaders = $this->db->get('leader')->result();
 
 		$experiments = array();
-		foreach ($leaders as $c) 
+		foreach ($leaders as $c)
 		{
 			array_push($experiments, $this->experimentModel->get_experiment_by_id($c->experiment_id));
 		}
 		return $experiments;
 	}
-	
+
 	/** Returns all experiment id's for a leader */
 	public function get_experiment_ids_by_leader($user_id)
 	{
@@ -126,9 +126,9 @@ class LeaderModel extends CI_Model
 		$experiments = $this->experimentModel->get_all_experiments();
 
 		$result = array();
-		foreach ($experiments as $experiment) 
+		foreach ($experiments as $experiment)
 		{
-			if ($this->count_leaders($experiment->id) == 0) 
+			if ($this->count_leaders($experiment->id) == 0)
 			{
 				array_push($result, $experiment);
 			}
@@ -140,7 +140,7 @@ class LeaderModel extends CI_Model
 	public function update_leaders($experiment_id, $leaders)
 	{
 		$current_leader_ids = $this->get_leader_ids_by_experiment($experiment_id);
-		
+
 		$leaders = empty($leaders) ? array() : $leaders;
 		foreach ($leaders as $leader_id)
 		{

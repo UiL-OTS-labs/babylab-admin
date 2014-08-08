@@ -49,7 +49,7 @@ if (!function_exists('testinvite_actions'))
 	{
 		$CI =& get_instance();
 		$scores = $CI->scoreModel->get_scores_by_testinvite($testinvite_id);
-		
+
 		$score_link = anchor('score/testinvite/' . $testinvite_id, img_scores(empty($scores)));
 		$edit_link = anchor('testinvite/edit/' . $testinvite_id, img_edit());
 		$delete_link = anchor('testinvite/delete/' . $testinvite_id, img_delete(), warning(lang('sure_delete_testinvite')));

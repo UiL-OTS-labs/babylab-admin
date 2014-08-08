@@ -5,7 +5,7 @@ class NCDICheckModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,7 +15,7 @@ class NCDICheckModel extends CI_Model
 	{
 		return $this->db->get('ncdi_check')->result();
 	}
-	
+
 	/** Adds a NCDI check to the DB */
 	public function add_ncdi_check($ncdi_check)
 	{

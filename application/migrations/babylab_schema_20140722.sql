@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `experiment` (
   `location_id` int(11) NOT NULL,
   `name` varchar(200) NOT NULL,
   `type` varchar(100) NOT NULL,
+  `wbs_number` varchar(15) NOT NULL,
   `description` varchar(2000) NOT NULL,
   `duration` int(11) NOT NULL,
   `timecreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -53,15 +53,15 @@ class TestCatModel extends CI_Model
 	{
 		return $this->db->get_where('testcat', array('id' => $testcat_id))->row();
 	}
-	
+
 	/** Returns the testcat for a test and a code (unique key) */
 	public function get_testcat_by_code($test, $code)
 	{
 		return $this->db->get_where('testcat', array('test_id' => $test->id, 'code' => $code))->row();
 	}
-	
+
 	/** Returns the testcat for a test and a limesurvey question id (unique key) */
-	public function get_testcat_by_question_id($test, $question_id) 
+	public function get_testcat_by_question_id($test, $question_id)
 	{
 		return $this->db->get_where('testcat', array('test_id' => $test->id, 'limesurvey_question_id' => $question_id))->row();
 	}
@@ -138,20 +138,20 @@ class TestCatModel extends CI_Model
 	{
 		$children = $this->get_children($testcat_id);
 		$children_ids = get_object_ids($children);
-		
+
 		$this->db->select_sum('score');
 		$this->db->select_max('date');
 		$this->db->where_in('testcat_id', $children_ids);
 		$this->db->where('testinvite_id', $testinvite_id);
 		return $this->db->get('score')->row();
 	}
-	
+
 	/** Returns the total score (an array) for a testcat per participant */
 	public function total_score_per_testinvite($testcat_id)
 	{
 		$children = $this->get_children($testcat_id);
 		$children_ids = get_object_ids($children);
-		
+
 		$this->db->select('testinvite_id');
 		$this->db->select_sum('score');
 		$this->db->select_max('date');
@@ -159,7 +159,7 @@ class TestCatModel extends CI_Model
 		$this->db->group_by('testinvite_id');
 		return $this->db->get('score')->result();
 	}
-	
+
 	/** Returns the average score for a testcat */
 	public function avg_score($testcat_id)
 	{

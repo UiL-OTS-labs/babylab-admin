@@ -19,7 +19,9 @@ $lang['ut_object']			= 'Object';
 $lang['ut_resource']		= 'Resource';
 $lang['ut_null']			= 'Null';
 $lang['ut_notes']			= 'Notes';
-
+$lang['ut_double']			= 'Double';
+$lang['ut_line']			= 'Line number';
+$lang['ut_file']			= 'File name';
 
 /* End of file unit_test_lang.php */
 /* Location: ./system/language/english/unit_test_lang.php */

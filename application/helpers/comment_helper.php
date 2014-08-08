@@ -6,8 +6,8 @@
 
 if (!function_exists('create_comment_table'))
 {
-	/** Creates the table with comment data */ 
-	function create_comment_table($id = NULL) 
+	/** Creates the table with comment data */
+	function create_comment_table($id = NULL)
 	{
 		$CI =& get_instance();
 		base_table($id);
@@ -17,15 +17,15 @@ if (!function_exists('create_comment_table'))
 
 if (!function_exists('comment_actions'))
 {
-	/** Possible actions for a comment: prioritize and delete */ 
-	function comment_actions($comment_id) 
+	/** Possible actions for a comment: prioritize and delete */
+	function comment_actions($comment_id)
 	{
 		$CI =& get_instance();
 		$c = $CI->commentModel->get_comment_by_id($comment_id);
-		
+
 		$prio_link = anchor('comment/prioritize/' . $c->id . ($c->priority ? '/0' : ''), img_star(!$c->priority));
 		$d_link = anchor('comment/delete/' . $c->id, img_delete(), warning(lang('sure_delete_comment')));
-		
+
 		return $prio_link . ' ' . $d_link;
 	}
 }

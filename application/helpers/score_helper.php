@@ -44,7 +44,7 @@ if (!function_exists('create_total_score_table'))
 				if ($score->score > 0)
 				{
 					$p = $CI->testInviteModel->get_participant_by_testinvite($ti);
-					
+						
 					$score_age = age_in_months($p, $score->date);
 					$p_link = participant_get_link($p);
 					$percentile = $CI->percentileModel->find_percentile($tc->id, $p->gender, $score_age, $score->score);
@@ -71,7 +71,7 @@ if (!function_exists('create_ncdi_score_array'))
 	function create_ncdi_score_array($test, $testinvite)
 	{
 		$CI =& get_instance();
-		
+
 		$testcats = $CI->testCatModel->get_testcats_by_test($test->id, TRUE);
 		$result = array();
 		foreach ($testcats as $tc)
@@ -82,7 +82,7 @@ if (!function_exists('create_ncdi_score_array'))
 			if ($score->score > 0)
 			{
 				$participant = $CI->testInviteModel->get_participant_by_testinvite($testinvite);
-				
+
 				$score_age = age_in_months($participant, $score->date);
 				$percentile = $CI->percentileModel->find_percentile($tc->id, $participant->gender, $score_age, $score->score);
 				$language_age = $CI->percentileModel->find_50percentile_age($tc->id, $participant->gender, $score->score);
@@ -110,18 +110,18 @@ if (!function_exists('create_ncdi_table'))
 
 		$tmpl = array (
 				'table_open'	=> '<table class="pure-table">'
-		);
+				);
 
-		$CI->table->set_template($tmpl);
-		$CI->table->set_empty("&nbsp;");
-		$CI->table->set_heading(lang('testcat'), lang('raw_score'), lang('percentile'), lang('language_age'));
+				$CI->table->set_template($tmpl);
+				$CI->table->set_empty("&nbsp;");
+				$CI->table->set_heading(lang('testcat'), lang('raw_score'), lang('percentile'), lang('language_age'));
 
-		foreach ($scores as $score)
-		{
-			$CI->table->add_row($score['name'], $score['score'], $score['percentile'], $score['age'] . ' ' . lang('months'));
-		}
+				foreach ($scores as $score)
+				{
+					$CI->table->add_row($score['name'], $score['score'], $score['percentile'], $score['age'] . ' ' . lang('months'));
+				}
 
-		return $CI->table->generate();
+				return $CI->table->generate();
 	}
 }
 

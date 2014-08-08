@@ -1,4 +1,6 @@
-<h2><?=lang('users'); ?></h2>
+<h2>
+<?=lang('users'); ?>
+</h2>
 
 <?=form_open('user/change_password_submit/' . $user_id, array('class' => 'pure-form pure-form-aligned')); ?>
 <?=form_fieldset($page_title); ?>

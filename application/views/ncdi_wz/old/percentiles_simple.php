@@ -38,7 +38,9 @@
 	}
 </script>
 
-<h2><?=lang('percentiles'); ?></h2>
+<h2>
+<?=lang('percentiles'); ?>
+</h2>
 <!--Div that will hold the dashboard-->
 <div id="dashboard_div">
 	<!--Divs that will hold each control and chart-->

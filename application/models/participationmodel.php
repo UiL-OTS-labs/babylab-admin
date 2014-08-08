@@ -5,7 +5,7 @@ class ParticipationModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -19,15 +19,15 @@ class ParticipationModel extends CI_Model
 	/** Returns all participations that have been confirmed, but no other action has been taken */
 	public function get_confirmed_participations($experiments = array())
 	{
-		if (!empty($experiments)) 
+		if (!empty($experiments))
 		{
 			$this->db->where_in('experiment_id', get_object_ids($experiments));
 		}
-		
+
 		$this->db->where(array('confirmed' => 1, 'cancelled' => 0, 'noshow' => 0, 'completed' => 0));
 		return $this->db->get('participation')->result();
 	}
-	
+
 	/** Returns all participations that have been confirmed and completed */
 	public function get_completed_participations()
 	{
@@ -42,7 +42,7 @@ class ParticipationModel extends CI_Model
 		if ($experiment->dyslexic) $risk = !empty($participant->dyslexicparent);
 		if ($experiment->multilingual) $risk = $participant->multilingual;
 		if ($experiment->dyslexic && $experiment->multilingual) $risk = !empty($participant->dyslexicparent) && $participant->multilingual;
-		
+
 		$participation = array(
 				'experiment_id'  => $experiment->id,
 				'participant_id' => $participant->id,
@@ -57,7 +57,7 @@ class ParticipationModel extends CI_Model
 	{
 		// Delete references to calls
 		$this->db->delete('call', array('participation_id' => $participation_id));
-		
+
 		$this->db->delete('participation', array('id' => $participation_id));
 	}
 
@@ -89,7 +89,7 @@ class ParticipationModel extends CI_Model
 		$this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
 		return $this->db->get('participation')->result();
 	}
-	
+
 	/** Retrieves an experiment by the participation id */
 	public function get_experiment_by_participation($participation_id)
 	{
@@ -109,7 +109,7 @@ class ParticipationModel extends CI_Model
 		if ($exclude_empty) $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
 		return $this->db->get('participation')->result();
 	}
-	
+
 	/** Retrieves a participant by the participation id */
 	public function get_participant_by_participation($participation_id)
 	{
@@ -117,19 +117,19 @@ class ParticipationModel extends CI_Model
 		$p_id = $participation->participant_id;
 		return $this->db->get_where('participant', array('id' => $p_id))->row();
 	}
-	
+
 	/////////////////////////
 	// No-shows
 	/////////////////////////
-	
+
 	/** Retrieves a sum of participations for an experiment, given a count column */
 	public function count_participations($count_column, $experiment_id = NULL)
 	{
 		$this->db->select('participant_id');
 		$this->db->select_sum($count_column, 'count_column');
 		if (isset($experiment_id)) $this->db->where('experiment_id', $experiment_id);
-		$this->db->group_by('participant_id'); 
-		$this->db->having('count_column > 0'); 
+		$this->db->group_by('participant_id');
+		$this->db->having('count_column > 0');
 
 		return $this->db->get('participation')->result();
 	}
@@ -246,12 +246,12 @@ class ParticipationModel extends CI_Model
 		}
 		return TRUE;
 	}
-	
+
 	/** Checks whether there is a lock for the current participant */
 	public function is_locked_participant($participant_id, $experiment_id)
 	{
 		$participations = $this->get_participations_by_participant($participant_id);
-		foreach ($participations as $participation) 
+		foreach ($participations as $participation)
 		{
 			if ($participation->experiment_id == $experiment_id) continue;
 			if ($this->is_locked($participation)) return TRUE;

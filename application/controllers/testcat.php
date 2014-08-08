@@ -32,7 +32,7 @@ class TestCat extends CI_Controller
 	public function get($testcat_id)
 	{
 		$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
-		
+
 		$data['testcat'] = $testcat;
 		$data['test'] = $this->testCatModel->get_test_by_testcat($testcat);
 		$data['page_title'] = sprintf(lang('data_for_testcat'), $testcat->name);
@@ -63,7 +63,7 @@ class TestCat extends CI_Controller
 		$data['new_testcat'] = TRUE;
 		$data['action'] = 'testcat/add_submit';
 		$data = add_fields($data, 'testcat');
-		
+
 		$data['test_id'] = $test_id;
 		$data['testcat_id'] = $testcat_id;
 
@@ -76,12 +76,12 @@ class TestCat extends CI_Controller
 	public function add_submit()
 	{
 		// Run validation
-		if (!$this->validate_testcat(TRUE)) 
+		if (!$this->validate_testcat(TRUE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->add($this->input->post('test'), $this->input->post('parent_testcat'));
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$testcat = $this->post_testcat(TRUE);
@@ -116,12 +116,12 @@ class TestCat extends CI_Controller
 	public function edit_submit($testcat_id)
 	{
 		// Run validation
-		if (!$this->validate_testcat(FALSE)) 
+		if (!$this->validate_testcat(FALSE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->edit($testcat_id);
 		}
-		else 
+		else
 		{
 			// If succeeded, update data into database
 			$testcat = $this->post_testcat(FALSE);
@@ -147,7 +147,7 @@ class TestCat extends CI_Controller
 
 	/** Validates a testcat */
 	private function validate_testcat($new_testcat)
-	{		
+	{
 		if ($new_testcat)
 		{
 			$this->form_validation->set_rules('test', lang('test'), 'callback_not_zero');
@@ -164,8 +164,8 @@ class TestCat extends CI_Controller
 	{
 		if ($new_testcat)
 		{
-			$parent = $this->input->post('parent_testcat'); 
-			
+			$parent = $this->input->post('parent_testcat');
+				
 			return array(
 				'test_id'	=> $this->input->post('test'),
 				'parent_id'	=> $parent == 'null' ? NULL : $parent,
@@ -181,11 +181,11 @@ class TestCat extends CI_Controller
 			);
 		}
 	}
-	
+
 	/////////////////////////
 	// Callbacks
 	/////////////////////////
-	
+
 	/** Checks whether the given parameter is higher than 0 */
 	public function not_zero($value)
 	{
@@ -195,12 +195,12 @@ class TestCat extends CI_Controller
 			return FALSE;
 		}
 		return TRUE;
-	}	
-	
+	}
+
 	/////////////////////////
 	// Helpers
 	/////////////////////////
-	
+
 	/** Filters the testcats by test on the add page. */
 	public function filter_testcats()
 	{
@@ -208,7 +208,7 @@ class TestCat extends CI_Controller
 		$testcats = $this->testCatModel->get_testcats_by_test($test_id, TRUE);
 		echo form_dropdown_and_label('testcat', testcat_options($testcats));
 	}
-	
+
 	/////////////////////////
 	// Table
 	/////////////////////////
@@ -222,24 +222,24 @@ class TestCat extends CI_Controller
 		$this->datatables->edit_column('t', '$1', 'test_get_link_by_id(test_id)');
 		$this->datatables->edit_column('name', '$1', 'testcat_get_link_by_id(id)');
 		$this->datatables->edit_column('id', '$1', 'testcat_actions(id)');
-		
+
 		$this->datatables->unset_column('test_id');
-		
+
 		echo $this->datatables->generate();
 	}
-	
-	public function table_roots($test_id = NULL) 
+
+	public function table_roots($test_id = NULL)
 	{
 		$this->datatables->where('parent_id', NULL);
-		if (!empty($test_id)) 
+		if (!empty($test_id))
 		{
 			$this->datatables->where('test_id', $test_id);
 			$this->datatables->unset_column('t');
 		}
 		$this->table();
 	}
-	
-	public function table_children($testcat_id) 
+
+	public function table_children($testcat_id)
 	{
 		$this->datatables->where('parent_id', $testcat_id);
 		$this->datatables->unset_column('t');

@@ -49,7 +49,7 @@ class Relation extends CI_Controller
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_experiment($experiment_id)
 	{
 		$this->datatables->where('experiment_id = ' . $experiment_id . ' OR rel_exp_id = ' . $experiment_id);

@@ -152,14 +152,14 @@ class ParticipantModel extends CI_Model
 	{
 		$this->db->from('participant AS p', FALSE);
 		$this->db->where('activated', TRUE);
-		
+
 		// Participants should not already invited for this particular survey
 		$this->db->where('NOT EXISTS
 					(SELECT 1
 					FROM 	testinvite AS ti
 					WHERE	ti.participant_id = p.id
 					AND 	ti.testsurvey_id  = ' . $testsurvey->id . ')', NULL, FALSE);
-		
+
 		// Check whether the age / the number of participations is according to the testsurvey
 		if ($testsurvey->whensent == TestWhenSent::Months)
 		{

@@ -72,7 +72,7 @@ class TestInvite extends CI_Controller
 		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 
-		// Create the token in LimeSurvey (if we're on production) 
+		// Create the token in LimeSurvey (if we're on production)
 		if (!SURVEY_DEV_MODE)
 		{
 			$this->load->model('surveyModel');

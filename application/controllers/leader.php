@@ -56,25 +56,25 @@ class Leader extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/////////////////////////
 	// Table
 	/////////////////////////
-	
+
 	/** Creates the table with leader data */
 	public function table()
 	{
 		$this->datatables->select('experiment_id, user_id_leader, id');
 		$this->datatables->from('leader');
-		
+
 		$this->datatables->edit_column('experiment_id', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('user_id_leader', '$1', 'user_get_link_by_id(user_id_leader)');
 		$this->datatables->edit_column('id', '$1', 'leader_actions(id)');
-		
+
 		echo $this->datatables->generate();
 	}
-	
-	public function table_by_experiment($experiment_id) 
+
+	public function table_by_experiment($experiment_id)
 	{
 		$this->datatables->where('experiment_id', $experiment_id);
 		//$this->datatables->unset_column('experiment_id');

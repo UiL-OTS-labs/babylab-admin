@@ -19,8 +19,8 @@ if (!function_exists('create_caller_table'))
 
 if (!function_exists('caller_actions'))
 {
-	/** Possible actions for a caller: delete */ 
-	function caller_actions($caller_id) 
+	/** Possible actions for a caller: delete */
+	function caller_actions($caller_id)
 	{
 		return anchor('caller/delete/' . $caller_id, img_delete(), warning(lang('sure_delete_caller')));
 	}

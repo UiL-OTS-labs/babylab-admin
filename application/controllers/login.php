@@ -72,7 +72,7 @@ class Login extends CI_Controller
 	public function validate($language)
 	{
 		reset_language($language);
-		
+
 		// Set validation rules
 		$this->form_validation->set_rules('username', lang('username'), 'trim|required|callback_authenticate');
 		$this->form_validation->set_rules('password', lang('password'), 'trim|required');
@@ -130,7 +130,7 @@ class Login extends CI_Controller
 			}
 		}
 		// If there is no database result found, destroy the session
-		else 
+		else
 		{
 			$this->session->sess_destroy();
 			return FALSE;

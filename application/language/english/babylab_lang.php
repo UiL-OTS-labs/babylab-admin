@@ -13,10 +13,12 @@ $lang['back']				= "Back";
 $lang['welcome']			= "Welcome <i>%s</i>!";
 $lang['welcome_admin']		= "Welcome to the administrative interface of the Babylab call center.";
 $lang['welcome_caller']		= "Welcome to the caller interface of the Babylab call center.";
-$lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown below). 
+$lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown below).
 								Curerntly you can call %s participant(s). 
 							   	Choose one of the experiments below and click the phone icon to start calling.";
 $lang['info_leader']		= "You are enrolled as leader for %s experiment(s) (shown below).";
+
+
 $lang['error']				= "Whoops, something clearly went wrong here...";
 $lang['activate']			= "Activate";
 $lang['archive']			= "Archive";
@@ -28,6 +30,9 @@ $lang['date']				= "Date";
 $lang['select']				= "Select...";
 $lang['boxplot']			= "Boxplot";
 $lang['submit']				= "Submit";
+$lang['inspect']	 		= "Inspect";
+$lang['status']	 			= "Status";
+$lang['here']	 			= "Here";
 
 $lang['yes']				= "Yes";
 $lang['no']					= "No";
@@ -45,8 +50,13 @@ $lang['no_results_found']	= "No results found.";
 /* Register */
 $lang['register']			= "Register";
 $lang['register_finish']	= "Thanks for your registration!";
-$lang['register_info']		= "Your registration has been processed. 
+$lang['register_info']		= "Your registration has been processed.
 								Click " . anchor(base_url(), 'here') . " to return to the Babylab Utrecht website.";
+$lang['deregister']			= "Deregister";
+$lang['deregister_finish']	= "Thank you for your deregistration!";
+$lang['deregister_info']	= "Your request for deregistering will be processed. In case we have some questions for you regarding your deregistration, we may contact you.";
+
+$lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
 
 /* Login page */
 $lang['login'] 				= "Log in";
@@ -59,10 +69,12 @@ $lang['forgot_pw_sent']		= "Password reset request successfully sent to %s.";
 $lang['unknown_email']		= "Unknown e-mail address. Please try again.";
 $lang['reg_user'] 			= "User registration";
 $lang['reg_pp'] 			= "Participant registration";
+$lang['dereg_pp'] 			= "Unregister as participant.";
+$lang['reason']				= "Reason for unregistration";
 
 /* Mails */
 $lang['mail_heading']		= "Dear %s,";
-$lang['mail_ending']		= "Thanks, Babylab Utrecht"; 
+$lang['mail_ending']		= "Thanks, Babylab Utrecht";
 $lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab call center reminder";
@@ -71,6 +83,9 @@ $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participan
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab: participant registration";
 $lang['reg_pp_body'] 		= "A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface.";
+/* Deregistration of participants */
+$lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
+$lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
 /* Registration of users */
 $lang['reg_user_subject'] 	= "Babylab: user registration";
 $lang['reg_user_body'] 		= "A new user has been registered: %s (e-mail.: %s). You're able to activate or delete this participant in the administration interface.";
@@ -78,6 +93,9 @@ $lang['reg_user_body'] 		= "A new user has been registered: %s (e-mail.: %s). Yo
 $lang['resetpw_subject'] 	= "Reset password request";
 $lang['resetpw_body'] 		= "You send a reset password request. You can change your password at %s.";
 $lang['reset_request_sent'] = "Already sent a reset request for this e-mail. Please check or your inbox. If you didn't receive a mail, contact an administator.";
+/* Confirmation */
+$lang['confirmation_sent']	= "A confirmation e-mail was sent to <em>%s</em>.";
+$lang['request_participation_sent']	= "A participation request was sent to <em>%s</em>.";
 
 /* Experiments */
 $lang['experiment'] 		= "Experiment";
@@ -86,32 +104,57 @@ $lang['add_experiment'] 	= "Add experiment";
 $lang['exp_added']			= "New experiment successfully added.";
 $lang['edit_experiment'] 	= "Edit experiment";
 $lang['exp_edited']			= "Experiment successfully edited.";
+$lang['type'] 				= "Task type";
+$lang['wbs_number']			= "WBS Number";
 $lang['description'] 		= "Task description";
 $lang['duration'] 			= "Duration";
-$lang['location'] 			= "Location";
 $lang['multilingual']		= "Multilingual";
 $lang['dyslexic']			= "Dyslexic";
 $lang['age'] 				= "Age";
 $lang['age_range'] 			= "Age range";
 $lang['age_range_from'] 	= "Age range - from";
 $lang['age_range_to'] 		= "Age range - to";
+$lang['agefrommonths'] 		= "Age range from (months)";
+$lang['agefromdays'] 		= "Age range from (days)";
+$lang['agetomonths'] 		= "Age range to (months)";
+$lang['agetodays']			= "Age range to (days)";
 $lang['callable'] 			= "Callable";
 $lang['callable_for']		= "Participants callable for experiment %s";
 $lang['data_for_experiment']= "Data for experiment %s";
-$lang['show_archived_exps'] = "Show archived experiments"; 
-$lang['not_show_archived_exps'] = "Don't show archived experiments"; 
+$lang['show_archived_exps'] = "Show archived experiments";
+$lang['not_show_archived_exps'] = "Don't show archived experiments";
 $lang['sure_delete_experiment']	= "Are you sure you want to delete this experiment?";
 $lang['deleted_exp']		= "Deleted experiment successfully.";
 $lang['archived_exp']		= "Archived experiment successfully.";
 $lang['unarchived_exp']		= "Acitvated experiment successfully.";
-$lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range."; 
+$lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range.";
 $lang['act_nr_part']		= "Current number of participants";
+
+/* Relations */
+$lang['relation']	 		= "Relation";
+$lang['relations']	 		= "Relations";
+$lang['relation_deleted']	= "Relation removed";
+$lang['sure_delete_relation']	= "Are you sure you want to remove this relation?";
+$lang['prerequisite']		= "Is a prerequisite for participation to";
+$lang['excludes']			= "Excludes participation to";
+
+/* Locaties */
+$lang['location']			= "Location";
+$lang['locations']			= "Locations";
+$lang['data_for_location']	= "Data for location %s";
+$lang['add_location'] 		= "Add location";
+$lang['location_added']		= "New location %s was succesfully added.";
+$lang['edit_location']		= "Edit location %s";
+$lang['location_edited'] 	= "Location %s was succesfully edited.";
+$lang['sure_delete_location']= "Are you sure you want to remove this location?";
+$lang['location_deleted'] 	= "Location was succesfully removed.";
+$lang['roomnumber']			= "Room number";
 
 /* Callers */
 $lang['caller'] 			= "Caller";
 $lang['callers']	 		= "Callers";
 $lang['callers_for_exp']	= "Callers for experiment %s";
-$lang['call_info'] 			= "You are now calling for experiment %s. 
+$lang['call_info'] 			= "You are now calling for experiment %s.
 								Participants are shown that can participate in two weeks from now.  
 								Choose one of the participants below and click on the phone icon to proceed.";
 $lang['call_participants']	= "Call participants";
@@ -152,9 +195,31 @@ $lang['pp_action']			= "Editing or (de)activating of participants";
 $lang['city']				= "City";
 $lang['birthweight']		= "Birth weight";
 $lang['pregnancy']			= "Pregnancy age";
+$lang['pregnancyweeks']		= "Pregnancy duration (weeks)";
+$lang['pregnancydays']		= "Pregnancy duration (days)";
 $lang['dyslexicparent']		= "Dyslexic parent";
+$lang['problemsparent']		= "Language or motorical problems parent";
+$lang['data_child']			= "Data child";
+$lang['data_parent']		= "Data parent";
+$lang['data_language']		= "Language specific questions";
+$lang['data_end']			= "Lastly";
+$lang['dyslexic_q']			= "Are there indications one of the parents may be <b>dyslectic</b>?";
+$lang['problems_q']			= "Has one of the parents ever had a <b>language and/or motorical problem</b>?";
+$lang['multilingual_q']		= "Is your child regularly exposed to <b>other languages</b> than Dutch?";
+$lang['parent']				= "Parent";
+$lang['father']				= "Father";
+$lang['mother']				= "Mother";
+$lang['son']				= "Son";
+$lang['daughter']			= "Daughter";
+$lang['boy']				= "Boy";
+$lang['girl']				= "Girl";
+$lang['his']				= "His";
+$lang['her']				= "Her";
+$lang['both']				= "Both";
+$lang['origin']				= "How do you know about Babylab Utrecht?";
 
 /* Participations */
+$lang['participation']	 	= "Participation";
 $lang['participations']	 	= "Participations";
 $lang['participations_for']	= "Participations in experiment %s";
 $lang['last_called']	 	= "Last called";
@@ -165,7 +230,7 @@ $lang['never_called']		= "Never called for an experiment";
 $lang['never_participated']	= "Never participated in an experiment";
 $lang['call_participant']	= "Call participant %s";
 $lang['in_conversation']	= "Participant %s is being called right now";
-$lang['include_callable']	= "Include callable participants"; 
+$lang['include_callable']	= "Include callable participants";
 $lang['exclude_callable']	= "Exclude callable participants";
 $lang['nr_calls']			= "Number of calls";
 $lang['appointment']		= "Appointment";
@@ -181,6 +246,9 @@ $lang['no_show']			= "No show";
 $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows for %s";
 $lang['completed']			= "Completed";
+$lang['complete_part']		= "Complete participation";
+$lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>.
+							   Please complete all the fields before confirming.";
 $lang['message_left']		= "Left a message?";
 $lang['none']				= "None";
 $lang['voicemail']			= "Voicemail";
@@ -202,6 +270,13 @@ $lang['call_action']		= "<strong><i>After you've made the call</i></strong>, ple
 $lang['call_dates']			= "%s can participate in this experiment from %s to %s.";
 $lang['risk_group']	 		= "Risk group";
 $lang['control_group']	 	= "Control group";
+$lang['part_number']	 	= "Participant number";
+$lang['interrupted']	 	= "Interrupted";
+$lang['part_interrupted']	= "This participation was interrupted.";
+$lang['interruptions']		= "Interrupted participations";
+$lang['interruptions_for']	= "Interrupted participations for %s";
+$lang['part_comment']		= "Comments for participation";
+$lang['pp_comment']			= "Comments for participant";
 
 /* Calls */
 $lang['call']	 			= "Call";
@@ -272,6 +347,7 @@ $lang['activated']			= "Activated";
 $lang['dob']				= "Date of birth";
 $lang['email']				= "E-mail";
 $lang['phone']				= "Phone";
+$lang['phonealt']			= "Alternative phone number";
 $lang['mobile']				= "Mobile";
 $lang['preferredlanguage']	= "Preferred language";
 $lang['admin']				= "Admin";
@@ -282,4 +358,19 @@ $lang['u_deactivated'] 		= "User %s deactivated.";
 $lang['u_deactivated_self'] = "You can not deactivate yourself.";
 $lang['sure_delete_user']	= "Are you sure you want to delete this user? This will also delete any comments made by this user.";
 $lang['deleted_user']		= "User %s successfully deleted.";
+
+/* Test Categories */
+$lang['testcat']			= "Test category";
+$lang['testcats']			= "Test categories";
+$lang['data_for_testcat']	= "Data for test category %s";
+$lang['add_testcat'] 		= "Add new test category";
+$lang['testcat_added']		= "New test category %s was succesfully added.";
+$lang['edit_tc']			= "Edit test category";
+$lang['edit_testcat']		= "Edit test category <i>%s</i>";
+$lang['testcat_edited'] 	= "Test category %s was succesfully edited.";
+$lang['sure_delete_testcat']= "Are you sure you want to remove this test category";
+$lang['testcat_deleted'] 	= "Test category succesfully removed.";
+$lang['parent_testcat'] 	= "Parent category";
+$lang['code']				= "Code";
+
 ?>

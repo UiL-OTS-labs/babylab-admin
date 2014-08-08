@@ -1,7 +1,9 @@
 <script type="text/javascript" src="js/dob.js"></script>
-<script type="text/javascript" src="js/languages_toggle.js"></script>
+<script
+	type="text/javascript" src="js/languages_toggle.js"></script>
 <?php if (!$is_registration) { ?>
-	<script type="text/javascript" src="js/languages_add.js"></script>
+<script
+	type="text/javascript" src="js/languages_add.js"></script>
 <?php } ?>
 
 <?=heading($page_title, 2); ?>
@@ -12,16 +14,17 @@
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>
 <?=form_input_and_label('lastname', $lastname, 'required'); ?>
 <div class="pure-control-group">
-	<?=form_label(lang('gender'), 'gender'); ?>
-	<?=form_radio_and_label('gender', Gender::Female, $gender, lang('girl')); ?>
-	<?=form_radio_and_label('gender', Gender::Male, $gender, lang('boy')); ?>
+<?=form_label(lang('gender'), 'gender'); ?>
+<?=form_radio_and_label('gender', Gender::Female, $gender, lang('girl')); ?>
+<?=form_radio_and_label('gender', Gender::Male, $gender, lang('boy')); ?>
 </div>
 <?=form_input_and_label('dob', $dob, 'id="birth_datepicker" required'); ?>
 <?=form_input_and_label('birthweight', $birthweight, 'class="positive-integer" required'); ?>
 
 <div class="pure-control-group">
-	<?=form_label(lang('pregnancy')); ?><?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks), 'class="positive-integer" required placeholder="' . ucfirst(lang('weeks')) . '"'); ?>
-	<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays), 'class="positive-integer" required placeholder="' . ucfirst(lang('days')) . '"'); ?>
+<?=form_label(lang('pregnancy')); ?>
+<?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks), 'class="positive-integer" required placeholder="' . ucfirst(lang('weeks')) . '"'); ?>
+<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays), 'class="positive-integer" required placeholder="' . ucfirst(lang('days')) . '"'); ?>
 </div>
 
 <?=form_fieldset(lang('data_parent')); ?>
@@ -34,31 +37,34 @@
 
 <?=form_fieldset(lang('data_language')); ?>
 <div class="pure-control-group">
-	<?=form_label(lang('dyslexic_q'), 'dyslexicparent'); ?>
-	<?=form_radio_and_label('dyslexicparent', Gender::Female, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-	<?=form_radio_and_label('dyslexicparent', Gender::Male, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-	<?=form_radio_and_label('dyslexicparent', Gender::Both, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-	<?=form_radio_and_label('dyslexicparent', Gender::None, $dyslexicparent, lang('no'), TRUE); ?>
+<?=form_label(lang('dyslexic_q'), 'dyslexicparent'); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::Female, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::Male, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::Both, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::None, $dyslexicparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
-	<?=form_label(lang('problems_q'), 'problemsparent'); ?>
-	<?=form_radio_and_label('problemsparent', Gender::Female, $problemsparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-	<?=form_radio_and_label('problemsparent', Gender::Male, $problemsparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-	<?=form_radio_and_label('problemsparent', Gender::Both, $problemsparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-	<?=form_radio_and_label('problemsparent', Gender::None, $problemsparent, lang('no'), TRUE); ?>
+<?=form_label(lang('problems_q'), 'problemsparent'); ?>
+<?=form_radio_and_label('problemsparent', Gender::Female, $problemsparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::Male, $problemsparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::Both, $problemsparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::None, $problemsparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
-	<?=form_label(lang('multilingual_q'), 'multilingual'); ?>
-	<?=form_radio_and_label('multilingual', '1', $multilingual, lang('yes')); ?>
-	<?=form_radio_and_label('multilingual', '0', $multilingual, lang('no'), TRUE); ?>
+<?=form_label(lang('multilingual_q'), 'multilingual'); ?>
+<?=form_radio_and_label('multilingual', '1', $multilingual, lang('yes')); ?>
+<?=form_radio_and_label('multilingual', '0', $multilingual, lang('no'), TRUE); ?>
 </div>
 
 <div id="languages">
 <?php if (!$is_registration) { ?>
-	<p><em>Vul hieronder in met welke talen het kind in aanraking komt en de (geschatte) percentages van blootstelling aan deze talen.</em></p> 
-	<?php 
+	<p>
+		<em>Vul hieronder in met welke talen het kind in aanraking komt en de
+			(geschatte) percentages van blootstelling aan deze talen.</em>
+	</p>
+	<?php
 	$i = 1;
-	foreach ($languages AS $language) 
+	foreach ($languages AS $language)
 	{
 		echo '<div class="pure-control-group">';
 		echo ' <label for="language">Taal ' . $i . '</label>';
@@ -70,19 +76,19 @@
 		$i++;
 	}
 	?>
-<?php } ?>
+	<?php } ?>
 </div>
 
-<?=form_fieldset(lang('data_end')); ?>
-<?=form_dropdown_and_label('origin', array(
+	<?=form_fieldset(lang('data_end')); ?>
+	<?=form_dropdown_and_label('origin', array(
 	'letter' 	=> 'de wervingsbrief (met de folder)',
 	'zwazat' 	=> 'de Zwangere Zaterdag', 
 	'mouth' 	=> 'mond-tot-mondreclame',
 	'info' 		=> 'voorlichtingsavond bij de verloskundigenpraktijk',
 	'other' 	=> 'anders'), $origin); ?>
-<?=form_textarea_and_label('comment', $comment, 'Ruimte voor eventuele opmerkingen'); ?>
+	<?=form_textarea_and_label('comment', $comment, 'Ruimte voor eventuele opmerkingen'); ?>
 
-<?=form_controls(); ?>
-<?=form_fieldset_close(); ?>
-<?=form_close(); ?>
-<?=validation_errors(); ?>
+	<?=form_controls(); ?>
+	<?=form_fieldset_close(); ?>
+	<?=form_close(); ?>
+	<?=validation_errors(); ?>

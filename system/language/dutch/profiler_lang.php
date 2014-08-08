@@ -9,6 +9,7 @@ $lang['profiler_post_data'] = 'POST DATA';
 $lang['profiler_uri_string'] = 'URI STRING';
 $lang['profiler_memory_usage'] = 'GEHEUGEN GEBRUIK';
 $lang['profiler_config'] = 'CONFIG VARIABELEN';
+$lang['profiler_session_data']	= 'SESSIE DATA';
 $lang['profiler_headers'] = 'HTTP HEADERS';
 $lang['profiler_no_db'] = 'Database driver is momenteel niet geladen';
 $lang['profiler_no_queries'] = 'Er zijn geen queries uitgevoerd';
@@ -17,4 +18,6 @@ $lang['profiler_no_get'] = 'Er is geen GET data';
 $lang['profiler_no_uri'] = 'Er is geen URI data';
 $lang['profiler_no_memory'] = 'Geheugen gebruik niet beschikbaar';
 $lang['profiler_no_profiles'] = 'Geen Profile gegevens - alle Profile onderdelen zijn uitgeschakeld';
+$lang['profiler_section_show'] = 'Toon';
+$lang['profiler_section_hide'] = 'Verberg';
 ?>

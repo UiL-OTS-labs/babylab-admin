@@ -28,5 +28,7 @@
 	}
 </script>
 
-<h2><?=lang('percentiles'); ?></h2>
+<h2>
+<?=lang('percentiles'); ?>
+</h2>
 <div id="chart_div"></div>

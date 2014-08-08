@@ -32,13 +32,13 @@ class Comment extends CI_Controller
 	public function add_submit($participant_id)
 	{
 		// Run validation
-		if (!$this->validate_comment()) 
+		if (!$this->validate_comment())
 		{
 			// Show form again with error messages
 			flashdata(validation_errors(), FALSE, 'comment_message');
 			redirect($this->agent->referrer(), 'refresh');
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$comment = $this->post_comment($participant_id);
@@ -135,13 +135,13 @@ class Comment extends CI_Controller
 		$this->datatables->edit_column('timecreated', '$1', 'output_date(timecreated)');
 		$this->datatables->edit_column('username', '$1', 'user_get_link_by_id(user_id)');
 		$this->datatables->edit_column('id', '$1', 'comment_actions(id)');
-		
+
 		$this->datatables->unset_column('participant_id');
 		$this->datatables->unset_column('user_id');
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_user($user_id)
 	{
 		$this->datatables->where('user_id', $user_id);

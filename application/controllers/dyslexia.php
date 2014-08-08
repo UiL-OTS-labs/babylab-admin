@@ -2,7 +2,7 @@
 class Dyslexia extends CI_Controller
 {
 	// TODO: on save, propagate correct values to participant.
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -19,7 +19,7 @@ class Dyslexia extends CI_Controller
 	public function index()
 	{
 		$add_url = array('url' => 'dyslexia/add', 'title' => lang('add_dyslexia'));
-		
+
 		create_dyslexia_table();
 		$data['ajax_source'] = 'dyslexia/table/';
 		$data['page_title'] = lang('dyslexia');
@@ -29,7 +29,7 @@ class Dyslexia extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Specifies the contents of the add (single) score page */
 	public function add($participant_id = 0)
 	{
@@ -51,12 +51,12 @@ class Dyslexia extends CI_Controller
 	public function add_submit()
 	{
 		// Run validation
-		if (!$this->validate_dyslexia(TRUE)) 
+		if (!$this->validate_dyslexia(TRUE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->add($this->input->post('participant'));
 		}
-		else 
+		else
 		{
 			// If succeeded, insert data into database
 			$dyslexia = $this->post_dyslexia(TRUE);
@@ -67,7 +67,7 @@ class Dyslexia extends CI_Controller
 			redirect('/dyslexia/', 'refresh');
 		}
 	}
-	
+
 	/** Specifies the contents of the edit dyslexia page */
 	public function edit($dyslexia_id)
 	{
@@ -90,12 +90,12 @@ class Dyslexia extends CI_Controller
 	public function edit_submit($dyslexia_id)
 	{
 		// Run validation
-		if (!$this->validate_dyslexia(FALSE)) 
+		if (!$this->validate_dyslexia(FALSE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->edit($dyslexia_id);
 		}
-		else 
+		else
 		{
 			// If succeeded, update data into database
 			$dyslexia = $this->post_dyslexia(FALSE);
@@ -128,7 +128,7 @@ class Dyslexia extends CI_Controller
 		}
 		$this->form_validation->set_rules('gender', lang('gender'), 'trim|required');
 		$this->form_validation->set_rules('date', lang('date'), 'trim|required');
-		
+
 		return $this->form_validation->run();
 	}
 
@@ -138,7 +138,7 @@ class Dyslexia extends CI_Controller
 		$emt_score = $this->input->post('emt_score');
 		$klepel_score = $this->input->post('klepel_score');
 		$vc_score = $this->input->post('vc_score');
-		
+
 		$dyslexia = array(
 				'gender' 		=> $this->input->post('gender'),
 				'statement' 	=> is_array($this->input->post('statement')),
@@ -147,9 +147,9 @@ class Dyslexia extends CI_Controller
 				'vc_score' 		=> empty($vc_score) ? NULL : $vc_score,
 				'date' 			=> input_date($this->input->post('date'))
 		);
-		
+
 		if ($new_dyslexia) $dyslexia['participant_id'] = $this->input->post('participant');
-		
+
 		return $dyslexia;
 	}
 
@@ -167,7 +167,7 @@ class Dyslexia extends CI_Controller
 		}
 		return TRUE;
 	}
-	
+
 	/** Checks whether the given participant and gender-combination is unique */
 	public function unique_dyslexia($participant_id)
 	{
@@ -182,14 +182,14 @@ class Dyslexia extends CI_Controller
 		}
 		return TRUE;
 	}
-	
+
 	/////////////////////////
 	// Table
 	/////////////////////////
 
 	public function table()
 	{
-		$this->datatables->select('CONCAT(firstname, lastname) AS p, 
+		$this->datatables->select('CONCAT(firstname, lastname) AS p,
 			dyslexia.gender AS gender, statement, emt_score, klepel_score, vc_score, date, 
 			dyslexia.id AS id, participant_id', FALSE);
 		$this->datatables->from('dyslexia');
@@ -200,12 +200,12 @@ class Dyslexia extends CI_Controller
 		$this->datatables->edit_column('statement', '$1', 'img_tick(statement)');
 		$this->datatables->edit_column('date', '$1', 'output_date(date)');
 		$this->datatables->edit_column('id', '$1', 'dyslexia_actions(id)');
-		
+
 		$this->datatables->unset_column('participant_id');
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_participant($participant_id)
 	{
 		$this->datatables->where('participant_id', $participant_id);

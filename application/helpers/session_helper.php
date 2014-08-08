@@ -104,7 +104,7 @@ if (!function_exists('add_fields'))
 	{
 		$CI =& get_instance();
 		$fields = $CI->db->list_fields($table);
-		foreach ($fields as $field) 
+		foreach ($fields as $field)
 		{
 			$data[$field] = isset($object) ? $object->$field : NULL;
 		}
@@ -113,13 +113,13 @@ if (!function_exists('add_fields'))
 }
 
 if (!function_exists('get_object_ids'))
-{	
-	function get_object_ids($objects, $field = 'id') 
+{
+	function get_object_ids($objects, $field = 'id')
 	{
 		if (empty($objects)) return array();
-		
-		$result = array(); 
-		foreach ($objects as $object) 
+
+		$result = array();
+		foreach ($objects as $object)
 		{
 			array_push($result, $object->$field);
 		}

@@ -24,15 +24,15 @@ class Result extends CI_Controller
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Specifies the contents of the add result page */
 	public function add($participation_id = NULL)
 	{
 		if (empty($participation_id)) show_404();
-		
+
 		$data['page_title'] = lang('add_result');
 		$data['action'] = 'result/add_submit/' . $participation_id;
-		
+
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('result_add_view', $data);
 		$this->load->view('templates/footer');
@@ -54,8 +54,8 @@ class Result extends CI_Controller
 		else
 		{
 			$data = $this->upload->data();
-			$results = $this->hvf_results($data['full_path']); 
-			foreach ($results as $result) 
+			$results = $this->hvf_results($data['full_path']);
+			foreach ($results as $result)
 			{
 				$result['participation_id'] = $participation_id;
 				$this->resultModel->add_result($result);
@@ -63,13 +63,13 @@ class Result extends CI_Controller
 			redirect('/participation/get/' . $participation_id, 'refresh');
 		}
 	}
-	
-	private function hvf_results($filename) 
+
+	private function hvf_results($filename)
 	{
 		$file = file_get_contents($filename);
 		$lines = explode(PHP_EOL, $file);
-		
-		$results = array();	
+
+		$results = array();
 		$filtered = '';
 		foreach ($lines as $line)
 		{
@@ -78,7 +78,7 @@ class Result extends CI_Controller
 				$filtered .= $line . PHP_EOL;
 			}
 		}
-		
+
 		$csv = str_getcsv($filtered, PHP_EOL);
 		$nr = 1;
 		foreach ($csv as $row)
@@ -86,15 +86,15 @@ class Result extends CI_Controller
 			$row = str_getcsv($row, "\t");
 			$prev_phase = empty($phase) ? NULL : $phase;
 			$phase = $row[4];
-			
-			if (!empty($prev_phase) && $prev_phase != $phase) 
+				
+			if (!empty($prev_phase) && $prev_phase != $phase)
 			{
 				$nr++;
 			}
-			
+				
 			$prepost = $phase === 'PRE' || $phase === 'POST';
 			$test = $phase === 'TEST';
-			
+				
 			$result = array(
 				'phasenr' 		=> $nr,
 				'phase' 		=> $phase,
@@ -104,13 +104,13 @@ class Result extends CI_Controller
 			);
 			array_push($results, $result);
 		}
-		
+
 		return $results;
 	}
-	
+
 	private function starts_with($haystack, $needle)
 	{
-	    return $needle === "" || strpos($haystack, $needle) === 0;
+		return $needle === "" || strpos($haystack, $needle) === 0;
 	}
 
 	/** Specifies the contents of the edit result page */

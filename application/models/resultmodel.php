@@ -5,7 +5,7 @@ class ResultModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,14 +15,14 @@ class ResultModel extends CI_Model
 	{
 		return $this->db->get('result')->result();
 	}
-	
+
 	/** Adds a result to the DB */
 	public function add_result($result)
 	{
 		$this->db->insert('result', $result);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the result specified by the id with the details of the result */
 	public function update_result($result_id, $result)
 	{

@@ -1,12 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
-| -------------------------------------------------------------------
-| MIME TYPES
-| -------------------------------------------------------------------
-| This file contains an array of mime types.  It is used by the
-| Upload class to help identify allowed file types.
-|
-*/
+ | -------------------------------------------------------------------
+ | MIME TYPES
+ | -------------------------------------------------------------------
+ | This file contains an array of mime types.  It is used by the
+ | Upload class to help identify allowed file types.
+ |
+ */
 
 $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'cpt'	=>	'application/mac-compactpro',
@@ -99,7 +99,7 @@ $mimes = array(	'hqx'	=>	'application/mac-binhex40',
 				'xl'	=>	'application/excel',
 				'eml'	=>	'message/rfc822',
 				'json' => array('application/json', 'text/json')
-			);
+);
 
 
 /* End of file mimes.php */

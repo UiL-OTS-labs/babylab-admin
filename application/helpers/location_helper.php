@@ -35,7 +35,7 @@ if (!function_exists('location_get_link_by_id'))
 	{
 		$CI =& get_instance();
 		$location = $CI->locationModel->get_location_by_id($location_id);
-		
+
 		return location_get_link($location);
 	}
 }
@@ -47,7 +47,7 @@ if (!function_exists('location_name'))
 	{
 		$CI =& get_instance();
 		$location = $CI->locationModel->get_location_by_id($location_id);
-		
+
 		return $location->name . ' (' . $location->roomnumber . ')';
 	}
 }

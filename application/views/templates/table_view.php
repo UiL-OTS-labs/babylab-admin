@@ -1,6 +1,8 @@
 <!-- DataTables -->
 <?=link_tag('js/datatables/media/css/jquery.dataTables.css'); ?>
-<script type="text/javascript" src="js/datatables/media/js/jquery.dataTables.js"></script>
+<script
+	type="text/javascript"
+	src="js/datatables/media/js/jquery.dataTables.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $('.dataTable').dataTable( {
@@ -17,9 +19,13 @@
 <?=isset($id) ? '' : heading($page_title, 2); ?>
 
 <div id="list">
-	<?=$this->session->flashdata('message'); ?>
+<?=$this->session->flashdata('message'); ?>
 
-	<div id="info"><?=isset($page_info) ? $page_info : ''; ?></div>
-	
-	<div class="data"><?=$table; ?></div>
+	<div id="info">
+	<?=isset($page_info) ? $page_info : ''; ?>
+	</div>
+
+	<div class="data">
+	<?=$table; ?>
+	</div>
 </div>

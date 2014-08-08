@@ -1,14 +1,14 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Authenticate 
+class Authenticate
 {
 	var $obj;
-	
+
 	function Authenticate()
 	{
 		$this->obj =& get_instance();
 	}
-	
+
 	/**
 	 * library: authenticate
 	 * purpose: authenticate session
@@ -20,33 +20,33 @@ class Authenticate
 	 * @param string $param4 message to be displayed when not authenticated
 	 * @return boolean
 	 */
-	function authenticate_redirect($url, $data = '', $role = UserRole::Caller, $message_login_failed = '') 
-	{			
+	function authenticate_redirect($url, $data = '', $role = UserRole::Caller, $message_login_failed = '')
+	{
 		// if authentication succes, load view, otherwise show message not authorized
-		if ($this->obj->authenticate->authenticate_session($role) == TRUE) { 
+		if ($this->obj->authenticate->authenticate_session($role) == TRUE) {
 			$this->obj->load->view($url, $data);
 		}
 		else {
 			$data['error'] = $message_login_failed === '' ? lang('not_authorized') : $message_login_failed;
-			$this->obj->load->view('templates/error', $data); 
-		}	
+			$this->obj->load->view('templates/error', $data);
+		}
 	}
-	
-	function authenticate_session($role) 
-	{	
+
+	function authenticate_session($role)
+	{
 		$session_bool = $this->obj->session->userdata('loggedin');
-		$session_role =  $this->obj->session->userdata('role');	
+		$session_role =  $this->obj->session->userdata('role');
 
 		$correct_role = $role === UserRole::Admin ? $session_role === UserRole::Admin : TRUE;
 		$correct_role &= $role === UserRole::Leader ? in_array($session_role, array(UserRole::Admin, UserRole::Leader)) : TRUE;
-		
+
 		if (isset($session_bool) && $session_bool == TRUE && $correct_role) {
 			return TRUE;
-		} 
-		else { 
-			return FALSE; 
-		}		
-	}	
+		}
+		else {
+			return FALSE;
+		}
+	}
 }
 
 /* End of file Authenticate.php */

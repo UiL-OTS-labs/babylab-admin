@@ -5,11 +5,11 @@ if (!function_exists('flashdata'))
 	/** Adds a flashdata message to the current session */
 	function flashdata($message, $success = TRUE, $message_id = 'message')
 	{
-		if ($success) 
+		if ($success)
 		{
 			$message = '<div class="success">' . $message . '</div>';
 		}
-		else 
+		else
 		{
 			$message = '<div class="failed">' . $message . '</div>';
 		}

@@ -6,7 +6,7 @@ if (!function_exists('form_input_and_label'))
 	{
 		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"';
 		$value = !empty($value) || $value == 0 ? $value : '';
-		
+
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
 		$input = $is_password ? form_password($name, set_value($name, $value), $extra) : form_input($name, set_value($name, $value), $extra);
@@ -23,7 +23,7 @@ if (!function_exists('form_textarea_and_label'))
 		$label = empty($label) ? lang($name) : $label;
 		$extra = $extra . ' placeholder="' . $label . '" id="' . $name . '"';
 		$value = !empty($value) || $value == 0 ? $value : '';
-		
+
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label, $name);
 		$input = form_textarea($name, set_value($name, $value), $extra);
@@ -71,7 +71,7 @@ if (!function_exists('form_checkbox_and_label'))
 		$id = $name . '_' . $value;
 		$text = empty($label) ? lang($name) : $label;
 		$name = $name . '[]';
-		
+
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label_start = '<label for=' . $id .' class="pure-checkbox">';
 		$input = form_checkbox($name, $value, set_checkbox($id, $value, $checked), 'id="' . $id . '"');
@@ -90,7 +90,7 @@ if (!function_exists('form_single_checkbox_and_label'))
 		$text = empty($label) ? lang($name) : $label;
 		$name = $name . '[]';
 		$checked = empty($value) ? $checked : $value;
-		
+
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label_start = '<label for=' . $id .' class="pure-checkbox">';
 		$input = form_checkbox($name, $value, $checked, 'id="' . $id . '"');

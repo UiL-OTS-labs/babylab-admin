@@ -3,7 +3,9 @@
 <?=form_open($action, array('class' => 'pure-form')); ?>
 <?=form_fieldset($page_title); ?>
 
-<p><?=lang('forgot_pw_instr'); ?></p>
+<p>
+<?=lang('forgot_pw_instr'); ?>
+</p>
 
 <?=form_input('email', '', 'placeholder = "' . lang('email') . '"'); ?>
 

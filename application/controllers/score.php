@@ -46,7 +46,7 @@ class Score extends CI_Controller
 		$data['testcat_id'] = $testcat_id;
 		$data['testsurvey_id'] = $testsurvey_id;
 		$data['participant_id'] = $participant_id;
-		if (!empty($participant_id)) 
+		if (!empty($participant_id))
 		{
 			$data['participant'] = name($this->participantModel->get_participant_by_id($participant_id));
 		}
@@ -64,7 +64,7 @@ class Score extends CI_Controller
 		{
 			// If not succeeded, show form again with error messages
 			$this->add($this->input->post('test'), $this->input->post('testcat'),
-						$this->input->post('testsurvey'), $this->input->post('participant_id'));
+			$this->input->post('testsurvey'), $this->input->post('participant_id'));
 		}
 		else
 		{
@@ -344,7 +344,7 @@ class Score extends CI_Controller
 		$participant_id = $this->input->post('participant_id');
 		$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
 		if (empty($testinvite)) return FALSE;
-		
+
 		$testcat_id = $this->input->post('testcat');
 		$score = $this->scoreModel->get_score_by_testcat_testinvite($testcat_id, $testinvite->id);
 		if (!empty($score))
@@ -381,7 +381,7 @@ class Score extends CI_Controller
 		$testcats = $this->testCatModel->get_testcats_by_test($test_id, FALSE, TRUE);
 		echo form_dropdown_and_label('testcat', testcat_options($testcats, FALSE));
 	}
-	
+
 	/** Filters the testsurveys by test on the add (single) page. */
 	public function filter_testsurveys()
 	{

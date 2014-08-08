@@ -260,7 +260,7 @@ class Percentile extends CI_Controller
 
 		echo $this->datatables->generate();
 	}
-	
+
 	public function table_by_testcat($testcat_id)
 	{
 		$this->datatables->where('testcat_id', $testcat_id);

@@ -5,7 +5,7 @@ class ScoreModel extends CI_Model
 	{
 		parent::__construct();
 	}
-	
+
 	/////////////////////////
 	// CRUD-actions
 	/////////////////////////
@@ -15,28 +15,28 @@ class ScoreModel extends CI_Model
 	{
 		return $this->db->get('score')->result();
 	}
-	
+
 	/** Adds a score to the DB */
 	public function add_score($score)
 	{
 		$this->db->insert('score', $score);
 		return $this->db->insert_id();
 	}
-	
+
 	/** Updates the score specified by the id with the details of the score */
 	public function update_score($score_id, $score)
 	{
 		$this->db->where('id', $score_id);
 		$this->db->update('score', $score);
 	}
-	
+
 	/** Adds a score to the DB, updates when already exists */
 	public function add_or_update_score($score)
 	{
 		// TODO: has to be changed
 		$s = $this->get_score($score['testcat_id'], $score['participant_id']);
-		
-		if (!empty($s)) 
+
+		if (!empty($s))
 		{
 			$this->update_score($s->id, $score);
 			return $s->id;
@@ -55,7 +55,7 @@ class ScoreModel extends CI_Model
 	{
 		return $this->db->get_where('score', array('id' => $score_id))->row();
 	}
-	
+
 	/** Retrieves a score for a test category and a testinvite (unique key) */
 	public function get_score_by_testcat_testinvite($testcat_id, $testinvite_id)
 	{
@@ -63,7 +63,7 @@ class ScoreModel extends CI_Model
 		$this->db->where('testinvite_id', $testinvite_id);
 		return $this->db->get('score')->row();
 	}
-	
+
 	/////////////////////////
 	// Testinvites
 	/////////////////////////
@@ -80,7 +80,7 @@ class ScoreModel extends CI_Model
 	{
 		return $this->db->get_where('testinvite', array('id' => $score->testinvite_id))->row();
 	}
-	
+
 	/////////////////////////
 	// Testsurvey
 	/////////////////////////
@@ -128,7 +128,7 @@ class ScoreModel extends CI_Model
 		$this->db->where('testinvite.id', $score->testinvite_id);
 		return $this->db->get()->row();
 	}
-	
+
 	/////////////////////////
 	// Test categories
 	/////////////////////////
@@ -139,7 +139,7 @@ class ScoreModel extends CI_Model
 		$this->db->where('testcat_id', $testcat_id);
 		return $this->db->get('score')->result();
 	}
-	
+
 	/** Returns all scores for a test category, including that of its children */
 	public function get_all_scores_by_testcat($testcat_id)
 	{

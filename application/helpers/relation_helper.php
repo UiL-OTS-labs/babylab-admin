@@ -17,8 +17,8 @@ if (!function_exists('create_relation_table'))
 
 if (!function_exists('relation_actions'))
 {
-	/** Possible actions for a relation: delete */ 
-	function relation_actions($relation_id) 
+	/** Possible actions for a relation: delete */
+	function relation_actions($relation_id)
 	{
 		return anchor('relation/delete/' . $relation_id, img_delete(), warning(lang('sure_delete_relation')));
 	}
