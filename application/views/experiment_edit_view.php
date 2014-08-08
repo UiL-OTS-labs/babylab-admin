@@ -2,11 +2,11 @@
 <script type="text/javascript">
 <!--
 $(function() {
-	$(".input_wbs_number").on('keyup', function(e)  {
+	$("#wbs_number").on('keyup', function(e)  {
 		   $(this).val($(this).val().toUpperCase());
 	});
 	
-	$('.input_wbs_number').mask(
+	$('#wbs_number').mask(
 		'AA.000000.0',
 		{'translation': 
 			{
