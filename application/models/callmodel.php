@@ -51,15 +51,33 @@ class CallModel extends CI_Model
 	/** Retrieves all calls for a participation */
 	public function get_calls_by_participation($participation_id)
 	{
-		$this->db->where('participation', $participation_id);
+		$this->db->where('participation_id', $participation_id);
 		return $this->db->get('call')->result();
 	}
 	
-	/** Retrieves a call by the participation id */
+	/** Retrieves a participation by the call id */
 	public function get_participation_by_call($call_id)
 	{
 		$call = $this->get_call_by_id($call_id);
 		return $this->db->get_where('participation', array('id' => $call->participation_id))->row();
+	}
+	
+	/////////////////////////
+	// Users
+	/////////////////////////
+
+	/** Retrieves all calls for a users */
+	public function get_calls_by_user($user_id)
+	{
+		$this->db->where('user_id', $user_id);
+		return $this->db->get('call')->result();
+	}
+	
+	/** Retrieves a user by the call id */
+	public function get_user_by_call($call_id)
+	{
+		$call = $this->get_call_by_id($call_id);
+		return $this->db->get_where('user', array('id' => $call->user_id))->row();
 	}
 	
 	/////////////////////////
@@ -89,7 +107,7 @@ class CallModel extends CI_Model
 	// Helpers
 	/////////////////////////
 	
-	/** Returns the date on and experiment for which the given participant was last called */
+	/** Returns the last call for the given participation */
 	public function last_call($participation_id)
 	{
 		$this->db->where('participation_id', $participation_id);

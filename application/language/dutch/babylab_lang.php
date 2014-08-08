@@ -230,6 +230,7 @@ $lang['never_called']		= "Nog nooit gebeld voor een experiment";
 $lang['never_participated']	= "Nog nooit aan een experiment meegedaan";
 $lang['call_participant']	= "Bel proefpersoon %s";
 $lang['in_conversation']	= "Proefpersoon %s wordt momenteel gebeld";
+$lang['take_over_warning']	= "%s wordt momenteel gebeld door %s. Weet je zeker dat je dit gesprek wilt overnemen?";
 $lang['include_callable']	= "Belbare proefpersonen ook tonen";
 $lang['exclude_callable']	= "Belbare proefpersonen verbergen";
 $lang['nr_calls']			= "# gebeld";

@@ -46,18 +46,29 @@ if (!function_exists('img_call_p'))
 		// Check if the participant is currently locked
 		$CI =& get_instance();
 		$participation = $CI->participationModel->get_participation($experiment_id, $participant->id);
-		if ($CI->participationModel->is_locked($participation)) {
-			return 	img(array(
+
+		if ($CI->participationModel->is_locked($participation)) 
+		{
+			$current_call = $CI->callModel->last_call($participation->id);
+			$user = $CI->callModel->get_user_by_call($current_call->id);
+			$img = img(array(
 					'src' => 'images/phone_sound.png',
 					'title' => sprintf(lang('in_conversation'), name($participant))
 			));
+			$warning = warning(sprintf(lang('take_over_warning'), name($participant), $user->username));
+			
+			$result = anchor('call/take_over/' . $current_call->id, $img, $warning);
 		}
-
-		return 	anchor('participation/call/' . $participant->id . '/' . $experiment_id . '/'. $weeks_ahead,
-		img(array(
+		else 
+		{
+			$img = img(array(
 						'src' => 'images/phone.png',
 						'title' => sprintf(lang('call_participant'), name($participant))
-		)));
+			));
+			$result = anchor('participation/call/' . $participant->id . '/' . $experiment_id . '/'. $weeks_ahead, $img);
+		}
+		
+		return $result;
 	}
 }
 
@@ -77,7 +88,7 @@ if (!function_exists('img_participations'))
 if (!function_exists('img_comments'))
 {
 	/** Returns the image for comments */
-	function img_comments($nr_comments)
+	function img_comments($nr_comments = 0)
 	{
 		return img(array(
 				'src' => 'images/comments.png',

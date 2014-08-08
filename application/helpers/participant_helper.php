@@ -14,7 +14,7 @@ if (!function_exists('create_participant_table'))
 		$heading = array(lang('name'), lang('dob'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
 		if ($find)
 		{
-			array_splice($heading, -1, 1, array(lang('test'), lang('actions')));
+			array_splice($heading, -1, 1, array(lang('status'), lang('actions')));
 		}
 		$CI->table->set_heading($heading);
 	}
@@ -284,24 +284,40 @@ if (!function_exists('participant_impediment_link'))
 
 if (!function_exists('participant_actions'))
 {
-	/** Possible actions for a participant: edit, activate, comments, score, call */
-	function participant_actions($participant_id, $experiment_id = NULL, $weeks_ahead = WEEKS_AHEAD)
+	/** Possible actions for a participant: edit, activate, comments, scores */
+	function participant_actions($participant_id)
 	{
 		$CI =& get_instance();
 		$pp = $CI->participantModel->get_participant_by_id($participant_id);
 
-		$edit_link = !empty($experiment_id) ? '' : anchor('participant/edit/' . $pp->id, img_edit());
+		$edit_link = anchor('participant/edit/' . $participant_id, img_edit());
 		$act_link = participant_activate_link($pp);
-		$call_link = !empty($experiment_id) ? img_call_p($pp, $experiment_id, $weeks_ahead) : '';
 
-		$nr_comments = count($CI->commentModel->get_comments_by_participant($pp->id));
-		$com_link = $nr_comments > 0 ? anchor('comment/participant/' . $pp->id, img_comments($nr_comments)) : img_comments($nr_comments);
+		$nr_comments = count($CI->commentModel->get_comments_by_participant($participant_id));
+		$com_link = $nr_comments > 0 ? anchor('comment/participant/' . $participant_id, img_comments($nr_comments)) : img_comments();
 
-		$nr_scores = count($CI->scoreModel->get_scores_by_participant($pp->id));
-		$score_link = $nr_scores > 0 ? anchor('score/participant/' . $pp->id, img_scores()) : img_scores(TRUE);
+		$nr_scores = count($CI->scoreModel->get_scores_by_participant($participant_id));
+		$score_link = $nr_scores > 0 ? anchor('score/participant/' . $participant_id, img_scores()) : img_scores(TRUE);
 
 		return is_admin()
-		? implode(' ', array($edit_link, $act_link, $com_link, $score_link, $call_link))
-		: implode(' ', array($edit_link, $call_link, $com_link));
+		? implode(' ', array($edit_link, $act_link, $com_link, $score_link))
+		: implode(' ', array($edit_link, $com_link));
+	}
+}
+
+if (!function_exists('participant_call_actions'))
+{
+	/** Possible actions for calling a participant: call, comments */
+	function participant_call_actions($participant_id, $experiment_id, $weeks_ahead = WEEKS_AHEAD)
+	{
+		$CI =& get_instance();
+		$pp = $CI->participantModel->get_participant_by_id($participant_id);
+
+		$call_link = img_call_p($pp, $experiment_id, $weeks_ahead);
+
+		$nr_comments = count($CI->commentModel->get_comments_by_participant($participant_id));
+		$com_link = $nr_comments > 0 ? anchor('comment/participant/' . $participant_id, img_comments($nr_comments)) : img_comments();
+
+		return implode(' ', array($call_link, $com_link));
 	}
 }

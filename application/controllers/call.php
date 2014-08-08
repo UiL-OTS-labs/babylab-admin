@@ -54,12 +54,14 @@ class Call extends CI_Controller
 	}
 
 	/////////////////////////
-	// Call actions: undo, confirm, no reply, cancel
+	// Call actions: undo, confirm, no reply, cancel, take over
 	/////////////////////////
 
 	/** Undo: deletes call, releases participation lock and returns to the experiment call page (with message) */
 	public function undo($call_id)
 	{
+		$this->check_integrity($call_id);
+		
 		$participation = $this->callModel->get_participation_by_call($call_id);
 
 		$this->callModel->delete_call($call_id);
@@ -75,6 +77,8 @@ class Call extends CI_Controller
 	/** Confirm: confirms the participation with a scheduled date */
 	public function confirm($call_id)
 	{
+		$this->check_integrity($call_id);
+		
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
@@ -109,6 +113,8 @@ class Call extends CI_Controller
 	/** No-reply: adds a no-reply to the participation, possibly with a message (e.g. voicemail/e-mail) */
 	public function no_reply($call_id)
 	{
+		$this->check_integrity($call_id);
+		
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
@@ -150,8 +156,11 @@ class Call extends CI_Controller
 	/** Cancel: cancels the participation to the experiment */
 	public function cancel($call_id)
 	{
+		$this->check_integrity($call_id);
+		
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
 		// Add (possible) comment
 		$comment = $this->post_comment($participant->id);
@@ -162,11 +171,44 @@ class Call extends CI_Controller
 		$this->participationModel->cancel($participation->id, TRUE);
 		$this->participationModel->release_lock($participation->id);
 
-		$participant = $this->participationModel->get_participant_by_participation($participation->id);
-		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 		flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name));
-
 		redirect('/participant/find/' . $experiment->id, 'refresh');
+	}
+	
+	/** Take over: takes over a call (when someone else is calling, but didn't finish) */
+	public function take_over($call_id)
+	{
+		$this->check_integrity($call_id, TRUE);
+		
+		$participation = $this->callModel->get_participation_by_call($call_id);
+
+		$this->callModel->delete_call($call_id);
+		$this->participationModel->release_lock($participation->id);
+
+		redirect('participation/call/' . $participation->participant_id . '/' . $participation->experiment_id, 'refresh');
+	}
+	
+	/**
+	 * 
+	 * Check integrity of a call: 
+	 * TODO: the user should be logged in 
+	 * - the call should exist
+	 * TODO: the user should be a caller for this experiment
+	 * - the user should be the caller of this call (unless it's a take-over)
+	 * 
+	 * @param integer $call_id the call id
+	 */
+	private function check_integrity($call_id, $take_over = FALSE)
+	{
+		$call = $this->callModel->get_call_by_id($call_id);
+		if (empty($call)) 
+		{
+			show_error("Call does not exist. It might have been taken over.");
+		}
+		if ($call->user_id != current_user_id() && !$take_over)
+		{
+			show_error("You are not the caller for this call.");
+		}
 	}
 
 	/////////////////////////

@@ -230,6 +230,7 @@ $lang['never_called']		= "Never called for an experiment";
 $lang['never_participated']	= "Never participated in an experiment";
 $lang['call_participant']	= "Call participant %s";
 $lang['in_conversation']	= "Participant %s is being called right now";
+$lang['take_over_warning']	= "%s is being called right now by %s. Are you sure you want to take over this call?";
 $lang['include_callable']	= "Include callable participants";
 $lang['exclude_callable']	= "Exclude callable participants";
 $lang['nr_calls']			= "Number of calls";
