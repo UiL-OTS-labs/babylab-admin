@@ -1,4 +1,23 @@
 <?=heading(lang('experiments'), 2); ?>
+<script type="text/javascript">
+<!--
+$(function() {
+	$(".input_wbs_number").on('keyup', function(e)  {
+		   $(this).val($(this).val().toUpperCase());
+	});
+	
+	$('.input_wbs_number').mask(
+		'AA.000000.0',
+		{'translation': 
+			{
+				A: {pattern: /[A-Za-z]/}
+			}
+		}
+	);
+});
+//-->
+</script>
+
 
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
 
@@ -75,4 +94,3 @@ foreach ($excludes as $exclude)
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-<?=validation_errors(); ?>

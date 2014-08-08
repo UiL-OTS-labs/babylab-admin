@@ -10,9 +10,10 @@ if (!function_exists('form_input_and_label'))
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
 		$input = $is_password ? form_password($name, set_value($name, $value), $extra) : form_input($name, set_value($name, $value), $extra);
+		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
 
-		return $div_start . $label . $input . $div_end;
+		return $div_start . $label . $input . $error_box . $div_end;
 	}
 }
 

@@ -6,7 +6,7 @@ class Experiment extends CI_Controller
 		parent::__construct();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -234,7 +234,7 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('type', lang('type'), 'trim|required');
 		$this->form_validation->set_rules('description', lang('description'), 'trim|required');
 		$this->form_validation->set_rules('duration', lang('duration'), 'trim|required');
-		$this->form_validation->set_rules('wbs_number', lang('wbs_number'), 'trim|required|regex_match[/[a-zA-Z]{2}\.?\d{6}\.?\d/]');
+		$this->form_validation->set_rules('wbs_number', lang('wbs_number'), 'trim|required|callback_wbs_check');
 		$this->form_validation->set_rules('dyslexic', lang('dyslexic'), '');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), '');
 		$this->form_validation->set_rules('agefrommonths', lang('agefrommonths'), 'trim|required|is_natural|callback_age_check');
@@ -279,6 +279,23 @@ class Experiment extends CI_Controller
 			return FALSE;
 		}
 		return TRUE;
+	}
+	
+	/**
+	 * Callback function to check if the WBS number is correctly
+	 * formatted.
+	 * @param String $str	wbs number
+	 */
+	public function wbs_check($str)
+	{
+		$pattern = "/^[a-zA-Z]{2}\.?\d{6}\.?\d$/";
+		if (!preg_match($pattern, $str))
+		{
+			$this->form_validation->set_message('wbs_check', lang('wbs_check'));
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/////////////////////////

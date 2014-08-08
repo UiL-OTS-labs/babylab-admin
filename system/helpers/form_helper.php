@@ -174,7 +174,7 @@ if ( ! function_exists('form_input'))
 {
 	function form_input($data = '', $value = '', $extra = '')
 	{
-		$defaults = array('type' => 'text', 'name' => (( ! is_array($data)) ? $data : ''), 'value' => $value);
+		$defaults = array('type' => 'text', 'name' => (( ! is_array($data)) ? $data : ''), 'value' => $value, 'class' => 'input_' . (( ! is_array($data)) ? $data : ''));
 
 		return "<input "._parse_form_attributes($data, $defaults).$extra." />";
 	}
