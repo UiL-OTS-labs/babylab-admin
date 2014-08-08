@@ -234,7 +234,7 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('type', lang('type'), 'trim|required');
 		$this->form_validation->set_rules('description', lang('description'), 'trim|required');
 		$this->form_validation->set_rules('duration', lang('duration'), 'trim|required');
-		$this->form_validation->set_rules('wbs_number', lang('wbs'), 'trim|required|regex_match[/[a-zA-Z]{2}\.?\d{6}\.?\d/]');
+		$this->form_validation->set_rules('wbs_number', lang('wbs_number'), 'trim|required|regex_match[/[a-zA-Z]{2}\.?\d{6}\.?\d/]');
 		$this->form_validation->set_rules('dyslexic', lang('dyslexic'), '');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), '');
 		$this->form_validation->set_rules('agefrommonths', lang('agefrommonths'), 'trim|required|is_natural|callback_age_check');
@@ -293,7 +293,7 @@ class Experiment extends CI_Controller
 
 		if (empty($experiment_ids)) array_push($experiment_ids, 0);
 
-		$this->datatables->select('name, agefrommonths, wbs_number, dyslexic, multilingual, id AS callers, id AS leaders, id');
+		$this->datatables->select('name, agefrommonths, dyslexic, multilingual, id AS callers, id AS leaders, id');
 		$this->datatables->from('experiment');
 
 		if (!$archived) $this->datatables->where('archived', $archived);
