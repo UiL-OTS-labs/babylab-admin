@@ -15,6 +15,25 @@ if (!function_exists('create_comment_table'))
 	}
 }
 
+if (!function_exists('comment_body'))
+{
+	/** Possible actions for a comment: prioritize and delete */
+	function comment_body($comment)
+	{
+		if (strlen($comment) > 75) 
+		{
+			$abbr = '<abbr title="' . $comment . '">';
+			$date_output = substr($comment, 0, 75) . '...';
+			$abbr_end = '</abbr>';
+			return $abbr . $date_output . $abbr_end;
+		}
+		else
+		{
+			return $comment;
+		}
+	}
+}
+
 if (!function_exists('comment_actions'))
 {
 	/** Possible actions for a comment: prioritize and delete */
@@ -23,9 +42,10 @@ if (!function_exists('comment_actions'))
 		$CI =& get_instance();
 		$c = $CI->commentModel->get_comment_by_id($comment_id);
 
-		$prio_link = anchor('comment/prioritize/' . $c->id . ($c->priority ? '/0' : ''), img_star(!$c->priority));
-		$d_link = anchor('comment/delete/' . $c->id, img_delete(), warning(lang('sure_delete_comment')));
+		$prio_link = anchor('comment/prioritize/' . $comment_id . ($c->priority ? '/0' : ''), img_star(!$c->priority));
+		$edit_link = anchor('comment/edit/' . $comment_id, img_edit());
+		$d_link = anchor('comment/delete/' . $comment_id, img_delete(), warning(lang('sure_delete_comment')));
 
-		return $prio_link . ' ' . $d_link;
+		return implode(' ', array($prio_link, $edit_link, $d_link));
 	}
 }

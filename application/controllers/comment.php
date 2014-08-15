@@ -50,6 +50,43 @@ class Comment extends CI_Controller
 		}
 	}
 
+	/** Specifies the contents of the edit page. */
+	public function edit($comment_id)
+	{
+		$comment = $this->commentModel->get_comment_by_id($comment_id);
+		$participant = $this->commentModel->get_participant_by_comment($comment);
+		
+		$data['page_title'] = sprintf(lang('edit_comment'), name($participant));
+		$data['action'] = 'comment/edit_submit/' . $comment_id;
+		
+		$data['comment'] = $comment->body;
+		$data['referrer'] = $this->agent->referrer();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('comment_edit_view', $data);
+		$this->load->view('templates/footer');
+	}
+	
+	/** Submits the edit of a comment */
+	public function edit_submit($comment_id)
+	{
+		// Run validation
+		if (!$this->validate_comment())
+		{
+			// Show form again with error messages
+			$this->edit($comment_id);
+		}
+		else
+		{
+			// If succeeded, insert data into database
+			$comment = $this->input->post('comment');
+			$this->commentModel->update_comment($comment_id, $comment);
+
+			flashdata(lang('comment_edited'), TRUE, 'comment_message');
+			redirect($this->input->post('referrer'), 'refresh');
+		}
+	}
+
 	/** Deletes the specified comment, and returns to previous page */
 	public function delete($comment_id)
 	{
@@ -135,6 +172,7 @@ class Comment extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('timecreated', '$1', 'output_date(timecreated)');
 		$this->datatables->edit_column('username', '$1', 'user_get_link_by_id(user_id)');
+		$this->datatables->edit_column('body', '$1', 'comment_body(body)');
 		$this->datatables->edit_column('id', '$1', 'comment_actions(id)');
 
 		$this->datatables->unset_column('participant_id');
