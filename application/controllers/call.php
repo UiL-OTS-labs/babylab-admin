@@ -231,6 +231,7 @@ class Call extends CI_Controller
 		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
+		if ($experiment->attachment) $this->email->attach($experiment->attachment);
 		$this->email->send();
 
 		return sprintf(lang('confirmation_sent'), $participant->email);
