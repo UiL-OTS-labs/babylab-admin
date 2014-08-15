@@ -11,7 +11,8 @@ $(function() {
 		{'translation': 
 			{
 				A: {pattern: /[A-Za-z]/}
-			}
+			},
+		 'placeholder': "__.______._"
 		}
 	);
 });
