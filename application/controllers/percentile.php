@@ -4,6 +4,7 @@ class Percentile extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except(array('find', 'find_age'));
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -44,7 +45,7 @@ class Percentile extends CI_Controller
 		$data['testcat_id'] = $testcat_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('percentile_edit_view', $data);
+		$this->load->view('percentile_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -83,7 +84,7 @@ class Percentile extends CI_Controller
 		$data['action'] = 'percentile/edit_submit/' . $percentile_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('percentile_edit_view', $data);
+		$this->load->view('percentile_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -128,7 +129,7 @@ class Percentile extends CI_Controller
 		$data['page_title'] = sprintf(lang('percentiles_for'), $test->name);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

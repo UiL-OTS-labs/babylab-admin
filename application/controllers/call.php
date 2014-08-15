@@ -50,7 +50,7 @@ class Call extends CI_Controller
 		$data['page_title'] = lang('calls');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

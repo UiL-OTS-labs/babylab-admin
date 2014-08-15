@@ -4,6 +4,7 @@ class TestInvite extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -24,7 +25,7 @@ class TestInvite extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -42,7 +43,7 @@ class TestInvite extends CI_Controller
 		$data['testsurvey_id'] = $testsurvey_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testinvite_edit_view', $data);
+		$this->load->view('testinvite_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

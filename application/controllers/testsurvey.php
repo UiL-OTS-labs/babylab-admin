@@ -4,6 +4,7 @@ class TestSurvey extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -39,7 +40,7 @@ class TestSurvey extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_testsurvey'), testsurvey_name($testsurvey));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testsurvey_view', $data);
+		$this->load->view('testsurvey_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -56,7 +57,7 @@ class TestSurvey extends CI_Controller
 		$data['test_id'] = $test_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testsurvey_edit_view', $data);
+		$this->load->view('testsurvey_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -97,7 +98,7 @@ class TestSurvey extends CI_Controller
 		$data = add_fields($data, 'testsurvey', $testsurvey);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testsurvey_edit_view', $data);
+		$this->load->view('testsurvey_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

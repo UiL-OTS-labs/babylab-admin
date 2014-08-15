@@ -27,7 +27,7 @@ class UserModel extends CI_Model
 	public function update_user($user_id, $user)
 	{
 		$u = $this->get_user_by_id($user_id);
-		if ($user['role'] != $u->role)
+		if (isset($user['role']) && $user['role'] != $u->role)
 		{
 			if ($u->role === UserRole::Caller) $this->callerModel->delete_callers_by_user($user_id);
 			if ($u->role === UserRole::Leader) $this->leaderModel->delete_leaders_by_user($user_id);

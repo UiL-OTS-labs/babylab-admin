@@ -4,6 +4,7 @@ class Test extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -37,7 +38,7 @@ class Test extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_test'), $test->name);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('test_view', $data);
+		$this->load->view('test_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -49,7 +50,7 @@ class Test extends CI_Controller
 		$data = add_fields($data, 'test');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('test_edit_view', $data);
+		$this->load->view('test_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -84,7 +85,7 @@ class Test extends CI_Controller
 		$data = add_fields($data, 'test', $test);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('test_edit_view', $data);
+		$this->load->view('test_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

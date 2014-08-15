@@ -4,7 +4,7 @@ $lang['table_language'] 	= "js/datatables/language/english.txt";
 
 $lang['not_authorized'] 	= "You are not authorized to view this page";
 $lang['home'] 				= "Home";
-$lang['babylab'] 			= "Babylab";
+$lang['babylab'] 			= "Babylab Utrecht";
 $lang['action']				= "Action";
 $lang['actions']			= "Actions";
 $lang['delete']				= "Delete";

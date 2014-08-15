@@ -4,6 +4,7 @@ class Experiment extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
@@ -41,7 +42,7 @@ class Experiment extends CI_Controller
 		$data['nr_participations'] = count($participations);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('experiment_view', $data);
+		$this->load->view('experiment_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -59,7 +60,7 @@ class Experiment extends CI_Controller
 		$data['excludes'] = $data['prerequisites'];
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('experiment_edit_view', $data);
+		$this->load->view('experiment_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -118,7 +119,7 @@ class Experiment extends CI_Controller
 		$data['current_exclude_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Excludes);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('experiment_edit_view', $data);
+		$this->load->view('experiment_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -204,7 +205,7 @@ class Experiment extends CI_Controller
 		$data['table'] = create_experiment_table($experiments);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -219,7 +220,7 @@ class Experiment extends CI_Controller
 		$data['table'] = create_experiment_table($experiments);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

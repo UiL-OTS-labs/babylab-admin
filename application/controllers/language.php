@@ -4,6 +4,7 @@ class Language extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 	}
 
@@ -19,7 +20,7 @@ class Language extends CI_Controller
 		$data['page_title'] = lang('languages');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

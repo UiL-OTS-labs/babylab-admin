@@ -4,6 +4,7 @@ class Result extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -34,7 +35,7 @@ class Result extends CI_Controller
 		$data['action'] = 'result/add_submit/' . $participation_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('result_add_view', $data);
+		$this->load->view('result_add_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -123,7 +124,7 @@ class Result extends CI_Controller
 		$data = add_fields($data, 'result', $result);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('result_edit_view', $data);
+		$this->load->view('result_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

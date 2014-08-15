@@ -4,6 +4,7 @@ class Impediment extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -36,7 +37,7 @@ class Impediment extends CI_Controller
 		$data['participants'] = $this->participantModel->get_all_participants(TRUE);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('impediment_add_view', $data);
+		$this->load->view('impediment_add_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -93,7 +94,7 @@ class Impediment extends CI_Controller
 		$data['page_title'] = sprintf(lang('impediments_for'), name($participant));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

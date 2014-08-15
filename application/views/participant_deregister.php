@@ -2,6 +2,8 @@
 
 <?=heading($page_title, 2); ?>
 
+<p>Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.</p> 
+
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
 
 <?=form_fieldset(lang('data_child')); ?>
