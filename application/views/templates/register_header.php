@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <base href="<?=base_url(); ?>">
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" name="viewport" content="width=device-width, initial-scale=1" />
 <title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
@@ -40,10 +40,10 @@
 </head>
 <body>
 
-	<div id="wrapper">
+	<div class="pure-g">
+	<div class="pure-u-1-5"></div>
+	<div id="wrapper" class="pure-u-3-5">
 
 		<img id="header-img" src="images/uu-header.png">
-		<h1>
-		<?=lang('babylab'); ?>
-		</h1>
+		<?=heading(lang('babylab'), 1); ?>
 		<hr>
