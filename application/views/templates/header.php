@@ -34,14 +34,10 @@
 <!-- Sparkline -->
 <script type="text/javascript" src="js/jquery.sparkline.js"></script>
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
-<<<<<<< HEAD
 
-
-
-=======
 <!-- Masks -->
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
->>>>>>> bd26c4de7b5fed8f9689f9e8d6f18a41e04887c5
+
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 <script>
 	$(function() {
