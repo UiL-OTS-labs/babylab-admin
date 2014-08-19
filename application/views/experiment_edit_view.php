@@ -1,4 +1,7 @@
 <?=heading(lang('experiments'), 2); ?>
+<link rel="stylesheet" media="screen" type="text/css" href="http://belelros.github.io/jQuery-ColorPicker/css/colorpicker.css" />
+<!-- Color Picker -->
+<script src="js/colorPicker.min.js"></script>
 <script type="text/javascript">
 <!--
 $(function() {
@@ -15,10 +18,29 @@ $(function() {
 		 'placeholder': "__.______._"
 		}
 	);
-});
+
+	var widt = false;
+    $('#colorselector2').ColorPicker({
+        color: '<?=$experiment_color;?>',
+        onShow: function (colpkr) {
+            $(colpkr).fadeIn(500);
+            return false;
+        },
+        onHide: function (colpkr) {
+            $(colpkr).fadeOut(500);
+            return false;
+        },
+        onChange: function (hsb, hex, rgb) {
+            $('#colorselector2 label').css('background', 'url("../images/select.png") repeat scroll center center #' + hex);
+            $('#experiment_color').val('#' + hex);
+        }
+    });
+    $('#colorselector2 label').css('cursor', 'pointer');
+    $('#colorselector2 label').css('background', 'url("../images/select.png") repeat scroll center center <?=$experiment_color;?>');
+    $('#experiment_color').val('<?=$experiment_color;?>');
+});        
 //-->
 </script>
-
 
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
 
@@ -29,6 +51,7 @@ $(function() {
 <?=form_input_and_label('duration', $duration, 'required class="positive-integer"'); ?>
 <?=form_dropdown_and_label('location', location_options($locations), $location_id); ?>
 <?=form_input_and_label('wbs_number', $wbs_number, 'required'); ?>
+<?=form_colorPicker('experiment_color', $experiment_color,'required');?>
 
 <?=form_fieldset('Eisen deelnemers'); ?>
 
@@ -95,3 +118,4 @@ foreach ($excludes as $exclude)
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
+

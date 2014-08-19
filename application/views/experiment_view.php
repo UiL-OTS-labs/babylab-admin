@@ -47,6 +47,10 @@
 				<th><?=lang('wbs_number'); ?></th>
 				<td><?=$experiment->wbs_number; ?></td>
 			</tr>
+			<tr>
+				<th><?=lang('experiment_color'); ?></th>
+				<td><?=stripslashes(get_colored_label($experiment));?></td>
+			</tr>
 		</table>
 	</div>
 

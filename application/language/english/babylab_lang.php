@@ -106,6 +106,7 @@ $lang['edit_experiment'] 	= "Edit experiment";
 $lang['exp_edited']			= "Experiment successfully edited.";
 $lang['type'] 				= "Task type";
 $lang['wbs_number']			= "WBS Number";
+$lang['experiment_color']	= "Experiment label color";
 $lang['description'] 		= "Task description";
 $lang['duration'] 			= "Duration";
 $lang['multilingual']		= "Multilingual";
@@ -375,5 +376,8 @@ $lang['sure_delete_testcat']= "Are you sure you want to remove this test categor
 $lang['testcat_deleted'] 	= "Test category succesfully removed.";
 $lang['parent_testcat'] 	= "Parent category";
 $lang['code']				= "Code";
+
+/* Appointment Calendar */
+$lang['legend']				= "Legend";
 
 ?>

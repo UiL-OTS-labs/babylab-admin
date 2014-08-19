@@ -17,6 +17,24 @@ if (!function_exists('form_input_and_label'))
 	}
 }
 
+if (!function_exists('form_colorPicker'))
+{
+	function form_colorPicker($name, $value='', $extra = '', $div = 'pure-control-group')
+	{
+		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"' . ' style="display: none;"';
+		$value = !empty($value) || $value == 0 ? $value : '';
+
+		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
+		$label = form_label(lang($name), $name);
+		//$input = '<input id="colorselector2"></input>';
+		$error_box = form_error($name);
+		$div_end = empty($div) ? '' : '</div>';
+		$input = "<label id='colorselector2'><label></label></label>";
+		$input .= form_input($name, set_value($name, $value), $extra);
+		return $div_start . $label . $input . $error_box . $div_end;
+	}
+}
+
 if (!function_exists('form_textarea_and_label'))
 {
 	function form_textarea_and_label($name, $value = '', $label = '', $extra = '', $div = 'pure-control-group')

@@ -15,6 +15,12 @@ class ParticipationModel extends CI_Model
 	{
 		return $this->db->get('participation')->result();
 	}
+	
+	public function get_all_appointments()
+	{
+		$this->db->where('(appointment IS NOT NULL)');
+		return $this->db->get('participation')->result();
+	}
 
 	/** Returns all participations that have been confirmed, but no other action has been taken */
 	public function get_confirmed_participations($experiments = array())

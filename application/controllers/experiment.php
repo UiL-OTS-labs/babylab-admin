@@ -105,7 +105,7 @@ class Experiment extends CI_Controller
 		$data['page_title'] = lang('edit_experiment');
 		$data['action'] = 'experiment/edit_submit/' . $experiment_id;
 		$data = add_fields($data, 'experiment', $experiment);
-
+		
 		$data['locations'] = $this->locationModel->get_all_locations();
 		$data['callers'] = $this->userModel->get_all_callers();
 		$data['leaders'] = $this->userModel->get_all_leaders();
@@ -256,6 +256,7 @@ class Experiment extends CI_Controller
 				'description' 		=> $this->input->post('description'),
 				'duration' 			=> $this->input->post('duration'),
 				'wbs_number'		=> $this->input->post('wbs_number'),
+				'experiment_color'	=> $this->input->post('experiment_color'),
 				'dyslexic' 			=> is_array($this->input->post('dyslexic')),
 				'multilingual' 		=> is_array($this->input->post('multilingual')),
 				'agefrommonths' 	=> $this->input->post('agefrommonths'),
@@ -333,4 +334,5 @@ class Experiment extends CI_Controller
 	{
 		$this->table(FALSE, $user_id, $user_id);
 	}
+	
 }

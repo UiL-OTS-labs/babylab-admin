@@ -145,3 +145,28 @@ a {
 .pure-form-aligned .pure-control-group label.error {
 	width: 12.5em;
 }
+
+/*	Experiment colored label */
+.experiment-color{
+	padding: 3px;
+	width: 132px;
+	border-width: 1px;
+	border-radius: 3px;
+	margin-bottom: 3px;
+	background-color: rgb(58, 135, 173);
+}
+
+#colorselector2 {
+    width: 36px;
+    height: 36px;
+    background: url("http://belelros.github.io/jQuery-ColorPicker/images/select.png") repeat scroll 0% 0%;
+}
+
+#colorselector2 label{
+	position: relative;
+	top: 6px;
+	left: 6px;
+	width: 24px;
+	height: 24px;
+	background: url("../images/select.png") repeat scroll center center transparent;
+}
