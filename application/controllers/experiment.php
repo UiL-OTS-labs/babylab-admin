@@ -223,7 +223,66 @@ class Experiment extends CI_Controller
 		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
+	
+	/**
+	 * Downloads all scores of participants of an experiment as a .csv-file.
+	 * @param integer $experiment_id
+	 */
+	public function download_scores($experiment_id)
+	{
+		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id);
 
+		$table = array();
+		$testcats = array();
+		$total = array();
+		foreach ($participants as $participant)
+		{
+			$scores = $this->scoreModel->get_scores_by_participant($participant->id);
+			foreach ($scores as $score)
+			{
+				$total[$score->testinvite_id] = 0;
+			}
+			foreach ($scores as $score)
+			{
+				$testcat = $this->testCatModel->get_testcat_by_id($score->testcat_id);
+				$testcats[] = $testcat;
+				$table[$score->testinvite_id][$score->testcat_id] = $score->score;
+				$total[$score->testinvite_id] += $score->score;
+			}
+		}
+		//$testcats = array_unique($testcats);
+
+		// Sort testcats by code (hmm, uniciteit?!)
+		usort($testcats, function($a, $b)
+		{
+		    return strcmp($a->code, $b->code);
+		});
+
+		//print_r($table);
+		// header
+		echo 'Name,';
+		foreach ($testcats as $testcat)
+		{
+			echo $testcat->code . ' - ' . $testcat->name . ',';
+		}
+
+		echo 'total<br>';
+
+		//results
+		foreach ($table as $testinvite_id => $scores)
+		{
+			$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
+			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
+			echo implode(',', array(name($participant), gender_sex($participant->gender))); // geb.datum,testdatum, leeftijd bij test
+			foreach ($testcats as $testcat)
+			{
+				echo $scores[$testcat->id] . ',';
+			}
+			echo "$total[$testinvite_id]\n"; // totalen per hoofdcategorie, percentiel, taalleeftijd
+		}
+	}
+	
 	/////////////////////////
 	// Form handling
 	/////////////////////////

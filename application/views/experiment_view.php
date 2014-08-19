@@ -105,4 +105,12 @@
 	$this->load->view('templates/list_view', $relations);
 		?>
 	</div>
+	
+	<!-- Scores -->
+	<h3>
+	<?=lang('scores'); ?>
+	</h3>
+	<div>
+	<?=anchor('experiment/download_scores/' . $experiment->id, 'Download scores'); ?>
+	</div>
 </div>
