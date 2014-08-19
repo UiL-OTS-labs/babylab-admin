@@ -99,4 +99,14 @@ class ExperimentModel extends CI_Model
 		}
 		return $experiments;
 	}
+	
+	/** Returns all participants for an experiment */
+	public function get_participants_by_experiment($experiment_id)
+	{
+		$this->db->select('participant.*');
+		$this->db->join('participation', 'participation.participant_id = participant.id');
+		$this->db->where('participation.experiment_id', $experiment_id);
+		$this->db->where('participation.completed', '1');
+		return $this->db->get('participant')->result();
+	}
 }

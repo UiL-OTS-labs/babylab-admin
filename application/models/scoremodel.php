@@ -112,6 +112,7 @@ class ScoreModel extends CI_Model
 	/** Returns the scores for a participant */
 	public function get_scores_by_participant($participant_id)
 	{
+		$this->db->select('score.*');
 		$this->db->join('testinvite', 'score.testinvite_id = testinvite.id');
 		$this->db->join('participant', 'testinvite.participant_id = participant.id');
 		$this->db->where('participant.id', $participant_id);
@@ -122,11 +123,9 @@ class ScoreModel extends CI_Model
 	public function get_participant_by_score($score)
 	{
 		$this->db->select('participant.*');
-		$this->db->from('participant');
 		$this->db->join('testinvite', 'testinvite.participant_id = participant.id');
-		$this->db->join('score', 'score.testinvite_id = testinvite.id');
 		$this->db->where('testinvite.id', $score->testinvite_id);
-		return $this->db->get()->row();
+		return $this->db->get('participant')->row();
 	}
 
 	/////////////////////////
