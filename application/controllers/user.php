@@ -6,9 +6,13 @@ class User extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except(array(
+			'register', 'register_submit', 'register_finish',
+			'forgot_password', 'forgot_password_submit', 
+			'reset_password', 'reset_password_submit'));
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -46,7 +50,7 @@ class User extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_user'), $user->username);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('user_view', $data);
+		$this->load->view('user_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -64,7 +68,7 @@ class User extends CI_Controller
 		$data = add_fields($data, 'user');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('user_edit_view', $data);
+		$this->load->view('user_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -328,7 +332,7 @@ class User extends CI_Controller
 		$data['page_title'] = lang('change_password');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('user_change_password_view', $data);
+		$this->load->view('user_change_password_view', $data);
 		$this->load->view('templates/footer');
 	}
 

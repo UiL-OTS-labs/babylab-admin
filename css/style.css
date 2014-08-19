@@ -12,12 +12,9 @@ body {
 }
 
 #wrapper {
-	width: 1000px;
-	margin: 5px auto 5px auto;
+	margin: 5px;
 	padding: 10px;
 	background: none repeat scroll 0% 0% rgb(255, 255, 255);
-	text-align: left;
-	position: relative;
 }
 
 #validator {
@@ -60,6 +57,7 @@ a {
 	color: red;
 }
 
+/* Bootstrap-like succes/failed/warning boxes */
 .success {
 	text-align: center;
 	padding: 10px; 
@@ -84,10 +82,14 @@ a {
 	border: 1px solid yellow;
 }
 
+/* Pointers for call links */
+
 .call_link {
 	cursor: pointer;
 	color: #003399;
 }
+
+/* jQuery UI overrides */
 
 .ui-widget {
 	font-family: inherit;	

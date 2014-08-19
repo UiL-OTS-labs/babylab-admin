@@ -4,6 +4,9 @@ class Participant extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except(array(
+			'register', 'register_submit', 'register_finish', 
+			'deregister', 'deregister_submit', 'deregister_finish'));
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -24,7 +27,7 @@ class Participant extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -47,7 +50,7 @@ class Participant extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_pp'), name($participant));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participant_view', $data);
+		$this->load->view('participant_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -65,7 +68,7 @@ class Participant extends CI_Controller
 		$data['is_registration'] = FALSE;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participant_edit_view', $data);
+		$this->load->view('participant_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -122,7 +125,7 @@ class Participant extends CI_Controller
 		$data['is_registration'] = FALSE;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participant_edit_view', $data);
+		$this->load->view('participant_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -369,7 +372,7 @@ class Participant extends CI_Controller
 		$data['page_info'] = $info;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -564,7 +567,7 @@ class Participant extends CI_Controller
 	// AJAX
 	/////////////////////////
 
-	/** Checks whether the given parameter is higher than 0 */
+	/** Filters the participants on the given term */
 	public function filter_participants()
 	{
 		$term = $this->input->get('term');
@@ -632,7 +635,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('lastcalled', '$1', 'last_called(id, ' . $experiment_id . ')');
-		$this->datatables->edit_column('id', '$1', 'participant_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
+		$this->datatables->edit_column('id', '$1', 'participant_call_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
 
 		echo $this->datatables->generate();
 	}

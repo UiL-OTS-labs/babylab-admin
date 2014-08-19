@@ -8,6 +8,7 @@ class TestTemplate extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -45,7 +46,7 @@ class TestTemplate extends CI_Controller
 		$data['test_id'] = $test_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testtemplate_edit_view', $data);
+		$this->load->view('testtemplate_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -86,7 +87,7 @@ class TestTemplate extends CI_Controller
 		$data = add_fields($data, 'testtemplate', $testtemplate);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testtemplate_edit_view', $data);
+		$this->load->view('testtemplate_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

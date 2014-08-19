@@ -4,6 +4,7 @@ class Location extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -37,7 +38,7 @@ class Location extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_location'), $location->name);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('location_view', $data);
+		$this->load->view('location_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -50,7 +51,7 @@ class Location extends CI_Controller
 		$data = add_fields($data, 'location');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('location_edit_view', $data);
+		$this->load->view('location_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -85,7 +86,7 @@ class Location extends CI_Controller
 		$data = add_fields($data, 'location', $location);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('location_edit_view', $data);
+		$this->load->view('location_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

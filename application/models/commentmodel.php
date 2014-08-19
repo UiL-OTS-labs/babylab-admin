@@ -26,6 +26,13 @@ class CommentModel extends CI_Model
 		return $this->db->insert_id();
 	}
 
+	/** Updates the comment specified by the id with the details of the comment */
+	public function update_comment($comment_id, $comment)
+	{
+		$this->db->where('id', $comment_id);
+		$this->db->update('comment', array('body' => $comment));
+	}
+
 	/** Deletes a comment from the DB */
 	public function delete_comment($comment_id)
 	{

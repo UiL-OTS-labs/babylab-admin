@@ -4,6 +4,7 @@ class TestCat extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -49,7 +50,7 @@ class TestCat extends CI_Controller
 		}
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testcat_view', $data);
+		$this->load->view('testcat_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -68,7 +69,7 @@ class TestCat extends CI_Controller
 		$data['testcat_id'] = $testcat_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testcat_edit_view', $data);
+		$this->load->view('testcat_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -108,7 +109,7 @@ class TestCat extends CI_Controller
 		$data = add_fields($data, 'testcat', $testcat);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('testcat_edit_view', $data);
+		$this->load->view('testcat_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

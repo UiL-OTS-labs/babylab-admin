@@ -6,6 +6,7 @@ class Dyslexia extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -26,7 +27,7 @@ class Dyslexia extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -43,7 +44,7 @@ class Dyslexia extends CI_Controller
 		$data['participant_id'] = $participant_id;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('dyslexia_edit_view', $data);
+		$this->load->view('dyslexia_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -82,7 +83,7 @@ class Dyslexia extends CI_Controller
 		$data['date'] = output_date($dyslexia->date, TRUE);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('dyslexia_edit_view', $data);
+		$this->load->view('dyslexia_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 

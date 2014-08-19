@@ -21,7 +21,7 @@ class Migrate extends CI_Controller
 			exit;
 		}
 
-		echo "<br />Migration Successful<br />";
+		echo "<br />Migration to latest version successful<br />";
 	}
 
 	// This will migrate up to the configed migration version
@@ -36,6 +36,6 @@ class Migrate extends CI_Controller
 			exit;
 		}
 
-		echo "<br />Migration Successful<br />";
+		echo "<br />Migration to version " . $id . " successful<br />";
 	}
 }

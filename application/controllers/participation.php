@@ -17,6 +17,7 @@ class Participation extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -40,7 +41,7 @@ class Participation extends CI_Controller
 		$data['page_title'] = lang('participations');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -57,7 +58,7 @@ class Participation extends CI_Controller
 		$data['page_title'] = lang('participation');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participation_view', $data);
+		$this->load->view('participation_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -88,7 +89,7 @@ class Participation extends CI_Controller
 			$data['experiment_id'] = $experiment_id;
 
 			$this->load->view('templates/header', $data);
-			$this->authenticate->authenticate_redirect('participation_risk_view', $data);
+			$this->load->view('participation_risk_view', $data);
 			$this->load->view('templates/footer');
 		}
 		else
@@ -97,7 +98,7 @@ class Participation extends CI_Controller
 			$data['ajax_source'] = 'participation/table/0/' . $experiment_id;
 
 			$this->load->view('templates/header', $data);
-			$this->authenticate->authenticate_redirect('templates/list_view', $data);
+			$this->load->view('templates/list_view', $data);
 			$this->load->view('templates/footer');
 		}
 	}
@@ -191,7 +192,7 @@ class Participation extends CI_Controller
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participation_call', $data);
+		$this->load->view('participation_call', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -215,7 +216,7 @@ class Participation extends CI_Controller
 		$data['sort_order'] = 'desc';
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/table_view', $data);
+		$this->load->view('templates/table_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -239,7 +240,7 @@ class Participation extends CI_Controller
 		$data['sort_order'] = 'desc';
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/table_view', $data);
+		$this->load->view('templates/table_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -261,7 +262,7 @@ class Participation extends CI_Controller
 		$data['experiment'] = $experiment;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participation_reschedule', $data);
+		$this->load->view('participation_reschedule', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -334,7 +335,7 @@ class Participation extends CI_Controller
 		$data['pp_comment'] = $pp_comment;
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('participation_complete', $data);
+		$this->load->view('participation_complete', $data);
 		$this->load->view('templates/footer');
 	}
 

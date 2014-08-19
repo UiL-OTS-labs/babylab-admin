@@ -1,10 +1,10 @@
 <script>
-	$(function() {
+	$(document).ready(function() {
 		$( "#accordion" ).accordion({
 			collapsible: true,
 			heightStyle: "content",
-			active: <?=$this->session->flashdata('comment_message') ? 3 : 
-						($this->session->flashdata('impediment_message') ? 2 : 0); ?>
+			active: <?=$this->session->flashdata('comment_message') ? 4 : 
+						($this->session->flashdata('impediment_message') ? 3 : 0); ?>
 		});
 	});
 </script>

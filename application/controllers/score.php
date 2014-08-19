@@ -4,6 +4,7 @@ class Score extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -52,7 +53,7 @@ class Score extends CI_Controller
 		}
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('score_edit_view', $data);
+		$this->load->view('score_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -95,7 +96,7 @@ class Score extends CI_Controller
 		$data['date'] = output_date($score->date, TRUE);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('score_edit_view', $data);
+		$this->load->view('score_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -136,7 +137,7 @@ class Score extends CI_Controller
 		// $data['date'] = output_date(); TODO: find min date for possible scores
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('score_edit_all_view', $data);
+		$this->load->view('score_edit_all_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -199,7 +200,7 @@ class Score extends CI_Controller
 		$data['page_title'] = sprintf(lang('scores_for'), name($participant));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -213,7 +214,7 @@ class Score extends CI_Controller
 		$data['page_title'] = sprintf(lang('scores_for'), $testcat->name);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -227,7 +228,7 @@ class Score extends CI_Controller
 		$data['page_title'] = sprintf(lang('scores_for'), $testsurvey->name);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -244,7 +245,7 @@ class Score extends CI_Controller
 		$data['page_info'] = 'Bekijk het score-overzicht via ' . anchor('c/' . $test->code . '/' . $testinvite->token . '/home', 'deze link') . '.';
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data);
+		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
 

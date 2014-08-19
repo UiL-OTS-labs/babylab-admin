@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <base href="<?=base_url(); ?>">
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
@@ -32,11 +33,15 @@
 <script type="text/javascript" src="js/jquery.numeric.addon.js"></script>
 <!-- Sparkline -->
 <script type="text/javascript" src="js/jquery.sparkline.js"></script>
-<script type="text/javascript" src="js/jquery.mask.min.js"></script>
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
+<<<<<<< HEAD
 
 
 
+=======
+<!-- Masks -->
+<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+>>>>>>> bd26c4de7b5fed8f9689f9e8d6f18a41e04887c5
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 <script>
 	$(function() {
@@ -48,12 +53,12 @@
 </head>
 <body>
 
-	<div id="wrapper">
+<div class="pure-g">
+	<div class="pure-u-1-5"></div>
+	<div id="wrapper" class="pure-u-3-5">
 
 		<img id="header-img" src="images/uu-header.png">
-		<h1>
-		<?=lang('babylab'); ?>
-		</h1>
+		<?=heading(lang('babylab'), 1); ?>
 
 		<?php if (is_admin()) { ?>
 		<div id='cssmenu'>

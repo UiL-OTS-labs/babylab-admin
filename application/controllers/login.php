@@ -4,6 +4,7 @@ class Login extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except(array('index', 'submit'));
 		reset_language(current_language());
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -119,7 +120,7 @@ class Login extends CI_Controller
 				$session_data = array(
 						'username' 	=> $username,
 						'user_id' 	=> $user->id,
-						'loggedin' 	=> TRUE,
+						'logged_in' => TRUE,
 						'role' 		=> $user->role,
 						'language' 	=> user_language($user)
 				);
