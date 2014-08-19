@@ -7,7 +7,7 @@
 <!-- Common JQuery -->
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+	href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
 <script type="text/javascript"
 	src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 <!-- (default) CSS -->
@@ -34,6 +34,9 @@
 <script type="text/javascript" src="js/jquery.sparkline.js"></script>
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
+
+
+
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 <script>
 	$(function() {

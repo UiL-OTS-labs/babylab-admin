@@ -59,6 +59,55 @@ if (!function_exists('age_range_by_id'))
 	}
 }
 
+if (!function_exists('get_foreground_color'))
+{
+	/**
+	 * Function to calculate the text color off of the
+	 * brightness of the background color
+	 * 
+	 * Based on: 
+	 * http://themergency.com/calculate-text-color-based-on-background-color-brightness/
+	 * 
+	 * @param String $bgColor
+	 */
+	function get_foreground_color($color)
+	{
+		$R = hexdec(substr($color, 1,2));
+		$G = hexdec(substr($color,3,4));
+		$B = hexdec(substr($color,5,6));
+		
+		// Calculate a brightness bases on a weighted sum
+		$brightness = sqrt($R * $R * .241 + $G * $G * .691 + $B * $B * 0.068);
+		
+		// Return either light or dark color
+		return $brightness < 130 ? "#ffffff" : "#000000";
+	}
+}
+
+if (!function_exists('get_colored_label'))
+{
+	/**
+	 * Generates a label that shows the experiment
+	 * label color with the name inside
+	 * @param Experiment $experiment
+	 */
+	function get_colored_label($experiment)
+	{
+		$bg = $experiment->experiment_color;
+		$color = get_foreground_color($bg);
+		
+		$label = "<div class=\'legend experiment-color\' style=\'background-color: ";
+		$label .= $bg;
+		$label .= "; color: ";
+		$label .= $color;
+		$label .= ";\'>";
+		$label .= $experiment->name;
+		$label .= "</div>";
+		
+		return $label;
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////

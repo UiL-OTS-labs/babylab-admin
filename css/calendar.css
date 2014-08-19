@@ -1,0 +1,20 @@
+table.fc-header, table.fc-border-separate{
+	border: 0px !important;	
+}
+
+.fc-view-agendaWeek .fc-event, .fc-view-agendaDay .fc-event{
+	height: auto !important;
+	font-size: 0.85em;
+	white-space: normal;
+	padding: 3px;
+}
+
+.fc-view-agendaWeek .fc-event-inner, .fc-view-agendaDay .fc-event-inner{
+	white-space: normal;
+}
+
+.fc-view-agendaWeek .fc-event-time, .fc-view-agendaDay .fc-event-time{
+	font-size: 0.85em;
+	font-weight: bold;
+	white-space: normal;
+}

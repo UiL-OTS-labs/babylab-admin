@@ -106,6 +106,7 @@ $lang['edit_experiment'] 	= "Bewerk experiment";
 $lang['exp_edited']			= "Experiment succesvol bewerkt.";
 $lang['type'] 				= "Taaksoort";
 $lang['wbs_number']			= "WBS Nummer";
+$lang['experiment_color']	= "Experiment label kleur";
 $lang['description'] 		= "Taakomschrijving";
 $lang['duration'] 			= "Duur (minuten)";
 $lang['multilingual']		= "Tweetalig";
@@ -373,4 +374,9 @@ $lang['testcat_deleted'] 	= "Testcategorie succesvol verwijderd.";
 $lang['parent_testcat'] 	= "Hoofdcategorie";
 $lang['code']				= "Code";
 
+/* Appointments calender overview page */
+$lang['appointments'] 		= "Afspraken";
+
+/* Appointment Calendar */
+$lang['legend']				= "Legenda";
 ?>
