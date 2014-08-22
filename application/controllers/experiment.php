@@ -230,57 +230,122 @@ class Experiment extends CI_Controller
 	 */
 	public function download_scores($experiment_id)
 	{
-		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+		
+		$this->load->helper('download');
+		
+		// Load database information
 		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id);
-
-		$table = array();
+		
+		// Headers (test categories)
 		$testcats = array();
+		
+		// Results
+		$table = array();
 		$total = array();
+		
 		foreach ($participants as $participant)
 		{
-			$scores = $this->scoreModel->get_scores_by_participant($participant->id);
-			foreach ($scores as $score)
+			$testinvites = $this->testInviteModel->get_testinvites_by_participant($participant->id);
+			foreach ($testinvites as $testinvite)
 			{
-				$total[$score->testinvite_id] = 0;
+				$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
+				
+				// Creëer headers
+				if (empty($testcats)){
+					foreach ($scores as $score)
+					{
+						$testcat = $this->testCatModel->get_testcat_by_id($score->testcat_id);
+						$testcats[] = $testcat;
+					}
+				}
+				
+				foreach ($scores as $score)
+				{
+					// Add up all the scores
+					if (empty($total[$score->testinvite_id])){
+						$total[$score->testinvite_id] = $score->score;
+					} else {
+						$total[$score->testinvite_id] += $score->score;
+					}
+					
+					// Add the score to the table
+					$table[$score->testinvite_id][$score->testcat_id] = $score->score;
+				}
 			}
-			foreach ($scores as $score)
-			{
-				$testcat = $this->testCatModel->get_testcat_by_id($score->testcat_id);
-				$testcats[] = $testcat;
-				$table[$score->testinvite_id][$score->testcat_id] = $score->score;
-				$total[$score->testinvite_id] += $score->score;
-			}
+			
 		}
-		//$testcats = array_unique($testcats);
 
 		// Sort testcats by code (hmm, uniciteit?!)
 		usort($testcats, function($a, $b)
 		{
 		    return strcmp($a->code, $b->code);
 		});
-
-		//print_r($table);
-		// header
-		echo 'Name,';
+		
+		// Create an array for fputcsv
+		$csv_array = array();
+		
+		// Put headers in single array
+		$headers = array('Name', 'Gender');
 		foreach ($testcats as $testcat)
 		{
-			echo $testcat->code . ' - ' . $testcat->name . ',';
+			$headers[] = $testcat->code . ' - ' . $testcat->name;
 		}
-
-		echo 'total<br>';
-
-		//results
+		$headers[] = 'total';
+		
+		// Add headers to array
+		$csv_array[] = $headers;
+		
+		// Generate array for each row and put in array
 		foreach ($table as $testinvite_id => $scores)
 		{
+			$csv_row = array();
+			
 			$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
 			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-			echo implode(',', array(name($participant), gender_sex($participant->gender))); // geb.datum,testdatum, leeftijd bij test
+			
+			// Add name and gender to row
+			$csv_row[] = name($participant);
+			$csv_row[] = gender_sex($participant->gender);
+			
+			// Add data to row
 			foreach ($testcats as $testcat)
 			{
-				echo $scores[$testcat->id] . ',';
+				$csv_row[] = $scores[$testcat->id];
 			}
-			echo "$total[$testinvite_id]\n"; // totalen per hoofdcategorie, percentiel, taalleeftijd
+			
+			// Add test results total to row
+			$csv_row[] = $total[$testinvite_id];
+			
+			// Add row to csv array
+			$csv_array[] = $csv_row;
 		}
+		
+		// Create a new output stream and capture
+		// the result in a new object
+		$fp = fopen('php://output', 'w');
+		ob_start();
+		
+		// Create a new row in the CSV file for every
+		// entry in the array
+		foreach ($csv_array as $row)
+		{
+			fputcsv($fp, $row);
+		}
+		
+		// Capture the output as a string
+		$csv = ob_get_contents();
+		
+		// Close the object and the stream
+		ob_end_clean();
+		fclose($fp);
+		
+		// Generate filename
+		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
+		$filename = $escaped . "_" . mdate("%Y%m%d_%H%i", time()) . ".csv";
+		
+		// Download the file
+		force_download($filename, $csv); 		
 	}
 	
 	/////////////////////////
