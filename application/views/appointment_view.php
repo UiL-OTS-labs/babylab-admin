@@ -57,10 +57,10 @@ $(function(){
 			<?=lang('clear_filters');?>
 	</span>
 	
-	<label id="exclude-canceled-label" style="vertical-align: middle;">
+	<div style="margin-top: 10px;"><label id="exclude-canceled-label" style="vertical-align: middle;">
 		<input type="checkbox" name="exclude-canceled" style="vertical-align: middle;" checked="checked" id="exclude-canceled" />
 		&nbsp;<?=lang('exclude_empty');?>
-	</label>
+	</label></div>
 	<input type="hidden" name="date_picker" id="date_picker" />
 </div>
 <div id='calendar'></div>
