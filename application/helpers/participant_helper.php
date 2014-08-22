@@ -321,3 +321,22 @@ if (!function_exists('participant_call_actions'))
 		return implode(' ', array($call_link, $com_link));
 	}
 }
+
+/////////////////////////
+// Options
+/////////////////////////
+
+if (!function_exists('participant_options'))
+{
+	/** Returns an option list of tests */
+	function participant_options($participants)
+	{
+		$p_options = array();
+		foreach ($participants as $p)
+		{
+			$p_options[$e->id] = fullname($p);
+		}
+		asort($p_options);
+		return $p_options;
+	}
+}

@@ -382,4 +382,9 @@ $lang['appointments'] 		= "Afspraken";
 
 /* Appointment Calendar */
 $lang['legend']				= "Legenda";
+$lang['filter_experiment']	= "Filter op experiment";
+$lang['filter_participant'] = "Filter op deelnemer";
+$lang['clear_filters']		= "Filters verwijderen";
+$lang['exclude_empty']		= "Laat geannuleerde afspraken niet zien";
+$lang['date_text']			= "Ga naar datum";
 ?>

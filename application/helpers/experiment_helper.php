@@ -206,3 +206,22 @@ if (!function_exists('experiment_archive_link'))
 		return $include_archived ? $not_show_archive_url : $show_archive_url;
 	}
 }
+
+/////////////////////////
+// Options
+/////////////////////////
+
+if (!function_exists('experiment_options'))
+{
+	/** Returns an option list of tests */
+	function experiment_options($experiments)
+	{
+		$e_options = array();
+		foreach ($experiments as $e)
+		{
+			$e_options[$e->id] = $e->name;
+		}
+		asort($e_options);
+		return $e_options;
+	}
+}

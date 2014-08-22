@@ -2,6 +2,10 @@ table.fc-header, table.fc-border-separate{
 	border: 0px !important;	
 }
 
+td.fc-first, th.fc-first, th.fc-widget-header{
+	background-color: #eeeeee;
+}
+
 .fc-view-agendaWeek .fc-event, .fc-view-agendaDay .fc-event{
 	height: auto !important;
 	font-size: 0.85em;
@@ -17,4 +21,9 @@ table.fc-header, table.fc-border-separate{
 	font-size: 0.85em;
 	font-weight: bold;
 	white-space: normal;
+}
+
+.event-cancelled{
+	opacity: 0.75;
+    filter: alpha(opacity=75);
 }

@@ -1,78 +1,66 @@
 <!-- Calender -->
+
+<!-- Stylesheets for this page only -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.css" />
 <link rel="stylesheet" href="http://qtip2.com/v/2.2.0/jquery.qtip.min.css" />
 <link rel="stylesheet" href="css/calendar.css" />
+<link rel="stylesheet" href="css/chosen.css" />
+
+<!-- Scripts for this page only -->
 <script type="text/javascript" src="http://qtip2.com/v/2.2.0/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.js"></script>
 <script type="text/javascript" src="js/fullCalendar.nl.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
 
+<!-- Build the calendar -->
+<script type="text/javascript" src="js/fullCalendar_helper.js"></script>
 <script>
-	$(document).ready(function() {
-		//Page is now ready, initialize calender
-		$('#calendar').fullCalendar({
-			weekNumbers: {month: true, basicWeek: true, 'default': false},
-			lang: '<?=$lang;?>',
-			timeFormat: 'HH:mm',
-			events: <?=$events;?>,
-		    header:
-		    {
-			    left: 'prev,next,today',
-				center: 'title',
-			    right: 'month,agendaWeek,agendaDay',
-		    },
-		    eventHeight: 50,
-		    displayEventEnd: true,
-		    slotEventOverlap: false, 
-		    eventRender: function(event, element) {
-				element.css('cursor', 'pointer');
-		        element.qtip({
-		            content: stripslashes(event.tooltip),
-		            position: {
-		                my: 'bottom left',
-		                at: 'top left'
-		            },
-			        show: {
-			            event: 'click'
-			        },
-			        hide: {
-				        event: 'click',
-				        inactive: 3000,
-			        }
-		        });
-		        element.add(event.message);
-		    },
-		});
-
-		// Legend button
-		var legendButton = '<span unselectable="on" id="legend"';
-		legendButton += 'class="fc-button fc-button-next fc-state-default"';
-		legendButton += 'style="-moz-user-select: none;"><?=lang('legend'); ?></span>';
-		$('#calendar td.fc-header-left').append(legendButton);
-		$('#legend').qtip({
-			content: '<?=$legend;?>',
-			position: {
-				my: 'top center',
-				at: 'bottom center'
-			},
-			show: {
-				event: 'click'
-			},
-			hide: {
-				event: 'click'
-			}
-		});
-	});
-
-	
-	function stripslashes(str) {
-		str=str.replace(/\\'/g,'\'');
-		str=str.replace(/\\"/g,'"');
-		str=str.replace(/\\0/g,'\0');
-		str=str.replace(/\\\\/g,'\\');
-		return str;
-	}
+$(function(){
+	initializeCalendar("<?=$lang;?>");
+	addDateSelectTool("<?=lang('date_text'); ?>");
+	addLegendButton("<?=$legend;?>", "<?=lang('legend');?>");
+	addFilters();
+});
 </script>
 
 <?=heading($page_title); ?>
+<!-- Filter helper buttons. Disabled in this version -->  
+
+<!-- <div class="filter-control">
+	<span class="fc-button fc-state-default" id="all_exps" style="-moz-user-select: none;">Select all experiments</span>
+	<span class="fc-button fc-state-default" id="clear_exps" style="-moz-user-select: none;">Clear experiment filter</span>
+	<span class="fc-button fc-state-default" id="all_parts" style="-moz-user-select: none;">Select all participants</span>
+	<span class="fc-button fc-state-default" id="clear_parts" style="-moz-user-select: none;">Clear participant filter</span>
+</div>-->
+
+<div class="filter" style="margin-bottom: 10px;">
+	<select class="chosen-select select-experiment" style="width: 350px;" multiple data-placeholder="<?=lang('filter_experiment');?>">
+		<?php 
+		foreach (experiment_options($experiments) as $id => $option)
+		{
+			echo '<option value="' . $id . '">' . $option . '</option>\n';
+		}
+		?>
+	</select>
+	
+	<select class="chosen-select select-participant" style="width: 350px;" multiple data-placeholder="<?=lang('filter_participant');?>">
+		<?php 
+		foreach (participant_options($participants) as $id => $option)
+		{
+			echo '<option value="' . $id . '">' . $option . '</option>\n';
+		}
+		?>
+	</select>
+	<span class="fc-button fc-state-default"
+		id="clearall" style="vertical-align: middle; -moz-user-select: none;">
+			<?=lang('clear_filters');?>
+	</span>
+	
+	<label id="exclude-canceled-label" style="vertical-align: middle;">
+		<input type="checkbox" name="exclude-canceled" style="vertical-align: middle;" checked="checked" id="exclude-canceled" />
+		&nbsp;<?=lang('exclude_empty');?>
+	</label>
+	<input type="hidden" name="date_picker" id="date_picker" />
+</div>
 <div id='calendar'></div>

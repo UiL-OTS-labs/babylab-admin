@@ -15,12 +15,6 @@ class ParticipationModel extends CI_Model
 	{
 		return $this->db->get('participation')->result();
 	}
-	
-	public function get_all_appointments()
-	{
-		$this->db->where('(appointment IS NOT NULL)');
-		return $this->db->get('participation')->result();
-	}
 
 	/** Returns all participations that have been confirmed, but no other action has been taken */
 	public function get_confirmed_participations($experiments = array())
@@ -81,7 +75,48 @@ class ParticipationModel extends CI_Model
 		$this->db->where('participant_id', $participant_id);
 		return $this->db->get('participation')->row();
 	}
-
+	
+	
+	/////////////////////////
+	// Appointments
+	/////////////////////////
+	
+	public function get_all_appointments($exclude_canceled = TRUE)
+	{
+		if ($exclude_canceled) $this->db->where('(appointment IS NOT NULL)');
+		if (!$exclude_canceled) $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
+		return $this->db->get('participation')->result();
+	}
+	
+	/** Retrieves all participations for one or more experiments, 
+	 * with optional parameter to select risk/control group */
+	public function get_participations_by_experiments($experiment_ids, $exclude_canceled = TRUE)
+	{
+		$this->db->where_in('experiment_id', $experiment_ids);
+		if ($exclude_canceled) $this->db->where('(appointment IS NOT NULL)');
+		if (!$exclude_canceled) $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
+		return $this->db->get('participation')->result();
+	}
+	
+	/** Retrieves all participations for multiple participants */
+	public function get_participations_by_participants($participant_ids, $exclude_canceled = TRUE)
+	{
+		$this->db->where_in('participant_id', $participant_ids);
+		if ($exclude_canceled) $this->db->where('(appointment IS NOT NULL)');
+		if (!$exclude_canceled) $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
+		return $this->db->get('participation')->result();
+	}
+	
+	/** Retrieves all participations for multiple participants in an experiment */
+	public function get_participations_by_filter($experiment_ids, $participant_ids, $exclude_canceled = TRUE)
+	{
+		$this->db->where_in('participant_id', $participant_ids);
+		$this->db->where_in('experiment_id', $experiment_ids);
+		if ($exclude_canceled) $this->db->where('(appointment IS NOT NULL)');
+		if (!$exclude_canceled) $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
+		return $this->db->get('participation')->result();
+	}
+	
 	/////////////////////////
 	// Experiments
 	/////////////////////////
@@ -124,6 +159,7 @@ class ParticipationModel extends CI_Model
 		return $this->db->get_where('participant', array('id' => $p_id))->row();
 	}
 
+	
 	/////////////////////////
 	// No-shows
 	/////////////////////////
