@@ -16,8 +16,8 @@
 <body>
 
 <div class="pure-g">
-	<div class="pure-u-1-5"></div>
-	<div id="wrapper" class="pure-u-3-5">
+	<div class="pure-u-1-8"></div>
+	<div id="wrapper" class="pure-u-3-4">
 
 		<img id="header-img" src="images/uu-header.png">
 		<?=heading(lang('babylab'), 1); ?>
