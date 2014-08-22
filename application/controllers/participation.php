@@ -1,13 +1,15 @@
 <?php
 /**
- * Participations can be in 5 possible stages:
+ * Participations can be in 7 possible stages:
  *
- * confirmed	cancelled	no-show	completed	description
- * 1			0			0		0			confirmed, not yet completed
- * 1			0			0		1			confirmed & completed
- * 1			0			1		0			confirmed, but no-show
- * 1			1			0		0			confirmed, cancelled later
- * 0			1			0		0			cancelled upfront
+ * confirmed	cancelled	no-show	reschedule	completed	description
+ * 0			0			0		0			0			unconfirmed (called but no response)
+ * 1			0			0		0			0			confirmed, not yet completed
+ * 1			0			0		0			1			confirmed, completed
+ * 1			0			0		1			0			confirmed, to be rescheduled
+ * 1			0			1		0			0			confirmed, but no-show
+ * 1			1			0		0			0			confirmed, cancelled later
+ * 0			1			0		0			0			cancelled upfront
  *
  * @author Martijn van der Klis
  *
