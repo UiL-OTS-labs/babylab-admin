@@ -66,12 +66,13 @@ class NCDIChecker extends CI_Controller
 	{
 		$row = 0;
 		$out = fopen('php://output', 'w');
+		ob_start();
 
 		fputcsv($out, array('PPnr', 'Leeftijd in maanden', 'Leeftijd in maanden en dagen', 'Percentiel begrip', 'Percentiel productie', 'Taalleeftijd begrip', 'Taalleeftijd productie'));
 
 		if (($handle = fopen($filename, "r")) !== FALSE)
 		{
-			while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
 			{
 				$row++;
 				if ($row != 1) // skip header and empties
@@ -125,9 +126,11 @@ class NCDIChecker extends CI_Controller
 			fclose($handle);
 		}
 
+		$csv = ob_get_contents();
+		ob_end_clean();
 		$filename = 'output.csv';
 
 		$this->load->helper('download');
-		force_download($filename, $out);
+		force_download($filename, $csv);
 	}
 }
