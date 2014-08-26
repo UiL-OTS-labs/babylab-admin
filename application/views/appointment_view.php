@@ -24,7 +24,7 @@ $(function(){
 });
 </script>
 
-<?=heading($page_title); ?>
+<?=heading($page_title, 2); ?>
 <!-- Filter helper buttons. Disabled in this version -->  
 
 <!-- <div class="filter-control">

@@ -68,6 +68,7 @@
 				</li>
 				<li class='has-sub'><?=anchor('participation', lang('participations')); ?>
 					<ul>
+						<li><?=anchor('appointment', lang('appointments')); ?></li>
 						<li><?=anchor('call', lang('calls')); ?></li>
 						<li><?=anchor('result', lang('results')); ?></li>
 						<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
@@ -89,7 +90,7 @@
 						<li class='last'><?=anchor('leader', lang('leaders')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub last'><?=anchor('test', lang('tests')); ?>
+				<li class='has-sub'><?=anchor('test', lang('tests')); ?>
 					<ul>
 						<li><?=anchor('testcat', lang('testcats')); ?></li>
 						<li><?=anchor('percentile', lang('percentiles')); ?></li>
@@ -107,11 +108,13 @@
 		<?php } ?>
 
 		<?php if (current_role() === UserRole::Caller) { ?>
+		
 		<div
 			class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-custom">
 			<ul>
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
+				<li><?=anchor('appointment', lang('appointments')); ?></li>
 				<li><?=anchor('call/user/' . current_user_id(), lang('calls')); ?></li>
 				<li><?=anchor('participant', lang('participants')); ?></li>
 				<li><?=anchor('testinvite', lang('testinvites')); ?></li>
@@ -126,6 +129,7 @@
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('experiment', lang('experiments')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
+				<li><?=anchor('appointment', lang('appointments')); ?></li>
 				<li><?=anchor('participant', lang('participants')); ?></li>
 			</ul>
 		</div>
@@ -133,7 +137,7 @@
 
 		<?php if (current_user_id() > 0) { ?>
 		<div id="welcome">
-			<i><?=current_username(); ?> </i> |
+			<em><?=current_username(); ?> </em> |
 			<?=anchor('user/edit/' . current_user_id(), lang('edit_user_profile')); ?>
 			|
 			<?=anchor('user/change_password/' . current_user_id(), lang('change_password')); ?>
