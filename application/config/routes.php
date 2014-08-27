@@ -69,7 +69,7 @@ $route['c/(:any)/(:any)'] 		= 'charts/chart/$2/$1';
 $route['c/(:any)'] 				= 'charts/chart/home/$1';
 $route['f/(:any)/(:any)'] 		= 'charts/chart/fill_scores/$1/$2';
 
-$route['ncdi_checker'] 			= 'charts/ncdichecker';
+$route['ncdi_calculator'] 		= 'charts/calculator';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

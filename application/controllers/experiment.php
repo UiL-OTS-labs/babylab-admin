@@ -228,105 +228,66 @@ class Experiment extends CI_Controller
 	 * Downloads all scores of participants of an experiment as a .csv-file.
 	 * @param integer $experiment_id
 	 */
-	public function download_scores($experiment_id)
+	public function download_scores($experiment_id, $test_code)
 	{
+		// Retrieve the scores
+		$table = $this->get_results_table($experiment_id);
 		
-		$this->load->helper('download');
+		// Retrieve the headers
+		$headers = array(lang('name'), lang('gender'), lang('age'), 'Leeftijd (maanden;dagen)');
 		
-		// Load database information
-		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id);
-		
-		// Headers (test categories)
-		$testcats = array();
-		
-		// Results
-		$table = array();
-		$total = array();
-		
-		foreach ($participants as $participant)
-		{
-			$testinvites = $this->testInviteModel->get_testinvites_by_participant($participant->id);
-			foreach ($testinvites as $testinvite)
-			{
-				$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
-				
-				// Creëer headers
-				if (empty($testcats)){
-					foreach ($scores as $score)
-					{
-						$testcat = $this->testCatModel->get_testcat_by_id($score->testcat_id);
-						$testcats[] = $testcat;
-					}
-				}
-				
-				foreach ($scores as $score)
-				{
-					// Add up all the scores
-					if (empty($total[$score->testinvite_id])){
-						$total[$score->testinvite_id] = $score->score;
-					} else {
-						$total[$score->testinvite_id] += $score->score;
-					}
-					
-					// Add the score to the table
-					$table[$score->testinvite_id][$score->testcat_id] = $score->score;
-				}
-			}
-			
-		}
-
-		// Sort testcats by code (hmm, uniciteit?!)
-		usort($testcats, function($a, $b)
-		{
-		    return strcmp($a->code, $b->code);
-		});
-		
-		// Create an array for fputcsv
-		$csv_array = array();
-		
-		// Put headers in single array
-		$headers = array('Name', 'Gender');
+		$test = $this->testModel->get_test_by_code($test_code);
+		$testcats = $this->testCatModel->get_testcats_by_test($test->id, FALSE, TRUE);
 		foreach ($testcats as $testcat)
 		{
 			$headers[] = $testcat->code . ' - ' . $testcat->name;
 		}
-		$headers[] = 'total';
 		
-		// Add headers to array
+		$parent_testcats = $this->testCatModel->get_testcats_by_test($test->id, TRUE);
+		foreach ($parent_testcats as $parent)
+		{
+			$headers[] = $parent->name . ' - ' . lang('raw_score');
+			$headers[] = $parent->name . ' - ' . lang('percentile');
+			$headers[] = $parent->name . ' - ' . lang('language_age');
+		}
+		
+		// Add headers to the csv array (later used in fputscsv)
+		$csv_array = array();
 		$csv_array[] = $headers;
 		
-		// Generate array for each row and put in array
+		// Generate array for each row and put in total array
 		foreach ($table as $testinvite_id => $scores)
-		{
-			$csv_row = array();
-			
+		{			
 			$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
 			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 			
-			// Add name and gender to row
-			$csv_row[] = name($participant);
-			$csv_row[] = gender_sex($participant->gender);
+			// Participant data
+			$age = age_in_months($participant, $testinvite->datecompleted);
+			$agemd = age_in_months_and_days($participant, $testinvite->datecompleted);
+			$csv_row = array(name($participant), $participant->gender, $age, $agemd);
 			
-			// Add data to row
+			// Score data
 			foreach ($testcats as $testcat)
 			{
-				$csv_row[] = $scores[$testcat->id];
+				array_push($csv_row, $scores[$testcat->id]);
 			}
 			
-			// Add test results total to row
-			$csv_row[] = $total[$testinvite_id];
+			// Total score data
+			$totals = create_ncdi_score_array($test, $testinvite);
+			foreach ($totals as $total)
+			{
+				array_push($csv_row, $total['score'], $total['percentile'], $total['age']);
+			}
 			
 			// Add row to csv array
 			$csv_array[] = $csv_row;
 		}
 		
-		// Create a new output stream and capture
-		// the result in a new object
+		// Create a new output stream and capture the result in a new object
 		$fp = fopen('php://output', 'w');
 		ob_start();
 		
-		// Create a new row in the CSV file for every
-		// entry in the array
+		// Create a new row in the CSV file for every in the array
 		foreach ($csv_array as $row)
 		{
 			fputcsv($fp, $row);
@@ -345,7 +306,34 @@ class Experiment extends CI_Controller
 		$filename = $escaped . "_" . mdate("%Y%m%d_%H%i", time()) . ".csv";
 		
 		// Download the file
+		$this->load->helper('download');
 		force_download($filename, $csv); 		
+	}
+	
+	/**
+	 * Returns all scores for participants of an experiment.
+	 * @param integer $experiment_id
+	 */
+	private function get_results_table($experiment_id) 
+	{
+		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id);
+		
+		$result = array();
+		foreach ($participants as $participant)
+		{
+			$testinvites = $this->testInviteModel->get_testinvites_by_participant($participant->id);
+			foreach ($testinvites as $testinvite)
+			{
+				$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
+				
+				foreach ($scores as $score)
+				{
+					$result[$score->testinvite_id][$score->testcat_id] = $score->score;
+				}
+			}
+		}
+		
+		return $result;
 	}
 	
 	/////////////////////////

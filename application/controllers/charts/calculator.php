@@ -5,7 +5,7 @@
 // This is a rudimentary implementation of a calculator of NCDI scores.
 /////////////////////////
 
-class NCDIChecker extends CI_Controller
+class Calculator extends CI_Controller
 {
 	public function __construct()
 	{
@@ -14,6 +14,13 @@ class NCDIChecker extends CI_Controller
 		$this->load->model('NCDICheckModel');
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		
+		$config['upload_path'] = './uploads/';
+		$config['max_size']	= '100';
+		$config['allowed_types'] = '*';
+		$this->load->library('upload', $config);
+
+		$this->load->helper('download');
 	}
 
 	/////////////////////////
@@ -23,18 +30,18 @@ class NCDIChecker extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
-		$data['page_title'] = 'Bereken NCDI percentielscores';
-		$data['action'] = 'charts/ncdichecker/submit/';
+		$data['page_title'] = 'Upload je bestand hier';
+		$data['action'] = 'charts/calculator/submit/';
 
-		$this->load->view('ncdi_wz/checker', $data);
+		$this->load->view('ncdi_wz/calculator', $data);
 		$this->load->view('templates/footer');
 	}
 
-	/** Specifies the contents of the default page. */
+	/** Specifies the contents of the default page. TODO: not implemented */
 	public function result()
 	{
 		create_result_table();
-		$data['ajax_source'] = 'charts/ncdichecker/table/';
+		$data['ajax_source'] = 'charts/calculator/table/';
 		$data['page_title'] = lang('results');
 
 		$this->load->view('templates/header', $data);
@@ -42,53 +49,48 @@ class NCDIChecker extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	/**
+	 * Handles the submit of a file: moves to the upload directory and then do the import
+	 */
 	public function submit()
 	{
-		$config['upload_path'] = './uploads/';
-		$config['max_size']	= '100';
-		$config['allowed_types'] = '*';
-		$this->load->library('upload', $config);
-
 		if (!$this->upload->do_upload())
 		{
 			flashdata($this->upload->display_errors(), FALSE);
-			$this->index();
+			redirect('ncdi_calculator');
 		}
 		else
 		{
 			$data = $this->upload->data();
 			$this->import_csv($data['full_path']);
-			//redirect('charts/ncdi_checker/result/', 'refresh');
 		}
 	}
 
+	/**
+	 * Imports the .csv-file and outputs a download.
+	 * @param file $filename
+	 */
 	private function import_csv($filename)
 	{
 		$row = 0;
 		$out = fopen('php://output', 'w');
+		ob_start();
 
-		fputcsv($out, array('PPnr', 'Leeftijd in maanden', 'Leeftijd in maanden en dagen', 'Percentiel begrip', 'Percentiel productie', 'Taalleeftijd begrip', 'Taalleeftijd productie'));
+		fputcsv($out, array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)', 
+			'percentielscore begrip', 'percentielscore productie', 'taalleeftijd begrip', 'taalleeftijd productie'));
+		
+		$separator = $this->input->post('separator');
 
-		if (($handle = fopen($filename, "r")) !== FALSE)
+		if (($handle = fopen($filename, 'r')) !== FALSE)
 		{
-			while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
+			while (($data = fgetcsv($handle, 1000, $separator)) !== FALSE)
 			{
 				$row++;
-				if ($row != 1) // skip header and empties
+				if ($row != 1 && $data !== array(NULL)) // skip header and empties
 				{
-					if (count($data) == 5)
+					if (count($data) == 6)
 					{
-						$ncdi_check = array(
-							'ip_address' 	=> $this->input->ip_address(),
-							'p_number' 		=> $data[0],
-							'ageinmonths' 	=> intval($data[1]),
-							'gender'		=> $data[2] === 'M' ? Gender::Male : Gender::Female,
-							'b_score'		=> intval($data[3]),
-							'p_score'		=> intval($data[4]),				
-						);
-					}
-					else
-					{
+						// TODO: remove duplicate code below (refer to functions age_in_months)
 						$diff = date_diff(new DateTime($data[1]), new DateTime($data[2]));
 						$ageinmonths = intval($diff->format('%r') . ($diff->format('%m') + 12 * $diff->format('%y')));
 						$ageinmonthsdays = $diff->format('%r') . ($diff->format('%m') + 12 * $diff->format('%y')) . ';' . $diff->format('%d');
@@ -103,7 +105,13 @@ class NCDIChecker extends CI_Controller
 							'p_score'		=> intval($data[5]),				
 						);
 					}
+					else 
+					{
+						flashdata(sprintf('Verkeerd aantal kolommen op rij %d, check het bestand. (heb je het goede scheidingsteken aangevinkt?)', $row), FALSE);
+						redirect('ncdi_calculator');
+					}
 
+					// TODO: deal with constants here
 					$test = $this->testModel->get_test_by_code('ncdi_wz');
 					$testcat_b = $this->testCatModel->get_testcat_by_code($test, 'b');
 					$testcat_p = $this->testCatModel->get_testcat_by_code($test, 'p');
@@ -125,9 +133,8 @@ class NCDIChecker extends CI_Controller
 			fclose($handle);
 		}
 
-		$filename = 'output.csv';
-
-		$this->load->helper('download');
-		force_download($filename, $out);
+		$csv = ob_get_contents();
+		ob_end_clean();
+		force_download('ncdi_calculator_output.csv', $csv);
 	}
 }

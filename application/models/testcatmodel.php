@@ -120,6 +120,7 @@ class TestCatModel extends CI_Model
 		$this->db->where('test_id', $test_id);
 		if ($select_roots) $this->db->where('parent_id', NULL);
 		else if ($select_children) $this->db->where('parent_id IS NOT NULL', NULL);
+		$this->db->order_by('code');
 		return $this->db->get('testcat')->result();
 	}
 

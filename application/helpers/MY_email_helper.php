@@ -39,6 +39,7 @@ if (!function_exists('email_replace'))
 			$message_data['gender_pos']		= gender_pos($participant->gender);
 			$message_data['gender_plural']	= gender_sex($participant->gender) . 's';
 			$message_data['phone']			= $participant->phone;
+			$message_data['first_visit'] 	= FALSE;
 			
 			$participations = $CI->participationModel->get_participations_by_participant($participant->id, TRUE);
 			if (count($participations) <= 1) 

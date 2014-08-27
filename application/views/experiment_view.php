@@ -111,6 +111,6 @@
 	<?=lang('scores'); ?>
 	</h3>
 	<div>
-	<?=anchor('experiment/download_scores/' . $experiment->id, 'Download scores'); ?>
+	<?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download NCDI scores'); ?>
 	</div>
 </div>
