@@ -53,6 +53,7 @@
 		</tr>
 		<?php } ?>
 	</table>
+	
 </div>
 
 <!-- Calls -->

@@ -280,6 +280,11 @@ $lang['interruptions_for']	= "Afgebroken deelnames voor %s";
 $lang['part_comment']		= "Opmerking bij deelname";
 $lang['pp_comment']			= "Opmerking bij proefpersoon";
 
+$lang['ad_hoc_participation'] = "Ad Hoc deelname toevoegen";
+$lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>
+Zorg dat u zeker weet dat de participant wil meedoen aan het experiment en kan op de opgegeven tijd!";
+$lang['participation_exists'] = "De deelname bestaat al. Verwijder deze deelname, voordat u een nieuwe deelname maakt.";
+
 /* Calls */
 $lang['call']	 			= "Gesprek";
 $lang['calls']	 			= "Gesprekken";

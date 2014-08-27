@@ -26,7 +26,6 @@ if (!function_exists('form_colorPicker'))
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
-		//$input = '<input id="colorselector2"></input>';
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
 		$input = "<label id='colorselector2'><label></label></label>";
@@ -54,16 +53,18 @@ if (!function_exists('form_textarea_and_label'))
 
 if (!function_exists('form_dropdown_and_label'))
 {
-	function form_dropdown_and_label($name, $options, $selected = array(), $extra = '', $add_select = TRUE, $div = 'pure-control-group')
+	function form_dropdown_and_label($name, $options, $selected = array(), $extra = '', $add_select = TRUE, $div = 'pure-control-group', $default_key = 0)
 	{
-		if ($add_select) $options = array(lang('select')) + $options;
+		if ($add_select) $options = array($default_key => lang('select')) + $options;
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
 		$dropdown = form_dropdown($name, $options, set_value($name, $selected), 'id="' . $name . '"' . $extra);
+		//$error_box = form_error($name, '<label class="error" for="' . $name . '">', "</label>");
+		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
-
-		return $div_start . $label . $dropdown . $div_end;
+		
+		return $div_start . $label . $dropdown . $error_box . $div_end;
 	}
 }
 

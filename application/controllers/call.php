@@ -76,7 +76,7 @@ class Call extends CI_Controller
 	}
 
 	/** Confirm: confirms the participation with a scheduled date */
-	public function confirm($call_id)
+	public function confirm($call_id, $appointment = NULL)
 	{
 		$this->check_integrity($call_id);
 		
@@ -85,9 +85,9 @@ class Call extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
 		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
-
+		
 		// Run validation
-		if (!$this->form_validation->run())
+		if (!$this->form_validation->run() && $appointment == NULL)
 		{
 			// If not succeeded, show form again with error messages
 			flashdata(validation_errors(), FALSE);
@@ -96,7 +96,13 @@ class Call extends CI_Controller
 		else
 		{
 			// If succeeded, insert data into database
-			$appointment = input_datetime($this->input->post('appointment'));
+			if ($appointment == NULL)
+			{
+				$appointment = $this->input->post('appointment');
+			}
+
+			$appointment = input_datetime($appointment);
+			
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
 			$flashdata = '';

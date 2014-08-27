@@ -31,12 +31,10 @@ $(function() {
             return false;
         },
         onChange: function (hsb, hex, rgb) {
-            $('#colorselector2 label').css('background', 'url("../images/select.png") repeat scroll center center #' + hex);
             $('#experiment_color').val('#' + hex);
         }
     });
     $('#colorselector2 label').css('cursor', 'pointer');
-    $('#colorselector2 label').css('background', 'url("../images/select.png") repeat scroll center center <?=$experiment_color;?>');
     $('#experiment_color').val('<?=$experiment_color;?>');
 });        
 //-->

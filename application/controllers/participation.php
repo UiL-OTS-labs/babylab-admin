@@ -33,9 +33,13 @@ class Participation extends CI_Controller
 	public function index()
 	{
 		create_participation_table();
+		
+		//$add_url = array('url' => 'participation/add', 'title' => lang('add_participation_adhoc'));
+		$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
+		
 		switch (current_role())
 		{
-			case UserRole::Admin: $source = 'participation/table/'; break;
+			case UserRole::Admin: $source = 'participation/table/'; $data['action_urls'] = array($add_url); break;
 			case UserRole::Leader: 	$source = 'participation/table_by_leader/'; break;
 			default: $source = 'participation/table_by_caller/'; break;
 		}
@@ -75,6 +79,94 @@ class Participation extends CI_Controller
 		flashdata(sprintf(lang('part_deleted'), name($participant), $experiment->name));
 		redirect('participation', 'refresh');
 	}
+	
+	///////////////////////////////////////////
+	// Add participation (admin only)//////////
+	///////////////////////////////////////////
+	
+	/** Restrict acces to admin only **/
+	private function admin_only(){
+		if (current_role() != UserRole::Admin)
+		{
+			flashdata(lang('not_authorized'));
+			redirect('/participation/', 'refresh');
+		}
+	}
+	
+	/** Add view for ad hoc participation */
+	public function add()
+	{
+		$this->admin_only();
+		
+		$participants = $this->participantModel->get_all_participants();
+		$experiments = $this->experimentModel->get_all_experiments();
+		
+		$data['page_title'] = lang('ad_hoc_participation');
+		$data['action'] = 'participation/add_submit';
+
+		$data['experiments'] = experiment_options($experiments);
+		$data['participants'] = participant_options($participants);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('participation_add_view', $data);
+		$this->load->view('templates/footer');
+	}
+	
+	/** Adds an Ad Hoc participation */
+	public function add_submit()
+	{
+		
+		$this->admin_only();
+		
+		// Get POST data
+		$participant = $this->participantModel->get_participant_by_id($this->input->post('participant'));
+		$experiment = $this->experimentModel->get_experiment_by_id($this->input->post('experiment'));
+		
+		// Run validation
+		if (!$this->validate_experiment())
+		{
+			// Show form again with error messages
+			$this->add();
+		}
+		else
+		{
+			// No errors
+			$participation = $this->participationModel->get_participation($experiment->id, $participant->id);
+			
+			if (empty($participation)){
+				// No participation exists yet, create a new one
+				$participation_id = $this->participationModel->create_participation($experiment,$participant);
+				$call_id = $this->callModel->create_call($participation_id);
+				redirect('call/confirm/' . $call_id . "/" . $this->input->post('appointment'), 'refresh');
+			} else {
+				// Participation already exists, error.
+				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name));
+				redirect('/participation/', 'refresh');
+			}
+		}
+	}
+	
+	private function validate_experiment(){
+		// Require experiment and participant to be selected
+		$this->form_validation->set_rules('experiment', lang('experiment'), 'callback_not_default');
+		$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_default');
+		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
+		
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
+		
+		return $this->form_validation->run();
+	}
+	
+	/** Check if the dropdown option selected isn't the default (-1) */
+	public function not_default($value)
+	{
+		if ($value == -1){
+			$this->form_validation->set_message('not_default', lang('isset'));
+			return false;
+		} else {
+			return true;
+		}
+	}	
 
 	/////////////////////////
 	// Other views
