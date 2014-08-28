@@ -98,7 +98,7 @@ if (!function_exists('form_checkbox_and_label'))
 		$label_end = '</label>';
 		$div_end = empty($div) ? '' : '</div>';
 
-		return $div_start . $label_start . $input . ' ' . $text . $label_end . $div_end;
+		return $div_start . $label_start . $text . $label_end . $input . ' ' . $div_end;
 	}
 }
 
