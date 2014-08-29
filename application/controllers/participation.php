@@ -33,10 +33,10 @@ class Participation extends CI_Controller
 	public function index()
 	{
 		create_participation_table();
-		
+
 		//$add_url = array('url' => 'participation/add', 'title' => lang('add_participation_adhoc'));
 		$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
-		
+
 		switch (current_role())
 		{
 			case UserRole::Admin: $source = 'participation/table/'; $data['action_urls'] = array($add_url); break;
@@ -79,11 +79,11 @@ class Participation extends CI_Controller
 		flashdata(sprintf(lang('part_deleted'), name($participant), $experiment->name));
 		redirect('participation', 'refresh');
 	}
-	
+
 	///////////////////////////////////////////
 	// Add participation (admin only)//////////
 	///////////////////////////////////////////
-	
+
 	/** Restrict acces to admin only **/
 	private function admin_only(){
 		if (current_role() != UserRole::Admin)
@@ -92,15 +92,15 @@ class Participation extends CI_Controller
 			redirect('/participation/', 'refresh');
 		}
 	}
-	
+
 	/** Add view for ad hoc participation */
 	public function add()
 	{
 		$this->admin_only();
-		
+
 		$participants = $this->participantModel->get_all_participants();
 		$experiments = $this->experimentModel->get_all_experiments();
-		
+
 		$data['page_title'] = lang('ad_hoc_participation');
 		$data['action'] = 'participation/add_submit';
 
@@ -111,17 +111,17 @@ class Participation extends CI_Controller
 		$this->load->view('participation_add_view', $data);
 		$this->load->view('templates/footer');
 	}
-	
+
 	/** Adds an Ad Hoc participation */
 	public function add_submit()
 	{
-		
+
 		$this->admin_only();
-		
+
 		// Get POST data
 		$participant = $this->participantModel->get_participant_by_id($this->input->post('participant'));
 		$experiment = $this->experimentModel->get_experiment_by_id($this->input->post('experiment'));
-		
+
 		// Run validation
 		if (!$this->validate_experiment())
 		{
@@ -132,7 +132,7 @@ class Participation extends CI_Controller
 		{
 			// No errors
 			$participation = $this->participationModel->get_participation($experiment->id, $participant->id);
-			
+				
 			if (empty($participation)){
 				// No participation exists yet, create a new one
 				$participation_id = $this->participationModel->create_participation($experiment,$participant);
@@ -145,18 +145,18 @@ class Participation extends CI_Controller
 			}
 		}
 	}
-	
+
 	private function validate_experiment(){
 		// Require experiment and participant to be selected
 		$this->form_validation->set_rules('experiment', lang('experiment'), 'callback_not_default');
 		$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_default');
 		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
-		
+
 		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
-		
+
 		return $this->form_validation->run();
 	}
-	
+
 	/** Check if the dropdown option selected isn't the default (-1) */
 	public function not_default($value)
 	{
@@ -166,7 +166,7 @@ class Participation extends CI_Controller
 		} else {
 			return true;
 		}
-	}	
+	}
 
 	/////////////////////////
 	// Other views
@@ -376,12 +376,11 @@ class Participation extends CI_Controller
 		}
 		else
 		{
-			// If succeeded, insert data into database
+			// If succeeded, insert data into database and send e-mail
 			$appointment = input_datetime($this->input->post('appointment'));
 			$this->participationModel->reschedule($participation_id, $appointment);
-
-			flashdata(sprintf(lang('part_rescheduled'), name($participant), $experiment->name));
-
+			$flashdata = br() . $this->send_reschedule_email($participation_id);
+			flashdata(sprintf(lang('part_rescheduled'), name($participant), $experiment->name) . $flashdata);
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}
 	}
@@ -459,7 +458,7 @@ class Participation extends CI_Controller
 				'comment'  		=> $this->input->post('comment')
 			);
 			$this->participationModel->completed($participation_id, $participation);
-				
+
 			// Add (possible) comment
 			$comment = $this->post_comment($participant->id);
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
@@ -468,6 +467,35 @@ class Participation extends CI_Controller
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}
 	}
+
+	/////////////////////////
+	// Mails
+	/////////////////////////
+
+	/** Send a mail to participant (and leaders) to signal appointment has been rescheduled */
+	private function send_reschedule_email($participation_id)
+	{
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation_id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
+
+		$message = email_replace('mail/reschedule', $participant, $participation, $experiment);
+
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->cc(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
+		$this->email->message($message);
+		$this->email->send();
+
+		return sprintf(lang('reschedule_sent'), $participant->email);
+	}
+
+	/////////////////////////
+	// Form handling
+	/////////////////////////
 
 	/** Posts the data for a comment */
 	private function post_comment($participant_id)

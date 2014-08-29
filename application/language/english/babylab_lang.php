@@ -95,6 +95,7 @@ $lang['resetpw_body'] 		= "You send a reset password request. You can change you
 $lang['reset_request_sent'] = "Already sent a reset request for this e-mail. Please check or your inbox. If you didn't receive a mail, contact an administator.";
 /* Confirmation */
 $lang['confirmation_sent']	= "A confirmation e-mail was sent to <em>%s</em>.";
+$lang['reschedule_sent']	= "A confirmation e-mail of the rescheduling was sent to <em>%s</em>.";
 $lang['request_participation_sent']	= "A participation request was sent to <em>%s</em>.";
 
 /* Experiments */

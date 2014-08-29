@@ -95,6 +95,7 @@ $lang['resetpw_body'] 		= "U heeft een verzoek tot wachtwoordherstel verzonden. 
 $lang['reset_request_sent'] = "Er is al een verzoek tot wachtwoordherstel voor dit e-mailadres verzonden. Check uw inbox. Als uw geen e-mail hebt ontvangen, contacteer dan een administrator.";
 /* Confirmation */
 $lang['confirmation_sent']	= "Bevestigingsmail verstuurd naar <em>%s</em>.";
+$lang['reschedule_sent']	= "Bevestigingsmail van verzetten verstuurd naar <em>%s</em>.";
 $lang['request_participation_sent']	= "Verzoek tot deelname verstuurd naar <em>%s</em>.";
 
 /* Experiments */
@@ -237,9 +238,9 @@ $lang['exclude_callable']	= "Belbare proefpersonen verbergen";
 $lang['nr_calls']			= "# gebeld";
 $lang['appointment']		= "Afspraak";
 $lang['confirmed']			= "Afspraak bevestigd";
-$lang['reschedule']			= "Afspraak opnieuw inplannen";
-$lang['rescheduled']		= "Afspraak opnieuw ingepland";
-$lang['reschedule_info']	= "U gaat nu de afspraak van <strong>%s</strong> voor experiment <em>%s</em> opnieuw inplannen. De huidige afspraak staat op %s.";
+$lang['reschedule']			= "Afspraak verzetten";
+$lang['rescheduled']		= "Afspraak verzet";
+$lang['reschedule_info']	= "U gaat nu de afspraak van <strong>%s</strong> voor experiment <em>%s</em> verzetten. De huidige afspraak staat op %s.";
 $lang['cancelled']			= "Kan/wil niet meedoen";
 $lang['cancelled_short']	= "Geannuleerd";
 $lang['call_started']		= "Gesprek gestart";
@@ -262,7 +263,7 @@ $lang['part_no_reply']		= "Melding van geen gehoor toegevoegd voor %s in experim
 $lang['part_no_show']		= "Deelname van %s aan experiment %s als no-show gemarkeerd.";
 $lang['part_completed']		= "Deelname van %s aan experiment %s als voltooid gemarkeerd.";
 $lang['part_deleted']		= "Deelname van %s aan experiment %s verwijderd.";
-$lang['part_rescheduled']	= "Deelname van %s aan experiment %s opnieuw ingepland.";
+$lang['part_rescheduled']	= "Deelname van %s aan experiment %s verzet.";
 $lang['part_action']		= "Deelnames van proefpersonen als voltooid markeren (ingeschreven maar niet voltooid: %s deelnames)";
 $lang['now_calling']		= "U gaat nu <b>%s</b> (%s), geboren op %s (%s maanden oud), bellen.";
 $lang['already_called']		= "%s is al %s keer gebeld voor dit experiment (laatste keer: %s, actie: %s).";
