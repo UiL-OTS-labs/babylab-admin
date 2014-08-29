@@ -148,7 +148,7 @@ class User extends CI_Controller
 		else
 		{
 			// If succeeded, update user in database
-			$user = $this->post_user();
+			$user = $this->post_user(FALSE);
 			$this->userModel->update_user($user_id, $user);
 
 			// Update session when current user is edited?!
@@ -160,14 +160,13 @@ class User extends CI_Controller
 			}
 
 			flashdata(lang('user_edited'));
-			redirect('user', 'refresh');
+			redirect('welcome', 'refresh');
 		}
 	}
 
 	/**
 	 *
 	 * Deletes a user
-	 * TODO: check whether we are logged in
 	 * TODO: check whether user exists (404)
 	 * @param $user_id
 	 */
@@ -516,22 +515,28 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('mobile', lang('mobile'), 'trim');
 		$this->form_validation->set_rules('preferredlanguage', lang('preferredlanguage'), 'trim|required');
 	}
-
+	
 	/**
-	 *
-	 * Posts the data for a user
+	 * Posts a user (when adding, updating, registering)
+	 * @param $creating whether we're creating this user, if so, add username and password
 	 */
-	private function post_user()
+	private function post_user($creating = TRUE)
 	{
-		return array(
-				'username' 			=> $this->input->post('username'),
-				'password' 			=> $this->phpass->hash($this->input->post('password')),
+		$user = array(
 				'role' 				=> $this->input->post('role'),
 				'email'				=> $this->input->post('email'),
 				'phone' 			=> $this->input->post('phone'),
 				'mobile' 			=> $this->input->post('mobile'),
 				'preferredlanguage' => $this->input->post('preferredlanguage')
 		);
+		
+		if ($creating) 
+		{
+			$user['username'] = $this->input->post('username');
+			$user['password'] = $this->phpass->hash($this->input->post('password'));
+		}
+		
+		return $user;
 	}
 
 	/////////////////////////
