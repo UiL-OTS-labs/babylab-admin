@@ -17,7 +17,7 @@ Zo ziet u waar op dit moment de taalvaardigheid van <?=$name_first; ?> valt ten 
 <p>Wij willen u met nadruk laten weten dat wij zeer vertrouwelijk omgaan met de informatie die u ons toevertrouwt. 
 Bovendien wordt de lijst op een veilige manier bewaard: de informatie is alleen toegankelijk voor de desbetreffende onderzoeker.</p>
 <p>De link naar de vragenlijst (<em>N-CDI Woorden en Zinnen</em>) vindt u hier: <?=$survey_link; ?>.</p>
-<p>Mocht u vragen hebben n.a.v. de vragenlijst of de interpretatie daarvan, dan kunt u contact opnemen met Maartje de Klerk: 06-39 01 54 20 of mailen naar: <a href="mailto:babylabutrecht@uu.nl">babylabutrecht@uu.nl</a></p>
+<p>Mocht u vragen hebben n.a.v. de vragenlijst of de interpretatie daarvan, dan kunt u contact opnemen met Maartje de Klerk: 06-39 01 54 20 of mailen naar: <a href="mailto:babylabutrecht@uu.nl">babylabutrecht@uu.nl</a>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p>Maartje de Klerk (lab manager)</p>

@@ -7,7 +7,7 @@ class TestInvite extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -30,17 +30,17 @@ class TestInvite extends CI_Controller
 	}
 
 	/** Specifies the contents of the add testinvite page */
-	public function add($testsurvey_id = 0)
+	public function add()
 	{
-		$data['testsurveys'] = $this->testSurveyModel->get_all_testsurveys();
-		$data['participants'] = $this->participantModel->get_all_participants(TRUE);
+		$testsurveys = $this->testSurveyModel->get_all_testsurveys();
+		$participants = $this->participantModel->get_all_participants(TRUE);
+		
+		$data['testsurveys'] = testsurvey_options($testsurveys);
+		$data['participants'] = participant_options($participants);
 
 		$data['page_title'] = lang('add_testinvite');
-		$data['new_testinvite'] = TRUE;
 		$data['action'] = 'testinvite/add_submit/';
 		$data = add_fields($data, 'testinvite');
-
-		$data['testsurvey_id'] = $testsurvey_id;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('testinvite_edit_view', $data);
@@ -54,13 +54,13 @@ class TestInvite extends CI_Controller
 		if (!$this->validate_testinvite())
 		{
 			// If not succeeded, show form again with error messages
-			$this->add($this->input->post('testsurvey_id'));
+			$this->add();
 		}
 		else
 		{
 			// If succeeded, insert data into database
 			$testsurvey_id = $this->input->post('testsurvey');
-			$participant_id = $this->input->post('participant_id');
+			$participant_id = $this->input->post('participant');
 			$this->invite($testsurvey_id, $participant_id);
 		}
 	}
@@ -69,7 +69,6 @@ class TestInvite extends CI_Controller
 	public function invite($testsurvey_id, $participant_id)
 	{
 		$testinvite = $this->testInviteModel->create_testinvite($testsurvey_id, $participant_id);
-
 		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 
@@ -80,10 +79,8 @@ class TestInvite extends CI_Controller
 			$this->surveyModel->create_token($participant, $testsurvey->limesurvey_id, $testinvite->token);
 		}
 
-		// Email to participant
+		// Email to participant and return to overview
 		$flashdata = email_testinvite($participant, $testinvite);
-
-		// Return to list
 		flashdata($flashdata);
 		redirect('/testinvite/', 'refresh');
 	}
@@ -104,7 +101,7 @@ class TestInvite extends CI_Controller
 	private function validate_testinvite()
 	{
 		$this->form_validation->set_rules('testsurvey', lang('testsurvey'), 'callback_not_zero|callback_testinvite_exists');
-		$this->form_validation->set_rules('participant_id', lang('participant'), 'callback_not_zero');
+		$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_zero');
 
 		return $this->form_validation->run();
 	}
@@ -127,14 +124,14 @@ class TestInvite extends CI_Controller
 	/** Checks whether the given parameter is higher than 0 */
 	public function testinvite_exists($testsurvey_id)
 	{
-		$participant_id = $this->input->post('participant_id');
+		$participant_id = $this->input->post('participant');
 		$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
 
 		if (!empty($testinvite))
 		{
 			$participant = $this->participantModel->get_participant_by_id($participant_id);
-			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-			$this->form_validation->set_message('testinvite_exists', sprintf(lang('testinvite_already_exists'), name($participant), $test->name));
+			$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
+			$this->form_validation->set_message('testinvite_exists', sprintf(lang('testinvite_already_exists'), name($participant), testsurvey_name($testsurvey)));
 			return FALSE;
 		}
 		return TRUE;
