@@ -23,12 +23,20 @@ if (!function_exists('email_testinvite'))
 
 if (!function_exists('email_replace'))
 {
-	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, $testinvite = NULL, $auto = FALSE)
+	/**
+	 * This method creates an e-mail by referring to a view and replacing the variables. 
+	 * TODO: refactor to use lesser parameters (all in one array)?
+	 */
+	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, $testinvite = NULL, $auto = FALSE, $message = "")
 	{
 		$CI =& get_instance();
+		$user = $CI->userModel->get_user_by_id(current_user_id());
 		
 		$message_data = array();
 		$message_data['auto'] 				= $auto;
+		$message_data['user_username'] 		= $user->username;
+		$message_data['user_email'] 		= $user->email;
+		$message_data['message'] 			= $message;
 		
 		if (!empty($participant)) 
 		{
@@ -55,10 +63,14 @@ if (!function_exists('email_replace'))
 		
 		if (!empty($experiment)) 
 		{
+			$location = $CI->locationModel->get_location_by_experiment($experiment);
+			
+			$message_data['exp_name']		= $experiment->name;
 			$message_data['type'] 			= $experiment->type;
 			$message_data['duration'] 		= $experiment->duration;
 			$message_data['duration_total'] = $experiment->duration + INSTRUCTION_DURATION;
 			$message_data['description'] 	= $experiment->description;
+			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
 		}
 		
 		if (!empty($participant) && !empty($experiment)) 

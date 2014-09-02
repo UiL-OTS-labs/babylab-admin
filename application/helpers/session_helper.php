@@ -33,7 +33,8 @@ if (!function_exists('correct_user'))
 	 */
 	function correct_user($user_id)
 	{
-		if ($user_id != current_user_id()) {
+		if ($user_id != current_user_id()) 
+		{
 			$CI =& get_instance();
 
 			$data['error'] = lang('not_authorized');

@@ -441,6 +441,8 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('part_number', lang('part_number'), 'trim|required');
 		$this->form_validation->set_rules('interrupted', lang('interrupted'), 'required');
 		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required');
+		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim');
+		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim');
 
 		// Run validation
 		if (!$this->form_validation->run())
@@ -461,7 +463,15 @@ class Participation extends CI_Controller
 
 			// Add (possible) comment
 			$comment = $this->post_comment($participant->id);
-			if (!empty($comment)) $this->commentModel->add_comment($comment);
+			if ($comment) $this->commentModel->add_comment($comment);
+			
+			// Mail (possible) technical comment
+			$tech_comment = $this->input->post('tech_comment');
+			if ($tech_comment)
+			{
+				$this->participationModel->add_tech_message($participation_id, $tech_comment);
+				$this->send_technical_email($participation_id, $tech_comment);
+			}
 
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
@@ -491,6 +501,23 @@ class Participation extends CI_Controller
 		$this->email->send();
 
 		return sprintf(lang('reschedule_sent'), $participant->email);
+	}
+	
+	/** Send a mail to the technical folks */ 
+	private function send_technical_email($participation_id, $tech_comment)
+	{
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation_id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		
+		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, FALSE, $tech_comment);
+		
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : LAB_EMAIL);
+		$this->email->subject('Babylab Utrecht: Technisch probleem');
+		$this->email->message($message);
+		$this->email->send();
 	}
 
 	/////////////////////////

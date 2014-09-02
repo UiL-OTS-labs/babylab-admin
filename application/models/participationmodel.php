@@ -263,6 +263,15 @@ class ParticipationModel extends CI_Model
 			'completed' => 1, 
 			'status' 	=> ParticipationStatus::Completed)));
 	}
+	
+	/** Adds a technical message to the specified participation */
+	public function add_tech_message($participation_id, $tech_comment)
+	{
+		$this->db->where('id', $participation_id);
+		$this->db->update('participation', array(
+			'tech_problems'	=> 1,
+			'tech_comment'	=> $tech_comment));
+	}
 
 	/////////////////////////
 	// Locking

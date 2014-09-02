@@ -251,7 +251,7 @@ $lang['no_shows_for']		= "No-shows for %s";
 $lang['completed']			= "Completed";
 $lang['complete_part']		= "Complete participation";
 $lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>.
-							   Please complete all the fields before confirming.";
+							   Please complete all required fields before confirming.";
 $lang['message_left']		= "Left a message?";
 $lang['none']				= "None";
 $lang['voicemail']			= "Voicemail";
@@ -279,7 +279,11 @@ $lang['part_interrupted']	= "This participation was interrupted.";
 $lang['interruptions']		= "Interrupted participations";
 $lang['interruptions_for']	= "Interrupted participations for %s";
 $lang['part_comment']		= "Comments for participation";
+$lang['part_comment_info']	= "The (required) comment added below will only be saved for this participation. <em>(example: didn't sit still)</em>";
 $lang['pp_comment']			= "Comments for participant";
+$lang['pp_comment_info']	= "Any comment added below will be saved with the participant for future reference. <em>(example: possibly dyslexic)</em>";
+$lang['tech_comment']		= "Comments for lab staff";
+$lang['tech_comment_info']	= "Any comment added below will be e-mailed to the lab staff directly. <em>(example: sound seems off)</em>";
 
 $lang['ad_hoc_participation'] = "Add ad hoc participation";
 $lang['participation_no_restrictions'] = "<b>Warning!</b><br/>This page is intended as a <i>last resort</i> and does not contain any safeguards whatsoever.<br/>

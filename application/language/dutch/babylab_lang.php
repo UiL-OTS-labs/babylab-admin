@@ -251,7 +251,7 @@ $lang['no_shows_for']		= "No-shows voor %s";
 $lang['completed']			= "Voltooid";
 $lang['complete_part']		= "Deelname voltooien";
 $lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> aan experiment <em>%s</em> voltooien.
-							   Vul alle velden in alvorens op bevestigen te klikken.";
+							   Vul alle verplichte velden in alvorens op bevestigen te klikken.";
 $lang['message_left']		= "Bericht achtergelaten?";
 $lang['none']				= "Geen";
 $lang['voicemail']			= "Voicemail";
@@ -279,7 +279,11 @@ $lang['part_interrupted']	= "Deze deelname is afgebroken.";
 $lang['interruptions']		= "Afgebroken deelnames";
 $lang['interruptions_for']	= "Afgebroken deelnames voor %s";
 $lang['part_comment']		= "Opmerking bij deelname";
+$lang['part_comment_info']	= "Deze (verplichte) opmerking wordt alleen opgeslagen bij deze deelname. <em>(voorbeeld: zat niet stil)</em>";
 $lang['pp_comment']			= "Opmerking bij proefpersoon";
+$lang['pp_comment_info']	= "Opmerkingen die hier worden toegevoegd worden opgeslagen bij de deelnemer voor latere naslag. <em>(voorbeeld: mogelijk dyslectisch)</em>";
+$lang['tech_comment']		= "Bericht voor technisch personeel";
+$lang['tech_comment_info']	= "Opmerkingen die hier worden toegevoegd worden direct naar het labpersoneel gemaild. <em>(voorbeeld: geluid lijkt niet goed te werken)</em>";
 
 $lang['ad_hoc_participation'] = "Ad Hoc deelname toevoegen";
 $lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>
