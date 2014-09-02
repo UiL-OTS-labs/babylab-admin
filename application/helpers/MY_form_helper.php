@@ -60,7 +60,6 @@ if (!function_exists('form_dropdown_and_label'))
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
 		$dropdown = form_dropdown($name, $options, set_value($name, $selected), 'id="' . $name . '"' . $extra);
-		//$error_box = form_error($name, '<label class="error" for="' . $name . '">', "</label>");
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
 		

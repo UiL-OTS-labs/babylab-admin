@@ -285,10 +285,10 @@ $lang['pp_comment_info']	= "Opmerkingen die hier worden toegevoegd worden opgesl
 $lang['tech_comment']		= "Bericht voor technisch personeel";
 $lang['tech_comment_info']	= "Opmerkingen die hier worden toegevoegd worden direct naar het labpersoneel gemaild. <em>(voorbeeld: geluid lijkt niet goed te werken)</em>";
 
-$lang['ad_hoc_participation'] = "Ad Hoc deelname toevoegen";
+$lang['ad_hoc_participation'] = "Ad hoc deelname toevoegen";
 $lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>
 Zorg dat u zeker weet dat de participant wil meedoen aan het experiment en kan op de opgegeven tijd!";
-$lang['participation_exists'] = "De deelname bestaat al. Verwijder deze deelname, voordat u een nieuwe deelname maakt.";
+$lang['participation_exists'] = "Er bestaat al een deelname van <em>%s</em> aan <em>%s</em>. Verwijder deze deelname, voordat u een nieuwe deelname maakt.";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";

@@ -96,12 +96,7 @@ class Call extends CI_Controller
 		else
 		{
 			// If succeeded, insert data into database
-			if ($appointment == NULL)
-			{
-				$appointment = $this->input->post('appointment');
-			}
-
-			$appointment = input_datetime($appointment);
+			$appointment = $appointment == NULL ? $this->input->post('appointment') : input_datetime($appointment);
 			
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);

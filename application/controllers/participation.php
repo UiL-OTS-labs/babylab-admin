@@ -22,7 +22,7 @@ class Participation extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -81,11 +81,12 @@ class Participation extends CI_Controller
 	}
 
 	///////////////////////////////////////////
-	// Add participation (admin only)//////////
+	// Add participation (admin only)
 	///////////////////////////////////////////
 
 	/** Restrict acces to admin only **/
-	private function admin_only(){
+	private function admin_only()
+	{
 		if (current_role() != UserRole::Admin)
 		{
 			flashdata(lang('not_authorized'));
@@ -112,10 +113,9 @@ class Participation extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Adds an Ad Hoc participation */
+	/** Adds an ad hoc participation */
 	public function add_submit()
 	{
-
 		$this->admin_only();
 
 		// Get POST data
@@ -133,26 +133,30 @@ class Participation extends CI_Controller
 			// No errors
 			$participation = $this->participationModel->get_participation($experiment->id, $participant->id);
 				
-			if (empty($participation)){
+			if (empty($participation))
+			{
 				// No participation exists yet, create a new one
 				$participation_id = $this->participationModel->create_participation($experiment,$participant);
 				$call_id = $this->callModel->create_call($participation_id);
-				redirect('call/confirm/' . $call_id . "/" . $this->input->post('appointment'), 'refresh');
-			} else {
+				redirect('call/confirm/' . $call_id . '/' . $this->input->post('appointment'), 'refresh');
+			} 
+			else 
+			{
 				// Participation already exists, error.
-				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name));
-				redirect('/participation/', 'refresh');
+				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name), FALSE);
+				$this->add();
 			}
 		}
 	}
 
-	private function validate_experiment(){
+	private function validate_experiment()
+	{
 		// Require experiment and participant to be selected
 		$this->form_validation->set_rules('experiment', lang('experiment'), 'callback_not_default');
 		$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_default');
 		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
 
-		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
+		$this->form_validation->set_error_delimiters();
 
 		return $this->form_validation->run();
 	}
@@ -160,11 +164,14 @@ class Participation extends CI_Controller
 	/** Check if the dropdown option selected isn't the default (-1) */
 	public function not_default($value)
 	{
-		if ($value == -1){
+		if ($value == -1)
+		{
 			$this->form_validation->set_message('not_default', lang('isset'));
-			return false;
-		} else {
-			return true;
+			return FALSE;
+		} 
+		else 
+		{
+			return TRUE;
 		}
 	}
 

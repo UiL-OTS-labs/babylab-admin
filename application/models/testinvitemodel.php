@@ -161,14 +161,19 @@ class TestInviteModel extends CI_Model
 		$result = array();
 		foreach ($surveys AS $survey)
 		{
-			$testinvite = $this->create_testinvite($survey->id, $participant->id);
-			array_push($result, $testinvite);
-
-			// Create the token in LimeSurvey (if we're on production)
-			if (!SURVEY_DEV_MODE)
+			$testinvite = $this->get_testinvite_by_testsurvey_participant($survey->id, $participant->id);
+			
+			if (!$testinvite) // Don't create an invitation if there's already one created
 			{
-				$this->load->model('surveyModel');
-				$this->surveyModel->create_token($participant, $survey->limesurvey_id, $testinvite->token);
+				$testinvite = $this->create_testinvite($survey->id, $participant->id);
+				array_push($result, $testinvite);
+	
+				// Create the token in LimeSurvey (if we're on production)
+				if (!SURVEY_DEV_MODE)
+				{
+					$this->load->model('surveyModel');
+					$this->surveyModel->create_token($participant, $survey->limesurvey_id, $testinvite->token);
+				}
 			}
 		}
 
