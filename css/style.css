@@ -159,7 +159,7 @@ a {
 #colorselector2 {
     width: 36px;
     height: 36px;
-    background: url("http://belelros.github.io/jQuery-ColorPicker/images/select.png") repeat scroll 0% 0%;
+    background: url("images/select.png") repeat scroll 0% 0%;
 }
 
 #colorselector2 label{
@@ -168,5 +168,5 @@ a {
 	left: 6px;
 	width: 24px;
 	height: 24px;
-	background: url("../images/select.png") repeat scroll center center transparent;
+	background: url("images/select.png") repeat scroll center center transparent;
 }

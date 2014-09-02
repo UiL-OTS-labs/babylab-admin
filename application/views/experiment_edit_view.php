@@ -1,9 +1,8 @@
 <?=heading(lang('experiments'), 2); ?>
-<link rel="stylesheet" media="screen" type="text/css" href="http://belelros.github.io/jQuery-ColorPicker/css/colorpicker.css" />
 <!-- Color Picker -->
+<?=link_tag('css/colorpicker.css'); ?>
 <script src="js/colorPicker.min.js"></script>
 <script type="text/javascript">
-<!--
 $(function() {
 	$("#wbs_number").on('keyup', function(e)  {
 		   $(this).val($(this).val().toUpperCase());
@@ -19,7 +18,6 @@ $(function() {
 		}
 	);
 
-	var widt = false;
     $('#colorselector2').ColorPicker({
         color: '<?=$experiment_color;?>',
         onShow: function (colpkr) {
@@ -38,8 +36,7 @@ $(function() {
     $('#colorselector2 label').css('cursor', 'pointer');
     $('#colorselector2 label').css('background-color', '<?=$experiment_color;?>');
     $('#experiment_color').val('<?=$experiment_color;?>');
-});        
-//-->
+});      
 </script>
 
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
@@ -119,4 +116,3 @@ foreach ($excludes as $exclude)
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-
