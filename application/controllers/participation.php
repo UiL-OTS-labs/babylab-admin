@@ -6,7 +6,7 @@
  * 0			0			0		0			0			unconfirmed (called but no response)
  * 1			0			0		0			0			confirmed, not yet completed
  * 1			0			0		0			1			confirmed, completed
- * 1			0			0		1			0			confirmed, to be rescheduled
+ * 1			0			0		1			0			confirmed, to be rescheduled // TODO: implement
  * 1			0			1		0			0			confirmed, but no-show
  * 1			1			0		0			0			confirmed, cancelled later
  * 0			1			0		0			0			cancelled upfront
