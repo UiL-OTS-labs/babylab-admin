@@ -6,11 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
-<script type="text/javascript"
-	src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <!-- (default) CSS -->
 <?=link_tag('css/pure-min.css'); ?>
 <?=link_tag('css/style.css'); ?>
@@ -19,22 +17,21 @@
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
 <?php if (current_language() === L::Dutch) { ?>
-<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
-<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
 <?php } ?>
 <!-- Validate -->
-<script type="text/javascript" src="js/jquery.validate.js"></script>
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
 <?php if (current_language() === L::Dutch) { ?>
-<script type="text/javascript" src="js/jquery.validate-nl.js"></script>
+	<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_nl.js"></script>
 <?php } ?>
 <script type="text/javascript">$(function() {$('form').validate();});</script>
 <!-- Numeric -->
 <script type="text/javascript" src="js/jquery.numeric.js"></script>
 <script type="text/javascript" src="js/jquery.numeric.addon.js"></script>
 <!-- Sparkline -->
-<script type="text/javascript" src="js/jquery.sparkline.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
-
 <!-- Masks -->
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- Google JS API -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <!-- (default) CSS -->
