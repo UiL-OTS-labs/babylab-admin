@@ -14,7 +14,10 @@ class Call extends CI_Controller
 	// CRUD-actions
 	/////////////////////////
 
-	/** Specifies the contents of the default page. */
+	/**
+	 * Specifies the contents of the default page.
+	 * @return void
+	 */
 	public function index()
 	{
 		create_call_table();
@@ -27,7 +30,11 @@ class Call extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Deletes the specified call, and returns to previous page */
+	/**
+	 * Deletes the specified call, and returns to previous page
+	 * @param integer $call_id 
+	 * @return void
+	 */
 	public function delete($call_id)
 	{
 		$this->callModel->delete_call($call_id);
@@ -39,7 +46,11 @@ class Call extends CI_Controller
 	// Other views
 	/////////////////////////
 
-	/** Gets all calls for a user. */
+	/**
+	 * Gets all calls for a user. 
+	 * @param integer $user_id 
+	 * @return void
+	 */
 	public function user($user_id)
 	{
 		if (!is_admin() && !correct_user($user_id)) return;
@@ -193,12 +204,11 @@ class Call extends CI_Controller
 	/**
 	 * 
 	 * Check integrity of a call: 
-	 * TODO: the user should be logged in 
+	 * - the user should be logged in (by default for each method, so we don't have to check here)
 	 * - the call should exist
-	 * TODO: the user should be a caller for this experiment
 	 * - the user should be the caller of this call (unless it's a take-over)
 	 * 
-	 * @param integer $call_id the call id
+	 * @param integer $call_id the ID of the call
 	 */
 	private function check_integrity($call_id, $take_over = FALSE)
 	{
@@ -277,7 +287,11 @@ class Call extends CI_Controller
 	// Form handling
 	/////////////////////////
 
-	/** Posts the data for a comment */
+	/**
+	 * Posts the data for a comment for a participant
+	 * @param integer $participant_id 
+	 * @return array
+	 */
 	private function post_comment($participant_id)
 	{
 		$comment = $this->input->post('comment');
@@ -297,6 +311,10 @@ class Call extends CI_Controller
 	// Table
 	/////////////////////////
 
+	/**
+	 * Returns the default table
+	 * @return JSON
+	 */
 	public function table()
 	{
 		$this->datatables->select('username, CONCAT(firstname, lastname) AS p, experiment.name AS e,
@@ -323,6 +341,11 @@ class Call extends CI_Controller
 		echo $this->datatables->generate();
 	}
 
+	/**
+	 * Returns the table filtered by user_id
+	 * @param integer $user_id 
+	 * @return JSON
+	 */
 	public function table_by_user($user_id)
 	{
 		$this->datatables->where('user_id', $user_id);
@@ -330,6 +353,11 @@ class Call extends CI_Controller
 		$this->table();
 	}
 
+	/**
+	 * Returns the table filtered by participation
+	 * @param integer $participation_id 
+	 * @return JSON
+	 */
 	public function table_by_participation($participation_id)
 	{
 		$this->datatables->where('participation_id', $participation_id);

@@ -57,14 +57,7 @@ class Authenticate
 	 */
 	public function logged_in()
 	{
-		if ($this->CI->session->userdata('logged_in') === TRUE)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
+		return $this->CI->session->userdata('logged_in');
 	}
 
 	/**
