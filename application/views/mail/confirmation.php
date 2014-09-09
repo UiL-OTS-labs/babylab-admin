@@ -18,14 +18,14 @@ Het invullen van de vragenlijst duurt 5 tot 10 minuten.</p>
 <?php } ?>
 <p>Het is belangrijk voor ons onderzoek dat er geen broertje of zusje meekomt tijdens het bezoek aan het lab. 
 Indien u hierover een afspraak heeft gemaakt met de medewerker van het BabyLab, dan geldt uiteraard de afspraak die jullie gemaakt hebben.</p>
-<p>Wanneer u verhinderd bent te komen of de afspraak graag wil verzetten, dan kunt u mailen naar: <a href="mailto:babylabutrecht@uu.nl">babylabutrecht@uu.nl</a>.
-Mocht u verder nog vragen hebben dan kunt u contact opnemen met Maartje de Klerk: 06-39 01 54 20.</p>
+<p>Wanneer u verhinderd bent te komen of de afspraak graag wil verzetten, dan kunt u mailen naar: <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
+Mocht u verder nog vragen hebben dan kunt u contact opnemen met <?=BABYLAB_MANAGER; ?>: <?=BABYLAB_MANAGER_PHONE; ?>.</p>
 <?php if ($first_visit) { ?>
 <p>De link naar de vragenlijst (<em>Anamnese 1ste bezoek</em>) vindt u hier: <?=$survey_link; ?>.</p>
 <?php } ?>
 <p>Meer informatie over het BabyLab en bijvoorbeeld hoe er te komen is beschikbaar op <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
-<p>Maartje de Klerk (lab manager)</p>
+<p><?=BABYLAB_MANAGER; ?> (lab manager)</p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>

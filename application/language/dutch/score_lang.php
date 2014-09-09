@@ -17,8 +17,8 @@ $lang['raw_score']			= "Ruwe score";
 
 $lang['ncdi_C']				= "Uit de resultaten blijkt dat de taalontwikkeling van uw kind normaal verloopt.";
 $lang['ncdi_B']				= "Uit de resultaten blijkt dat de taalontwikkeling van uw kind vertraagd is.
-								Er is op dit moment geen reden tot zorg. Mocht u zelf twijfelen, neem dan contact op met 
-								Maartje de Klerk (" . mailto("M.K.A.deKlerk@uu.nl") . ").";
+								Er is op dit moment geen reden tot zorg. Mocht u zelf twijfelen, neem dan contact op 
+								met " . BABYLAB_MANAGER . " (" . mailto(BABYLAB_MANAGER_EMAIL) . ").";
 $lang['ncdi_A']				= 'Uit de resultaten blijkt dat de taalontwikkeling van uw kind vertraagd is.
 								Uw %1$s presteert op zowel de percentielscores als de taalleeftijd, 
 								in vergelijking met %2$ss van dezelfde leeftijd, benedengemiddeld wat betreft 

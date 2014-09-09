@@ -104,5 +104,10 @@ define('NCDI_MINIMUM_PERCENTILE', 10);
 /** NCDI language age difference: 4 months */
 define('NCDI_LANGUAGE_AGE_DIFF', 4);
 
+/** Babylab Manager */ 
+define('BABYLAB_MANAGER', 'Maartje de Klerk');
+define('BABYLAB_MANAGER_EMAIL', 'babylabutrecht@uu.nl');
+define('BABYLAB_MANAGER_PHONE', '06-39 01 54 20');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -18,7 +18,7 @@ Bovendien worden de antwoorden op een veilige manier bewaard: de informatie is a
 <p>Hartelijke groet,</p>
 <p>BabyLab Universiteit Utrecht</p>
 <p>Indien u vragen of opmerkingen heeft n.a.v. deze e-mail of de vragenlijst, dan kunt u contact opnemen met:
-Maartje de Klerk via <a href="mailto:babylabutrecht@uu.nl">babylabutrecht@uu.nl</a>.
+<?=BABYLAB_MANAGER; ?> via <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
 Meer informatie over het babylab vindt u op: <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>

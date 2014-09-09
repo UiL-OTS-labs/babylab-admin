@@ -17,5 +17,6 @@ $lang['raw_score']			= "Raw score";
 
 $lang['ncdi_C']				= "The results show your childs language development proceeds normally.";
 $lang['ncdi_B']				= "The results show your childs language development is delayed.
-								At this moment, there is no cause for panic. In case you have doubts, feel free to contact Maartje de Klerk (" . mailto("M.K.A.deKlerk@uu.nl") . ").";
+								At this moment, there is no cause for panic. In case you have doubts, feel free to 
+								contact " . BABYLAB_MANAGER . " (" . mailto(BABYLAB_MANAGER_EMAIL) . ").";
 ?>

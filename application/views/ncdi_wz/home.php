@@ -29,7 +29,7 @@
 	<li>Uw kind scoort benedengemiddeld, maar er is wel reden tot zorgen wanneer uw kind op ALLE onderdelen wat betreft de percentielscores benedengemiddeld scoort (percentielscore < 16) EN op ALLE onderdelen op de taalleeftijden benedengemiddeld (> 4 maanden) scoort.</li> 
 	<li>Uw kind scoort bovengemiddeld wanneer de percentielscores boven de 84 liggen</li>
 </ul>
-Wanneer uw kind beneden gemiddeld scoort is er lang niet altijd reden tot zorg: kinderen ontwikkelen zich niet in een rechte lijn en het kan daarom heel goed zo zijn dat er van de lage scores niets meer te zien is bij een volgende meting. Wanneer dat wel zo is en de scores zijn erg laag, bij meerdere metingen, dan is het verstandig om contact op te nemen met Maartje de Klerk (<?=mailto('M.K.A.deKlerk@uu.nl'); ?>)
+Wanneer uw kind beneden gemiddeld scoort is er lang niet altijd reden tot zorg: kinderen ontwikkelen zich niet in een rechte lijn en het kan daarom heel goed zo zijn dat er van de lage scores niets meer te zien is bij een volgende meting. Wanneer dat wel zo is en de scores zijn erg laag, bij meerdere metingen, dan is het verstandig om contact op te nemen met <?=BABYLAB_MANAGER; ?> (<?=mailto(BABYLAB_MANAGER_EMAIL); ?>)
 	
 <?=heading('Rapportage', 3); ?>
 <ul>

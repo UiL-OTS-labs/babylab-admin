@@ -12,7 +12,7 @@ Het onderzoek duurt, inclusief uitleg vooraf en ruimte voor vragen achteraf, ong
 <p>Wij horen graag van u en zien uit naar uw komst, hopelijk tot ziens op het Babylab!</p>
 <p>Hartelijke groet,</p>
 <p>BabyLab Universiteit Utrecht</p>
-<p>Maartje de Klerk (lab manager)</p>
+<p><?=BABYLAB_MANAGER; ?> (lab manager)</p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>
