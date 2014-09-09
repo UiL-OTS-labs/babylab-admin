@@ -21,7 +21,7 @@ if (!function_exists('system_user_id'))
 	{
 		$CI =& get_instance();
 		$user = $CI->userModel->get_user_by_username('system');
-		return $user->id();
+		return $user->id;
 	}
 }
 
