@@ -188,21 +188,6 @@ if (!function_exists('age_in_months_and_days'))
 	}
 }
 
-if (!function_exists('participant_options'))
-{
-	/** Returns an option list of participants */
-	function participant_options($participants)
-	{
-		$p_options = array();
-		foreach ($participants as $p)
-		{
-			$p_options[$p->id] = name($p);
-		}
-		asort($p_options);
-		return $p_options;
-	}
-}
-
 if (!function_exists('last_called'))
 {
 	/** Returns the time last called for a participant */
