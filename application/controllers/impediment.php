@@ -34,7 +34,7 @@ class Impediment extends CI_Controller
 	public function add()
 	{
 		$data['page_title'] = lang('add_impediment');
-		$data['participants'] = $this->participantModel->get_all_participants(TRUE);
+		$data['participants'] = participant_options($this->participantModel->get_all_participants(TRUE));
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('impediment_add_view', $data);
