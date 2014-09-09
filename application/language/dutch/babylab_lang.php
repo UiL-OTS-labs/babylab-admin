@@ -33,6 +33,7 @@ $lang['submit']				= "Bevestigen";
 $lang['inspect']	 		= "Bekijk";
 $lang['status']	 			= "Status";
 $lang['here']	 			= "hier";
+$lang['overview']	 		= "Overzicht";
 
 $lang['yes']				= "Ja";
 $lang['no']					= "Nee";

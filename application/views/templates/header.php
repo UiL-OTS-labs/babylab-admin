@@ -57,14 +57,16 @@
 		<div id='cssmenu'>
 			<ul>
 				<li><?=anchor('welcome', lang('home')); ?></li>
-				<li class='has-sub'><?=anchor('experiment', lang('experiments')); ?>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('experiments'); ?></a>
 					<ul>
+						<li><?=anchor('experiment', lang('overview')); ?></li>
 						<li><?=anchor('relation', lang('relations')); ?></li>
 						<li class='last'><?=anchor('location', lang('locations')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><?=anchor('participation', lang('participations')); ?>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participations'); ?></a>
 					<ul>
+						<li><?=anchor('participation', lang('overview')); ?></li>
 						<li><?=anchor('appointment', lang('appointments')); ?></li>
 						<li><?=anchor('call', lang('calls')); ?></li>
 						<li><?=anchor('result', lang('results')); ?></li>
@@ -73,29 +75,33 @@
 						</li>
 					</ul>
 				</li>
-				<li class='has-sub'><?=anchor('participant', lang('participants')); ?>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participants'); ?></a>
 					<ul>
+						<li><?=anchor('participant', lang('overview')); ?></li>
 						<li><?=anchor('language', lang('languages')); ?></li>
 						<li><?=anchor('dyslexia', lang('dyslexia')); ?></li>
 						<li><?=anchor('impediment', lang('impediments')); ?></li>
 						<li class='last'><?=anchor('comment', lang('comments')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><?=anchor('user', lang('users')); ?>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('users'); ?></a>
 					<ul>
+						<li><?=anchor('user', lang('overview')); ?></li>
 						<li><?=anchor('caller', lang('callers')); ?></li>
 						<li class='last'><?=anchor('leader', lang('leaders')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><?=anchor('test', lang('tests')); ?>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('tests'); ?></a>
 					<ul>
+						<li><?=anchor('test', lang('overview')); ?></li>
 						<li><?=anchor('testcat', lang('testcats')); ?></li>
 						<li><?=anchor('percentile', lang('percentiles')); ?></li>
 						<li class='last'><?=anchor('score', lang('scores')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub last'><?=anchor('testsurvey', lang('testsurveys')); ?>
+				<li class='has-sub last'><a href="javascript:void(0)"><?=lang('testsurveys'); ?></a>
 					<ul>
+						<li><?=anchor('testsurvey', lang('overview')); ?></li>
 						<li class='last'><?=anchor('testinvite', lang('testinvites')); ?>
 						</li>
 					</ul>
