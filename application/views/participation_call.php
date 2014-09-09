@@ -97,12 +97,13 @@
 			</tr>
 		</table>
 
-		<!-- Languages confirmation -->
-		<?php if ($verify_languages) { ?>
-		<p class="warning">
-		<?=sprintf(lang('verify_languages'), name($participant), participant_edit_link($participant->id)); ?>
-		</p>
-		<?php } ?>
+		<!-- Languages/dyslexia confirmation -->
+		<?php 
+			if ($verify_languages || $verify_dyslexia) 
+			{ 
+				echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+			} 
+		?>
 
 		<!-- When to make an appointment -->
 		<p>

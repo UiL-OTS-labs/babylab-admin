@@ -28,3 +28,23 @@ if (!function_exists('language_actions'))
 		return $d_link;
 	}
 }
+
+if (!function_exists('language_check'))
+{
+	/** Checks whether participants listed as multilingual actually have more than one language added to them */
+	function language_check($participant)
+	{
+		$CI =& get_instance();
+
+		if ($participant->multilingual)
+		{
+			$languages = $CI->languageModel->get_languages_by_participant($participant->id);
+			if (count($languages) <= 1) // Less than one language => not multilingual
+			{
+				return array(sprintf(lang('verify_languages'), name($participant), participant_edit_link($participant->id)));
+			}
+		}
+
+		return array();
+	}
+}

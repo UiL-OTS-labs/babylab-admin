@@ -9,9 +9,9 @@
 	});
 </script>
 
-						<?=heading($page_title, 2); ?>
+<?=heading($page_title, 2); ?>
 
-						<?=$this->session->flashdata('message'); ?>
+<?=$this->session->flashdata('message'); ?>
 
 <div
 	id="accordion">
@@ -20,6 +20,13 @@
 	<?=lang('general_info'); ?>
 	</h3>
 	<div>
+		<!-- Languages/dyslexia confirmation -->
+		<?php 
+			if ($verify_languages || $verify_dyslexia) 
+			{ 
+				echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+			} 
+		?>
 		<table class="pure-table">
 			<tr>
 				<th><?=lang('name'); ?></th>

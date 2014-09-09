@@ -267,14 +267,6 @@ class Participation extends CI_Controller
 		// Create call record
 		$call_id = $this->callModel->create_call($participation_id);
 
-		// Check whether the participant is multilingual and has languages defined
-		$verify_languages = FALSE;
-		if ($participant->multilingual)
-		{
-			$languages = $this->languageModel->get_languages_by_participant($participant_id);
-			$verify_languages = count($languages) <= 1; // Less than one language => not multilingual...
-		}
-
 		// Create page data
 		$data = get_min_max_days($participant, $experiment);
 		$data['participant'] = $participant;
@@ -289,7 +281,8 @@ class Participation extends CI_Controller
 		$data['last_experiment'] = $this->participantModel->last_experiment($participant_id);
 		$data['last_called'] = $this->participantModel->last_called($participant_id);
 		$data['nr_participations'] = count($participations);
-		$data['verify_languages'] = $verify_languages;
+		$data['verify_languages'] = language_check($participant);
+		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);

@@ -10,4 +10,6 @@ $lang['edit_dyslexia']			= "edit dyslexia-item";
 $lang['dyslexia_edited']		= "New dyslexia-item was succesfully edited.";
 $lang['dyslexia_deleted'] 		= "Dyslexia-item successfully deleted.";
 $lang['unique_dyslexia'] 		= "A dyslexia-item already exists for the %s of %s.";
+$lang['verify_dyslexia']		= "The %s of %s is registered as dyslexic, but there's no dyslexia-item present. 
+									Click %s to create such an item (opens in new tab)."
 ?>

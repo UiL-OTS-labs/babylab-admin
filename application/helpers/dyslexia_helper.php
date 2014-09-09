@@ -26,3 +26,28 @@ if (!function_exists('dyslexia_actions'))
 		return implode(' ', array($edit_link, $delete_link));
 	}
 }
+
+if (!function_exists('dyslexia_check'))
+{
+	/** Checks whether participants whose parents are listed as dyslexic actually have a dyslexia item added to them */
+	function dyslexia_check($participant)
+	{
+		$CI =& get_instance();
+
+		$result = array();
+		if ($participant->dyslexicparent)
+		{
+			$genders = str_split($participant->dyslexicparent);
+			foreach ($genders AS $gender)
+			{
+				$dyslexia = $CI->dyslexiaModel->get_dyslexia_by_participant_gender($participant->id, $gender);
+				if (!$dyslexia) 
+				{
+					array_push($result, sprintf(lang('verify_dyslexia'), lcfirst(gender_parent($gender)), name($participant), anchor('dyslexia/add/', lang('here'), array('target' => '_blank'))));
+				}
+			}
+		}
+
+		return $result;
+	}
+}
