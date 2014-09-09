@@ -15,6 +15,7 @@
 <?=form_radio_and_label('interrupted', '1', $interrupted, lang('yes')); ?>
 <?=form_radio_and_label('interrupted', '0', $interrupted, lang('no')); ?>
 </div>
+<?=form_fieldset(lang('comments')); ?>
 <p class="warning"><?=lang('part_comment_info'); ?></p>
 <?=form_textarea_and_label('comment', $comment, lang('part_comment'), 'required'); ?>
 <p class="warning"><?=lang('pp_comment_info'); ?></p>
