@@ -313,13 +313,13 @@ if (!function_exists('participant_call_actions'))
 
 if (!function_exists('participant_options'))
 {
-	/** Returns an option list of tests */
+	/** Returns an option list of participants */
 	function participant_options($participants)
 	{
 		$p_options = array();
 		foreach ($participants as $p)
 		{
-			$p_options[$e->id] = fullname($p);
+			$p_options[$p->id] = name($p);
 		}
 		asort($p_options);
 		return $p_options;

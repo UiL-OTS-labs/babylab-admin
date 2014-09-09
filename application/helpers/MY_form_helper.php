@@ -53,7 +53,7 @@ if (!function_exists('form_textarea_and_label'))
 
 if (!function_exists('form_dropdown_and_label'))
 {
-	function form_dropdown_and_label($name, $options, $selected = array(), $extra = '', $add_select = TRUE, $div = 'pure-control-group', $default_key = 0)
+	function form_dropdown_and_label($name, $options, $selected = array(), $extra = '', $add_select = TRUE, $div = 'pure-control-group', $default_key = -1)
 	{
 		if ($add_select) $options = array($default_key => lang('select')) + $options;
 

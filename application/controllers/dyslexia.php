@@ -34,14 +34,13 @@ class Dyslexia extends CI_Controller
 	/** Specifies the contents of the add (single) score page */
 	public function add($participant_id = 0)
 	{
-		$data['participants'] = $this->participantModel->get_all_participants(TRUE);
-
 		$data['page_title'] = lang('add_dyslexia');
 		$data['new_dyslexia'] = TRUE;
 		$data['action'] = 'dyslexia/add_submit';
 		$data = add_fields($data, 'dyslexia');
 
 		$data['participant_id'] = $participant_id;
+		$data['participants'] = participant_options($this->participantModel->get_all_participants(TRUE));
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('dyslexia_edit_view', $data);

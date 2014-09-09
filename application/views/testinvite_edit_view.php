@@ -12,8 +12,8 @@ $(function() {
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
 <?=form_fieldset($page_title); ?>
 
-<?=form_dropdown_and_label('testsurvey', $testsurveys, array(), 'class="chosen-select" style="width: 350px;"', true, 'pure-control-group', -1);?>
-<?=form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select" style="width: 350px;"', true, 'pure-control-group', -1);?>
+<?=form_dropdown_and_label('testsurvey', $testsurveys, array(), 'class="chosen-select" style="width: 350px;"'); ?>
+<?=form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select" style="width: 350px;"'); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
