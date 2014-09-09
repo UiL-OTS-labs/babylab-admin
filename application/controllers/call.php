@@ -107,7 +107,11 @@ class Call extends CI_Controller
 		else
 		{
 			// If succeeded, insert data into database
-			$appointment = $appointment == NULL ? $this->input->post('appointment') : input_datetime($appointment);
+			if (!$appointment)
+			{
+				$appointment = $this->input->post('appointment');
+			}
+			$appointment = input_datetime($appointment);
 			
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
@@ -118,7 +122,6 @@ class Call extends CI_Controller
 			$this->participationModel->release_lock($participation->id);
 
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
-
 			redirect('/participant/find/' . $experiment->id, 'refresh');
 		}
 	}
