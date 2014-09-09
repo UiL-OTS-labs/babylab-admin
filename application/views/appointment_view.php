@@ -8,9 +8,9 @@
 
 <!-- Scripts for this page only -->
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
-<script type="text/javascript" src="js/moment.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.js"></script>
-<script type="text/javascript" src="js/fullCalendar.nl.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/lang/nl.js"></script>
 <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
 
 <!-- Build the calendar -->
