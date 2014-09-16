@@ -352,6 +352,7 @@ class Participant extends CI_Controller
 		create_participant_table(NULL, TRUE);
 		$data['ajax_source'] = 'participant/table_by_experiment/' . $experiment_id . '/' . $weeks_ahead;
 		$data['sort_column'] = 1; // Sort on date of birth
+		$data['sort_order'] = 'desc';  // Youngest first
 		$data['page_title'] = sprintf(lang('callable_for'), $experiment->name);
 
 		// Display some information on current participants. TODO: translate
