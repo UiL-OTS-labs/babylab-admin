@@ -286,7 +286,7 @@ if (!function_exists('participant_actions'))
 
 		return is_admin()
 		? implode(' ', array($edit_link, $act_link, $com_link, $score_link))
-		: implode(' ', array($edit_link, $com_link));
+		: implode(' ', array($edit_link, $act_link, $com_link));
 	}
 }
 
