@@ -56,102 +56,113 @@
 
 					   <?=heading($page_title, 2); ?>
 
-<div
-	id="accordion">
+<div id="accordion">
 	<h3>
 	<?=lang('contact_details'); ?>
 	</h3>
-	<div>
-	<?=sprintf(lang('now_calling'), name($participant), gender($participant->gender), dob($participant->dateofbirth), age_in_months($participant)); ?>
-	<?php if ($participation->nrcalls > 0 && !empty($previous_call)) {
-		echo '<p><em>';
-		echo sprintf(lang('already_called'), name($participant), $participation->nrcalls, output_date($participation->lastcalled), lcfirst(lang($previous_call->status)));
-		echo '</em></p>';
-	} ?>
-
-		<!-- Contact details -->
-	<?=sprintf(lang('call_contact'), $participant->firstname, parent_name($participant)); ?>
-		<br> <br>
-		<table class="pure-table">
-			<tr>
-				<th><?=lang('phone'); ?></th>
-				<td><?=$participant->phone; ?></td>
-			</tr>
-			<?php if (!empty($participant->phonealt)) { ?>
-			<tr>
-				<th><?=lang('phonealt'); ?></th>
-				<td><?=$participant->phonealt; ?></td>
-			</tr>
-			<?php } ?>
-			<tr>
-				<th><?=lang('email'); ?></th>
-				<td><?=mailto($participant->email); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('last_experiment'); ?></th>
-				<td><?=$last_experiment; ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('last_called'); ?></th>
-				<td><?=$last_called; ?></td>
-			</tr>
-		</table>
-
-		<!-- Languages/dyslexia confirmation -->
-		<?php 
-			if ($verify_languages || $verify_dyslexia) 
-			{ 
-				echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
-			} 
-		?>
-
-		<!-- When to make an appointment -->
-		<p>
-		<?=sprintf(lang('call_dates'), name($participant), $min_date, $max_date); ?>
-		</p>
-
-		<!-- Participation actions -->
-		<p>
-		<?=lang('call_action'); ?>
-		</p>
-		<?=$this->session->flashdata('message'); ?>
-		<ul>
-			<li class="click"><u class="call_link"><?=lang('confirmed'); ?> </u>
-				<div class="show">
-				<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
-					<p>
-					<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
-					<?=form_submit_only(); ?>
-					</p>
-					<?=form_close(); ?>
-				</div>
-			</li>
-			<li class="click"><u class="call_link"><?=lang('cancelled'); ?> </u>
-				<div class="show">
-				<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
-					<p>
-					<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
-					<?=form_submit_only(); ?>
-					</p>
-					<?=form_close(); ?>
-				</div>
-			</li>
-			<li class="click"><u class="call_link"><?=lang('no_reply'); ?> </u>
-				<div class="show">
-				<?=form_open('call/no_reply/' . $call_id); ?>
-					<p>
-					<?=lang('message_left'); ?>
-					<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
-					<?=form_radio_and_label('message', 'voicemail'); ?>
-					<?=form_radio_and_label('message', 'email'); ?>
-					<?=form_submit_only(); ?>
-					</p>
-					<?=form_close(); ?>
-				</div>
-			</li>
-			<li><?=anchor('call/undo/' . $call_id, lang('cancel'), array('id' => 'cancel_link')); ?>
-			</li>
-		</ul>
+	<div class="pure-g">
+		<div class="pure-u-3-5">	
+			<?=sprintf(lang('now_calling'), name($participant), gender($participant->gender), dob($participant->dateofbirth), age_in_months($participant)); ?>
+			<?php if ($participation->nrcalls > 0 && !empty($previous_call)) {
+				echo '<p><em>';
+				echo sprintf(lang('already_called'), name($participant), $participation->nrcalls, output_date($participation->lastcalled), lcfirst(lang($previous_call->status)));
+				echo '</em></p>';
+			} ?>
+		
+				<!-- Contact details -->
+			<?=sprintf(lang('call_contact'), $participant->firstname, parent_name($participant)); ?>
+		
+			<br> <br>
+			<table class="pure-table">
+				<tr>
+					<th><?=lang('phone'); ?></th>
+					<td><?=$participant->phone; ?></td>
+				</tr>
+				<?php if (!empty($participant->phonealt)) { ?>
+				<tr>
+					<th><?=lang('phonealt'); ?></th>
+					<td><?=$participant->phonealt; ?></td>
+				</tr>
+				<?php } ?>
+				<tr>
+					<th><?=lang('email'); ?></th>
+					<td><?=mailto($participant->email); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('last_experiment'); ?></th>
+					<td><?=$last_experiment; ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('last_called'); ?></th>
+					<td><?=$last_called; ?></td>
+				</tr>
+			</table>
+	
+			<!-- Languages/dyslexia confirmation -->
+			<?php 
+				if ($verify_languages || $verify_dyslexia) 
+				{ 
+					echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+				} 
+			?>
+	
+			<!-- When to make an appointment -->
+			<p>
+			<?=sprintf(lang('call_dates'), name($participant), $min_date, $max_date); ?>
+			</p>
+	
+			<!-- Participation actions -->
+			<p>
+			<?=lang('call_action'); ?>
+			</p>
+			<?=$this->session->flashdata('message'); ?>
+			<ul>
+				<li class="click"><u class="call_link"><?=lang('confirmed'); ?> </u>
+					<div class="show">
+					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
+						<p>
+						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
+						<?=form_submit_only(); ?>
+						</p>
+						<?=form_close(); ?>
+					</div>
+				</li>
+				<li class="click"><u class="call_link"><?=lang('cancelled'); ?> </u>
+					<div class="show">
+					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
+						<p>
+						<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
+						<?=form_submit_only(); ?>
+						</p>
+						<?=form_close(); ?>
+					</div>
+				</li>
+				<li class="click"><u class="call_link"><?=lang('no_reply'); ?> </u>
+					<div class="show">
+					<?=form_open('call/no_reply/' . $call_id); ?>
+						<p>
+						<?=lang('message_left'); ?>
+						<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
+						<?=form_radio_and_label('message', 'voicemail'); ?>
+						<?=form_radio_and_label('message', 'email'); ?>
+						<?=form_submit_only(); ?>
+						</p>
+						<?=form_close(); ?>
+					</div>
+				</li>
+				<li><?=anchor('call/undo/' . $call_id, lang('cancel'), array('id' => 'cancel_link')); ?>
+				</li>
+			</ul>
+		</div>
+		<div class="pure-u-1-5"></div>
+		<div class="pure-u-1-5">
+			<a href="appointment/index/0" target="name" 
+				onclick="window.open('appointment/index/0','name','left=100,top=50,width=1200,height=800,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes'); return false;">
+					<center><img class="pure-u-3-4" src="images/calendar_large.png" title="<?=lang('show_calendar');?>" alt="<?=lang('show_calendar');?>" />
+					<h3><?=lang('show_calendar');?></h3></center>
+			</a>
+			
+		</div>
 	</div>
 
 	<h3>

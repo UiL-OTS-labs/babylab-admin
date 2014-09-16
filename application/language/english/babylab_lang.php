@@ -395,4 +395,5 @@ $lang['filter_participant'] = "Filter by participant";
 $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";
+$lang['show_calendar']		= "Show calendar";
 ?>

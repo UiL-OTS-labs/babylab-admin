@@ -8,7 +8,7 @@ class Appointment extends CI_Controller
 	}
 
 	/** Specifies the contents of the default page. */
-	public function index()
+	public function index($header=1)
 	{
 		// Prepare the data
 		$data['page_title'] = lang('appointments');
@@ -18,7 +18,9 @@ class Appointment extends CI_Controller
 		$data['participants'] = $this->participantModel->get_all_participants();
 
 		// Load the view
-		$this->load->view('templates/header', $data);
+		if ($header) $this->load->view('templates/header', $data);
+		else $this->load->view('templates/simple_header', $data);
+		
 		$this->authenticate->authenticate_redirect('appointment_view.php');
 		$this->load->view('templates/footer');
 	}

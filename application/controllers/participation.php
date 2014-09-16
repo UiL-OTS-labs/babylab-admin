@@ -289,6 +289,14 @@ class Participation extends CI_Controller
 		$this->load->view('participation_call', $data);
 		$this->load->view('templates/footer');
 	}
+	
+	/**
+	 * Shows the calendar in a new popup window
+	 */
+	public function show_calendar()
+	{
+		$this->load->view('participation_call', $data);
+	}
 
 	/** Shows an overview of the no-shows per participant */
 	public function no_shows($experiment_id = NULL)
