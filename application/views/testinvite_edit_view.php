@@ -4,6 +4,7 @@
 $(function() {
 	$(".chosen-select").chosen();
 });
+
 </script>
 <?=heading(lang('testinvites'), 2); ?>
 
@@ -14,7 +15,6 @@ $(function() {
 
 <?=form_dropdown_and_label('testsurvey', $testsurveys, array(), 'class="chosen-select" style="width: 350px;"'); ?>
 <?=form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select" style="width: 350px;"'); ?>
-
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>

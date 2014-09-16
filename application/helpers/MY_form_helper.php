@@ -125,8 +125,13 @@ if (!function_exists('form_controls'))
 	function form_controls($cancel_link = '')
 	{
 		$div_start = '<div class="pure-controls">';
+		$div_start .= "<script type=\"text/javascript\">function clear_chosen_select()
+{
+	$('.chosen-select option').prop('selected', false);
+	$(\".chosen-select\").trigger(\"chosen:updated\");
+}</script>";
 		$submit = form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"');
-		$reset = form_reset('reset', lang('reset'), 'class="pure-button pure-button-secondary"');
+		$reset = form_reset('reset', lang('reset'), 'class="pure-button pure-button-secondary" onClick="clear_chosen_select()"');
 		$cancel = !empty($cancel_link) ? form_cancel($cancel_link) : '';
 		$div_end = '</div>';
 
