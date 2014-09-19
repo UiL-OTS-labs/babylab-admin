@@ -109,9 +109,14 @@ class Call extends CI_Controller
 			// If succeeded, insert data into database
 			if (!$appointment)
 			{
-				$appointment = $this->input->post('appointment');
+				// This is a confirmation of a call, so post the appointment and format it for MySQL.
+				$appointment = input_datetime($this->input->post('appointment'));
 			}
-			$appointment = input_datetime($appointment);
+			else 
+			{
+				// This is an ad-hoc participation send via url as Unix timestamp, so directly convert to MySQL date.
+				$appointment = date('Y-m-d H:i:s', $appointment);
+			}
 			
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
