@@ -255,7 +255,7 @@ class ParticipantModel extends CI_Model
 	public function last_experiment($participant_id)
 	{
 		$this->db->where('participant_id', $participant_id);
-		$this->db->where('confirmed', TRUE);	// only confirmed
+		$this->db->where('completed', TRUE);	// only completed experiments
 		$this->db->order_by('appointment', 'DESC');
 		$this->db->limit(1);
 		$participation = $this->db->get('participation')->row();
