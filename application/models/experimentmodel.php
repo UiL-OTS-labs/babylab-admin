@@ -71,18 +71,6 @@ class ExperimentModel extends CI_Model
 	}
 
 	/////////////////////////
-	// Participations
-	/////////////////////////
-
-	/** Returns the number of participations for the given experiment */
-	public function count_participations($experiment_id)
-	{
-		$this->db->where('experiment_id', $experiment_id);
-		$this->db->from('participation');
-		return $this->db->count_all_results();
-	}
-
-	/////////////////////////
 	// Participants
 	/////////////////////////
 
