@@ -41,7 +41,8 @@ class Appointment extends CI_Controller
 			// Begin and end datetime
 			$dateTime = new DateTime($appointment->appointment);
 			$startTime = $dateTime->format(DateTime::ISO8601);
-			date_add($dateTime, date_interval_create_from_date_string($experiment->duration . ' minutes'));
+			$totalTime = $experiment->duration + INSTRUCTION_DURATION;
+			date_add($dateTime, date_interval_create_from_date_string($totalTime . ' minutes'));
 			$end = $dateTime->format(DateTime::ISO8601);
 
 			// Colors
