@@ -388,6 +388,10 @@ $lang['testcat_deleted'] 	= "Test category succesfully removed.";
 $lang['parent_testcat'] 	= "Parent category";
 $lang['code']				= "Code";
 
+/* Appointments calender overview page */
+$lang['appointments'] 		= "Appointments";
+$lang['calendar'] 			= "Calendar";
+
 /* Appointment Calendar */
 $lang['legend']				= "Legend";
 $lang['filter_experiment']	= "Filter by experiment";
@@ -395,5 +399,5 @@ $lang['filter_participant'] = "Filter by participant";
 $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";
-$lang['show_calendar']		= "Show calendar";
+$lang['show_calendar']		= "Show the calendar";
 ?>

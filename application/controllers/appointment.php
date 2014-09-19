@@ -11,7 +11,7 @@ class Appointment extends CI_Controller
 	public function index($header=1)
 	{
 		// Prepare the data
-		$data['page_title'] = lang('appointments');
+		$data['page_title'] = lang('calendar');
 		$data['legend'] = $this->generate_legend();
 		$data['lang'] = (current_language() == L::Dutch) ? 'nl' : 'en';
 		$data['experiments'] = $this->experimentModel->get_all_experiments();

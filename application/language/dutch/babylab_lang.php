@@ -390,6 +390,7 @@ $lang['code']				= "Code";
 
 /* Appointments calender overview page */
 $lang['appointments'] 		= "Afspraken";
+$lang['calendar'] 			= "Agenda";
 
 /* Appointment Calendar */
 $lang['legend']				= "Legenda";
@@ -398,5 +399,5 @@ $lang['filter_participant'] = "Filter op deelnemer";
 $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Laat geannuleerde afspraken niet zien";
 $lang['date_text']			= "Ga naar datum";
-$lang['show_calendar']		= "Toon de kalender";
+$lang['show_calendar']		= "Toon de agenda";
 ?>
