@@ -79,6 +79,7 @@ class ParticipantModel extends CI_Model
 	 * - not have been participating in an experiment that excludes this experiment
 	 * - should have been participating in an experiment that is a prerequisite for this experiment
 	 * - not currently having an impediment
+	 * - not being a "risk" participant (depending on the sort of experiment)
 	 * - within the age range of the experiment
 	 */
 	public function find_participants($experiment, $weeks_ahead = WEEKS_AHEAD)
@@ -123,6 +124,22 @@ class ParticipantModel extends CI_Model
 					FROM 	impediment AS imp
 					WHERE	imp.participant_id = p.id
 					AND 	(now() BETWEEN imp.from AND imp.to))', NULL, FALSE);
+		// not being risk (depending on the sort of experiment)
+		if ($experiment->dyslexic) 
+		{
+			$this->db->where('multilingual', FALSE);
+		}
+		if ($experiment->multilingual) 
+		{
+			$this->db->where('dyslexicparent IS NULL');
+		}
+		if (!($experiment->dyslexic || $experiment->multilingual)) 
+		{
+			$this->db->where('multilingual', FALSE);
+			$this->db->where('dyslexicparent IS NULL');
+		}
+
+		// Get the results
 		$participants = $this->db->get()->result();
 
 		// Now check whether the participants are of correct age (TODO: maybe try and do this in SQL)

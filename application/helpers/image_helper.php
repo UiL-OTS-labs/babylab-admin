@@ -101,9 +101,11 @@ if (!function_exists('img_comments'))
 if (!function_exists('img_tick'))
 {
 	/** Returns a (centered) tick image if $value == 1, otherwise an empty string. */
-	function img_tick($value, $show_image = FALSE)
+	function img_tick($value, $show_image = TRUE)
 	{
-		return $value ? img(array('src' => 'images/tick.png', 'class' => 'center')) : ($show_image ? img_cancel('') : '');
+		return $value 
+			? img(array('src' => 'images/tick.png', 'class' => 'center')) 
+			: ($show_image ? img(array('src' => 'images/cross.png', 'class' => 'center')) : '');
 	}
 }
 
