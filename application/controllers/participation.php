@@ -138,13 +138,13 @@ class Participation extends CI_Controller
 				// No participation exists yet, create a new one
 				$participation_id = $this->participationModel->create_participation($experiment,$participant);
 				$call_id = $this->callModel->create_call($participation_id);
-				redirect('call/confirm/' . $call_id . '/' . $this->input->post('appointment'), 'refresh');
+				redirect('call/confirm/' . $call_id . '/' . strtotime($this->input->post('appointment')), 'refresh');
 			} 
 			else 
 			{
 				// Participation already exists, error.
 				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name), FALSE);
-				$this->add();
+				redirect('participation/add');
 			}
 		}
 	}
@@ -155,8 +155,6 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('experiment', lang('experiment'), 'callback_not_default');
 		$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_default');
 		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
-
-		$this->form_validation->set_error_delimiters();
 
 		return $this->form_validation->run();
 	}

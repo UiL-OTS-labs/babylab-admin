@@ -167,7 +167,7 @@ if (!function_exists('experiment_actions'))
 		$CI =& get_instance();
 		$e = $CI->experimentModel->get_experiment_by_id($experiment_id);
 
-		$nr_participants = $CI->experimentModel->count_participations($e->id);
+		$nr_participants = count($CI->participationModel->get_participations_by_experiment($e->id));
 		$part_link = $nr_participants > 0 ? anchor('participation/experiment/' . $e->id, img_participations($nr_participants)) : img_participations($nr_participants);
 		$call_link = anchor('participant/find/' . $e->id, img_call());
 		$edit_link = !is_archived($e) ? anchor('experiment/edit/' . $e->id, img_edit()) : img_edit(TRUE);

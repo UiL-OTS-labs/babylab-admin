@@ -156,8 +156,8 @@
 		</div>
 		<div class="pure-u-1-5"></div>
 		<div class="pure-u-1-5">
-			<a href="appointment/index/0" target="name" 
-				onclick="window.open('appointment/index/0','name','left=100,top=50,width=1200,height=800,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes'); return false;">
+			<a href="<?=site_url('appointment/index/0'); ?>" target="name" 
+				onclick="window.open('<?=site_url('appointment/index/0'); ?>','name','left=100,top=50,width=1200,height=800,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes'); return false;">
 					<center><img class="pure-u-3-4" src="images/calendar_large.png" title="<?=lang('show_calendar');?>" alt="<?=lang('show_calendar');?>" />
 					<h3><?=lang('show_calendar');?></h3></center>
 			</a>

@@ -351,9 +351,9 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('dyslexic', lang('dyslexic'), '');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), '');
 		$this->form_validation->set_rules('agefrommonths', lang('agefrommonths'), 'trim|required|is_natural|callback_age_check');
-		$this->form_validation->set_rules('agefromdays', lang('agefromdays'), 'trim|required|is_natural');
+		$this->form_validation->set_rules('agefromdays', lang('agefromdays'), 'trim|required|is_natural|less_than[32]');
 		$this->form_validation->set_rules('agetomonths', lang('agetomonths'), 'trim|required|is_natural');
-		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural');
+		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural|less_than[32]');
 
 		return $this->form_validation->run();
 	}

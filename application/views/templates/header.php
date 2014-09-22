@@ -67,7 +67,7 @@
 				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participations'); ?></a>
 					<ul>
 						<li><?=anchor('participation', lang('overview')); ?></li>
-						<li><?=anchor('appointment', lang('appointments')); ?></li>
+						<li><?=anchor('appointment', lang('calendar')); ?></li>
 						<li><?=anchor('call', lang('calls')); ?></li>
 						<li><?=anchor('result', lang('results')); ?></li>
 						<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
@@ -117,7 +117,7 @@
 			<ul>
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
-				<li><?=anchor('appointment', lang('appointments')); ?></li>
+				<li><?=anchor('appointment', lang('calendar')); ?></li>
 				<li><?=anchor('call/user/' . current_user_id(), lang('calls')); ?></li>
 				<li><?=anchor('participant', lang('participants')); ?></li>
 				<li><?=anchor('testinvite', lang('testinvites')); ?></li>
@@ -132,7 +132,7 @@
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('experiment', lang('experiments')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
-				<li><?=anchor('appointment', lang('appointments')); ?></li>
+				<li><?=anchor('appointment', lang('calendar')); ?></li>
 				<li><?=anchor('participant', lang('participants')); ?></li>
 			</ul>
 		</div>

@@ -68,6 +68,7 @@ class ExperimentModel extends CI_Model
 	{
 		$this->db->where('id', $experiment_id);
 		$this->db->update('experiment', array('archived' => $archived));
+
 	}
 
 	/////////////////////////

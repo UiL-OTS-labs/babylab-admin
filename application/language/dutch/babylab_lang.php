@@ -238,7 +238,7 @@ $lang['include_callable']	= "Belbare proefpersonen ook tonen";
 $lang['exclude_callable']	= "Belbare proefpersonen verbergen";
 $lang['nr_calls']			= "# gebeld";
 $lang['appointment']		= "Afspraak";
-$lang['confirmed']			= "Afspraak bevestigd";
+$lang['confirmed']			= "Afspraak maken";
 $lang['reschedule']			= "Afspraak verzetten";
 $lang['rescheduled']		= "Afspraak verzet";
 $lang['reschedule_info']	= "U gaat nu de afspraak van <strong>%s</strong> voor experiment <em>%s</em> verzetten. De huidige afspraak staat op %s.";
@@ -390,6 +390,7 @@ $lang['code']				= "Code";
 
 /* Appointments calender overview page */
 $lang['appointments'] 		= "Afspraken";
+$lang['calendar'] 			= "Agenda";
 
 /* Appointment Calendar */
 $lang['legend']				= "Legenda";
@@ -399,5 +400,5 @@ $lang['filter_location']	= "Filter op locatie";
 $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Verberg geannuleerde afspraken";
 $lang['date_text']			= "Ga naar datum";
-$lang['show_calendar']		= "Toon de kalender";
+$lang['show_calendar']		= "Toon de agenda";
 ?>
