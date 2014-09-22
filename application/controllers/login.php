@@ -29,7 +29,8 @@ class Login extends CI_Controller
 
 			$data['page_title'] = lang('login');
 			$data['language'] = $language;
-
+			$data['referrer'] = $this->agent->referrer();
+			
 			$this->load->view('templates/header', $data);
 			$this->load->view('login_view', $data);
 			$this->load->view('templates/footer');
@@ -53,7 +54,8 @@ class Login extends CI_Controller
 			reset_language(current_language());
 
 			// Redirect to correct page per role
-			redirect('welcome');
+			//redirect('welcome');
+			redirect($this->input->post('referrer'), 'refresh');
 		}
 	}
 

@@ -6,6 +6,10 @@
 <?=form_input('username', '', 'placeholder = "' . lang('username') . '"'); ?>
 <?=form_password('password', '', 'placeholder = "' . lang('password') . '"'); ?>
 
+<?=form_hidden('referrer', $referrer); ?>
+
+<?=$referrer;?>
+
 <?=form_submit_only(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>

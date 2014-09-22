@@ -52,6 +52,16 @@ $(function(){
 		}
 		?>
 	</select>
+
+	<select class="chosen-select select-location" style="width: 350px;" multiple data-placeholder="<?=lang('filter_location');?>">
+		<?php 
+		foreach (location_options($locations) as $id => $option)
+		{
+			echo '<option value="' . $id . '">' . $option . '</option>\n';
+		}
+		?>
+	</select>
+
 	<span class="fc-button fc-state-default"
 		id="clearall" style="vertical-align: middle; -moz-user-select: none;">
 			<?=lang('clear_filters');?>

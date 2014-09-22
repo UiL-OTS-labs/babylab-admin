@@ -11,6 +11,7 @@ function initializeCalendar(lang) {
 	            return {
 	            	participant_ids: $('.select-participant').val(),
 	                experiment_ids: $('.select-experiment').val(),
+	                location_ids: $('.select-location').val(),
 	                exclude_canceled: $('#exclude-canceled').is(':checked'),
 	            };
 			},
@@ -194,8 +195,7 @@ function addFilters() {
 	
 	// Clear all filters button
 	$('#clearall').click( function(){
-		$('.select-experiment option').prop('selected', false);
-		$('.select-participant option').prop('selected', false);
+		$('.chosen-select option').prop('selected', false);
 		$('.chosen-select').trigger("chosen:updated");
 		$('#calendar').fullCalendar( 'refetchEvents' );
 	});

@@ -68,7 +68,7 @@ class Authenticate
 	public function redirect_except($exceptions = array())
 	{
 		$method = $this->CI->router->fetch_method();
-				
+		
 		if (!$this->logged_in())
 		{
 			if (!in_array($method, $exceptions))

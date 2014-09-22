@@ -109,4 +109,24 @@ class ExperimentModel extends CI_Model
 		$this->db->where('participation.completed', '1');
 		return $this->db->get('participant')->result();
 	}
+
+	/////////////////////////
+	// Locations
+	/////////////////////////
+
+	/** Returns all experiments with these locations */
+	public function get_experiments_by_locations($location_ids)
+	{
+		$this->db->select("id");
+		$this->db->where_in('location_id', $location_ids);
+		$experiments = $this->db->get('experiment')->result();
+
+		$ids = array();
+		foreach ($experiments as $e)
+		{
+			array_push($ids, $e->id);
+		}
+
+		return $ids;
+	}
 }
