@@ -142,18 +142,23 @@ class ParticipantModel extends CI_Model
 		// Get the results
 		$participants = $this->db->get()->result();
 
-		// Now check whether the participants are of correct age (TODO: maybe try and do this in SQL)
+		// Now check whether the participants are of correct age, from $weeks_ahead to 1 week 
 		$result = array();
 		foreach ($participants as $participant)
 		{
-			$date = input_date('+' . $weeks_ahead. ' weeks');
-			$age = explode(';', age_in_months_and_days($participant, $date));
-			$months = $age[0];
-			$days = $age[1];
+			$age_from = explode(';', age_in_months_and_days($participant, input_date('+' . $weeks_ahead . ' weeks')));
+			$months_from = $age_from[0];
+			$days_from = $age_from[1];
+			
+			$age_to = explode(';', age_in_months_and_days($participant, input_date('+ 1 week')));
+			$months_to = $age_to[0];
+			$days_to = $age_to[1];
 
-			if ($months > $experiment->agefrommonths || ($months == $experiment->agefrommonths && $days >= $experiment->agefromdays))
+			if ($months_from > $experiment->agefrommonths || 
+				($months_from == $experiment->agefrommonths && $days_from >= $experiment->agefromdays))
 			{
-				if ($months < $experiment->agetomonths || ($months == $experiment->agetomonths && $days < $experiment->agetodays))
+				if ($months_to < $experiment->agetomonths || 
+					($months_to == $experiment->agetomonths && $days_to < $experiment->agetodays))
 				{
 					array_push($result, $participant);
 				}
