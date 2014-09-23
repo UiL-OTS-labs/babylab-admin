@@ -210,6 +210,7 @@ class Participant extends CI_Controller
 			// Don't activate, but send an e-mail to all admins to activate
 			$this->participantModel->set_activate($participant_id, FALSE);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
+			$url = $this->config->site_url() . "participant/get/" . $participant_id;
 			$users = $this->userModel->get_all_admins();
 			foreach ($users as $user)
 			{
@@ -222,7 +223,7 @@ class Participant extends CI_Controller
 
 				$message = sprintf(lang('mail_heading'), $user->username);
 				$message .= br(2);
-				$message .= sprintf(lang('reg_pp_body'), name($p), $p->phone);
+				$message .= sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url);
 				$message .= br(2);
 				$message .= lang('mail_ending');
 				$message .= br(2);
@@ -384,21 +385,23 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Activates the specified participant */
-	public function activate($participant_id)
+	public function activate($participant_id, $toParticipant=FALSE)
 	{
 		$this->participantModel->set_activate($participant_id, 1);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_activated'), name($participant)));
-		redirect('/participant/', 'refresh');
+		$redirect_link = ($toParticipant) ? '/participant/get/' . $participant_id : '/participant/';
+		redirect($redirect_link, 'refresh');
 	}
 
 	/** Deactivates the specified participant TODO: are you sure? / correct return */
-	public function deactivate($participant_id)
+	public function deactivate($participant_id,  $toParticipant=FALSE)
 	{
 		$this->participantModel->set_activate($participant_id, 0);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_deactivated'), name($participant)));
-		redirect('/participant/', 'refresh');
+		$redirect_link = ($toParticipant) ? '/participant/get/' . $participant_id : '/participant/';
+		redirect($redirect_link, 'refresh');
 	}
 
 	/////////////////////////

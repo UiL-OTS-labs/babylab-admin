@@ -83,7 +83,7 @@ $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor he
 $lang['rem_exp_call']		= "In experiment %s kunt u momenteel %s proefpersonen bellen.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab Utrecht: Aanmelding proefpersoon";
-$lang['reg_pp_body'] 		= "Er is een nieuwe proefpersoon aangemeld: %s (tel.: %s). U kunt deze proefpersoon activeren of verwijderen in de administratieve interface.";
+$lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld: %s (tel.: %s). U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Afmelding proefpersoon";
 $lang['dereg_pp_body'] 		= "Er is afmelding binnengekomen voor %s (geboortedatum: %s, e-mail: %s, reden: %s). U kunt deze proefpersoon deactiveren in de administratieve interface.";
@@ -193,6 +193,8 @@ $lang['contact_details']	= "Contactinformatie";
 $lang['parent_name']	 	= "Ouder";
 $lang['p_activated'] 		= "Proefpersoon %s geactiveerd.";
 $lang['p_deactivated'] 		= "Proefpersoon %s gedeactiveerd.";
+$lang['p_not_yet_active']	= "Deze proefpersoon is nog niet geactiveerd.";
+$lang['p_already_activated'] = "Deze proefpersoon is reeds geactiveerd.";
 $lang['all_participants']	= "Alle proefpersonen";
 $lang['pp_action']			= "Aanpassen of (de)activeren van proefpersonen";
 $lang['city']				= "Woonplaats";

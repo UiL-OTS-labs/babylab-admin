@@ -19,52 +19,65 @@
 	<h3>
 	<?=lang('general_info'); ?>
 	</h3>
-	<div>
-		<!-- Languages/dyslexia confirmation -->
-		<?php 
-			if ($verify_languages || $verify_dyslexia) 
-			{ 
-				echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
-			} 
-		?>
-		<table class="pure-table">
-			<tr>
-				<th><?=lang('name'); ?></th>
-				<td><?=name($participant); ?> (<?=gender($participant->gender); ?>)</td>
-			</tr>
-			<tr>
-				<th><?=lang('dob'); ?></th>
-				<td><?=dob($participant->dateofbirth); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('birthweight'); ?></th>
-				<td><?=birthweight($participant); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('pregnancy'); ?></th>
-				<td><?=pregnancy($participant); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('age'); ?></th>
-				<td><?=age_in_months($participant) . ' ' . lang('months'); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('dyslexicparent'); ?></th>
-				<td><?=img_tick($participant->dyslexicparent); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('multilingual'); ?></th>
-				<td><?=img_tick($participant->multilingual); ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('last_experiment'); ?></th>
-				<td><?=$last_experiment; ?></td>
-			</tr>
-			<tr>
-				<th><?=lang('last_called'); ?></th>
-				<td><?=$last_called; ?></td>
-			</tr>
-		</table>
+	<div class="pure-g">
+		<div class="pure-u-3-5">
+			<!-- Languages/dyslexia confirmation -->
+			<?php 
+				if ($verify_languages || $verify_dyslexia) 
+				{ 
+					echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+				} 
+			?>
+			<table class="pure-table">
+				<tr>
+					<th><?=lang('name'); ?></th>
+					<td><?=name($participant); ?> (<?=gender($participant->gender); ?>)</td>
+				</tr>
+				<tr>
+					<th><?=lang('dob'); ?></th>
+					<td><?=dob($participant->dateofbirth); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('birthweight'); ?></th>
+					<td><?=birthweight($participant); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('pregnancy'); ?></th>
+					<td><?=pregnancy($participant); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('age'); ?></th>
+					<td><?=age_in_months($participant) . ' ' . lang('months'); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('dyslexicparent'); ?></th>
+					<td><?=img_tick($participant->dyslexicparent); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('multilingual'); ?></th>
+					<td><?=img_tick($participant->multilingual); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('last_experiment'); ?></th>
+					<td><?=$last_experiment; ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('last_called'); ?></th>
+					<td><?=$last_called; ?></td>
+				</tr>
+			</table>
+		</div>
+		<div class="pure-u-2-5">
+			<?php
+				if (!$participant->activated)
+				{
+					echo "<div class=\"warning\">";
+					echo "<p>" . lang('p_not_yet_active') . "</p>";
+					echo participant_activate_link($participant, true, lang('activate'));
+					echo "</div>";
+				}
+			?>
+		</div>
 	</div>
 
 	<!-- Contact details -->
