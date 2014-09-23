@@ -4,6 +4,7 @@ class Appointment extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->authenticate->redirect_except();
 		reset_language(current_language());
 	}
 
