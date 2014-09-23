@@ -316,7 +316,7 @@ class Experiment extends CI_Controller
 	 */
 	private function get_results_table($experiment_id) 
 	{
-		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id);
+		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id, TRUE);
 		
 		$result = array();
 		foreach ($participants as $participant)
