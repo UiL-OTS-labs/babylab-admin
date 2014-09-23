@@ -108,7 +108,7 @@ class Participant extends CI_Controller
 	}
 
 	/** Specifies the contents of the edit participant page */
-	public function edit($participant_id, $language_array = array())
+	public function edit($participant_id, $language_array = array(), $header = 1)
 	{
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 
@@ -126,7 +126,9 @@ class Participant extends CI_Controller
 		$data['languages'] = $languages;
 		$data['is_registration'] = FALSE;
 
-		$this->load->view('templates/header', $data);
+		// Load the view
+		if ($header) $this->load->view('templates/header', $data);
+		else $this->load->view('templates/simple_header', $data);
 		$this->load->view('participant_edit_view', $data);
 		$this->load->view('templates/footer');
 	}

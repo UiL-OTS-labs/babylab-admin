@@ -29,7 +29,7 @@ else {
 </div>
 <?=form_input_and_label('age', $age, 'class="positive-integer"'); ?>
 <?=form_input_and_label('score', $score, 'required="true" class="positive-integer"'); ?>
-<?=form_input_and_label('percentile', $percentile, 'required="true" max="100" class="positive-integer"'); ?>
+<?=form_input_and_label('percentile', $percentile, 'required="true" max="100" class="positive-integer" onclick="window.close()"'); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

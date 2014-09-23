@@ -44,7 +44,7 @@
 	});
 	</script>
 </head>
-<body>
+<body onunload="window.close()">
 
 <div class="pure-g">
 	<div class="pure-u-1-8"></div>
