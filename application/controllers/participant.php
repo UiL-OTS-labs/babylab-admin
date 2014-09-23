@@ -588,8 +588,38 @@ class Participant extends CI_Controller
 
 	public function table()
 	{
+		$participant_ids = array();
+		if (current_role() == UserRole::Caller)
+		{
+			$experiments = $this->callerModel->get_experiments_by_caller(current_user_id());
+			foreach ($experiments as $experiment) 
+			{
+				$find_p = $this->participantModel->find_participants($experiment);
+				$part_p = $this->experimentModel->get_participants_by_experiment($experiment->id);
+
+				$participant_ids = array_merge($participant_ids, get_object_ids($find_p));
+				$participant_ids = array_merge($participant_ids, get_object_ids($part_p));
+			}
+		}
+		if (current_role() == UserRole::Leader)
+		{
+			$experiments = $this->leaderModel->get_experiments_by_leader(current_user_id());
+			foreach ($experiments as $experiment) 
+			{
+				$part_p = $this->experimentModel->get_participants_by_experiment($experiment->id);
+
+				$participant_ids = array_merge($participant_ids, get_object_ids($part_p));
+			}
+		}
+
 		$this->datatables->select('CONCAT(firstname, lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id', FALSE);
 		$this->datatables->from('participant');
+
+		if (!is_admin()) 
+		{
+			if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
+			else $this->datatables->where('id IN (' . implode(",", $participant_ids) . ')');
+		}
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');

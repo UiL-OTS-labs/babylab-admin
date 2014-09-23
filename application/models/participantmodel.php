@@ -158,7 +158,6 @@ class ParticipantModel extends CI_Model
 					array_push($result, $participant);
 				}
 			}
-
 		}
 
 		return $result;
