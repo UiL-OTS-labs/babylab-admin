@@ -29,6 +29,7 @@ class Authenticate
 		}
 		else 
 		{
+
 			$data['error'] = $message_login_failed === '' ? lang('not_authorized') : $message_login_failed;
 			$this->CI->load->view('templates/error', $data);
 		}
@@ -73,6 +74,9 @@ class Authenticate
 		{
 			if (!in_array($method, $exceptions))
 			{
+				// Redirect to login page and remember which page to go back to
+				// after succesful login
+				$this->CI->session->set_userdata('redirect_back', $this->CI->uri->uri_string );  
 				redirect();
 			}
 		}

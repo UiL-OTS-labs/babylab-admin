@@ -29,7 +29,13 @@ class Login extends CI_Controller
 
 			$data['page_title'] = lang('login');
 			$data['language'] = $language;
-			$data['referrer'] = $this->agent->referrer();
+			if( $this->session->userdata('redirect_back') ) {
+			    $data['referrer'] = $this->session->userdata('redirect_back');  // grab value and put into a temp variable so we unset the session value
+			    $this->session->unset_userdata('redirect_back');
+			    //redirect( $redirect_url );
+			} else {
+				$data['referrer'] = $this->agent->referrer();
+			}
 			
 			$this->load->view('templates/header', $data);
 			$this->load->view('login_view', $data);
@@ -53,9 +59,15 @@ class Login extends CI_Controller
 			// Load language file
 			reset_language(current_language());
 
-			// Redirect to correct page per role
-			//redirect('welcome');
-			redirect($this->input->post('referrer'), 'refresh');
+			// Where to go now?
+			$referrer = $this->input->post('referrer');
+			
+			// If user was sent to login from different page, redirect to
+			// that page after login
+			if (isset($referrer) && $referrer != '') redirect($referrer);
+			
+			// Otherwise, redirect to welcome page for user role
+			else redirect('welcome');
 		}
 	}
 

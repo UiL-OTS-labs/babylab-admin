@@ -8,8 +8,6 @@
 
 <?=form_hidden('referrer', $referrer); ?>
 
-
-
 <?=form_submit_only(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>

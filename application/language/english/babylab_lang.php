@@ -83,7 +83,7 @@ $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab: participant registration";
-$lang['reg_pp_body'] 		= "A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface.";
+$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <b>%s</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
 $lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
@@ -193,6 +193,8 @@ $lang['contact_details']	= "Contact details";
 $lang['parent_name']	 	= "Parent's name";
 $lang['p_activated'] 		= "Participant %s activated.";
 $lang['p_deactivated'] 		= "Participant %s deactivated.";
+$lang['p_not_yet_active']	= "This participant has not yet been activated.";
+$lang['p_already_activated'] = "This participant is already activated.";
 $lang['all_participants']	= "All participants";
 $lang['pp_action']			= "Editing or (de)activating of participants";
 $lang['city']				= "City";
