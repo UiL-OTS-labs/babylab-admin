@@ -289,6 +289,8 @@ $lang['pp_comment']			= "Opmerking bij proefpersoon";
 $lang['pp_comment_info']	= "Opmerkingen die hier worden toegevoegd worden opgeslagen bij de deelnemer voor latere naslag. <em>(voorbeeld: mogelijk dyslectisch)</em>";
 $lang['tech_comment']		= "Bericht voor technisch personeel";
 $lang['tech_comment_info']	= "Opmerkingen die hier worden toegevoegd worden direct naar het labpersoneel gemaild. <em>(voorbeeld: geluid lijkt niet goed te werken)</em>";
+$lang['concept_mail_only']	= "Stuur conceptmail naar %s in plaats van direct naar deelnemer";
+$lang['concept_send']		= "Er is een conceptmail verstuurd naar %s. Vergeet niet alsnog een bevestiging naar de deelnemer te sturen!";
 
 $lang['ad_hoc_participation'] = "Ad hoc deelname toevoegen";
 $lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>

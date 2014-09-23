@@ -117,13 +117,20 @@ class Call extends CI_Controller
 				// This is an ad-hoc participation send via url as Unix timestamp, so directly convert to MySQL date.
 				$appointment = date('Y-m-d H:i:s', $appointment);
 			}
-			
+
+			$concept_email = ($this->input->post('concept')) ? $this->input->post('concept_mail') : NULL;
+
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
 			$flashdata = '';
 			$invites = $this->create_test_invitations($participant);
 			$flashdata .= br() . $invites[0];
-			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1]);
+			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1], $concept_email);
+
+			// Concept email again
+			if(isset($concept_email)) 
+				$flashdata .= br() . br() . sprintf(lang('concept_send'), $concept_email);
+
 			$this->participationModel->release_lock($participation->id);
 
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
@@ -246,7 +253,7 @@ class Call extends CI_Controller
 	/////////////////////////
 
 	/** Send confirmation e-mail */
-	private function send_confirmation_email($participation_id, $testinvites)
+	private function send_confirmation_email($participation_id, $testinvites, $concept = NULL)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
@@ -255,15 +262,19 @@ class Call extends CI_Controller
 		
 		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite);
 
+		// In case of concept mail only
+		$email = isset($concept) ? $concept : $participant->email;
+
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $email);
+
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		if ($experiment->attachment) $this->email->attach($experiment->attachment);
 		$this->email->send();
 
-		return sprintf(lang('confirmation_sent'), $participant->email);
+		return sprintf(lang('confirmation_sent'), $email);
 	}
 
 	/** Send request for participation e-mail */

@@ -55,7 +55,6 @@
 </script>
 
 					   <?=heading($page_title, 2); ?>
-
 <div id="accordion">
 	<h3>
 	<?=lang('contact_details'); ?>
@@ -121,7 +120,10 @@
 					<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
+						<?=form_checkbox(array('name' => 'concept', 'id'=>'concept', 'value' => true)); ?>
+						<label for="concept"><?=sprintf(lang('concept_mail_only'),$concept_mail); ?></label></p><p>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
+						<?=form_hidden('concept_mail', $concept_mail);?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>
