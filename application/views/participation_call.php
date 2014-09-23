@@ -131,6 +131,8 @@
 					<div class="show">
 					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
+						<?=form_checkbox(array('name' => 'never_again', 'id' => 'never_again', 'value' => true)); ?>
+						<label for="never_again"><?=lang('cancelled_complete'); ?></label></p><p>
 						<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
