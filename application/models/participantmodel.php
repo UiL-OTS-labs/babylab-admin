@@ -138,19 +138,29 @@ class ParticipantModel extends CI_Model
 			$this->db->where('multilingual', FALSE);
 			$this->db->where('dyslexicparent IS NULL');
 		}
-		// are of correct age
-		$diff_months_sql = 'TIMESTAMPDIFF(MONTH, dateofbirth, TIMESTAMPADD(WEEK, ' . $weeks_ahead . ' , CURDATE()))';
-		$diff_days_sql = 'TIMESTAMPDIFF(DAY, dateofbirth, TIMESTAMPADD(WEEK, ' . $weeks_ahead . ' , CURDATE()))';
-		$this->db->where('( ' . $diff_months_sql . ' > ' . $experiment->agefrommonths .
-			' OR (' . $diff_months_sql . ' = ' . $experiment->agefrommonths . 
-			' AND ' . $diff_days_sql . '  >= ' . $experiment->agefromdays . '))', 
-			NULL, FALSE);
-		$this->db->where('( ' . $diff_months_sql . ' < ' . $experiment->agetomonths .
-			' OR (' . $diff_months_sql . ' = ' . $experiment->agetomonths . 
-			' AND ' . $diff_days_sql . '  <= ' . $experiment->agetodays . '))', 
-			NULL, FALSE);
 
-		return $this->db->get()->result();
+		// Get the results
+		$participants = $this->db->get()->result();
+
+		// Now check whether the participants are of correct age (TODO: maybe try and do this in SQL)
+		$result = array();
+		foreach ($participants as $participant)
+		{
+			$date = input_date('+' . $weeks_ahead. ' weeks');
+			$age = explode(';', age_in_months_and_days($participant, $date));
+			$months = $age[0];
+			$days = $age[1];
+
+			if ($months > $experiment->agefrommonths || ($months == $experiment->agefrommonths && $days >= $experiment->agefromdays))
+			{
+				if ($months < $experiment->agetomonths || ($months == $experiment->agetomonths && $days < $experiment->agetodays))
+				{
+					array_push($result, $participant);
+				}
+			}
+		}
+
+		return $result;
 	}
 
 	/** Finds all participants invitable for the given testsurvey */
