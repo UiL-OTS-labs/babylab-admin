@@ -144,6 +144,7 @@ a {
 
 .pure-form-aligned .pure-control-group label.error {
 	width: 12.5em;
+	text-align: left;
 }
 
 /*	Experiment colored label */

@@ -21,7 +21,7 @@
 <?php } ?>
 <!-- Validate -->
 <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if ($current_language === L::Dutch) { ?>
 	<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_nl.js"></script>
 <?php } ?>
 <script type="text/javascript">$(function() {$('form').validate();});</script>

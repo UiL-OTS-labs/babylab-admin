@@ -9,7 +9,7 @@ class Participant extends CI_Controller
 			'deregister', 'deregister_submit', 'deregister_finish'));
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -78,7 +78,7 @@ class Participant extends CI_Controller
 	public function add_submit()
 	{
 		// Run validation
-		if (!$this->validate_participant())
+		if (!$this->validate_participant(FALSE))
 		{
 			// If not succeeded, show form again with error messages
 			$language_array = $this->create_language_array();
@@ -137,7 +137,7 @@ class Participant extends CI_Controller
 	public function edit_submit($participant_id)
 	{
 		// Run validation
-		if (!$this->validate_participant())
+		if (!$this->validate_participant(FALSE))
 		{
 			// If not succeeded, show form again with error messages
 			$language_array = $this->create_language_array();
@@ -194,7 +194,7 @@ class Participant extends CI_Controller
 		reset_language($language);
 
 		// Run validation
-		if (!$this->validate_participant())
+		if (!$this->validate_participant(TRUE))
 		{
 			// If not succeeded, show form again with error messages
 			$this->register($language);
@@ -409,15 +409,12 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Validates a participant */
-	private function validate_participant()
+	private function validate_participant($is_registration)
 	{
 		$this->form_validation->set_rules('firstname', lang('firstname'), 'trim|required');
 		$this->form_validation->set_rules('lastname', lang('lastname'), 'trim|required');
 		$this->form_validation->set_rules('gender', lang('gender'), 'trim|required');
 		$this->form_validation->set_rules('dob', lang('dob'), 'trim|required');
-		$this->form_validation->set_rules('birthweight', lang('birthweight'), 'trim|required|greater_than[500]|less_than[6000]');
-		$this->form_validation->set_rules('pregnancyweeks', lang('pregnancyweeks'), 'trim|required|greater_than[20]|less_than[50]');
-		$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[8]');
 		$this->form_validation->set_rules('parentfirstname', lang('parentfirstname'), 'trim|required');
 		$this->form_validation->set_rules('parentlastname', lang('parentlastname'), 'trim');
 		$this->form_validation->set_rules('city', lang('city'), 'trim');
@@ -429,6 +426,13 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), 'required');
 		$this->form_validation->set_rules('percentage', lang('percentage'), 'callback_sum_percentage');
 		$this->form_validation->set_rules('origin', lang('origin'), 'callback_not_empty');
+
+		if ($is_registration)
+		{
+			$this->form_validation->set_rules('birthweight', lang('birthweight'), 'trim|required|greater_than[500]|less_than[6000]');
+			$this->form_validation->set_rules('pregnancyweeks', lang('pregnancyweeks'), 'trim|required|greater_than[20]|less_than[50]');
+			$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[8]');
+		}
 
 		return $this->form_validation->run();
 	}
@@ -500,11 +504,14 @@ class Participant extends CI_Controller
 		$language_array = array();
 		for ($i = 0; $i < count($languages); $i++)
 		{
-			$l = array(
-				'language'				=> $languages[$i],
-				'percentage'			=> $percentages[$i]
-			);
-			array_push($language_array, $l);
+			if ($languages[$i] && $percentages[$i])
+			{
+				$l = array(
+					'language'			=> $languages[$i],
+					'percentage'		=> $percentages[$i]
+				);
+				array_push($language_array, $l);
+			}
 		}
 
 		return $language_array;

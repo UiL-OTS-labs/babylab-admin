@@ -1,9 +1,7 @@
 <script type="text/javascript" src="js/dob.js"></script>
-<script
-	type="text/javascript" src="js/languages_toggle.js"></script>
+<script type="text/javascript" src="js/languages_toggle.js"></script>
 <?php if (!$is_registration) { ?>
-<script
-	type="text/javascript" src="js/languages_add.js"></script>
+<script type="text/javascript" src="js/languages_add.js"></script>
 <?php } ?>
 
 <?=heading($page_title, 2); ?>
@@ -17,14 +15,21 @@
 <?=form_label(lang('gender'), 'gender'); ?>
 <?=form_radio_and_label('gender', Gender::Female, $gender, lang('girl')); ?>
 <?=form_radio_and_label('gender', Gender::Male, $gender, lang('boy')); ?>
+<?=form_error('gender'); ?>
 </div>
 <?=form_input_and_label('dob', $dob, 'id="birth_datepicker" required'); ?>
-<?=form_input_and_label('birthweight', $birthweight, 'class="positive-integer" required'); ?>
+
+<!-- Birth weight and pregnancy duration: required during registration, not when editing -->  
+<?=form_input_and_label('birthweight', $birthweight, 'class="positive-integer"' . ($is_registration ? 'required' : '')); ?>
 
 <div class="pure-control-group">
 <?=form_label(lang('pregnancy')); ?>
-<?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks), 'class="positive-integer" required placeholder="' . ucfirst(lang('weeks')) . '"'); ?>
-<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays), 'class="positive-integer" required placeholder="' . ucfirst(lang('days')) . '"'); ?>
+<?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks), 
+	'class="positive-integer" placeholder="' . ucfirst(lang('weeks')) . '"' . ($is_registration ? 'required' : '')); ?>
+<?=form_error('pregnancyweeks'); ?>
+<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays), 
+	'class="positive-integer" placeholder="' . ucfirst(lang('days')) . '"' . ($is_registration ? 'required' : '')); ?>
+<?=form_error('pregnancydays'); ?>
 </div>
 
 <?=form_fieldset(lang('data_parent')); ?>
@@ -62,14 +67,15 @@
 		<em>Vul hieronder in met welke talen het kind in aanraking komt en de
 			(geschatte) percentages van blootstelling aan deze talen.</em>
 	</p>
+	<?=form_error('percentage'); ?>
 	<?php
 	$i = 1;
 	foreach ($languages AS $language)
 	{
 		echo '<div class="pure-control-group">';
 		echo ' <label for="language">Taal ' . $i . '</label>';
-		echo ' <input type="text" name="language[]" value="' . $language->language . '" placeholder="Taal" class="required">';
-		echo ' <input type="text" name="percentage[]" value="' . $language->percentage . '" placeholder="Percentage" class="positive-integer required">';
+		echo ' <input type="text" name="language[]" value="' . $language->language . '" placeholder="Taal">';
+		echo ' <input type="text" name="percentage[]" value="' . $language->percentage . '" placeholder="Percentage" class="positive-integer">';
 		if ($i == 1) echo ' <a class="add_l">+ voeg taal toe</a>';
 		else echo ' <a class="del_l">x verwijder taal</a>';
 		echo '</div>';
@@ -91,4 +97,3 @@
 	<?=form_controls(); ?>
 	<?=form_fieldset_close(); ?>
 	<?=form_close(); ?>
-	<?=validation_errors(); ?>
