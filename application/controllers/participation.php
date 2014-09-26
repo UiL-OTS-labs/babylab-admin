@@ -549,7 +549,7 @@ class Participation extends CI_Controller
 
 	public function table($participant_id = NULL, $experiment_id = NULL)
 	{
-		$this->datatables->select('CONCAT(firstname, lastname) AS p, name AS e, appointment, cancelled, noshow, completed,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, name AS e, appointment, cancelled, noshow, completed,
 									participation.id AS id, participant_id, experiment_id', FALSE);
 		$this->datatables->from('participation');
 		$this->datatables->join('participant', 'participant.id = participation.participant_id');

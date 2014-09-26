@@ -345,7 +345,7 @@ class Call extends CI_Controller
 	 */
 	public function table()
 	{
-		$this->datatables->select('username, CONCAT(firstname, lastname) AS p, experiment.name AS e,
+		$this->datatables->select('username, CONCAT(firstname, " ", lastname) AS p, experiment.name AS e,
 			call.status AS status, nr, timestart, timeend,
 			call.id AS id, participant_id, experiment_id, user_id', FALSE);
 		$this->datatables->from('call');

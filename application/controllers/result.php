@@ -190,7 +190,7 @@ class Result extends CI_Controller
 
 	public function table()
 	{
-		$this->datatables->select('CONCAT(firstname, lastname) AS p, name AS e, CONCAT(phasenr, ": " , phase) AS phase, trial, lookingtime, nrlooks,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, name AS e, CONCAT(phasenr, ": " , phase) AS phase, trial, lookingtime, nrlooks,
 									result.id AS id, participant_id, experiment_id', FALSE);
 		$this->datatables->from('result');
 		$this->datatables->join('participation', 'participation.id = result.participation_id');

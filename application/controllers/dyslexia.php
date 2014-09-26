@@ -189,7 +189,7 @@ class Dyslexia extends CI_Controller
 
 	public function table()
 	{
-		$this->datatables->select('CONCAT(firstname, lastname) AS p,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p,
 			dyslexia.gender AS gender, statement, emt_score, klepel_score, vc_score, date, 
 			dyslexia.id AS id, participant_id', FALSE);
 		$this->datatables->from('dyslexia');

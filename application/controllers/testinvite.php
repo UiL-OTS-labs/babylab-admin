@@ -143,7 +143,7 @@ class TestInvite extends CI_Controller
 
 	public function table()
 	{
-		$this->datatables->select('test.name AS t, CONCAT(firstname, lastname) AS p,
+		$this->datatables->select('test.name AS t, CONCAT(firstname, " ", lastname) AS p,
 			token, datesent, datecompleted, testinvite.id AS id, 
 			testsurvey.id AS testsurvey_id, participant_id', FALSE);
 		$this->datatables->from('testinvite');

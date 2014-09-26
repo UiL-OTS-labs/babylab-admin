@@ -80,7 +80,7 @@ class Language extends CI_Controller
 
 	public function table()
 	{
-		$this->datatables->select('CONCAT(firstname, lastname) AS p, language, percentage,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, language, percentage,
 			language.id AS id, participant_id', FALSE);
 		$this->datatables->from('language');
 		$this->datatables->join('participant', 'participant.id = language.participant_id');
