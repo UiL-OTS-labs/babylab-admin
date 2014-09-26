@@ -156,19 +156,11 @@ class Experiment extends CI_Controller
 		}
 	}
 
-	/** Deletes the given experiment */
-	public function delete($experiment_id)
-	{
-		$this->experimentModel->delete_experiment($experiment_id);
-		flashdata(lang('deleted_exp'));
-		redirect($this->agent->referrer(), 'refresh');
-	}
-
 	/////////////////////////
 	// Other actions
 	/////////////////////////
 
-	/** Archives the given experiment */
+	/** Archives the given experiment (instead of deleting) */
 	public function archive($experiment_id)
 	{
 		$this->experimentModel->archive($experiment_id, 1);

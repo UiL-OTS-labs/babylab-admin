@@ -34,7 +34,10 @@ class ExperimentModel extends CI_Model
 		$this->db->update('experiment', $experiment);
 	}
 
-	/** Deletes the specified experiment */
+	/**
+	 * Deletes the specified experiment 
+	 * @deprecated Archive the experiment instead of deleting it!
+	 */
 	public function delete_experiment($experiment_id)
 	{
 		// Delete references to callers

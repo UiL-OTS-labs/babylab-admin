@@ -172,12 +172,11 @@ if (!function_exists('experiment_actions'))
 		$call_link = anchor('participant/find/' . $e->id, img_call());
 		$edit_link = !is_archived($e) ? anchor('experiment/edit/' . $e->id, img_edit()) : img_edit(TRUE);
 		$archive_link = !is_archived($e) ? anchor('experiment/archive/' . $e->id, img(array('src' => 'images/folder.png', 'title' => lang('archive')))) : anchor('experiment/unarchive/' . $e->id, img(array('src' => 'images/folder_go.png', 'title' => lang('activate'))));
-		$delete_link = anchor('experiment/delete/' . $e->id, img_delete(), warning(lang('sure_delete_experiment')));
 
 		switch (current_role())
 		{
 			case UserRole::Admin:
-				$actions = array($edit_link, $part_link, $call_link, $archive_link, $delete_link);
+				$actions = array($edit_link, $part_link, $call_link, $archive_link);
 				break;
 			case UserRole::Leader:
 				$actions = array($edit_link, $part_link);
