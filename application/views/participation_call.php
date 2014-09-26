@@ -55,7 +55,6 @@
 </script>
 
 					   <?=heading($page_title, 2); ?>
-
 <div id="accordion">
 	<h3>
 	<?=lang('contact_details'); ?>
@@ -121,7 +120,10 @@
 					<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
+						<?=form_checkbox(array('name' => 'concept', 'id'=>'concept', 'value' => true)); ?>
+						<label for="concept"><?=sprintf(lang('concept_mail_only'),$concept_mail); ?></label></p><p>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
+						<?=form_hidden('concept_mail', $concept_mail);?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>
@@ -131,6 +133,8 @@
 					<div class="show">
 					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
+						<?=form_checkbox(array('name' => 'never_again', 'id' => 'never_again', 'value' => true)); ?>
+						<label for="never_again"><?=lang('cancelled_complete'); ?></label></p><p>
 						<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
@@ -156,11 +160,46 @@
 		</div>
 		<div class="pure-u-1-5"></div>
 		<div class="pure-u-1-5">
-			<a href="<?=site_url('appointment/index/0'); ?>" target="name" 
-				onclick="window.open('<?=site_url('appointment/index/0'); ?>','name','left=100,top=50,width=1200,height=800,toolbar=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes'); return false;">
-					<center><img class="pure-u-3-4" src="images/calendar_large.png" title="<?=lang('show_calendar');?>" alt="<?=lang('show_calendar');?>" />
-					<h3><?=lang('show_calendar');?></h3></center>
-			</a>
+			<?php
+				$calendar_attrs = array(
+					'screenx' => '100',
+					'screeny' => '50',
+					'width' => '1200',
+					'height' => '800',
+					'toolbar' => 'no',
+					'directories' =>  'no',
+					'status' => 'no',
+					'menubar' => 'no',
+					'resizable' => 'yes'
+				);
+				$calendar_content = '<center><img class="pure-u-3-4" src="images/calendar_large.png" title="';
+				$calendar_content .= lang('show_calendar');
+				$calendar_content .= '" alt="';
+				$calendar_content .= lang('show_calendar');
+				$calendar_content .= '"/><h3>';
+				$calendar_content .= lang('show_calendar');
+				$calendar_content .= '</h3></center>';
+			
+				echo anchor_popup(site_url('appointment/index/0'), $calendar_content, $calendar_attrs);
+
+				$edit_attrs = array(
+					'screenx' => '100',
+					'screeny' => '50',
+					'width' => '1000',
+					'height' => '800',
+					'toolbar' => 'no',
+					'directories' =>  'no',
+					'status' => 'no',
+					'menubar' => 'no',
+					'resizable' => 'yes'
+				);
+				$edit_content = "<center>" . img_edit() . sprintf(lang('edit_participant'),name($participant)) . "</center>";
+				$edit_url = site_url('participant/edit/' . $participant->id . "/0/0");
+				echo anchor_popup($edit_url, $edit_content, $edit_attrs);
+
+			?>
+
+			
 			
 		</div>
 	</div>
