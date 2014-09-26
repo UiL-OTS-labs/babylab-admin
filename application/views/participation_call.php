@@ -10,8 +10,8 @@
 
 		// Show/hide actions
 		$( ".show" ).hide();
-		$( ".click" ).click(function() {
-			$( ".show", this ).show( "slow" );
+		$( ".call_link" ).click(function() {
+			$( this ).next().toggle( "slow" );
 		});
 
 		// Appointment scheduling
@@ -116,7 +116,7 @@
 			</p>
 			<?=$this->session->flashdata('message'); ?>
 			<ul>
-				<li class="click"><u class="call_link"><?=lang('confirmed'); ?> </u>
+				<li><u class="call_link"><?=lang('confirmed'); ?> </u>
 					<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
@@ -128,7 +128,7 @@
 						<?=form_close(); ?>
 					</div>
 				</li>
-				<li class="click"><u class="call_link"><?=lang('cancelled'); ?> </u>
+				<li><u class="call_link"><?=lang('cancelled'); ?> </u>
 					<div class="show">
 					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
@@ -140,7 +140,7 @@
 						<?=form_close(); ?>
 					</div>
 				</li>
-				<li class="click"><u class="call_link"><?=lang('no_reply'); ?> </u>
+				<li><u class="call_link"><?=lang('no_reply'); ?> </u>
 					<div class="show">
 					<?=form_open('call/no_reply/' . $call_id); ?>
 						<p>
