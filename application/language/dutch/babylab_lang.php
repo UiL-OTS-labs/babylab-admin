@@ -380,7 +380,7 @@ $lang['deleted_user']		= "Gebruiker %s succesvol verwijderd.";
 
 /* Test Categories */
 $lang['testcat']			= "Testcategorie";
-$lang['testcats']			= "Testcategorie&#233;n";
+$lang['testcats']			= "Testcategorie&#235;n";
 $lang['data_for_testcat']	= "Data voor testcategorie %s";
 $lang['add_testcat'] 		= "Voeg testcategorie toe";
 $lang['testcat_added']		= "Nieuwe testcategorie %s succesvol toegevoegd.";
