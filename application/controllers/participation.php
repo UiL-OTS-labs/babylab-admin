@@ -282,7 +282,6 @@ class Participation extends CI_Controller
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
-		$data['concept_mail'] = 'babylabutrecht@uu.nl';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participation_call', $data);

@@ -118,18 +118,20 @@ class Call extends CI_Controller
 				$appointment = date('Y-m-d H:i:s', $appointment);
 			}
 
-			$concept_email = ($this->input->post('concept')) ? $this->input->post('concept_mail') : NULL;
+			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
 
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
 			$flashdata = '';
 			$invites = $this->create_test_invitations($participant);
 			$flashdata .= br() . $invites[0];
-			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1], $concept_email);
+			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1], $email);
 
 			// Concept email again
-			if(isset($concept_email)) 
-				$flashdata .= br() . br() . sprintf(lang('concept_send'), $concept_email);
+			if ($this->input->post('concept')) 
+			{
+				$flashdata .= br() . br() . sprintf(lang('concept_send'), $email);
+			}
 
 			$this->participationModel->release_lock($participation->id);
 
@@ -253,7 +255,7 @@ class Call extends CI_Controller
 	/////////////////////////
 
 	/** Send confirmation e-mail */
-	private function send_confirmation_email($participation_id, $testinvites, $concept = NULL)
+	private function send_confirmation_email($participation_id, $testinvites, $email)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
@@ -261,9 +263,6 @@ class Call extends CI_Controller
 		$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
 		
 		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite);
-
-		// In case of concept mail only
-		$email = isset($concept) ? $concept : $participant->email;
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
