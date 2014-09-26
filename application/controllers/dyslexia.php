@@ -9,7 +9,7 @@ class Dyslexia extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -127,6 +127,9 @@ class Dyslexia extends CI_Controller
 			$this->form_validation->set_rules('participant', lang('participant'), 'callback_not_zero|callback_unique_dyslexia');
 		}
 		$this->form_validation->set_rules('gender', lang('gender'), 'trim|required');
+		$this->form_validation->set_rules('emt_score', lang('emt_score'), 'trim|is_natural');
+		$this->form_validation->set_rules('klepel_score', lang('klepel_score'), 'trim|is_natural');
+		$this->form_validation->set_rules('vc_score', lang('vc_score'), 'trim|is_natural');
 		$this->form_validation->set_rules('date', lang('date'), 'trim|required');
 
 		return $this->form_validation->run();

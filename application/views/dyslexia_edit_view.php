@@ -24,6 +24,7 @@ $(function() {
 <?=form_label(lang('parent'), 'gender'); ?>
 <?=form_radio_and_label('gender', Gender::Female, $gender, gender_parent(Gender::Female)); ?>
 <?=form_radio_and_label('gender', Gender::Male, $gender, gender_parent(Gender::Male)); ?>
+<?=form_error('gender'); ?>
 </div>
 <?=form_single_checkbox_and_label('statement', $statement); ?>
 <?=form_input_and_label('emt_score', $emt_score, 'class="positive-integer"'); ?>
