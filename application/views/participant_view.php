@@ -73,7 +73,7 @@
 				{
 					echo "<div class=\"warning\">";
 					echo "<p>" . lang('p_not_yet_active') . "</p>";
-					echo participant_activate_link($participant, true, lang('activate'));
+					echo participant_activate_link($participant, lang('activate'));
 					echo "</div>";
 				}
 			?>

@@ -387,23 +387,21 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Activates the specified participant */
-	public function activate($participant_id, $toParticipant=FALSE)
+	public function activate($participant_id)
 	{
 		$this->participantModel->set_activate($participant_id, 1);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_activated'), name($participant)));
-		$redirect_link = ($toParticipant) ? '/participant/get/' . $participant_id : '/participant/';
-		redirect($redirect_link, 'refresh');
+		redirect($this->agent->referrer(), 'refresh');
 	}
 
-	/** Deactivates the specified participant TODO: are you sure? / correct return */
-	public function deactivate($participant_id,  $toParticipant=FALSE)
+	/** Deactivates the specified participant */
+	public function deactivate($participant_id)
 	{
 		$this->participantModel->set_activate($participant_id, 0);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_deactivated'), name($participant)));
-		$redirect_link = ($toParticipant) ? '/participant/get/' . $participant_id : '/participant/';
-		redirect($redirect_link, 'refresh');
+		redirect($this->agent->referrer(), 'refresh');
 	}
 
 	/////////////////////////

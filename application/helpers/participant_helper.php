@@ -249,10 +249,10 @@ if (!function_exists('participant_edit_link'))
 if (!function_exists('participant_activate_link'))
 {
 	/** Returns the activation link for a participant */
-	function participant_activate_link($participant, $toParticipant=false, $showText="")
+	function participant_activate_link($participant, $showText="")
 	{
-		if ($participant->activated) return anchor('participant/deactivate/' . $participant->id . "/" . $toParticipant, $showText . img_active(TRUE));
-		else return anchor('participant/activate/' . $participant->id . "/" . $toParticipant, $showText . img_active(FALSE));
+		if ($participant->activated) return anchor('participant/deactivate/' . $participant->id, $showText ? $showText : img_active(TRUE));
+		else return anchor('participant/activate/' . $participant->id, $showText ? $showText : img_active(FALSE));
 	}
 }
 
