@@ -34,9 +34,13 @@ if (!function_exists('email_replace'))
 		
 		$message_data = array();
 		$message_data['auto'] 				= $auto;
-		$message_data['user_username'] 		= $user->username;
-		$message_data['user_email'] 		= $user->email;
 		$message_data['message'] 			= $message;
+
+		if (!empty($user))
+		{
+			$message_data['user_username'] 		= $user->username;
+			$message_data['user_email'] 		= $user->email;
+		}
 		
 		if (!empty($participant)) 
 		{
