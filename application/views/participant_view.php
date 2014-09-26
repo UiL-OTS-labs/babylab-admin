@@ -159,16 +159,16 @@
 	?>
 	</div>
 
-	<!-- Scores -->
+	<!-- TestInvites -->
 	<h3>
-	<?=lang('scores') . ' (' . $score_size . ')'; ?>
+	<?=lang('testinvites'); ?>
 	</h3>
 	<div>
 	<?php
-	create_score_table('scores', 'participant');
-	$scores['id'] = 'scores';
-			$scores['ajax_source'] = 'score/table_by_participant/' . $participant->id;
-			$this->load->view('templates/list_view', $scores); 
-		?>
+		create_testinvite_participant_table('testinvites');
+		$testinvites['id'] = 'testinvites';	
+		$testinvites['ajax_source'] = 'testinvite/table_by_participant/' . $participant->id;
+		$this->load->view('templates/list_view', $testinvites); 
+	?>
 	</div>
 </div>

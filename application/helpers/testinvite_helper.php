@@ -17,6 +17,18 @@ if (!function_exists('create_testinvite_table'))
 	}
 }
 
+if (!function_exists('create_testinvite_participant_table'))
+{
+	/** Creates the table with testinvite data for a participant */
+	function create_testinvite_participant_table($id = NULL)
+	{
+		$CI =& get_instance();
+		base_table($id);
+		$heading = array(lang('testsurvey'), lang('token'), lang('datesent'), lang('datecompleted'), lang('actions'));
+		$CI->table->set_heading($heading);
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////

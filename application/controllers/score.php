@@ -242,7 +242,7 @@ class Score extends CI_Controller
 		create_score_table(NULL, 'testinvite');
 		$data['ajax_source'] = 'score/table_by_testinvite/' . $testinvite_id;
 		$data['page_title'] = sprintf(lang('scores_for'), name($participant));
-		$data['page_info'] = 'Bekijk het score-overzicht via ' . anchor('c/' . $test->code . '/' . $testinvite->token . '/home', 'deze link') . '.';
+		$data['page_info'] = 'Bekijk het score-overzicht via ' . anchor('c/' . $test->code . '/' . $testinvite->token . '/home', 'deze link', 'target="_blank"') . '.';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);

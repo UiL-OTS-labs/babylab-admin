@@ -176,4 +176,11 @@ class TestInvite extends CI_Controller
 		$this->datatables->unset_column('t');
 		$this->table();
 	}
+
+	public function table_by_participant($participant_id)
+	{
+		$this->datatables->where('participant.id', $participant_id);
+		$this->datatables->unset_column('p');
+		$this->table();
+	}
 }
