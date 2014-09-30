@@ -120,8 +120,17 @@
 					<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
-						<?=form_checkbox(array('name' => 'concept', 'id'=>'concept', 'value' => true)); ?>
-						<label for="concept"><?=sprintf(lang('concept_mail_only'), TO_EMAIL_OVERRIDE); ?></label></p><p>
+						<?=form_checkbox('concept'); ?>
+						<?=form_label(sprintf(lang('concept_mail_only'), TO_EMAIL_OVERRIDE)); ?>
+						</p>
+						<!-- Temporary addition (hopefully) to select whether or not to send an anamnese -->
+						<?php if ($first_visit) { ?>
+							<p>
+							<?=form_checkbox('send_anamnese', 1, TRUE); ?>
+							<?=form_label(lang('send_anamnese')); ?>
+							</p>
+						<?php } ?>
+						<p>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
@@ -203,9 +212,7 @@
 		</div>
 	</div>
 
-	<h3>
-	<?=lang('experiment'); ?>
-	</h3>
+	<?=heading(lang('experiment'), 3); ?>
 	<div>
 		<!-- Experiment information TODO: clean up -->
 		<div>
@@ -239,41 +246,37 @@
 	</div>
 
 	<!-- Impediments -->
-	<h3>
-	<?=lang('impediments') . ' (' . $impediment_size . ')'; ?>
-	</h3>
+	<?=heading(lang('impediments'), 3); ?>
 	<div>
-	<?php
-	create_impediment_table('impediments');
-	$impediments['id'] = 'impediments';
-	$impediments['ajax_source'] = 'impediment/table/1/' . $participant->id;
-	echo $this->load->view('templates/list_view', $impediments);
-	echo $this->load->view('impediment_add_view', $impediments);
-	?>
+		<?php
+			create_impediment_table('impediments');
+			$impediments['id'] = 'impediments';
+			$impediments['ajax_source'] = 'impediment/table/1/' . $participant->id;
+			echo $this->load->view('templates/list_view', $impediments);
+			echo $this->load->view('impediment_add_view', $impediments);
+		?>
 	</div>
 
 	<!-- Comments -->
-	<h3>
-	<?=lang('comments') . ' (' . $comment_size . ')'; ?>
-	</h3>
+	<?=heading(lang('comments'), 3); ?>
 	<div>
-	<?php
-	create_comment_table('comments');
-	$comments['id'] = 'comments';
-	$comments['ajax_source'] = 'comment/table/0/' . $participant->id;
-	echo $this->load->view('templates/list_view', $comments);
-	echo $this->load->view('comment_add_view'); ?>
+		<?php
+			create_comment_table('comments');
+			$comments['id'] = 'comments';
+			$comments['ajax_source'] = 'comment/table/0/' . $participant->id;
+			echo $this->load->view('templates/list_view', $comments);
+			echo $this->load->view('comment_add_view'); 
+		?>
 	</div>
 
 	<!-- Participations -->
-	<h3>
-	<?=lang('participations') . ' (' . $comment_size . ')'; ?>
-	</h3>
+	<?=heading(lang('participations'), 3); ?>
 	<div>
-	<?php
-	create_participation_table('participations');
+		<?php
+			create_participation_table('participations');
 			$participations['id'] = 'participations';
 			$participations['ajax_source'] = 'participation/table/' . $participant->id;
-			echo $this->load->view('templates/list_view', $participations); ?>
+			echo $this->load->view('templates/list_view', $participations); 
+		?>
 	</div>
 </div>

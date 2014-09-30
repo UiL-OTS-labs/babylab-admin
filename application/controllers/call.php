@@ -118,19 +118,28 @@ class Call extends CI_Controller
 				$appointment = date('Y-m-d H:i:s', $appointment);
 			}
 
-			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
-
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
 			$flashdata = '';
-			$invites = $this->create_test_invitations($participant);
-			$flashdata .= br() . $invites[0];
-			$flashdata .= br() . $this->send_confirmation_email($participation->id, $invites[1], $email);
 
-			// Concept email again
+			// Send the anamnese (or not, if checkbox is set)
+			$testinvite = NULL;
+			if ($this->input->post('send_anamnese'))
+			{
+				$invites = $this->create_test_invitations($participant);
+				$flashdata .= br() . $invites[0];
+				$testinvites = $invites[1];
+				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
+			}
+
+			// Send a confirmation e-mail
+			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
+			$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+
+			// If we send a concept, add that to the confirmation message
 			if ($this->input->post('concept')) 
 			{
-				$flashdata .= br() . br() . sprintf(lang('concept_send'), $email);
+				$flashdata .= br(2) . sprintf(lang('concept_send'), $email);
 			}
 
 			$this->participationModel->release_lock($participation->id);
@@ -255,12 +264,11 @@ class Call extends CI_Controller
 	/////////////////////////
 
 	/** Send confirmation e-mail */
-	private function send_confirmation_email($participation_id, $testinvites, $email)
+	private function send_confirmation_email($participation_id, $testinvite, $email)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
-		$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
 		
 		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite);
 

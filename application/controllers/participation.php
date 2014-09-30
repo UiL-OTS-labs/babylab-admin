@@ -242,7 +242,7 @@ class Participation extends CI_Controller
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
 		$experiments = $this->experimentModel->get_experiments_by_participant($participant_id);
 		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
-		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
+		$first_visit = count($this->participationModel->get_participations_by_participant($participant_id, TRUE)) == 0;
 
 		// Retrieve or create participation record
 		$participation = $this->participationModel->get_participation($experiment_id, $participant_id);
@@ -281,6 +281,7 @@ class Participation extends CI_Controller
 		$data['nr_participations'] = count($participations);
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
+		$data['first_visit'] = $first_visit;
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);

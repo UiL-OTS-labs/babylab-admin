@@ -99,17 +99,17 @@ class ParticipantModel extends CI_Model
 					AND 	(part.confirmed = 1 OR part.cancelled = 1)
 					AND 	part.experiment_id = ' . $experiment->id . ')', NULL, FALSE);
 		// should have been participating in an experiment that is a prerequisite for this experiment
-		if (!empty($prereqs))
+		if ($prereqs)
 		{
 			$this->db->where('EXISTS
 					(SELECT 1
 					FROM 	participation AS part
 					WHERE	part.participant_id = p.id
-					AND 	part.confirmed = 1
+					AND 	part.completed = 1
 					AND 	part.experiment_id IN (' . implode(',', $prereqs) . '))', NULL, FALSE);
 		}
 		// not have been participating in an experiment that excludes this experiment
-		if (!empty($excludes))
+		if ($excludes)
 		{
 			$this->db->where('NOT EXISTS
 					(SELECT 1
@@ -123,7 +123,7 @@ class ParticipantModel extends CI_Model
 					(SELECT 1
 					FROM 	impediment AS imp
 					WHERE	imp.participant_id = p.id
-					AND 	(now() BETWEEN imp.from AND imp.to))', NULL, FALSE);
+					AND 	(NOW() BETWEEN imp.from AND imp.to))', NULL, FALSE);
 		// not being risk (depending on the sort of experiment)
 		if ($experiment->dyslexic) 
 		{

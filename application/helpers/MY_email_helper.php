@@ -25,7 +25,7 @@ if (!function_exists('email_replace'))
 {
 	/**
 	 * This method creates an e-mail by referring to a view and replacing the variables. 
-	 * TODO: refactor to use lesser parameters (all in one array)?
+	 * TODO: refactor to use less parameters (all in one array)?
 	 */
 	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, $testinvite = NULL, $auto = FALSE, $message = "")
 	{
@@ -35,14 +35,15 @@ if (!function_exists('email_replace'))
 		$message_data = array();
 		$message_data['auto'] 				= $auto;
 		$message_data['message'] 			= $message;
+		$message_data['survey_link']		= FALSE;
 
-		if (!empty($user))
+		if ($user)
 		{
 			$message_data['user_username'] 		= $user->username;
 			$message_data['user_email'] 		= $user->email;
 		}
 		
-		if (!empty($participant)) 
+		if ($participant) 
 		{
 			$message_data['name']			= name($participant);
 			$message_data['name_first']		= $participant->firstname;
@@ -51,21 +52,14 @@ if (!function_exists('email_replace'))
 			$message_data['gender_pos']		= gender_pos($participant->gender);
 			$message_data['gender_plural']	= gender_sex($participant->gender) . 's';
 			$message_data['phone']			= $participant->phone;
-			$message_data['first_visit'] 	= FALSE;
-			
-			$participations = $CI->participationModel->get_participations_by_participant($participant->id, TRUE);
-			if (count($participations) <= 1) 
-			{
-				$message_data['first_visit'] = TRUE;
-			}
 		}
 
-		if (!empty($participation)) 
+		if ($participation) 
 		{
 			$message_data['appointment']	= format_datetime($participation->appointment);
 		}
 		
-		if (!empty($experiment)) 
+		if ($experiment) 
 		{
 			$location = $CI->locationModel->get_location_by_experiment($experiment);
 			
@@ -77,7 +71,7 @@ if (!function_exists('email_replace'))
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
 		}
 		
-		if (!empty($participant) && !empty($experiment)) 
+		if ($participant && $experiment) 
 		{
 			$data = get_min_max_days($participant, $experiment);
 			
@@ -85,7 +79,7 @@ if (!function_exists('email_replace'))
 			$message_data['max_date'] 		= format_date($data['max_date_js']);
 		}
 		
-		if (!empty($testinvite)) 
+		if ($testinvite) 
 		{
 			$testsurvey = $CI->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 			

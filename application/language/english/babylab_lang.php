@@ -123,6 +123,7 @@ $lang['agetomonths'] 		= "Age range to (months)";
 $lang['agetodays']			= "Age range to (days)";
 $lang['callable'] 			= "Callable";
 $lang['callable_for']		= "Participants callable for experiment %s";
+$lang['callable_longitudinal']	= "You can currently call %s participants for the longitudinal experiment %s.";
 $lang['data_for_experiment']= "Data for experiment %s";
 $lang['show_archived_exps'] = "Show archived experiments";
 $lang['not_show_archived_exps'] = "Don't show archived experiments";
@@ -405,4 +406,7 @@ $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";
 $lang['show_calendar']		= "Show the calendar";
+
+/* Anamnese */
+$lang['send_anamnese'] 		= "Send the anamnese?";
 ?>

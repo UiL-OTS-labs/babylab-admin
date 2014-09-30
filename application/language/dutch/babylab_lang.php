@@ -123,6 +123,7 @@ $lang['agetomonths'] 		= "Leeftijd tot (maanden)";
 $lang['agetodays']			= "Leeftijd tot (dagen)";
 $lang['callable'] 			= "Belbaar";
 $lang['callable_for']		= "Bellen voor <em>%s</em>";
+$lang['callable_longitudinal']	= "Er zijn %s proefpersonen belbaar voor het longitudinale experiment %s.";
 $lang['data_for_experiment']= "Data voor experiment %s";
 $lang['show_archived_exps'] = "Laat ook gearchiveerde experimenten zien";
 $lang['not_show_archived_exps'] = "Laat geen gearchiveerde experimenten zien";
@@ -405,4 +406,7 @@ $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Verberg geannuleerde afspraken";
 $lang['date_text']			= "Ga naar datum";
 $lang['show_calendar']		= "Toon de agenda";
+
+/* Anamnese */
+$lang['send_anamnese'] 		= "Anamnese versturen?";
 ?>
