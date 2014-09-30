@@ -62,22 +62,49 @@ class Welcome extends CI_Controller
 
 		$user = $this->userModel->get_user_by_id($user_id);
 		$experiments = $this->callerModel->get_experiments_by_caller($user_id);
+		$nr_experiments = count($experiments);
 
+		// Count total number of participants (and especially for longitudinal experiments)
+		$longitudinal = array();
 		$nr_participants = 0;
 		foreach ($experiments as $e)
 		{
-			$nr_participants += count($this->participantModel->find_participants($e));
+			$n = count($this->participantModel->find_participants($e));
+			$nr_participants += $n;
+
+			$prereqs = $this->relationModel->get_relation_ids_by_experiment($e->id, RelationType::Prerequisite, TRUE);
+			if ($prereqs && $n > 0)
+			{
+				$longitudinal[$e->name] = $n;
+			}
 		}
-		$nr_experiments = count($experiments);
 
 		create_experiment_table();
 		$data['ajax_source'] = 'experiment/table/0/' . $user_id;
 		$data['page_title'] = sprintf(lang('welcome'), $user->username);
-		$data['page_info'] = sprintf(lang('info_caller'), $nr_experiments, $nr_participants);
+		$data['page_info'] = 
+			sprintf(lang('info_caller'), $nr_experiments, $nr_participants) . 
+			$this->constuct_longitudinal_message($longitudinal);
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Caller);
 		$this->load->view('templates/footer');
+	}
+
+	/**
+	 * Constructs a warning message for all longitudinal experiments
+	 */
+	private function constuct_longitudinal_message($longitudinal)
+	{
+		$messages = array();
+		if ($longitudinal)
+		{
+			foreach ($longitudinal as $l => $n)
+			{
+				array_push($messages, sprintf(lang('callable_longitudinal'), $n, $l));
+			}
+		}
+		return $messages ? ul($messages, array('class' => 'warning')) : '';
 	}
 
 	/////////////////////////
