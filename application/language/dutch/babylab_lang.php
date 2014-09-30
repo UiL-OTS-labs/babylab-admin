@@ -405,4 +405,7 @@ $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Verberg geannuleerde afspraken";
 $lang['date_text']			= "Ga naar datum";
 $lang['show_calendar']		= "Toon de agenda";
+
+/* Anamnese */
+$lang['send_anamnese'] 		= "Anamnese versturen?";
 ?>

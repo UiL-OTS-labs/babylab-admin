@@ -405,4 +405,7 @@ $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";
 $lang['show_calendar']		= "Show the calendar";
+
+/* Anamnese */
+$lang['send_anamnese'] 		= "Send the anamnese?";
 ?>
