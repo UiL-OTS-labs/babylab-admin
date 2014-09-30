@@ -28,8 +28,28 @@
 				"sUrl": "<?=lang('table_language'); ?>"
 			},
 	    	"aaSorting": [[ "<?=isset($sort_column) ? $sort_column : 0; ?>", 
-	    					"<?=isset($sort_order)  ? $sort_order  : 'asc'; ?>"]]
+	    					"<?=isset($sort_order)  ? $sort_order  : 'asc'; ?>"]],
+	    	"aoColumnDefs": [
+	    		{
+	    			"aTargets" : [ <?=isset($hide_columns) ? $hide_columns : ""; ?> ],
+	    			"bVisible" : false
+	    		}
+	    	]
 		});
+
+		//$("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable().fnSetColumnVis(1, false);
+		//$("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable().fnSetColumnVis(2, false);
+
+		<?php
+			/*if(isset($hide_columns)){ 
+				$table_id = isset($id) ? '#' . $id : '.dataTable';
+				foreach ($hide_columns as $col)
+				{
+					echo "$('" . $table_id . "').dataTable().fnSetColumnVis(" . $col . ", false);\n";
+					//echo '$(' . $table_id . ').dataTable().fnSetColumnVis(' . $col . ', false);';
+				}
+			}*/
+		?>
 	});
 </script>
 
