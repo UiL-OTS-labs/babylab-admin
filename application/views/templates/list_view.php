@@ -36,20 +36,6 @@
 	    		}
 	    	]
 		});
-
-		//$("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable().fnSetColumnVis(1, false);
-		//$("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable().fnSetColumnVis(2, false);
-
-		<?php
-			/*if(isset($hide_columns)){ 
-				$table_id = isset($id) ? '#' . $id : '.dataTable';
-				foreach ($hide_columns as $col)
-				{
-					echo "$('" . $table_id . "').dataTable().fnSetColumnVis(" . $col . ", false);\n";
-					//echo '$(' . $table_id . ').dataTable().fnSetColumnVis(' . $col . ', false);';
-				}
-			}*/
-		?>
 	});
 </script>
 
