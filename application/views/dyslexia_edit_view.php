@@ -30,7 +30,7 @@ $(function() {
 <?=form_input_and_label('emt_score', $emt_score, 'class="positive-integer"'); ?>
 <?=form_input_and_label('klepel_score', $klepel_score, 'class="positive-integer"'); ?>
 <?=form_input_and_label('vc_score', $vc_score, 'class="positive-integer"'); ?>
-<?=form_input_and_label('date', $date, 'id="score_datepicker"'); ?>
+<?=form_textarea_and_label('comment', $comment); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

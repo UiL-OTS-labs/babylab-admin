@@ -44,10 +44,11 @@ if (!function_exists('form_textarea_and_label'))
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label, $name);
+		$error_box = form_error($name);
 		$input = form_textarea($name, set_value($name, $value), $extra);
 		$div_end = empty($div) ? '' : '</div>';
 
-		return $div_start . $label . $input . $div_end;
+		return $div_start . $label . $input . $error_box . $div_end;
 	}
 }
 

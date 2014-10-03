@@ -79,7 +79,6 @@ class Dyslexia extends CI_Controller
 		$data['action'] = 'dyslexia/edit_submit/' . $dyslexia_id;
 			
 		$data = add_fields($data, 'dyslexia', $dyslexia);
-		$data['date'] = output_date($dyslexia->date, TRUE);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('dyslexia_edit_view', $data);
@@ -130,7 +129,7 @@ class Dyslexia extends CI_Controller
 		$this->form_validation->set_rules('emt_score', lang('emt_score'), 'trim|is_natural');
 		$this->form_validation->set_rules('klepel_score', lang('klepel_score'), 'trim|is_natural');
 		$this->form_validation->set_rules('vc_score', lang('vc_score'), 'trim|is_natural');
-		$this->form_validation->set_rules('date', lang('date'), 'trim|required');
+		$this->form_validation->set_rules('comment', lang('comment'), 'trim|max_length[200]');
 
 		return $this->form_validation->run();
 	}
@@ -148,7 +147,7 @@ class Dyslexia extends CI_Controller
 				'emt_score' 	=> empty($emt_score) ? NULL : $emt_score,
 				'klepel_score' 	=> empty($klepel_score) ? NULL : $klepel_score,
 				'vc_score' 		=> empty($vc_score) ? NULL : $vc_score,
-				'date' 			=> input_date($this->input->post('date'))
+				'comment' 		=> $this->input->post('comment'),
 		);
 
 		if ($new_dyslexia) $dyslexia['participant_id'] = $this->input->post('participant');
@@ -193,7 +192,7 @@ class Dyslexia extends CI_Controller
 	public function table()
 	{
 		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p,
-			dyslexia.gender AS gender, statement, emt_score, klepel_score, vc_score, date, 
+			dyslexia.gender AS gender, statement, emt_score, klepel_score, vc_score, comment, 
 			dyslexia.id AS id, participant_id', FALSE);
 		$this->datatables->from('dyslexia');
 		$this->datatables->join('participant', 'participant.id = dyslexia.participant_id');
@@ -201,7 +200,7 @@ class Dyslexia extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('gender', '$1', 'gender_parent(gender)');
 		$this->datatables->edit_column('statement', '$1', 'img_tick(statement)');
-		$this->datatables->edit_column('date', '$1', 'output_date(date)');
+		$this->datatables->edit_column('comment', '$1', 'comment_body(comment, 30)');
 		$this->datatables->edit_column('id', '$1', 'dyslexia_actions(id)');
 
 		$this->datatables->unset_column('participant_id');

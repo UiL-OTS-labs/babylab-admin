@@ -17,13 +17,13 @@ if (!function_exists('create_comment_table'))
 
 if (!function_exists('comment_body'))
 {
-	/** Possible actions for a comment: prioritize and delete */
-	function comment_body($comment)
+	/** Comment body output: first 75 characters */
+	function comment_body($comment, $max_length = 75)
 	{
-		if (strlen($comment) > 75) 
+		if (strlen($comment) > $max_length) 
 		{
 			$abbr = '<abbr title="' . $comment . '">';
-			$date_output = substr($comment, 0, 75) . '...';
+			$date_output = substr($comment, 0, $max_length) . '...';
 			$abbr_end = '</abbr>';
 			return $abbr . $date_output . $abbr_end;
 		}

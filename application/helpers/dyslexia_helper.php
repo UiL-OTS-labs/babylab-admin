@@ -11,7 +11,7 @@ if (!function_exists('create_dyslexia_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$CI->table->set_heading(lang('participant'), lang('parent'), lang('statement'), lang('emt_score'), lang('klepel_score'), lang('vc_score'), lang('date'), lang('actions'));
+		$CI->table->set_heading(lang('participant'), lang('parent'), lang('statement'), lang('emt_score'), lang('klepel_score'), lang('vc_score'), lang('comment'), lang('actions'));
 	}
 }
 
