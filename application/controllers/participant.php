@@ -25,6 +25,7 @@ class Participant extends CI_Controller
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
 		$data['action_urls'] = array($add_url);
+		$data['hide_columns'] = "6";
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -617,7 +618,7 @@ class Participant extends CI_Controller
 			}
 		}
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
 		$this->datatables->from('participant');
 
 		if (!is_admin()) 
