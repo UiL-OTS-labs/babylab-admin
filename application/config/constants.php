@@ -76,6 +76,7 @@ class ParticipationStatus {
 class RelationType {
 	const Prerequisite 	= 'prerequisite';
 	const Excludes 		= 'excludes';
+	const Combination	= 'combination';
 }
 
 /** When to sent tests */
