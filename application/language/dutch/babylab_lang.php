@@ -139,6 +139,7 @@ $lang['relation_deleted']	= "Verband verwijderd.";
 $lang['sure_delete_relation']	= "Weet u zeker dat u dit verband wilt verwijderen?";
 $lang['prerequisite']		= "Is voorwaarde voor deelname aan";
 $lang['excludes']			= "Sluit deelname uit aan";
+$lang['combination']		= "Is (mogelijk) gecombineerd met";
 
 /* Locaties */
 $lang['location']			= "Locatie";

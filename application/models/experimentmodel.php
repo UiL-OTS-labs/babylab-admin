@@ -12,11 +12,13 @@ class ExperimentModel extends CI_Model
 
 	/**
 	 * Returns all experiments as an array.
-	 * If $include_archived is FALSE, return only unarchived experiments.
+	 * @param $include_archived If $include_archived is FALSE, return only unarchived experiments.
+	 * @param $exclude_id If set, excludes the given experiment ID from the selection
 	 */
-	public function get_all_experiments($include_archived = TRUE)
+	public function get_all_experiments($include_archived = TRUE, $exclude_id = '0')
 	{
 		if (!$include_archived) $this->db->where('archived', 0);
+		if ($exclude_id) $this->db->where('id !=', $exclude_id);
 		return $this->db->get('experiment')->result();
 	}
 

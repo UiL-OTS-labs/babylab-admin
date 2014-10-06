@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/chosen.css" />
+<?=link_tag('css/chosen.css'); ?>
 <script type="text/javascript" src="js/chosen.jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -37,13 +37,13 @@ $(function() {
         },
         onChange: function (hsb, hex, rgb) {
             $('#experiment_color').val('#' + hex);
-            $('#colorselector2 label').css('background-color','#' + hex);
+            $('#colorselector2 label').css('background-color', '#' + hex);
         }
     });
     $('#colorselector2 label').css('cursor', 'pointer');
     $('#colorselector2 label').css('background-color', '<?=$experiment_color;?>');
     $('#experiment_color').val('<?=$experiment_color;?>');
-});      
+});
 </script>
 
 <?=heading(lang('experiments'), 2); ?>
@@ -57,11 +57,11 @@ $(function() {
 <?=form_input_and_label('duration', $duration, 'required class="positive-integer"'); ?>
 <?=form_dropdown_and_label('location', location_options($locations), $location_id); ?>
 <?=form_input_and_label('wbs_number', $wbs_number, 'required'); ?>
-<?=form_colorPicker('experiment_color', $experiment_color,'required');?>
+<?=form_colorpicker('experiment_color', $experiment_color, 'required');?>
 
-<?=form_fieldset('Eisen deelnemers'); ?>
-<?=form_single_checkbox_and_label('multilingual', $multilingual); ?>
+<?=form_fieldset('Eisen aan deelnemers'); ?>
 <?=form_single_checkbox_and_label('dyslexic', $dyslexic); ?>
+<?=form_single_checkbox_and_label('multilingual', $multilingual); ?>
 <?=form_input_and_label('agefrommonths', $agefrommonths, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agefromdays', $agefromdays, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agetomonths', $agetomonths, 'required class="positive-integer"'); ?>
@@ -74,6 +74,7 @@ $(function() {
 <?=form_fieldset(lang('relations')); ?>
 <?=form_multiselect_and_label('prerequisite', $experiments, isset($current_prerequisite_ids) ? $current_prerequisite_ids: array()); ?>
 <?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
+<?=form_multiselect_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

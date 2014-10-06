@@ -52,7 +52,7 @@ class Experiment extends CI_Controller
 		$leaders = $this->userModel->get_all_leaders();
 		$callers = $this->userModel->get_all_callers();
 		$experiments = $this->experimentModel->get_all_experiments();
-		
+
 		$data['page_title'] = lang('add_experiment');
 		$data['action'] = 'experiment/add_submit';
 		$data = add_fields($data, 'experiment');
@@ -95,7 +95,7 @@ class Experiment extends CI_Controller
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 		$leaders = $this->userModel->get_all_leaders();
 		$callers = $this->userModel->get_all_callers();
-		$experiments = $this->experimentModel->get_all_experiments();
+		$experiments = $this->experimentModel->get_all_experiments(TRUE, $experiment_id);
 
 		$data['page_title'] = lang('edit_experiment');
 		$data['action'] = 'experiment/edit_submit/' . $experiment_id;
@@ -111,6 +111,7 @@ class Experiment extends CI_Controller
 		$data['current_leader_ids'] = $this->leaderModel->get_leader_ids_by_experiment($experiment_id);
 		$data['current_prerequisite_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Prerequisite);
 		$data['current_exclude_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Excludes);
+		$data['current_combination_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Combination);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_edit_view', $data);
@@ -367,6 +368,9 @@ class Experiment extends CI_Controller
 		// Update references to excludes
 		$excludes = $this->input->post('excludes');
 		$this->relationModel->update_relations($experiment_id, $excludes, RelationType::Excludes);
+		// Update references to combination
+		$combination = $this->input->post('combination');
+		$this->relationModel->update_relations($experiment_id, $combination, RelationType::Combination);
 	}
 
 	/////////////////////////

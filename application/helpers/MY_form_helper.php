@@ -17,9 +17,9 @@ if (!function_exists('form_input_and_label'))
 	}
 }
 
-if (!function_exists('form_colorPicker'))
+if (!function_exists('form_colorpicker'))
 {
-	function form_colorPicker($name, $value='', $extra = '', $div = 'pure-control-group')
+	function form_colorpicker($name, $value='', $extra = '', $div = 'pure-control-group')
 	{
 		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"' . ' style="display: none;"';
 		$value = !empty($value) || $value == 0 ? $value : '';
@@ -74,7 +74,7 @@ if (!function_exists('form_multiselect_and_label'))
 	{
 		$label_name = lang($name);
 		$name .= '[]'; // CodeIgniter POST array syntax
-		$extra .= ' class="chosen-select" multiple data-placeholder="' . $label_name . '"';
+		$extra .= ' class="chosen-select" data-placeholder="' . $label_name . '"';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label_name, $name);

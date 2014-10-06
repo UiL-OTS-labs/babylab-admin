@@ -83,7 +83,7 @@ $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab: participant registration";
-$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <b>%s</p>";
+$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
 $lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
@@ -139,8 +139,9 @@ $lang['relation_deleted']	= "Relation removed";
 $lang['sure_delete_relation']	= "Are you sure you want to remove this relation?";
 $lang['prerequisite']		= "Is a prerequisite for participation to";
 $lang['excludes']			= "Excludes participation to";
+$lang['combination']		= "Is (possibly) combined with";
 
-/* Locaties */
+/* Locations */
 $lang['location']			= "Location";
 $lang['locations']			= "Locations";
 $lang['data_for_location']	= "Data for location %s";
