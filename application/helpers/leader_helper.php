@@ -25,3 +25,22 @@ if (!function_exists('leader_actions'))
 		return anchor('leader/delete/' . $leader_id, img_delete(), warning(lang('sure_delete_leader')));
 	}
 }
+
+/////////////////////////
+// Options
+/////////////////////////
+
+if (!function_exists('leader_options'))
+{
+	/** Returns an option list of leaders */
+	function leader_options($leaders)
+	{
+		$l_options = array();
+		foreach ($leaders as $l)
+		{
+			$l_options[$l->id] = $l->username;
+		}
+		asort($l_options);
+		return $l_options;
+	}
+}

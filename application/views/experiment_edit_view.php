@@ -1,4 +1,11 @@
-<?=heading(lang('experiments'), 2); ?>
+<link rel="stylesheet" href="css/chosen.css" />
+<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$(".chosen-select").chosen({width: "350px"});
+});
+</script>
+
 <!-- Color Picker -->
 <?=link_tag('css/colorpicker.css'); ?>
 <script src="js/colorPicker.min.js"></script>
@@ -39,6 +46,8 @@ $(function() {
 });      
 </script>
 
+<?=heading(lang('experiments'), 2); ?>
+
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
 
 <?=form_fieldset($page_title); ?>
@@ -51,7 +60,6 @@ $(function() {
 <?=form_colorPicker('experiment_color', $experiment_color,'required');?>
 
 <?=form_fieldset('Eisen deelnemers'); ?>
-
 <?=form_single_checkbox_and_label('multilingual', $multilingual); ?>
 <?=form_single_checkbox_and_label('dyslexic', $dyslexic); ?>
 <?=form_input_and_label('agefrommonths', $agefrommonths, 'required class="positive-integer"'); ?>
@@ -59,59 +67,13 @@ $(function() {
 <?=form_input_and_label('agetomonths', $agetomonths, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agetodays', $agetodays, 'required class="positive-integer"'); ?>
 
-<?=form_fieldset(lang('callers')); ?>
-<?php
-foreach ($callers as $caller)
-{
-	echo form_checkbox_and_label('caller', $caller->id,
-		isset($current_caller_ids) ? in_array($caller->id, $current_caller_ids) : FALSE,
-		'pure-control-group',
-		$caller->username);
-}
-?>
-<?=form_fieldset(lang('leaders')); ?>
-<div class="pure-control-group">
-<?php
-foreach ($leaders as $leader)
-{
-	echo form_checkbox_and_label('leader', 
-		$leader->id, 
-		isset($current_leader_ids) ? in_array($leader->id, $current_leader_ids) : FALSE, 
-		'pure-control-group', 
-		$leader->username);
-}
-?>
-</div>
-<?=form_fieldset(lang('prerequisite')); ?>
-<div class="pure-control-group">
-<?php
-foreach ($prerequisites as $prerequisite)
-{
-	if ($prerequisite->id != $id)
-	{
-		echo form_checkbox_and_label('prerequisite', 
-			$prerequisite->id, isset($current_prerequisite_ids) ? in_array($prerequisite->id, $current_prerequisite_ids) : FALSE,
-			'pure-control-group',
-			$prerequisite->name);
-	}
-}
-?>
-</div>
-<?=form_fieldset(lang('excludes')); ?>
-<div class="pure-control-group">
-<?php
-foreach ($excludes as $exclude)
-{
-	if ($exclude->id != $id)
-	{
-		echo form_checkbox_and_label('exclude', $exclude->id,
-		isset($current_exclude_ids) ? in_array($exclude->id, $current_exclude_ids) : FALSE,
-		'pure-control-group',
-		$exclude->name);
-	}
-}
-?>
-</div>
+<?=form_fieldset('Bellers en leiders'); ?>
+<?=form_multiselect_and_label('callers', $callers, isset($current_caller_ids) ? $current_caller_ids: array()); ?>
+<?=form_multiselect_and_label('leaders', $leaders, isset($current_leader_ids) ? $current_leader_ids: array()); ?>
+
+<?=form_fieldset(lang('relations')); ?>
+<?=form_multiselect_and_label('prerequisite', $experiments, isset($current_prerequisite_ids) ? $current_prerequisite_ids: array()); ?>
+<?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

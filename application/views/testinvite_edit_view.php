@@ -4,8 +4,8 @@
 $(function() {
 	$(".chosen-select").chosen();
 });
-
 </script>
+
 <?=heading(lang('testinvites'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>

@@ -49,15 +49,18 @@ class Experiment extends CI_Controller
 	/** Specifies the contents of the add experiment page */
 	public function add()
 	{
+		$leaders = $this->userModel->get_all_leaders();
+		$callers = $this->userModel->get_all_callers();
+		$experiments = $this->experimentModel->get_all_experiments();
+		
 		$data['page_title'] = lang('add_experiment');
 		$data['action'] = 'experiment/add_submit';
 		$data = add_fields($data, 'experiment');
 
 		$data['locations'] = $this->locationModel->get_all_locations();
-		$data['callers'] = $this->userModel->get_all_callers();
-		$data['leaders'] = $this->userModel->get_all_leaders();
-		$data['prerequisites'] = $this->experimentModel->get_all_experiments();
-		$data['excludes'] = $data['prerequisites'];
+		$data['callers'] = caller_options($callers);
+		$data['leaders'] = leader_options($leaders);
+		$data['experiments'] = experiment_options($experiments);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_edit_view', $data);
@@ -73,23 +76,12 @@ class Experiment extends CI_Controller
 			// Show form again with error messages
 			$this->add();
 		}
-		else {
+		else 
+		{
 			// Add experiment to database
 			$experiment = $this->post_experiment();
 			$experiment_id = $this->experimentModel->add_experiment($experiment);
-
-			// Add references to callers
-			$callers = $this->input->post('caller');
-			foreach ($callers as $caller_id) $this->callerModel->add_caller_to_experiment($experiment_id, $caller_id);
-			// Add references to leaders
-			$leaders = $this->input->post('leader');
-			foreach ($leaders as $leader_id) $this->leaderModel->add_leader_to_experiment($experiment_id, $leader_id);
-			// Add references to leaders
-			$prerequisites = $this->input->post('prerequisite');
-			foreach ($prerequisites as $prereq) $this->relationModel->add_relation($experiment_id, $prereq, RelationType::Prerequisite);
-			// Add references to leaders
-			$excludes = $this->input->post('exclude');
-			foreach ($excludes as $exclude) $this->relationModel->add_relation($experiment_id, $exclude, RelationType::Excludes);
+			$this->update_references($experiment_id);
 
 			// Print success!
 			flashdata(lang('exp_added'));
@@ -101,16 +93,18 @@ class Experiment extends CI_Controller
 	public function edit($experiment_id)
 	{
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+		$leaders = $this->userModel->get_all_leaders();
+		$callers = $this->userModel->get_all_callers();
+		$experiments = $this->experimentModel->get_all_experiments();
 
 		$data['page_title'] = lang('edit_experiment');
 		$data['action'] = 'experiment/edit_submit/' . $experiment_id;
 		$data = add_fields($data, 'experiment', $experiment);
 		
 		$data['locations'] = $this->locationModel->get_all_locations();
-		$data['callers'] = $this->userModel->get_all_callers();
-		$data['leaders'] = $this->userModel->get_all_leaders();
-		$data['prerequisites'] = $this->experimentModel->get_all_experiments();
-		$data['excludes'] = $data['prerequisites'];
+		$data['callers'] = caller_options($callers);
+		$data['leaders'] = leader_options($leaders);
+		$data['experiments'] = experiment_options($experiments);
 
 		$data['location_id'] = $this->locationModel->get_location_by_experiment($experiment)->id;
 		$data['current_caller_ids'] = $this->callerModel->get_caller_ids_by_experiment($experiment_id);
@@ -132,23 +126,12 @@ class Experiment extends CI_Controller
 			// Show form again with error messages
 			$this->edit($experiment_id);
 		}
-		else {
+		else 
+		{
 			// Update experiment in database
 			$experiment = $this->post_experiment();
 			$this->experimentModel->update_experiment($experiment_id, $experiment);
-
-			// Update references to callers
-			$callers = $this->input->post('caller');
-			$this->callerModel->update_callers($experiment_id, $callers);
-			// Update references to leaders
-			$leaders = $this->input->post('leader');
-			$this->leaderModel->update_leaders($experiment_id, $leaders);
-			// Update references to prerequisites
-			$prerequisites = $this->input->post('prerequisite');
-			$this->relationModel->update_relations($experiment_id, $prerequisites, RelationType::Prerequisite);
-			// Update references to excludes
-			$excludes = $this->input->post('exclude');
-			$this->relationModel->update_relations($experiment_id, $excludes, RelationType::Excludes);
+			$this->update_references($experiment_id);
 
 			// Print success!
 			flashdata(lang('exp_edited'));
@@ -368,6 +351,22 @@ class Experiment extends CI_Controller
 				'agetomonths' 		=> $this->input->post('agetomonths'),
 				'agetodays' 		=> $this->input->post('agetodays'),
 		);
+	}
+
+	private function update_references($experiment_id)
+	{
+		// Update references to callers
+		$callers = $this->input->post('callers');
+		$this->callerModel->update_callers($experiment_id, $callers);
+		// Update references to leaders
+		$leaders = $this->input->post('leaders');
+		$this->leaderModel->update_leaders($experiment_id, $leaders);
+		// Update references to prerequisites
+		$prerequisites = $this->input->post('prerequisite');
+		$this->relationModel->update_relations($experiment_id, $prerequisites, RelationType::Prerequisite);
+		// Update references to excludes
+		$excludes = $this->input->post('excludes');
+		$this->relationModel->update_relations($experiment_id, $excludes, RelationType::Excludes);
 	}
 
 	/////////////////////////

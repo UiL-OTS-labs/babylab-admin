@@ -25,3 +25,22 @@ if (!function_exists('caller_actions'))
 		return anchor('caller/delete/' . $caller_id, img_delete(), warning(lang('sure_delete_caller')));
 	}
 }
+
+/////////////////////////
+// Options
+/////////////////////////
+
+if (!function_exists('caller_options'))
+{
+	/** Returns an option list of callers */
+	function caller_options($callers)
+	{
+		$c_options = array();
+		foreach ($callers as $c)
+		{
+			$c_options[$c->id] = $c->username;
+		}
+		asort($c_options);
+		return $c_options;
+	}
+}
