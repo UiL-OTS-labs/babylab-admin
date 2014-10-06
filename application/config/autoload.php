@@ -70,7 +70,7 @@ $autoload['helper'] = array(
 		'experiment', 'relation', 'location', 'participant', 'participation', 'comment', 'impediment', 	// Model
 		'call', 'caller', 'leader', 'user', 'test', 'testcat', 'score', 'percentile', 'result',			// Model
 		'testsurvey',	'testinvite', 'testtemplate', 'language_c', 'dyslexia',	// Model
-		'session', 'table', 'base64', 'image', 'dbforge');									// Other
+		'session', 'table', 'base64', 'image');									// Other
 
 
 /*
