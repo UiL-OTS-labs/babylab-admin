@@ -61,7 +61,7 @@ class ParticipationModel extends CI_Model
 		$this->db->delete('participation', array('id' => $participation_id));
 	}
 
-	/** Retrieves a participation for an experiment and a participant */
+	/** Retrieves a participation for a given ID */
 	public function get_participation_by_id($participation_id)
 	{
 		$this->db->where('id', $participation_id);

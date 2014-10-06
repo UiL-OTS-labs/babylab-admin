@@ -8,9 +8,16 @@
 Daarom zal een van de onderzoeksmedewerkers u op het afgesproken tijdstip komen halen. 
 Wanneer u het gebouw binnenkomt, staat u in de hal. 
 Daar staan twee banken, waar u kunt wachten als u wat eerder bent gearriveerd dan het afgesproken tijdstip.</p>
+<?php if ($combination) { ?>
+Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
+Het tweede experiment is een <?=$comb_type; ?> en duurt maximaal <?=$comb_duration; ?> minuten. 
+Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$comb_duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab. 
+In de bijlage van deze mail vindt u meer informatie over de experimenten en onze werkwijze.
+<?php } else { ?>
 <p>Het experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
 Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab.
 In de bijlage van deze mail vindt u meer informatie over het experiment en onze werkwijze.</p>
+<?php } ?>
 <?php if ($survey_link) { ?>
 <p>Omdat u voor de eerste keer met <?=$name_first; ?> een bezoek brengt aan het BabyLab, zouden wij u willen vragen de onderstaande link te openen.
 Hier vindt u vragen die o.a. ingaan op de gezinssamenstelling en medische achtergrond van <?=$name_first; ?>. 

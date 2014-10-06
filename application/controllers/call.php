@@ -118,9 +118,14 @@ class Call extends CI_Controller
 				$appointment = date('Y-m-d H:i:s', $appointment);
 			}
 
+			// End the call, confirm the participation
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
 			$this->participationModel->confirm($participation->id, $appointment);
+			$this->participationModel->release_lock($participation->id);
+
+			// Fetch the participant's email (or the concept e-mail)
 			$flashdata = '';
+			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
 
 			// Send the anamnese (or not, if checkbox is set)
 			$testinvite = NULL;
@@ -132,9 +137,20 @@ class Call extends CI_Controller
 				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
 			}
 
-			// Send a confirmation e-mail
-			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
-			$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+			// If there's a combination appointment made, create that participation as well, plus a confirmation e-mail 
+			if ($this->input->post('comb_appointment'))
+			{
+				$comb_experiment = $this->experimentModel->get_experiment_by_id($this->input->post('comb_exp'));
+				$comb_participation_id = $this->participationModel->create_participation($comb_experiment, $participant);
+				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
+				$this->participationModel->confirm($comb_participation_id, $comb_appointment);
+				$flashdata .= br() . $this->send_confirmation_email($comb_participation_id, $testinvite, $email, $comb_experiment);
+			}
+			// Else we can send a simple confirmation e-mail
+			else 
+			{
+				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+			}
 
 			// If we send a concept, add that to the confirmation message
 			if ($this->input->post('concept')) 
@@ -142,8 +158,7 @@ class Call extends CI_Controller
 				$flashdata .= br(2) . sprintf(lang('concept_send'), $email);
 			}
 
-			$this->participationModel->release_lock($participation->id);
-
+			// Return to the find participants page with a success message
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
 			redirect('/participant/find/' . $experiment->id, 'refresh');
 		}
@@ -217,7 +232,7 @@ class Call extends CI_Controller
 		if($this->input->post('never_again'))
 		{
 			$this->participantModel->set_activate($participant->id, false);
-			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant) ) );
+			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant)));
 		}
 		else
 			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name ) );
@@ -264,13 +279,13 @@ class Call extends CI_Controller
 	/////////////////////////
 
 	/** Send confirmation e-mail */
-	private function send_confirmation_email($participation_id, $testinvite, $email)
+	private function send_confirmation_email($participation_id, $testinvite, $email, $comb_exp = NULL)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		
-		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite);
+		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite, $comb_exp);
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
@@ -279,6 +294,7 @@ class Call extends CI_Controller
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		if ($experiment->attachment) $this->email->attach($experiment->attachment);
+		if ($comb_exp && $comb_exp->attachment) $this->email->attach($comb_exp->attachment);
 		$this->email->send();
 
 		return sprintf(lang('confirmation_sent'), $email);

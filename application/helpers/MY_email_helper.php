@@ -8,7 +8,7 @@ if (!function_exists('email_testinvite'))
 		$test = $CI->testInviteModel->get_test_by_testinvite($testinvite);
 		$template = $CI->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch); // TODO: set to current language?
 
-		$message = email_replace($template->template, $participant, NULL, NULL, $testinvite, $auto);
+		$message = email_replace($template->template, $participant, NULL, NULL, $testinvite, NULL, $auto);
 
 		$CI->email->clear();
 		$CI->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
@@ -27,7 +27,8 @@ if (!function_exists('email_replace'))
 	 * This method creates an e-mail by referring to a view and replacing the variables. 
 	 * TODO: refactor to use less parameters (all in one array)?
 	 */
-	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, $testinvite = NULL, $auto = FALSE, $message = "")
+	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, 
+		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "")
 	{
 		$CI =& get_instance();
 		$user = $CI->userModel->get_user_by_id(current_user_id());
@@ -35,12 +36,13 @@ if (!function_exists('email_replace'))
 		$message_data = array();
 		$message_data['auto'] 				= $auto;
 		$message_data['message'] 			= $message;
+		$message_data['combination']		= FALSE;
 		$message_data['survey_link']		= FALSE;
 
 		if ($user)
 		{
-			$message_data['user_username'] 		= $user->username;
-			$message_data['user_email'] 		= $user->email;
+			$message_data['user_username'] 	= $user->username;
+			$message_data['user_email'] 	= $user->email;
 		}
 		
 		if ($participant) 
@@ -69,6 +71,21 @@ if (!function_exists('email_replace'))
 			$message_data['duration_total'] = $experiment->duration + INSTRUCTION_DURATION;
 			$message_data['description'] 	= $experiment->description;
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
+		}
+		
+		if ($comb_experiment) 
+		{
+			$location = $CI->locationModel->get_location_by_experiment($comb_experiment);
+			$comb_participation = $CI->participationModel->get_participation($comb_experiment->id, $participant->id);
+			
+			$message_data['combination']		= TRUE;
+			$message_data['comb_exp_name']		= $comb_experiment->name;
+			$message_data['comb_type'] 			= $comb_experiment->type;
+			$message_data['comb_duration'] 		= $comb_experiment->duration;
+			$message_data['comb_duration_total']= $comb_experiment->duration + $comb_experiment->duration + INSTRUCTION_DURATION;
+			$message_data['comb_description'] 	= $comb_experiment->description;
+			$message_data['comb_location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
+			$message_data['comb_appointment']	= format_datetime($comb_participation->appointment);
 		}
 		
 		if ($participant && $experiment) 

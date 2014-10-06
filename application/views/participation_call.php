@@ -15,7 +15,7 @@
 		});
 
 		// Appointment scheduling
-		$( "#appointment" ).datetimepicker({
+		$( ".appointment" ).datetimepicker({
 			changeMonth : true,
 			changeYear : true,
 			minDate : '<?=$min_date_js; ?>',
@@ -26,9 +26,14 @@
 			buttonText : 'Pick a date and time'
 		});
 		
-		$( "#appointment" ).attr({
+		$( ".appointment" ).attr({
 			readOnly : true
 		});
+
+		// 
+		$('input[name="send_combination"]').click(function() {
+        	$('#comb_appointment').toggle();
+    	});
 
 		// Navigation handling: only allow navigation from forms or the cancel link.
 		var correct = false; 
@@ -130,8 +135,19 @@
 							<?=form_label(lang('send_anamnese')); ?>
 							</p>
 						<?php } ?>
+						<?php if ($combination_exp) { ?>
+							<p>
+							<?=form_checkbox('send_combination', 1, TRUE); ?>
+							<?=form_label(sprintf(lang('send_combination'), $combination_exp->name)); ?>
+							<span id="comb_appointment">
+							<?=form_input('comb_appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
+							<?=form_hidden('comb_exp', $combination_exp->id); ?>
+							</span>
+							</p>
+						<?php } ?>
 						<p>
-						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
+						<?=form_label(lang('appointment')); ?>
+						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>

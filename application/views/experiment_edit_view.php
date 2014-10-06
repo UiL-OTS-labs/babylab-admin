@@ -74,7 +74,7 @@ $(function() {
 <?=form_fieldset(lang('relations')); ?>
 <?=form_multiselect_and_label('prerequisite', $experiments, isset($current_prerequisite_ids) ? $current_prerequisite_ids: array()); ?>
 <?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
-<?=form_multiselect_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
+<?=form_dropdown_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

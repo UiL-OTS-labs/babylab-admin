@@ -369,7 +369,7 @@ class Experiment extends CI_Controller
 		$excludes = $this->input->post('excludes');
 		$this->relationModel->update_relations($experiment_id, $excludes, RelationType::Excludes);
 		// Update references to combination
-		$combination = $this->input->post('combination');
+		$combination = $this->input->post('combination') === '-1' ? array(): array($this->input->post('combination'));
 		$this->relationModel->update_relations($experiment_id, $combination, RelationType::Combination);
 	}
 

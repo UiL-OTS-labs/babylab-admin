@@ -265,6 +265,12 @@ class Participation extends CI_Controller
 		// Create call record
 		$call_id = $this->callModel->create_call($participation_id);
 
+		// Find possible combination experiment 
+		$c_true = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, TRUE);
+		$c_false = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, FALSE);
+		$combinations = $c_true + $c_false;
+		$combination = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
+
 		// Create page data
 		$data = get_min_max_days($participant, $experiment);
 		$data['participant'] = $participant;
@@ -282,6 +288,7 @@ class Participation extends CI_Controller
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['first_visit'] = $first_visit;
+		$data['combination_exp'] = $combination;
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);
@@ -517,7 +524,7 @@ class Participation extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		
-		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, FALSE, $tech_comment);
+		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, NULL, FALSE, $tech_comment);
 		
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
