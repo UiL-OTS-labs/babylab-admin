@@ -6,28 +6,34 @@ div.timeslot, {
 	margin-top: 30px;
 }
 
-.timeslot #slider2, div.time-selector, #slider2, #time2{
+.timeslot #slider, div.time-selector, #slider, #datetime_show, #schedule{
 	margin-bottom: 30px;
+}
+
+#schedule-submit {
+	font-size: 1em !important;
 }
 
 </style>
 
 <?=heading($page_title, 2); ?>
 
-<form class="pure-form pure-form-aligned" method="post" action="#">
+<?=form_open('availability/add_submit', array('class' => 'pure-form')); ?>
+<form class="pure-form pure-form-aligned">
 	<fieldset>
 		<legend>TODO: datum & tijd</legend>
 			<div class="pure-g time-selector">
 				<div id="datum" class="pure-u-6-24"></div>
 				<div class="timeslot pure-u-2-5">
-					<div id="slider2" ></div>
-					<div id="time2"></div>
-					<input type="submit" id="schedule-submit2" class="ui-state-default" value="TODO: toevoegen" /> <br/>
+					<div id="slider" ></div>
+					<div id="datetime_show"><span id="date_show"></span>&nbsp;<span id="time_show"></span></div>
+	
+					<input type="button" id="schedule-submit" class="ui-state-default" value="TODO: toevoegen" />
 				</div>
 			</div>
 
 		<legend>TODO: schedule</legend>
-		<table class="pure-table" id="schedule2">
+		<table class="pure-table" id="schedule">
 			<thead>
 				<th><?=lang('date'); ?> </th>
 				<th><?=lang('from_date'); ?></th>
@@ -38,14 +44,29 @@ div.timeslot, {
 			<tbody>
 			</tbody>
 		</table>
+
+		<?=form_controls(); ?>
 	</fieldset>
-</form>
+<?=form_close(); ?>
 
     
 
 
 <script>
-	$("#slider2").timeslider({
+	// Makes datepicker and sets format
+	$("#datum").datepicker({ 
+		dateFormat: "dd-mm-yy",
+		onSelect: function(){
+			$("#date_show").html($(this).val());
+		}
+	});
+	
+	$("#date_show").html($("#datum").val());
+
+	var counter = 0;
+
+	// Creates the timeslider with all kinds of fancy stuff
+	$("#slider").timeslider({
 		sliderOptions: {
 			range: true,
 			min: 360,
@@ -55,22 +76,28 @@ div.timeslot, {
 		},
 		
 		clockFormat: <?= (current_language() == 'dutch') ? '24' : '12'; ?>,
-		timeDisplay: '#time2',
-		submitButton: '#schedule-submit2',
+		timeDisplay: '#time_show',
+		submitButton: '#schedule-submit',
 		clickSubmit: function (e){
-			var that = $(this).siblings('#slider2');
+			var that = $(this).siblings('#slider');
 
-			$('#schedule2 tbody').append('<tr>' +
-			'<td><input type="text" readonly="" value="' + $('#datum').val() + '" /></td>' +
-			'<td><input type="text" readonly="" value="' + that.timeslider('getTime', that.slider("values", 0)) + '" /></td>' + 
-			'<td><input type="text" readonly="" value="' + that.timeslider('getTime', that.slider("values", 1)) + '" /></td>' +
-			'<td><input type="text" /></td>' + 
-			'<td> TODO: remove button </td>' + 
+			$('#schedule tbody').append('<tr>' +
+			'<td><input name="value[' + counter + '][date]" type="text" readonly="" value="' + $('#datum').val() + '" /></td>' +
+			'<td><input name="value[' + counter + '][time_from]" type="text" readonly="" value="' + that.timeslider('getTime', that.slider("values", 0)) + '" /></td>' + 
+			'<td><input name="value[' + counter + '][time_to]" type="text" readonly="" value="' + that.timeslider('getTime', that.slider("values", 1)) + '" /></td>' +
+			'<td><input name="value[' + counter + '][comment]" type="text" /></td>' + 
+			'<td onClick="deleteRow(this)"><?=img_delete(); ?>  </td>' + 
 			'</tr>');
+			counter++;
 			e.preventDefault(); 
 		}
 	});
 
-	$("#datum").datepicker();
+	function deleteRow(row){
+		//alert("Row index is " + row.parentNode.rowIndex);
+		$("#schedule tr:eq(" + row.parentNode.rowIndex + ")").remove();
+	};
+
+	
 	
 </script>
