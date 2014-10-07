@@ -41,7 +41,6 @@ class Migration_Newtable_availability extends CI_Migration {
 
 		// Add foreign key
 		$this->db->query("ALTER TABLE `availability` ADD FOREIGN KEY ( `user_id` ) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT");
-
 	}
 
 	
