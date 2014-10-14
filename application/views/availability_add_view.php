@@ -13,7 +13,7 @@ div.timeslot, {
 	font-size: 1em !important;
 }
 
-.ui-selectee input{
+#select-time-table input{
 	visibility: hidden;
 }
 
@@ -34,6 +34,7 @@ td.ui-custom-unselecting{
 
 
 
+
 </style>
 
 <?=heading($page_title, 2); ?>
@@ -48,24 +49,31 @@ td.ui-custom-unselecting{
 					<table class="pure-table" id="select-time-table">
 					<thead>
 						<tr>
-							<td></td>
-							<td>00</td>
-							<td>10</td>
-							<td>20</td>
-							<td>30</td>
-							<td>40</td>
-							<td>50</td>
-							<td>60</td>
+							<th></th>
+							<th>00</th>
+							<th>10</th>
+							<th>20</th>
+							<th>30</th>
+							<th>40</th>
+							<th>50</th>
+							<th>60</th>
 						</tr>
 					</thead>
 					<?php
 						for ($i=0; $i < 24; $i++) {
-							echo "<tr id='" . $i . "' class='hour'>";
+							echo "<tr id='";
+							if ($i < 10)
+								echo 0;
+							echo $i . "' class='hour'>";
 							echo "<th>" . $i . " uur</th>\n"; 
 							for ($j=0; $j < 7; $j++) { 
-								echo "<td id='" . 
-									$i . "-" . $j . "'><input type='checkbox' unchecked name='time[" 
-									. $i . "-" . $j ."]'/>&nbsp;</td>\n";
+								echo "<td id='";
+								if ($i < 10)
+									echo "0";
+								echo $i . "-" . $j . "'><input type='checkbox' unchecked name='time[" ;
+								if ($i < 10)
+									echo "0";
+								echo $i . "-" . $j ."]'/>&nbsp;</td>\n";
 							}
 							echo "</tr>\n";
 						}
@@ -101,144 +109,188 @@ td.ui-custom-unselecting{
 
 
 <script>
-	// Keeps track of the first and last selected elements
-	var first, last;
+var first, last, add, mouseDown;
 	
-	$(function(){
-		// Make sure no checkboxes are checked on refresing
-		$(':checkbox:checked').prop('checked',false);
+	// Disable selection
+	$("#select-time-table").attr('unselectable','on')
+     .css({'-moz-user-select':'-moz-none',
+           '-moz-user-select':'none',
+           '-o-user-select':'none',
+           '-khtml-user-select':'none', /* you could also put this in a class */
+           '-webkit-user-select':'none',/* and add the CSS class here instead */
+           '-ms-user-select':'none',
+           'user-select':'none'
+     }).bind('selectstart', function(){ return false; });
 
-		// e.metaKey enables selection of multiple area's without holding ctrl-key
-		$("#select-time-table").bind("mousedown", function(e){ e.metaKey = true; }).selectable({
-			filter: "td",
-			selecting: function(event, ui){
-				
-			    var select = ui.selecting;
+	// Make sure no checkboxes are checked on refresing
+	$(':checkbox:checked').prop('checked',false);
 
-			    if (first == null){
-			    	first = select;
-			    } else {
-			    	$("json_arrays").append("<br/>wtf<br/>");
-			    }
-
-			    last = select;
-
-			    if ($(select).hasClass("ui-custom-selected"))
-			    {
-			    	$(select).addClass("ui-custom-unselecting");
-			    } else {
-			    	$(select).addClass("ui-custom-selecting");
-			    }
-
-			    check();
-
-			    
-			    last = null;
-			},
-			unselecting: function(event, ui)
-			{
-				var e = ui.unselecting;
-
-				$(e).removeClass("ui-custom-selecting");
-				$(e).removeClass("ui-custom-unselecting");
-			},
-			selected: function(event, ui)
-			{
-				var e = ui.selected;
-				$(e).removeClass("ui-custom-selecting");
-				$(e).removeClass("ui-custom-unselecting");
-				if ($(e).hasClass("ui-custom-selected"))
-				{
-					$(e).removeClass("ui-custom-selected");
-					$(e).children(["input"]).prop("checked", false)
-				} else {
-					$(e).addClass("ui-custom-selected");
-					$(e).children(["input"]).prop("checked", true)
-				}
-			},
-			stop: function(event, ui)
-			{
-				first = null;
-				last = null;
-			}
-		});
+	$("#select-time-table td").mousedown(function(){
+        mouseDown = 1;
+		first = $(this);
+        last = $(this);
+        if ($(this).hasClass("ui-custom-selected")){
+            add = "ui-custom-unselecting";
+        } else {
+            add = "ui-custom-selecting";
+        }
+        
+        changeSelection();
+    
+    }).mouseover(function(){
+        if (mouseDown == 1)
+        {
+            if (!$(this).hasClass(add))
+            {
+                last = $(this);
+                var alreadySelected = 0;
+                changeSelection();
+            }
+            else
+            {
+                removeFromSelection($(this));
+            }
+        }
+    }).mouseup(function(){
+        mouseDown = 0;
+        
+		last = $(this);
+        changeSelection();
+        finishSelection();
 	});
 
-	function check()
-	{
-		var firstB4last = false;
-		if (first.parentNode.rowIndex > last.parentNode.rowIndex)
-		{
-			firstB4last = false;
-		}
-		else if (first.parentNode.rowIndex < last.parentNode.rowIndex)
-		{
-			firstB4last = true;
-		}
-		else{
-			if (first.cellIndex < last.cellIndex)
-			{
-				firstB4last = true;
-			}
-			else{
-				firstB4last = false;
-			}
-		}
-
-		if (firstB4last)
-		{
-			if (first.parentNode.rowIndex < last.parentNode.rowIndex){
-				for (var i = first.cellIndex; i < 8; i++)
-				{
-					var cell = document.getElementById("select-time-table").rows[first.parentNode.rowIndex].cells[i];
-					$(cell).addClass("ui-custom-selecting");
-				}
-
-				for (var i = first.parentNode.rowIndex + 1; i < last.parentNode.rowIndex; i++)
-				{
-					for (var j = 0; j < 8; j++)
-					{
-						var cell = document.getElementById("select-time-table").rows[i].cells[j];
-						$(cell).addClass("ui-custom-selecting");
-					}
-				}
-
-				for (var i = 0; i < last.cellIndex; i++)
-				{
-					var cell = document.getElementById("select-time-table").rows[last.parentNode.rowIndex].cells[i];
-					$(cell).addClass("ui-custom-selecting");
-				}
-			}
-		}
-		
-
-		//var cell = $("#select-time-table").eq(first.parentNode.rowIndex).find('td').eq(0);
-
-		
+$(document).mouseup(function(){
+    mouseDown = 0;
+    finishSelection();
+});
 
 
-		/*$("#json_arrays").append("First: (" + first.parentNode.rowIndex + "," + first.cellIndex + 
-			")&nbsp;&nbsp;&nbsp;&nbsp;last: (" + 
-			last.parentNode.rowIndex + "," + last.cellIndex + 
-			")&nbsp;&nbsp;&nbsp;&nbsp; First before last: " + 
-			firstB4last.toString() + "<br/>");*/
+function changeSelection(){
+    if (first.attr("id") < last.attr("id"))
+    {
+        select(first, last);
+    } else {
+        select(last, first);
+    }
+}
 
-	}
+function removeFromSelection(item)
+{
+    if (last.attr("id") < item.attr("id"))
+    {
+        unselect(last, item);
+    } else {
+        unselect(item, last);
+    }
+}
 
+function select(f, l)
+{
+    // Split to iX[row][col]
+    var iF = f.attr("id").split("-");
+    var iL = l.attr("id").split("-");
+    
+    // If selection spans multiple rows...
+    if (iF[0] < iL[0])
+    {
+        // Fill in the first row from the selected element till the end
+        for(var i = iF[1]; i <= 6; i++)
+        {
+            $("#" + iF[0] + "-" + i).addClass(add);
+        }        
+        // Fill in all the rows in between the first and last selected element
+        for(var k = parseInt(iF[0], 10) + 1; k < iL[0]; k++)
+        {
+            for (var j = 0; j <= 7; j++)
+            {
+                $("#" + mkDouble(k) + "-" + j).addClass(add);
+            }
+        }
+        
+        // Fill in the last row from the beginning till the last selected element
+        for(var n = 0; n <= iL[1]; n++)
+        {
+           $("#" + iL[0] + "-" + n).addClass(add);           
+        }
+    }
+    else
+    {
+        for (var m = iF[1]; m <= iL[1]; m++)
+        {
+           $("#" + iF[0] + "-" + m).addClass(add);
+        }
+    }
+}
 
+function unselect(f, l)
+{
+   // Split to iX[row][col]
+   var iF = f.attr("id").split("-");
+   var iL = l.attr("id").split("-");
+    
+    var unAdd = (add == "ui-custom-selecting") ? "ui-custom-unselecting" : "ui-custom-selecting";
+    
+    // If selection spans multiple rows...
+    if (iF[0] < iL[0])
+    {
+        // Fill in the first row from the selected element till the end
+        for(var i = iF[1]; i <= 6; i++)
+        {
+            $("#" + iF[0] + "-" + i).removeClass(add);
+            //$("#" + iF[0] + "-" + i).addClass(unAdd);
+        }        
+        // Fill in all the rows in between the first and last selected element
+        for(var k = parseInt(iF[0], 10) + 1; k < iL[0]; k++)
+        {
+            for (var j = 0; j <= 7; j++)
+            {
+                $("#" + mkDouble(k) + "-" + j).removeClass(add);
+                //$("#" + mkDouble(k) + "-" + j).addClass(unAdd);
+            }
+        }
+        
+        // Fill in the last row from the beginning till the last selected element
+        for(var n = 0; n <= iL[1]; n++)
+        {
+           $("#" + iL[0] + "-" + n).removeClass(add);  
+           //$("#" + iL[0] + "-" + n).addClass(unAdd);           
+        }
+    }
+    else
+    {
+        for (var m = iF[1]; m <= iL[1]; m++)
+        {
+           $("#" + iF[0] + "-" + m).removeClass(add);
+           //$("#" + iF[0] + "-" + m).addClass(unAdd);
+        }
+    }
+}
 
-	// Makes datepicker and sets format
-	$("#datum").datepicker({ 
-		dateFormat: "dd-mm-yy",
-		onSelect: function(){
-			$("#date_show").html($(this).val());
-		}
-	});
-	
-	
+function finishSelection()
+{
+    $(".ui-custom-selecting").each(function(){
+        $(this).removeClass("ui-custom-selecting");
+        $(this).addClass("ui-custom-selected");
+        $(this).children(["input"]).prop("checked", true);
+    });
+    
+    $(".ui-custom-unselecting").each(function(){
+        $(this).removeClass("ui-custom-unselecting");
+        $(this).removeClass("ui-custom-selected");
+        $(this).children(["input"]).prop("checked", false);
+    });
+}
 
-	
-
-	
+function mkDouble(i)
+{
+    if ( i < 10)
+    {
+        return "0" + i;
+    }
+    else
+    {
+        return i;
+    }
+}
 	
 </script>
