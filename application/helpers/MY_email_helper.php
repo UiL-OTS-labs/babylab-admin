@@ -71,6 +71,14 @@ if (!function_exists('email_replace'))
 			$message_data['duration_total'] = $experiment->duration + INSTRUCTION_DURATION;
 			$message_data['description'] 	= $experiment->description;
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
+
+			$users = $CI->leaderModel->get_leader_users_by_experiment($experiment->id); 
+			$contacts = array();
+			foreach ($users as $user)
+			{
+				array_push($contacts, sprintf('%s %s, %s', $user->firstname, $user->lastname, $user->phone ? $user->phone : $user->mobile)); 
+			}
+			$message_data['leader_contacts'] = $contacts;
 		}
 		
 		if ($comb_experiment) 

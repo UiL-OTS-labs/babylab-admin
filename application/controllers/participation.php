@@ -265,9 +265,7 @@ class Participation extends CI_Controller
 		$call_id = $this->callModel->create_call($participation_id);
 
 		// Find possible combination experiment 
-		$c_true = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, TRUE);
-		$c_false = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, FALSE);
-		$combinations = $c_true + $c_false;
+		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
 		$combination = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
 
 		// Create page data
