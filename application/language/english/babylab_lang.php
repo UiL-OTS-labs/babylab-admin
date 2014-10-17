@@ -243,10 +243,15 @@ $lang['appointment']		= "Appointment";
 $lang['confirmed']			= "Appointment confirmed";
 $lang['reschedule']			= "Reschedule appointment";
 $lang['rescheduled']		= "Appointment rescheduled";
+$lang['reschedule_short']   = "reschedule";
 $lang['reschedule_info']	= "Now rescheduling <strong>%s</strong> in experiment <em>%s</em>. The current appointment is at %s.";
 $lang['cancelled']			= "Can't/won't participate";
 $lang['cancelled_complete']	= "Never wants to participate again";
 $lang['cancelled_short']	= "Cancelled";
+$lang['cancel_info']        = "You're about to cancel the participation of <strong>%s</strong> in experiment <em>%s</em>. 
+    The leader(s) of this experiment will receive an e-mail of this cancellation.
+    You can also delete this appointment, so you'll be able to call the participant again.
+    If you made a new appointment, it's better to %s this appointment right away.";
 $lang['call_started']		= "Call started";
 $lang['no_reply']			= "No reply";
 $lang['no_show']			= "No show";

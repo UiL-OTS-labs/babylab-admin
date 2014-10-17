@@ -171,6 +171,6 @@ if (!function_exists('form_cancel'))
 {
 	function form_cancel($link)
 	{
-		return anchor($link, lang('cancel'), 'class="pure-button pure-button-secondary" style="background: rgb(202, 60, 60);"');
+		return anchor($link, lang('back'), 'class="pure-button pure-button-primary" style="background: rgb(202, 60, 60);"');
 	}
 }

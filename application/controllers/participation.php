@@ -2,14 +2,13 @@
 /**
  * Participations can be in 7 possible stages:
  *
- * confirmed	cancelled	no-show	reschedule	completed	description
- * 0			0			0		0			0			unconfirmed (called but no response)
- * 1			0			0		0			0			confirmed, not yet completed
- * 1			0			0		0			1			confirmed, completed
- * 1			0			0		1			0			confirmed, to be rescheduled // TODO: implement
- * 1			0			1		0			0			confirmed, but no-show
- * 1			1			0		0			0			confirmed, cancelled later
- * 0			1			0		0			0			cancelled upfront
+ * confirmed	cancelled	no-show	completed	description
+ * 0			0			0		0			unconfirmed (called but no response)
+ * 1			0			0		0			confirmed, not yet completed
+ * 1			0			0		1			confirmed, completed
+ * 1			0			1		0			confirmed, but no-show
+ * 1			1			0		0			confirmed, cancelled later
+ * 0			1			0		0			cancelled upfront
  *
  * @author Martijn van der Klis
  *
@@ -69,7 +68,7 @@ class Participation extends CI_Controller
 	}
 
 	/** Deletes a participation */
-	public function delete($participation_id)
+	public function delete($participation_id, $referrer = NULL)
 	{
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
@@ -77,7 +76,7 @@ class Participation extends CI_Controller
 		$this->participationModel->delete_participation($participation_id);
 
 		flashdata(sprintf(lang('part_deleted'), name($participant), $experiment->name));
-		redirect('participation', 'refresh');
+		redirect($referrer ? $referrer : $this->agent->referrer, 'refresh');
 	}
 
 	///////////////////////////////////////////
@@ -402,13 +401,40 @@ class Participation extends CI_Controller
 	/** Cancels a participation */
 	public function cancel($participation_id)
 	{
-		$this->participationModel->cancel($participation_id, FALSE);
-
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
-		flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name));
 
-		redirect($this->agent->referrer(), 'refresh');
+		$data['participation'] = $participation;
+		$data['participant'] = $participant;
+		$data['experiment'] = $experiment;
+		$data['referrer'] = $this->agent->referrer();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('participation_cancel', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/** Submits the cancellation (or deletion) of a participation */
+	public function cancel_submit($participation_id)
+	{
+		$referrer = $this->input->post('referrer'); 
+		$this->send_cancellation_email($participation_id);
+
+		if ($this->input->post('delete')) 
+		{
+			$this->delete($participation_id, $referrer);
+		}
+		else 
+		{
+			$this->participationModel->cancel($participation_id, FALSE);
+
+			$participant = $this->participationModel->get_participant_by_participation($participation_id);
+			$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name));
+
+			redirect($referrer, 'refresh');
+		}
 	}
 
 	/** No-shows a participation */
@@ -516,6 +542,24 @@ class Participation extends CI_Controller
 
 		return sprintf(lang('reschedule_sent'), $participant->email);
 	}
+
+	/** Send a mail to the leaders to signal appointment has been cancelled */
+	private function send_cancellation_email($participation_id)
+	{
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation_id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
+
+		$message = email_replace('mail/cancel', $participant, $participation, $experiment);
+
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->subject('Babylab Utrecht: Afspraak verwijderd');
+		$this->email->message($message);
+		$this->email->send();
+	}
 	
 	/** Send a mail to the technical folks */ 
 	private function send_technical_email($participation_id, $tech_comment)
@@ -572,9 +616,9 @@ class Participation extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');
-		$this->datatables->edit_column('cancelled', '$1', 'img_tick(cancelled)');
-		$this->datatables->edit_column('noshow', '$1', 'img_tick(noshow)');
-		$this->datatables->edit_column('completed', '$1', 'img_tick(completed)');
+		$this->datatables->edit_column('cancelled', '$1', 'img_tick(cancelled, 0)');
+		$this->datatables->edit_column('noshow', '$1', 'img_tick(noshow, 0)');
+		$this->datatables->edit_column('completed', '$1', 'img_tick(completed, 0)');
 		$this->datatables->edit_column('id', '$1', 'participation_actions(id)');
 
 		$this->datatables->unset_column('participant_id');

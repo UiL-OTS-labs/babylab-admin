@@ -244,10 +244,15 @@ $lang['appointment']		= "Afspraak";
 $lang['confirmed']			= "Afspraak maken";
 $lang['reschedule']			= "Afspraak verzetten";
 $lang['rescheduled']		= "Afspraak verzet";
+$lang['reschedule_short']   = "verzetten";
 $lang['reschedule_info']	= "U gaat nu de afspraak van <strong>%s</strong> voor experiment <em>%s</em> verzetten. De huidige afspraak staat op %s.";
 $lang['cancelled']			= "Kan/wil niet meedoen";
 $lang['cancelled_complete']	= "Wil nooit meer mee doen";
 $lang['cancelled_short']	= "Geannuleerd";
+$lang['cancel_info']        = "U gaat nu de afspraak met <strong>%s</strong> voor experiment <em>%s</em> annuleren. 
+    De leider(s) van het experiment ontvangen hiervan een e-mail. 
+    De afspraak kan ook verwijderd worden, dan wordt het mogelijk de proefpersoon opnieuw te bellen. 
+    Als u al een nieuwe afspraak gemaakt heeft, dan is het beter om deze afspraak direct te %s.";
 $lang['call_started']		= "Gesprek gestart";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
