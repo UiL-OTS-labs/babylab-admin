@@ -166,11 +166,12 @@ if (!function_exists('experiment_actions'))
 	{
 		$CI =& get_instance();
 		$e = $CI->experimentModel->get_experiment_by_id($experiment_id);
+		$is_leader = is_leader() && $CI->leaderModel->is_leader_for_experiment(current_user_id(), $experiment_id);
 
 		$nr_participants = count($CI->participationModel->get_participations_by_experiment($e->id));
 		$part_link = $nr_participants > 0 ? anchor('participation/experiment/' . $e->id, img_participations($nr_participants)) : img_participations($nr_participants);
 		$call_link = anchor('participant/find/' . $e->id, img_call());
-		$edit_link = !is_archived($e) ? anchor('experiment/edit/' . $e->id, img_edit()) : img_edit(TRUE);
+		$edit_link = !is_archived($e) && $is_leader ? anchor('experiment/edit/' . $e->id, img_edit()) : img_edit(TRUE);
 		$archive_link = !is_archived($e) ? anchor('experiment/archive/' . $e->id, img(array('src' => 'images/folder.png', 'title' => lang('archive')))) : anchor('experiment/unarchive/' . $e->id, img(array('src' => 'images/folder_go.png', 'title' => lang('activate'))));
 
 		switch (current_role())
