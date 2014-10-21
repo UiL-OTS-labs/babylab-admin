@@ -220,22 +220,22 @@ class Call extends CI_Controller
 		$comment = $this->post_comment($participant->id);
 		if (!empty($comment)) $this->commentModel->add_comment($comment);
 
-		// Deactivate user as well?
-		$never_again = $this->input->post('never_again');
-
 		// End the call
 		$this->callModel->end_call($call_id, CallStatus::Cancelled);
 		$this->participationModel->cancel($participation->id, TRUE);
 		$this->participationModel->release_lock($participation->id);
 
 		// Deactivate the participant
-		if($this->input->post('never_again'))
+		if ($this->input->post('never_again'))
 		{
-			$this->participantModel->set_activate($participant->id, false);
+			$this->participantModel->set_activate($participant->id, FALSE);
 			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant)));
 		}
 		else
-			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name ) );
+		{
+			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name));
+		}
+
 		redirect('/participant/find/' . $experiment->id, 'refresh');
 	}
 	

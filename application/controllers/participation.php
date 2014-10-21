@@ -511,6 +511,12 @@ class Participation extends CI_Controller
 				$this->send_technical_email($participation_id, $tech_comment);
 			}
 
+			// Deactivate participant (possibly)
+			if ($this->input->post('cancelled_complete'))
+			{
+				$this->participantModel->set_activate($participant->id, FALSE);
+			}
+
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}

@@ -15,6 +15,7 @@
 <?=form_radio_and_label('interrupted', '1', $interrupted, lang('yes')); ?>
 <?=form_radio_and_label('interrupted', '0', $interrupted, lang('no')); ?>
 </div>
+
 <?=form_fieldset(lang('comments')); ?>
 <p class="warning"><?=lang('part_comment_info'); ?></p>
 <?=form_textarea_and_label('comment', $comment, lang('part_comment'), 'required'); ?>
@@ -22,6 +23,9 @@
 <?=form_textarea_and_label('pp_comment', $pp_comment, lang('pp_comment')); ?>
 <p class="warning"><?=lang('tech_comment_info'); ?></p>
 <?=form_textarea_and_label('tech_comment', $tech_comment, lang('tech_comment')); ?>
+
+<?=form_fieldset(lang('actions')); ?>
+<?=form_single_checkbox_and_label('cancelled_complete'); ?>
 
 <!-- TODO: add result file here. -->
 
