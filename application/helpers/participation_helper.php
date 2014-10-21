@@ -61,7 +61,7 @@ if (!function_exists('participation_actions'))
 		$cancel_link = $is_cancelled && $after_now ? anchor('participation/cancel/' . $pp->id, img_cancel(lang('cancelled'))) : img_cancel(lang('cancelled'), TRUE);
 		$reschedule_link = $is_planned ? anchor('participation/reschedule/' . $pp->id, img_calendar()) : img_calendar(TRUE);
 		$noshow_link = $is_confirmed && !$is_noshow && !$after_now ? anchor('participation/no_show/' . $pp->id, img_noshow()) : img_noshow(TRUE);
-		$completed_link = $is_confirmed && !$is_completed && !$after_now ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
+		$completed_link = $is_confirmed && !$after_now ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
 		$delete_link = anchor('participation/delete/' . $pp->id, img_delete(), warning(lang('sure_delete_part')));
 
 		switch (current_role())

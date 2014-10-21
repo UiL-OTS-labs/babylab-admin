@@ -448,7 +448,7 @@ class Participation extends CI_Controller
 	}
 
 	/** Completes a participation */
-	public function completed($participation_id, $pp_comment = '')
+	public function completed($participation_id, $pp_comment = '', $tech_comment = '')
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
@@ -461,9 +461,9 @@ class Participation extends CI_Controller
 		$data['experiment_id'] = $experiment->id;
 		$data = add_fields($data, 'participation', $participation);
 
-		// Interrupted and pp_comment are a bit silly...
-		$data['interrupted'] = '';
+		// Empty the comments, so one can re-enter them at wish
 		$data['pp_comment'] = $pp_comment;
+		$data['tech_comment'] = $tech_comment;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participation_complete', $data);
@@ -487,7 +487,8 @@ class Participation extends CI_Controller
 		{
 			// If not succeeded, return to previous page
 			$pp_comment = $this->input->post('pp_comment');
-			$this->completed($participation_id, $pp_comment);
+			$tech_comment = $this->input->post('tech_comment');
+			$this->completed($participation_id, $pp_comment, $tech_comment);
 		}
 		else
 		{
