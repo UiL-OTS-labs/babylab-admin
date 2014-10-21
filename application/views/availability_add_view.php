@@ -6,8 +6,6 @@ div.timeslot, {
 	margin-top: 30px;
 }
 
-
-
 #schedule-submit {
 	font-size: 1em !important;
 }
@@ -78,7 +76,7 @@ td.ui-custom-unselecting{
 				<th><?=lang('to_date'); ?></th>
 				<th><?=lang('comment'); ?></th>
 				<th><?=lang('action'); ?></th>
-			<thead>
+			</thead>
 			<tbody>
 			</tbody>
 		</table>
@@ -124,13 +122,33 @@ $("#clickme").click(function(){
 	$.each(times, function(key, value)
 	{
 		var datum = $.datepicker.formatDate("yy-mm-dd", $("#datum").datepicker("getDate"));
+
+		var counter2 = 0;
+
+		$("#schedule tbody tr").each(function(k, d){
+			var children = $(d).children().children();
+			if ($(children[0]).val() == datum)
+			{
+				// WERKT NOG NIET MET AM's!!!!
+				if (convertTime($(children[1]).val()) <= convertTime(value[0].toString()) && 
+					convertTime(value[0].toString()) <= convertTime($(children[2]).val()))
+				{
+					alert("Begint in range");
+				}
+				/*alert("Child 1: " + $(children[1]).val() + "\n" +
+					"Value: " + value[0] + "\n" + 
+					"Child 2: " + $(children[2]).val());*/
+			}
+		});
+
+
 		var row = "<tr><td><input readonly type='text' value='" + datum + "' name='value[" + counter + "][date]' /></td>";
 		row += "<td><input readonly type='text' value='" + value[0].toString() + "' name='value[" + counter + "][time_from]'</td>";
 		row += "<td><input readonly type='text' value='" + value[1] + "' name='value[" + counter + "][time_to]'</td>";
 		row += "<td><input type='text' name='value[" + counter + "][comment]' /></td>";
 		row += '<td onClick="deleteRow(this)"><?=img_delete(); ?></td></tr>';
 
-		$("#schedule").append(row);
+		$("#schedule tbody").append(row);
 		counter++;
 	});	
 });
@@ -139,4 +157,22 @@ function deleteRow(row){
 	//alert("Row index is " + row.parentNode.rowIndex);
 	$("#schedule tr:eq(" + row.parentNode.rowIndex + ")").remove();
 };
+
+
+function convertTime(time)
+{
+    var time = time.split(":");
+    var minute = time[1].split(" ");
+    
+    if (minute.length > 1)
+    {
+        if (minute[1] == "pm")
+        {
+            time[0] = parseInt(time[0]) + 12;
+        }
+    }
+    
+    return time[0] + ":" + minute[0];
+}
+
 </script>
