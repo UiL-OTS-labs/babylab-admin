@@ -61,7 +61,7 @@ class SurveyInvite extends CI_Controller
 	/**
 	 * Returns the probability for sending the survey: 
 	 *  m;d 	percentage
-	 * 17;24	 10%
+	 * 17;28	 10%
 	 * 18;0		 20%
 	 * 18;7		 30%
 	 * 18;14	 40%
@@ -75,7 +75,7 @@ class SurveyInvite extends CI_Controller
 
 		if ($month < $m)
 		{
-			return $day < 24 ? 0 : 10;
+			return $day < 28 ? 0 : 10;
 		}
 		else 
 		{
