@@ -7,9 +7,9 @@
             tableClass: null,
             hourStart: 0,
             hourEnd: 23,
-            hourText: 'uur',
+            hourText: '',
             selected: null,
-            24hourClock: true,
+            hourFormat24: true,
         },
         _create: function() {
             var that = this;
@@ -40,7 +40,7 @@
             // Create body
             for (i = o.hourStart; i <= o.hourEnd; i++)
             {
-                table += '<tr id="' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + i + ' ' + o.hourText + '</th>';
+                table += '<tr id="' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + that._timeFromHour(i) + ' ' + o.hourText + '</th>';
                 for (j = 0; j <= that._hourComplete; j = j + o.resolution)
                 {
                     table += '<td id="' + that._mkDouble(i) + '-' + that._mkDouble(j) + '">';
@@ -269,9 +269,24 @@
         _toTime: function(cell, last=false)
         {
             var that = this;
+            var o = that.options;
+
             var times = $(cell).attr("id").split("-");
 
             var hour = parseInt(times[0]);
+
+            var pm = "";
+            if (!o.hourFormat24)
+            {
+                if (hour > 12)
+                {
+                    hour = hour - 12;
+                    pm = " pm";
+                } else {
+                    pm = " am";
+                }
+            }
+
             var minutes = parseInt(times[1]);
             if (last)
             {
@@ -288,7 +303,7 @@
                 minutes = "00";
             }
 
-            return hour + ":" + minutes;
+            return hour + ":" + minutes + pm;
         },
         _mkDouble: function(i)
         {
@@ -330,8 +345,26 @@
                     that._select(startTD, endTD);
                 }
             });
-            
         },
+        _timeFromHour: function(hour)
+        {
+            var that = this; var o = that.options;
+
+            var am = " am";
+            if (o.hourFormat24)
+            {
+                return hour;
+            }
+            else 
+            {
+                if (parseInt(hour) > 12)
+                {
+                    return (parseInt(hour) - 12) + " pm";
+                } else {
+                    return [hour + " am"];
+                }
+            }
+        }
     });
 })(jQuery);
 

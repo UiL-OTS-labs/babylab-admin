@@ -14,7 +14,6 @@ div.timeslot, {
 
 .timeslot-picker th{
 	font-weight: normal;
-	padding: 0px;
 	background-color: #474747;
 	color: #ffffff;
 	border: 0px solid #000;
@@ -23,11 +22,13 @@ div.timeslot, {
 .timeslot-picker .timepicker-header{
 	width: 20px;
 	border-bottom: 5px solid white;
+	padding: 5px 0px 5px 0px;
 }
 
 .timeslot-picker .time-picker-row-header{
 	height: 20px;
 	border-right: 5px solid white;
+	padding: 0px 5px 0px 5px;
 }
 
 
@@ -99,7 +100,11 @@ $("#timeselector").selectorTable({
 	tableClass: 'pure-table',
 	selected: [
 		["08:30", "18:00"],
-	]
+	],
+	hourFormat24: false,
+	hourText: 'uur',
+	hourStart: 1,
+	hourEnd: 24,
 }); 
 
 
