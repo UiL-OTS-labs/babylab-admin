@@ -55,8 +55,10 @@ echo $this->load->view('templates/list_view', $comments);
 if ($user->role === UserRole::Caller)
 {
 	echo heading(lang('calls'), 3);
-	create_call_table('calls');
+	create_call_table('calls', FALSE);
 	$calls['id'] = 'calls';
+	$calls['sort_column'] = 4;
+	$calls['sort_order'] = 'desc';
 	$calls['ajax_source'] = 'call/table_by_user/' . $user->id;
 	echo $this->load->view('templates/list_view', $calls);
 	}
