@@ -6,32 +6,49 @@ div.timeslot, {
 	margin-top: 30px;
 }
 
-.timeslot #slider, div.time-selector, #slider, #datetime_show, #schedule{
-	margin-bottom: 30px;
-}
+
 
 #schedule-submit {
 	font-size: 1em !important;
 }
 
-#select-time-table input{
-	visibility: hidden;
+.timeslot-picker th{
+	font-weight: normal;
+	padding: 0px;
+	background-color: #474747;
+	color: #ffffff;
+	border: 0px solid #000;
 }
 
-.timeslot td{
-	border: 1px solid gray !important;
+.timeslot-picker .timepicker-header{
+	width: 20px;
+	border-bottom: 5px solid white;
 }
 
-td.ui-custom-selected, td.ui-custom-selecting{
-	background-color: green;
+.timeslot-picker .time-picker-row-header{
+	height: 20px;
+	border-right: 5px solid white;
+}
+
+
+.timeslot-picker td{
 	border: 1px solid white !important;
+	padding: 0px;
+	margin: 0px;
+	background-color: #e0e0e0;
+}
+
+td.ui-custom-selected {
+	background-color: #0b3e6f;
+}
+
+td.ui-custom-selecting{
+	background-color: #1b48e4;
 }
 
 td.ui-custom-unselecting{
-	background-color: white;
-	border: 1px solid gray !important;
+	background-color: #efefef;
 }
-
 
 
 
@@ -46,51 +63,11 @@ td.ui-custom-unselecting{
 		<legend>TODO: datum & tijd</legend>
 			<div class="pure-g time-selector">
 				<div id="datum" class="pure-u-6-24"></div>
-				<div id="timeselector" class="timeslot pure-u-2-5"></div>
+				<div id="timeselector" class="pure-u-2-5"></div>
+
 			</div>
-				<!--<div class="timeslot pure-u-2-5">
-					<table class="pure-table" id="select-time-table">
-					<thead>
-						<tr>
-							<th></th>
-							<th>00</th>
-							<th>10</th>
-							<th>20</th>
-							<th>30</th>
-							<th>40</th>
-							<th>50</th>
-							<th>60</th>
-						</tr>
-					</thead>
-					<?php
-						for ($i=0; $i < 24; $i++) {
-							echo "<tr id='";
-							if ($i < 10)
-								echo 0;
-							echo $i . "' class='hour'>";
-							echo "<th>" . $i . " uur</th>\n"; 
-							for ($j=0; $j < 7; $j++) { 
-								echo "<td id='";
-								if ($i < 10)
-									echo "0";
-								echo $i . "-" . $j . "'><input type='checkbox' unchecked name='time[" ;
-								if ($i < 10)
-									echo "0";
-								echo $i . "-" . $j ."]'/>&nbsp;</td>\n";
-							}
-							echo "</tr>\n";
-						}
-					?>
-					</table>
-					<div id="datetime_show"><span id="date_show"></span>&nbsp;<span id="time_show"></span></div>
-	
-					<input type="button" id="schedule-submit" value="TODO: toevoegen" />
-				</div>
-			</div> 
-
-			<div id="selector-table">Hello</div> 
-
-			<div id="clickmenot" onClick="$('#selector-table').destroy()">Click me not</div> -->
+			<div id="clickme">Basically. Run</div>
+				
 
 		<legend>TODO: schedule</legend>
 		<table class="pure-table" id="schedule">
@@ -114,10 +91,47 @@ td.ui-custom-unselecting{
 
 <script type="text/javascript" src="js/jquery.timerangeselector.js"></script>
 <script> 
-$("#timeselector").selectorTable({
-	resolution: 10,
-	tableClass: 'pure-table'
-}
-); 
 
+var counter = 0;
+
+$("#timeselector").selectorTable({
+	resolution: 5,
+	tableClass: 'pure-table',
+	selected: [
+		["08:30", "18:00"],
+	]
+}); 
+
+
+$( "#datum" ).datepicker({
+	changeMonth : true,
+	changeYear : true,
+	showOn : 'both',
+	buttonImage : 'images/calendar.png',
+	buttonImageOnly : true,
+	buttonText : 'Pick a date',
+	altFormat : "yy-mm-dd"
+});
+
+$("#clickme").click(function(){
+	var times = $("#timeselector").selectorTable('getTimes');
+
+	$.each(times, function(key, value)
+	{
+		var datum = $.datepicker.formatDate("yy-mm-dd", $("#datum").datepicker("getDate"));
+		var row = "<tr><td><input readonly type='text' value='" + datum + "' name='value[" + counter + "][date]' /></td>";
+		row += "<td><input readonly type='text' value='" + value[0].toString() + "' name='value[" + counter + "][time_from]'</td>";
+		row += "<td><input readonly type='text' value='" + value[1] + "' name='value[" + counter + "][time_to]'</td>";
+		row += "<td><input type='text' name='value[" + counter + "][comment]' /></td>";
+		row += '<td onClick="deleteRow(this)"><?=img_delete(); ?></td></tr>';
+
+		$("#schedule").append(row);
+		counter++;
+	});	
+});
+
+function deleteRow(row){
+	//alert("Row index is " + row.parentNode.rowIndex);
+	$("#schedule tr:eq(" + row.parentNode.rowIndex + ")").remove();
+};
 </script>
