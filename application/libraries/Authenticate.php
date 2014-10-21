@@ -76,7 +76,7 @@ class Authenticate
 			{
 				// Redirect to login page and remember which page to go back to
 				// after succesful login
-				$this->CI->session->set_userdata('redirect_back', $this->CI->uri->uri_string );  
+				$this->CI->session->set_userdata('redirect_back', $this->CI->uri->uri_string);  
 				redirect();
 			}
 		}

@@ -29,12 +29,10 @@ class Login extends CI_Controller
 
 			$data['page_title'] = lang('login');
 			$data['language'] = $language;
-			if( $this->session->userdata('redirect_back') ) {
+			if ($this->session->userdata('redirect_back')) 
+			{
 			    $data['referrer'] = $this->session->userdata('redirect_back');  // grab value and put into a temp variable so we unset the session value
 			    $this->session->unset_userdata('redirect_back');
-			    //redirect( $redirect_url );
-			} else {
-				$data['referrer'] = $this->agent->referrer();
 			}
 			
 			$this->load->view('templates/header', $data);
