@@ -144,11 +144,17 @@
         },
         reset: function()
         {
+            var that = this;
+            var o = that.options;
+
             $("#select-time-table tbody td").each(function(c, cell){
                 $(cell).removeClass("ui-custom-selected");
                 $(cell).children()
             });
             $('#select-time-table tbody td :checkbox:checked').prop('checked',false);
+
+            that._preSelect(o.selected);
+            that._finishSelection();
         },
         _changeSelection: function()
         {

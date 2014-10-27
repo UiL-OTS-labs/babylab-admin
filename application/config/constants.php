@@ -110,5 +110,8 @@ define('BABYLAB_MANAGER', 'Maartje de Klerk');
 define('BABYLAB_MANAGER_EMAIL', 'babylabutrecht@uu.nl');
 define('BABYLAB_MANAGER_PHONE', '06-15084044');
 
+/** Availability */
+define('AVAILABILITY_DEFAULT_TIMES', '["08:30", "18:00"]');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

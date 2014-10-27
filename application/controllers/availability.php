@@ -11,8 +11,9 @@ class Availability extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index($header=1)
 	{
-		$data['page_title'] = "TODO: Test";
+		$data['page_title'] = lang('availability');
 		$data['lang'] = (current_language() == L::Dutch) ? 'nl' : 'en';
+		$data['preselect'] = AVAILABILITY_DEFAULT_TIMES;
 
 		$this->load->view('templates/header');
 		$this->load->view('availability_add_view', $data);

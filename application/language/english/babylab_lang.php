@@ -415,4 +415,13 @@ $lang['show_calendar']		= "Show the calendar";
 
 /* Anamnese */
 $lang['send_anamnese'] 		= "Send the anamnese?";
+
+/* Availability view */
+$lang['availability']		= "Availability";
+$lang['availability_add']	= "Add to table";
+$lang['availability_reset']	= "Reset";
+$lang['availability_schedule']	= "Table of availability";
+$lang['time_from']			= "Time from";
+$lang['time_to']			= "Time to";
+$lang['availability_select'] = "Select date and times";
 ?>
