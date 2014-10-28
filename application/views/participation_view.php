@@ -65,6 +65,7 @@
 create_call_table('calls');
 $calls['id'] = 'calls';
 $calls['sort_column'] = 5;
+$calls['sort_order'] = 'desc';
 $calls['ajax_source'] = 'call/table_by_participation/' . $participation->id;
 echo $this->load->view('templates/list_view', $calls);
 ?>

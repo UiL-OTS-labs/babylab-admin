@@ -11,8 +11,8 @@ if (!function_exists('create_caller_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('caller'), lang('actions'));
-		if (empty($id)) array_unshift($heading, lang('experiment'));
+		$heading = array(lang('experiment'), lang('caller'), lang('actions'));
+		//if (empty($id)) array_unshift($heading, lang('experiment'));
 		$CI->table->set_heading($heading);
 	}
 }

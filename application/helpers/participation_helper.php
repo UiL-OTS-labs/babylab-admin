@@ -15,6 +15,17 @@ if (!function_exists('create_participation_table'))
 	}
 }
 
+if (!function_exists('create_participation_leader_table'))
+{
+	/** Creates the table with participation data for leaders */
+	function create_participation_leader_table($id = NULL)
+	{
+		$CI =& get_instance();
+		base_table($id);
+		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), lang('age'), lang('interrupted'), lang('comment'), lang('actions'));
+	}
+}
+
 if (!function_exists('create_participation_counter_table'))
 {
 	/** Creates the table with participation data with a specific counter column (no_shows, interruptions) */
@@ -61,7 +72,7 @@ if (!function_exists('participation_actions'))
 		$cancel_link = $is_cancelled && $after_now ? anchor('participation/cancel/' . $pp->id, img_cancel(lang('cancelled'))) : img_cancel(lang('cancelled'), TRUE);
 		$reschedule_link = $is_planned ? anchor('participation/reschedule/' . $pp->id, img_calendar()) : img_calendar(TRUE);
 		$noshow_link = $is_confirmed && !$is_noshow && !$after_now ? anchor('participation/no_show/' . $pp->id, img_noshow()) : img_noshow(TRUE);
-		$completed_link = $is_confirmed && !$is_completed ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
+		$completed_link = $is_confirmed && !$after_now ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
 		$delete_link = anchor('participation/delete/' . $pp->id, img_delete(), warning(lang('sure_delete_part')));
 
 		switch (current_role())

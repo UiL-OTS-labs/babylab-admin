@@ -34,6 +34,8 @@
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
 <!-- Masks -->
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+<!-- Google JS API -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 <script>

@@ -446,7 +446,7 @@ class Score extends CI_Controller
 		$this->datatables->edit_column('ts', '$1', 'testsurvey_get_link_by_id(testsurvey_id)');
 		$this->datatables->edit_column('tc', '$1', 'testcat_get_link_by_id(testcat_id)');
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
-		$this->datatables->edit_column('age', '$1', 'age_in_months_by_id(participant_id, date)');
+		$this->datatables->edit_column('age', '$1', 'age_in_md_by_id(participant_id, date)');
 		$this->datatables->edit_column('date', '$1', 'output_date(date)');
 		$this->datatables->edit_column('id', '$1', 'score_actions(id)');
 

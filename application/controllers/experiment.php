@@ -92,6 +92,11 @@ class Experiment extends CI_Controller
 	/** Specifies the contents of the edit experiment page */
 	public function edit($experiment_id)
 	{
+		if (is_leader() && !$this->leaderModel->is_leader_for_experiment(current_user_id(), $experiment_id))
+		{
+			show_error("You are not a leader for this experiment.");
+		}
+
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 		$leaders = $this->userModel->get_all_leaders();
 		$callers = $this->userModel->get_all_callers();

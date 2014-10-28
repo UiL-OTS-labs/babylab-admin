@@ -160,7 +160,8 @@ class Comment extends CI_Controller
 
 	public function table($priority_only = FALSE, $participant_id = NULL)
 	{
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, body, timecreated, username,
+		$this->datatables->select('CONCAT(participant.firstname, " ", participant.lastname) AS p, 
+			body, timecreated, username,
 			comment.id AS id, participant_id, user_id', FALSE);
 		$this->datatables->from('comment');
 		$this->datatables->join('participant', 'participant.id = comment.participant_id');

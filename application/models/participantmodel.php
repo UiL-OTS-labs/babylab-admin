@@ -230,11 +230,24 @@ class ParticipantModel extends CI_Model
 		return $this->db->get('participant')->result();
 	}
 
-	/** Activates or deactivates the specified participant */
-	public function set_activate($participant_id, $activated)
+	/** Activates the specified participant */
+	public function activate($participant_id)
 	{
 		$this->db->where('id', $participant_id);
-		$this->db->update('participant', array('activated' => $activated));
+		$this->db->update('participant', array(
+			'activated' 		=> TRUE,
+			'deactivated' 		=> NULL,
+			'deactivated_reason' => NULL));
+	}
+
+	/** Deactivates a participant with a timestamp and reason */
+	public function deactivate($participant_id, $reason)
+	{
+		$this->db->where('id', $participant_id);
+		$this->db->update('participant', array(
+			'activated' 		=> FALSE,
+			'deactivated' 		=> input_datetime(),
+			'deactivated_reason' => $reason));
 	}
 
 	/** Returns the date on and experiment for which the given participant was last called */

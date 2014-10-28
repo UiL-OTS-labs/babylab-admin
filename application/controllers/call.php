@@ -55,7 +55,7 @@ class Call extends CI_Controller
 	{
 		if (!is_admin() && !correct_user($user_id)) return;
 
-		create_call_table(NULL, TRUE);
+		create_call_table(NULL, FALSE);
 		$data['ajax_source'] = 'call/table_by_user/' . $user_id;
 		$data['sort_column'] = 5;	// Sort on timestart
 		$data['page_title'] = lang('calls');
@@ -220,22 +220,22 @@ class Call extends CI_Controller
 		$comment = $this->post_comment($participant->id);
 		if (!empty($comment)) $this->commentModel->add_comment($comment);
 
-		// Deactivate user as well?
-		$never_again = $this->input->post('never_again');
-
 		// End the call
 		$this->callModel->end_call($call_id, CallStatus::Cancelled);
 		$this->participationModel->cancel($participation->id, TRUE);
 		$this->participationModel->release_lock($participation->id);
 
 		// Deactivate the participant
-		if($this->input->post('never_again'))
+		if ($this->input->post('never_again'))
 		{
-			$this->participantModel->set_activate($participant->id, false);
+			$this->participantModel->deactivate($participant->id, DeactivateReason::DuringCall);
 			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant)));
 		}
 		else
-			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name ) );
+		{
+			flashdata(sprintf(lang('part_cancelled'), name($participant), $experiment->name));
+		}
+
 		redirect('/participant/find/' . $experiment->id, 'refresh');
 	}
 	
@@ -369,7 +369,9 @@ class Call extends CI_Controller
 	 */
 	public function table()
 	{
-		$this->datatables->select('username, CONCAT(firstname, " ", lastname) AS p, experiment.name AS e,
+		$this->datatables->select('username, 
+			CONCAT(participant.firstname, " ", participant.lastname) AS p, 
+			experiment.name AS e,
 			call.status AS status, nr, timestart, timeend,
 			call.id AS id, participant_id, experiment_id, user_id', FALSE);
 		$this->datatables->from('call');

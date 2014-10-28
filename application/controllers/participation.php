@@ -31,17 +31,24 @@ class Participation extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
-		create_participation_table();
-
-		//$add_url = array('url' => 'participation/add', 'title' => lang('add_participation_adhoc'));
-		$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
-
 		switch (current_role())
 		{
-			case UserRole::Admin: $source = 'participation/table/'; $data['action_urls'] = array($add_url); break;
-			case UserRole::Leader: 	$source = 'participation/table_by_leader/'; break;
-			default: $source = 'participation/table_by_caller/'; break;
+			case UserRole::Admin: 
+				create_participation_table();
+				$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
+				$source = 'participation/table/'; 
+				$data['action_urls'] = array($add_url); 
+				break;
+			case UserRole::Leader: 
+				create_participation_leader_table();
+				$source = 'participation/table_by_leader/'; 
+				break;
+			default: 
+				create_participation_table();
+				$source = 'participation/table_by_caller/'; 
+				break;
 		}
+
 		$data['ajax_source'] = $source;
 		$data['page_title'] = lang('participations');
 
@@ -265,9 +272,7 @@ class Participation extends CI_Controller
 		$call_id = $this->callModel->create_call($participation_id);
 
 		// Find possible combination experiment 
-		$c_true = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, TRUE);
-		$c_false = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination, FALSE);
-		$combinations = $c_true + $c_false;
+		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
 		$combination = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
 
 		// Create page data
@@ -450,7 +455,7 @@ class Participation extends CI_Controller
 	}
 
 	/** Completes a participation */
-	public function completed($participation_id, $pp_comment = '')
+	public function completed($participation_id, $pp_comment = '', $tech_comment = '')
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
@@ -463,9 +468,9 @@ class Participation extends CI_Controller
 		$data['experiment_id'] = $experiment->id;
 		$data = add_fields($data, 'participation', $participation);
 
-		// Interrupted and pp_comment are a bit silly...
-		$data['interrupted'] = '';
+		// Empty the comments, so one can re-enter them at wish
 		$data['pp_comment'] = $pp_comment;
+		$data['tech_comment'] = $tech_comment;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participation_complete', $data);
@@ -489,7 +494,8 @@ class Participation extends CI_Controller
 		{
 			// If not succeeded, return to previous page
 			$pp_comment = $this->input->post('pp_comment');
-			$this->completed($participation_id, $pp_comment);
+			$tech_comment = $this->input->post('tech_comment');
+			$this->completed($participation_id, $pp_comment, $tech_comment);
 		}
 		else
 		{
@@ -511,6 +517,12 @@ class Participation extends CI_Controller
 			{
 				$this->participationModel->add_tech_message($participation_id, $tech_comment);
 				$this->send_technical_email($participation_id, $tech_comment);
+			}
+
+			// Deactivate participant (possibly)
+			if ($this->input->post('cancelled_complete'))
+			{
+				$this->participantModel->deactivate($participant->id, DeactivateReason::AfterExp);
 			}
 
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));
@@ -640,10 +652,33 @@ class Participation extends CI_Controller
 		$this->table();
 	}
 
-	public function table_by_leader()
+	/**
+	 * Special table for leaders, with another set of columns and actions
+	 */
+	public function table_by_leader($experiment_id = NULL)
 	{
 		$experiment_ids = $this->leaderModel->get_experiment_ids_by_leader(current_user_id());
+
+		$this->datatables->select('name AS e, part_number, risk, appointment, appointment AS age, interrupted, comment,
+									participation.id AS id, participant_id, experiment_id', FALSE);
+		$this->datatables->from('participation');
+		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
+
+		// Exclude empty participations
+		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
+
 		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
-		$this->table();
+		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
+
+		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
+		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');
+		$this->datatables->edit_column('risk', '$1', 'img_tick(risk, 0)');
+		$this->datatables->edit_column('age', '$1', 'age_in_md_by_id(participant_id, age)');
+		$this->datatables->edit_column('interrupted', '$1', 'img_tick(interrupted, 0)');
+		$this->datatables->edit_column('id', '$1', 'participation_actions(id)');
+
+		$this->datatables->unset_column('experiment_id');
+
+		echo $this->datatables->generate();
 	}
 }

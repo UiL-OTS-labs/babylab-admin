@@ -91,6 +91,14 @@ class L {
 	const Dutch 		= 'dutch';
 }
 
+/** Deactivation reasons */
+class DeactivateReason {
+	const NewParticipant = 'new';
+	const DuringCall	= 'call';
+	const AfterExp		= 'exp';
+	const Manual		= 'manual';
+}
+
 /** Number of weeks to look ahead */
 define('WEEKS_AHEAD', 2);
 

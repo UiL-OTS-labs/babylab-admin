@@ -86,9 +86,9 @@
 	</h3>
 	<div>
 	<?php
-	create_participation_table('participations');
+	is_leader() ? create_participation_leader_table('participations') : create_participation_table('participations');
 	$participations['id'] = 'participations';
-	$participations['ajax_source'] = 'participation/table/0/' . $experiment->id;
+	$participations['ajax_source'] = is_leader() ? 'participation/table_by_leader/' . $experiment->id : 'participation/table/0/' . $experiment->id;
 	$this->load->view('templates/list_view', $participations);
 	?>
 	</div>

@@ -43,7 +43,9 @@ $lang['seldom']				= "Zelden";
 
 $lang['days'] 				= "dagen";
 $lang['weeks'] 				= "weken";
+$lang['month']              = "Maand";
 $lang['months']				= "maanden";
+$lang['year']               = "Jaar";
 $lang['years'] 				= "jaren";
 
 $lang['no_results_found']	= "Geen resultaten gevonden.";
@@ -192,8 +194,8 @@ $lang['participant_edited'] = "Proefpersoon %s succesvol bewerkt.";
 $lang['general_info']	 	= "Algemene informatie";
 $lang['contact_details']	= "Contactinformatie";
 $lang['parent_name']	 	= "Ouder";
-$lang['p_activated'] 		= "Proefpersoon %s geactiveerd.";
-$lang['p_deactivated'] 		= "Proefpersoon %s gedeactiveerd.";
+$lang['p_activated'] 		= "Proefpersoon <em>%s</em> geactiveerd.";
+$lang['p_deactivated'] 		= "Proefpersoon <em>%s</em> gedeactiveerd.";
 $lang['p_not_yet_active']	= "Deze proefpersoon is nog niet geactiveerd.";
 $lang['p_already_activated'] = "Deze proefpersoon is reeds geactiveerd.";
 $lang['all_participants']	= "Alle proefpersonen";
@@ -223,11 +225,14 @@ $lang['his']				= "Zijn";
 $lang['her']				= "Haar";
 $lang['both']				= "Beide";
 $lang['origin']				= "Hoe hoorde u van het Babylab Utrecht?";
+$lang['control']            = "Controle";
+$lang['participant_graph']  = "Toon grafiek per jaar/maand";
 
 /* Participations */
 $lang['participation']	 	= "Deelname";
 $lang['participations']	 	= "Deelnames";
 $lang['participations_for']	= "Deelnames aan experiment %s";
+$lang['risk']               = "D/M";
 $lang['last_called']	 	= "Vorige keer gebeld";
 $lang['last_call']	 		= "%s voor %s";
 $lang['last_experiment']	= "Vorige deelname";
@@ -241,18 +246,18 @@ $lang['include_callable']	= "Belbare proefpersonen ook tonen";
 $lang['exclude_callable']	= "Belbare proefpersonen verbergen";
 $lang['nr_calls']			= "# gebeld";
 $lang['appointment']		= "Afspraak";
-$lang['confirmed']			= "Afspraak maken";
+$lang['confirmed']			= "Afspraak gemaakt";
 $lang['reschedule']			= "Afspraak verzetten";
 $lang['rescheduled']		= "Afspraak verzet";
 $lang['reschedule_short']   = "verzetten";
 $lang['reschedule_info']	= "U gaat nu de afspraak van <strong>%s</strong> voor experiment <em>%s</em> verzetten. De huidige afspraak staat op %s.";
 $lang['cancelled']			= "Kan/wil niet meedoen";
-$lang['cancelled_complete']	= "Wil nooit meer mee doen";
+$lang['cancelled_complete']	= "Wil nooit meer mee doen (uitschrijven uit belbestand)";
 $lang['cancelled_short']	= "Geannuleerd";
-$lang['cancel_info']        = "U gaat nu de afspraak met <strong>%s</strong> voor experiment <em>%s</em> annuleren. 
-    De leider(s) van het experiment ontvangen hiervan een e-mail. 
-    De afspraak kan ook verwijderd worden, dan wordt het mogelijk de proefpersoon opnieuw te bellen. 
-    Als u al een nieuwe afspraak gemaakt heeft, dan is het beter om deze afspraak direct te %s.";
+$lang['cancel_info']        = "<ul><li>U gaat nu de afspraak met <strong>%s</strong> voor experiment <em>%s</em> annuleren.</li> 
+    <li>De leider(s) van het experiment ontvangen hiervan een e-mail.</li> 
+    <li>De afspraak kan ook verwijderd worden, dan wordt het mogelijk de proefpersoon opnieuw te bellen.</li> 
+    <li>Als u al een nieuwe afspraak gemaakt heeft, dan is het beter om deze afspraak direct te %s.</li></ul>";
 $lang['call_started']		= "Gesprek gestart";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";

@@ -43,7 +43,9 @@ $lang['seldom']				= "Seldom";
 
 $lang['days'] 				= "days";
 $lang['weeks'] 				= "weeks";
-$lang['months']				= "months";
+$lang['month']              = "Month";
+$lang['months']             = "months";
+$lang['year']               = "Year";
 $lang['years'] 				= "years";
 
 $lang['no_results_found']	= "No results found.";
@@ -191,8 +193,8 @@ $lang['participant_edited'] = "Participant %s successfully edited.";
 $lang['general_info']	 	= "General information";
 $lang['contact_details']	= "Contact details";
 $lang['parent_name']	 	= "Parent's name";
-$lang['p_activated'] 		= "Participant %s activated.";
-$lang['p_deactivated'] 		= "Participant %s deactivated.";
+$lang['p_activated'] 		= "Participant <em>%s</em> activated.";
+$lang['p_deactivated'] 		= "Participant <em>%s</em> deactivated.";
 $lang['p_not_yet_active']	= "This participant has not yet been activated.";
 $lang['p_already_activated'] = "This participant is already activated.";
 $lang['all_participants']	= "All participants";
@@ -222,11 +224,14 @@ $lang['his']				= "His";
 $lang['her']				= "Her";
 $lang['both']				= "Both";
 $lang['origin']				= "How do you know about Babylab Utrecht?";
+$lang['control']            = "Control";
+$lang['participant_graph']  = "Show graph per year/month";
 
 /* Participations */
 $lang['participation']	 	= "Participation";
 $lang['participations']	 	= "Participations";
 $lang['participations_for']	= "Participations in experiment %s";
+$lang['risk']               = "D/M";
 $lang['last_called']	 	= "Last called";
 $lang['last_call']	 		= "%s for %s";
 $lang['last_experiment']	= "Last participation";
@@ -246,7 +251,7 @@ $lang['rescheduled']		= "Appointment rescheduled";
 $lang['reschedule_short']   = "reschedule";
 $lang['reschedule_info']	= "Now rescheduling <strong>%s</strong> in experiment <em>%s</em>. The current appointment is at %s.";
 $lang['cancelled']			= "Can't/won't participate";
-$lang['cancelled_complete']	= "Never wants to participate again";
+$lang['cancelled_complete']	= "Never wants to participate again (unsubscribe from any next call)";
 $lang['cancelled_short']	= "Cancelled";
 $lang['cancel_info']        = "You're about to cancel the participation of <strong>%s</strong> in experiment <em>%s</em>. 
     The leader(s) of this experiment will receive an e-mail of this cancellation.

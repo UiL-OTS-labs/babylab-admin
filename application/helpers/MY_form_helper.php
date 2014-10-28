@@ -123,7 +123,7 @@ if (!function_exists('form_checkbox_and_label'))
 
 if (!function_exists('form_single_checkbox_and_label'))
 {
-	function form_single_checkbox_and_label($name, $value, $checked = FALSE, $div = 'pure-control-group', $label = '')
+	function form_single_checkbox_and_label($name, $value = NULL, $checked = FALSE, $div = 'pure-control-group', $label = '')
 	{
 		$id = $name;
 		$text = empty($label) ? lang($name) : $label;

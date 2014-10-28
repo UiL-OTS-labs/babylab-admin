@@ -7,12 +7,12 @@
 if (!function_exists('create_call_table'))
 {
 	/** Creates the table with call data */
-	function create_call_table($id = NULL, $by_user = FALSE)
+	function create_call_table($id = NULL, $show_caller = TRUE)
 	{
 		$CI =& get_instance();
 		base_table($id);
 		$heading = array(lang('participant'), lang('experiment'), lang('action'), lang('order'), lang('start_call'), lang('end_call'), lang('actions'));
-		if (empty($id) && !$by_user) array_unshift($heading, lang('caller'));
+		if ($show_caller) array_unshift($heading, lang('caller'));
 		$CI->table->set_heading($heading);
 	}
 }
