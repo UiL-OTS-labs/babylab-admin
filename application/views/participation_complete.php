@@ -11,7 +11,7 @@
 <?=form_fieldset(lang('complete_part')); ?>
 <?=form_input_and_label('part_number', $part_number, 'required'); ?>
 <div class="pure-control-group">
-<?=form_label(lang('interrupted'), 'interrupted'); ?>
+<?=form_label(lang('interrupted_long'), 'interrupted'); ?>
 <?=form_radio_and_label('interrupted', '1', $interrupted, lang('yes')); ?>
 <?=form_radio_and_label('interrupted', '0', $interrupted, lang('no'), TRUE); ?>
 </div>

@@ -290,6 +290,7 @@ $lang['risk_group']	 		= "Risk group";
 $lang['control_group']	 	= "Control group";
 $lang['part_number']	 	= "Participant number";
 $lang['interrupted']	 	= "Interrupted";
+$lang['interrupted_long']   = "Interrupted during experiment";
 $lang['part_interrupted']	= "This participation was interrupted.";
 $lang['interruptions']		= "Interrupted participations";
 $lang['interruptions_for']	= "Interrupted participations for %s";
