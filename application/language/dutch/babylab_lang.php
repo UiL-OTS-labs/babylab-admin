@@ -426,4 +426,5 @@ $lang['time_from']			= "Tijd vanaf";
 $lang['time_to']			= "Tijd tot";
 $lang['availability_select'] = "Selecteer datum en tijden";
 $lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
+$lang['daterange_already_exists'] = "De volgende items bestaan al in de database of overlappen deels met reeds bestaande items:<br/>%sU kunt de items aanpassen, maar de huidige items kunnen niet worden toegevoegd zolang de oude items nog bestaan.";
 ?>
