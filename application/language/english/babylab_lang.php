@@ -431,4 +431,5 @@ $lang['time_from']			= "Time from";
 $lang['time_to']			= "Time to";
 $lang['availability_select'] = "Select date and times";
 $lang['date_range']			= "Select multiple dates in one go";
+$lang['daterange_already_exists'] = "De following items already exist or are in the same range as items in the database:<br/>%sYou can edit these items, but not add new items in these ranges while the others exist.";
 ?>

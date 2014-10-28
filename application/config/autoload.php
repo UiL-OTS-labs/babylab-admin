@@ -118,7 +118,7 @@ $autoload['language'] = array();
 $autoload['model'] = array('callModel', 'callerModel', 'commentModel', 'experimentModel', 'relationModel',
 							'locationModel', 'impedimentModel', 'leaderModel', 'userModel', 'languageModel', 'dyslexiaModel',
 							'participantModel', 'participationModel', 'percentileModel', 'resultModel', 
-							'scoreModel', 'testModel', 'testCatModel', 'testSurveyModel', 'testInviteModel', 'testTemplateModel');
+							'scoreModel', 'testModel', 'testCatModel', 'testSurveyModel', 'testInviteModel', 'testTemplateModel', 'availabilityModel');
 
 
 /* End of file autoload.php */
