@@ -522,7 +522,7 @@ class Participation extends CI_Controller
 			// Deactivate participant (possibly)
 			if ($this->input->post('cancelled_complete'))
 			{
-				$this->participantModel->set_activate($participant->id, FALSE);
+				$this->participantModel->deactivate($participant->id, DeactivateReason::AfterExp);
 			}
 
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));

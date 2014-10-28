@@ -228,7 +228,7 @@ class Call extends CI_Controller
 		// Deactivate the participant
 		if ($this->input->post('never_again'))
 		{
-			$this->participantModel->set_activate($participant->id, FALSE);
+			$this->participantModel->deactivate($participant->id, DeactivateReason::DuringCall);
 			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant)));
 		}
 		else

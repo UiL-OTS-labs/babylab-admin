@@ -98,7 +98,7 @@ class Participant extends CI_Controller
 			$this->create_languages($participant_id);
 
 			// Activate the participant (only on manual creation from the application!)
-			$this->participantModel->set_activate($participant_id, TRUE);
+			$this->participantModel->activate($participant_id);
 
 			// Display success
 			$p = $this->participantModel->get_participant_by_id($participant_id);
@@ -210,7 +210,7 @@ class Participant extends CI_Controller
 			if (!empty($comment)) $this->commentModel->add_comment($comment);
 
 			// Don't activate, but send an e-mail to all admins to activate
-			$this->participantModel->set_activate($participant_id, FALSE);
+			$this->participantModel->deactivate($participant_id, DeactivateReason::NewParticipant);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
 			$url = $this->config->site_url() . "participant/get/" . $participant_id;
 			$users = $this->userModel->get_all_admins();
@@ -458,7 +458,7 @@ class Participant extends CI_Controller
 	/** Activates the specified participant */
 	public function activate($participant_id)
 	{
-		$this->participantModel->set_activate($participant_id, 1);
+		$this->participantModel->activate($participant_id);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_activated'), name($participant)));
 		redirect($this->agent->referrer(), 'refresh');
@@ -467,7 +467,7 @@ class Participant extends CI_Controller
 	/** Deactivates the specified participant */
 	public function deactivate($participant_id)
 	{
-		$this->participantModel->set_activate($participant_id, 0);
+		$this->participantModel->deactivate($participant_id, DeactivateReason::Manual);
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		flashdata(sprintf(lang('p_deactivated'), name($participant)));
 		redirect($this->agent->referrer(), 'refresh');
