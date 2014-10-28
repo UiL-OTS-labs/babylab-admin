@@ -15,6 +15,17 @@ if (!function_exists('create_participation_table'))
 	}
 }
 
+if (!function_exists('create_participation_leader_table'))
+{
+	/** Creates the table with participation data for leaders */
+	function create_participation_leader_table($id = NULL)
+	{
+		$CI =& get_instance();
+		base_table($id);
+		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), lang('age'), lang('interrupted'), lang('comment'), lang('actions'));
+	}
+}
+
 if (!function_exists('create_participation_counter_table'))
 {
 	/** Creates the table with participation data with a specific counter column (no_shows, interruptions) */

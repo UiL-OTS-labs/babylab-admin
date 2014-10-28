@@ -227,6 +227,7 @@ $lang['origin']				= "How do you know about Babylab Utrecht?";
 $lang['participation']	 	= "Participation";
 $lang['participations']	 	= "Participations";
 $lang['participations_for']	= "Participations in experiment %s";
+$lang['risk']               = "D/M";
 $lang['last_called']	 	= "Last called";
 $lang['last_call']	 		= "%s for %s";
 $lang['last_experiment']	= "Last participation";

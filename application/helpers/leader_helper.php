@@ -11,7 +11,7 @@ if (!function_exists('create_leader_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('leader'), lang('actions'));
+		$heading = array(lang('experiment'), lang('leader'), lang('actions'));
 		if (empty($id)) array_unshift($heading, lang('experiment'));
 		$CI->table->set_heading($heading);
 	}

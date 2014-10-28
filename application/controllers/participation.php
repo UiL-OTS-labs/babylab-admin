@@ -31,17 +31,24 @@ class Participation extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
-		create_participation_table();
-
-		//$add_url = array('url' => 'participation/add', 'title' => lang('add_participation_adhoc'));
-		$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
-
 		switch (current_role())
 		{
-			case UserRole::Admin: $source = 'participation/table/'; $data['action_urls'] = array($add_url); break;
-			case UserRole::Leader: 	$source = 'participation/table_by_leader/'; break;
-			default: $source = 'participation/table_by_caller/'; break;
+			case UserRole::Admin: 
+				create_participation_table();
+				$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
+				$source = 'participation/table/'; 
+				$data['action_urls'] = array($add_url); 
+				break;
+			case UserRole::Leader: 
+				create_participation_leader_table();
+				$source = 'participation/table_by_leader/'; 
+				break;
+			default: 
+				create_participation_table();
+				$source = 'participation/table_by_caller/'; 
+				break;
 		}
+
 		$data['ajax_source'] = $source;
 		$data['page_title'] = lang('participations');
 
@@ -645,10 +652,33 @@ class Participation extends CI_Controller
 		$this->table();
 	}
 
-	public function table_by_leader()
+	/**
+	 * Special table for leaders, with another set of columns and actions
+	 */
+	public function table_by_leader($experiment_id = NULL)
 	{
 		$experiment_ids = $this->leaderModel->get_experiment_ids_by_leader(current_user_id());
+
+		$this->datatables->select('name AS e, part_number, risk, appointment, appointment AS age, interrupted, comment,
+									participation.id AS id, participant_id, experiment_id', FALSE);
+		$this->datatables->from('participation');
+		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
+
+		// Exclude empty participations
+		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
+
 		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
-		$this->table();
+		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
+
+		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
+		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');
+		$this->datatables->edit_column('risk', '$1', 'img_tick(risk, 0)');
+		$this->datatables->edit_column('age', '$1', 'age_in_md_by_id(participant_id, age)');
+		$this->datatables->edit_column('interrupted', '$1', 'img_tick(interrupted, 0)');
+		$this->datatables->edit_column('id', '$1', 'participation_actions(id)');
+
+		$this->datatables->unset_column('experiment_id');
+
+		echo $this->datatables->generate();
 	}
 }

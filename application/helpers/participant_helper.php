@@ -163,15 +163,17 @@ if (!function_exists('age_in_months'))
 	}
 }
 
-if (!function_exists('age_in_months_by_id'))
+if (!function_exists('age_in_md_by_id'))
 {
-	/** Returns the age in months of the participant given an optional date */
-	function age_in_months_by_id($participant_id, $date = '')
+	/** Returns the age in months of the participant */
+	function age_in_md_by_id($participant_id, $date)
 	{
+		if (!$date) return '';
+
 		$CI =& get_instance();
 		$participant = $CI->participantModel->get_participant_by_id($participant_id);
 
-		return age_in_months($participant, $date);
+		return age_in_months_and_days($participant, $date);
 	}
 }
 
