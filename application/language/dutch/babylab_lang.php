@@ -421,4 +421,14 @@ $lang['show_calendar']		= "Toon de agenda";
 
 /* Anamnese */
 $lang['send_anamnese'] 		= "Anamnese versturen?";
+
+/* Availability view */
+$lang['availability']		= "Beschikbaarheid";
+$lang['availability_add']	= "Toevoegen";
+$lang['availability_reset']	= "Beginwaarden";
+$lang['availability_schedule']	= "Huidige beschikbaarheid";
+$lang['time_from']			= "Tijd vanaf";
+$lang['time_to']			= "Tijd tot";
+$lang['availability_select'] = "Selecteer datum en tijden";
+$lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
 ?>

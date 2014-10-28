@@ -34,14 +34,6 @@ function initializeCalendar(lang) {
 	    	$('#calendar').fullCalendar('changeView', 'agendaDay');
 	    	$('#calendar').fullCalendar('gotoDate', date);
 	    	
-	        //alert('Clicked on: ' + date.format());
-
-	        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-	        //alert('Current view: ' + view.name);
-
-	        
-
 	    },
 
 	    // Add qTip tooltips to events 

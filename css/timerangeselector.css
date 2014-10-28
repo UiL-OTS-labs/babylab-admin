@@ -1,0 +1,51 @@
+.timeslot-picker th{
+	font-weight: normal;
+	background-color: #474747;
+	color: #ffffff;
+	border: 0px solid #000;
+}
+
+.timeslot-picker .timepicker-header{
+	width: 20px;
+	border-bottom: 5px solid white;
+	padding: 5px 0px 5px 0px;
+}
+
+.timeslot-picker .time-picker-row-header{
+	height: 20px;
+	border-right: 5px solid white;
+	padding: 0px 5px 0px 5px;
+}
+
+
+.timeslot-picker td{
+	border: 1px solid white;
+	padding: 0px;
+	margin: 0px;
+	background-color: #e0e0e0;
+}
+
+.timeslot-picker th.ui-custom-hovering{
+	background-color: #6E6E6E;
+}
+
+td.ui-custom-selected {
+	background-color: #0b3e6f;
+}
+
+.timeslot-picker td.ui-custom-hovering{
+	background-color: #D4CDCD;
+}
+
+td.ui-custom-selected.ui-custom-hovering {
+	background-color: #0B4A87;
+}
+
+td.ui-custom-selecting, td.ui-custom-selecting.ui-custom-hovering{
+	background-color: #1b48e4;
+}
+
+td.ui-custom-unselecting, td.ui-custom-unselecting.ui-custom-hovering{
+	background-color: #efefef;
+}
+
