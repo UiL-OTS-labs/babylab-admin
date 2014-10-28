@@ -20,12 +20,13 @@ class Participant extends CI_Controller
 	public function index()
 	{
 		$add_url = array('url' => 'participant/add', 'title' => lang('add_participant'));
+		$graph_url = array('url' => 'participant/graph', 'title' => lang('participant_graph'));
 
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
-		$data['action_urls'] = array($add_url);
-		$data['hide_columns'] = "6";
+		$data['action_urls'] = array($add_url, $graph_url);
+		$data['hide_columns'] = '6';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -341,7 +342,6 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/**
-	 *
 	 * Finds available participants for an experiment
 	 * @param integer $experiment_id
 	 * @param integer $weeks_ahead
@@ -379,6 +379,76 @@ class Participant extends CI_Controller
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
+	}
+
+	/**
+	 * Shows a graph of participants in the database
+	 */
+	public function graph()
+	{
+		$data['page_title'] = 'Proefpersonen per jaar/maand';
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('participant_graph', $data);
+		$this->load->view('templates/footer');
+	}
+
+	public function graph_json() 
+	{
+		$table = array();
+		$table['cols'] = array(
+		array('label' => lang('year'), 'type' => 'string'),
+		array('label' => lang('month'), 'type' => 'string'),
+		array('label' => lang('control'), 'type' => 'number'),
+		array('label' => lang('dyslexic'), 'type' => 'number'),
+		array('label' => lang('multilingual'), 'type' => 'number'),
+		array('label' => lang('both'), 'type' => 'number'),
+		);
+
+		$count = array();
+
+		$participants = $this->participantModel->get_all_participants(TRUE); 
+		foreach ($participants AS $participant)
+		{
+			$month = date('Y-m', strtotime($participant->dateofbirth));
+			$d = $participant->dyslexicparent != NULL;
+			$m = $participant->multilingual;
+			$type = 3 * $d + 5 * $m; 
+
+			if (!isset($count[$month][$type]))
+			{
+				$count[$month][$type] = 1; 
+			}
+			else 
+			{
+				$count[$month][$type]++;
+			}
+		}
+		ksort($count);
+
+		$nr = 0;
+		$rows = array();
+		foreach ($count as $k => $v)
+		{
+			$rows[$nr][0] = array('v' => substr($k, 0, 4));
+			$rows[$nr][1] = array('v' => strftime('%h %Y', strtotime($k)));
+			$rows[$nr][2] = array('v' => isset($v[0]) ? $v[0] : 0);
+			$rows[$nr][3] = array('v' => isset($v[3]) ? $v[3] : 0);
+			$rows[$nr][4] = array('v' => isset($v[5]) ? $v[5] : 0);
+			$rows[$nr][5] = array('v' => isset($v[8]) ? $v[8] : 0);
+
+			$nr++;
+		}
+
+		$table['rows'] = $this->flatten($rows);
+		echo json_encode($table);
+	}
+
+	private function flatten($rows)
+	{
+		$result = array();
+		foreach ($rows as $row) array_push($result, array('c' => array_values($row)));
+		return $result;
 	}
 
 	/////////////////////////

@@ -43,7 +43,9 @@ $lang['seldom']				= "Zelden";
 
 $lang['days'] 				= "dagen";
 $lang['weeks'] 				= "weken";
+$lang['month']              = "Maand";
 $lang['months']				= "maanden";
+$lang['year']               = "Jaar";
 $lang['years'] 				= "jaren";
 
 $lang['no_results_found']	= "Geen resultaten gevonden.";
@@ -223,6 +225,8 @@ $lang['his']				= "Zijn";
 $lang['her']				= "Haar";
 $lang['both']				= "Beide";
 $lang['origin']				= "Hoe hoorde u van het Babylab Utrecht?";
+$lang['control']            = "Controle";
+$lang['participant_graph']  = "Toon grafiek per jaar/maand";
 
 /* Participations */
 $lang['participation']	 	= "Deelname";

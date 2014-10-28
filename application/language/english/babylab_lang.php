@@ -43,7 +43,9 @@ $lang['seldom']				= "Seldom";
 
 $lang['days'] 				= "days";
 $lang['weeks'] 				= "weeks";
-$lang['months']				= "months";
+$lang['month']              = "Month";
+$lang['months']             = "months";
+$lang['year']               = "Year";
 $lang['years'] 				= "years";
 
 $lang['no_results_found']	= "No results found.";
@@ -222,6 +224,8 @@ $lang['his']				= "His";
 $lang['her']				= "Her";
 $lang['both']				= "Both";
 $lang['origin']				= "How do you know about Babylab Utrecht?";
+$lang['control']            = "Control";
+$lang['participant_graph']  = "Show graph per year/month";
 
 /* Participations */
 $lang['participation']	 	= "Participation";
