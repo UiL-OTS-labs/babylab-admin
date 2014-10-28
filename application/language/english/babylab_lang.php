@@ -424,4 +424,5 @@ $lang['availability_schedule']	= "Table of availability";
 $lang['time_from']			= "Time from";
 $lang['time_to']			= "Time to";
 $lang['availability_select'] = "Select date and times";
+$lang['date_range']			= "Select multiple dates in one go";
 ?>

@@ -1,3 +1,5 @@
+// Requires JQuery and MomentJs
+
 (function($) {  
     $.widget("ui.selectorTable", {
         first: null, last: null, add: "ui-custom-selected", mouseDown: 0, hourComplete: 60,
@@ -32,7 +34,7 @@
 
             for (i = 0; i <= that._hourComplete; i = i+o.resolution)
             {
-                table += '<th class="timepicker-header">' + i + '</th>';
+                table += '<th class="timepicker-header" id="minutes-' + that._mkDouble(i) + '">' + i + '</th>';
             }
             
             table += '</tr></thead>';
@@ -40,7 +42,7 @@
             // Create body
             for (i = o.hourStart; i <= o.hourEnd; i++)
             {
-                table += '<tr id="' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + that._timeFromHour(i) + ' ' + o.hourText + '</th>';
+                table += '<tr id="hour-' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + that._timeFromHour(i) + ' ' + o.hourText + '</th>';
                 for (j = 0; j <= that._hourComplete; j = j + o.resolution)
                 {
                     table += '<td id="' + that._mkDouble(i) + '-' + that._mkDouble(j) + '">';
@@ -83,6 +85,7 @@
                 that._changeSelection();
 
             }).mouseover(function(){
+                that._mousePointer($(this));
                 if (that.mouseDown == 1)
                 {
                     if (!$(this).hasClass(that.add))
@@ -278,22 +281,11 @@
             var o = that.options;
 
             var times = $(cell).attr("id").split("-");
-
+            
             var hour = parseInt(times[0]);
 
-            var pm = "";
-            if (!o.hourFormat24)
-            {
-                if (hour > 12)
-                {
-                    hour = hour - 12;
-                    pm = " pm";
-                } else {
-                    pm = " am";
-                }
-            }
-
             var minutes = parseInt(times[1]);
+
             if (last)
             {
                 minutes += that.options.resolution;
@@ -304,12 +296,10 @@
                 }
             }
 
-            if (minutes == 0)
-            {
-                minutes = "00";
-            }
+            var time = moment({hour: hour, minute: minutes});
 
-            return hour + ":" + minutes + pm;
+            return time;
+
         },
         _mkDouble: function(i)
         {
@@ -369,6 +359,35 @@
                 } else {
                     return [hour + " am"];
                 }
+            }
+        },
+        _mousePointer: function(cell)
+        {
+            var that = this;
+            var o = that.options;
+
+            var times = $(cell).attr("id").split("-");
+            var hour = parseInt(times[0]);
+            var minutes = parseInt(times[1]);
+
+            $("#select-time-table td").each(function () {
+                $(this).removeClass('ui-custom-hovering');
+            });
+
+            $("#select-time-table th").each(function () {
+                $(this).removeClass('ui-custom-hovering');
+            });
+
+            $("#hour-" + that._mkDouble(hour) + " th").addClass("ui-custom-hovering");
+            $("#minutes-" + that._mkDouble(minutes)).addClass("ui-custom-hovering");
+
+            $("tr#" + hour + " td").addClass("ui-custom-hovering");
+
+            $("#hour-" + that._mkDouble(hour) + " td").addClass("ui-custom-hovering");
+
+            for (var i = o.hourStart; i <= o.hourEnd; i++)
+            {
+                $("#" + that._mkDouble(i) + "-" + that._mkDouble(minutes)).addClass("ui-custom-hovering");
             }
         }
     });

@@ -425,4 +425,5 @@ $lang['availability_schedule']	= "Huidige beschikbaarheid";
 $lang['time_from']			= "Tijd vanaf";
 $lang['time_to']			= "Tijd tot";
 $lang['availability_select'] = "Selecteer datum en tijden";
+$lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
 ?>
