@@ -186,6 +186,7 @@ $lang['not_leader']			= "U bent geen leider voor experiment %s.";
 /* Participants */
 $lang['participant']	 	= "Proefpersoon";
 $lang['participants']	 	= "Proefpersonen";
+$lang['new_participants']   = "Toon nieuw aangemelde (nog gedeactiveerde) proefpersonen";
 $lang['data_for_pp']		= "Data voor proefpersoon %s";
 $lang['add_participant'] 	= "Voeg proefpersoon toe";
 $lang['new_pp_added']		= "Nieuwe proefpersoon %s succesvol toegevoegd.";

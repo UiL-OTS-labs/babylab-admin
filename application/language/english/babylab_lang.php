@@ -185,6 +185,7 @@ $lang['not_leader']			= "You are not a leader for experiment %s.";
 /* Participants */
 $lang['participant']	 	= "Participant";
 $lang['participants']	 	= "Participants";
+$lang['new_participants']   = "Show newly registered (still deactivated) participants";
 $lang['data_for_pp']		= "Data for participant %s";
 $lang['add_participant'] 	= "Add participant";
 $lang['new_pp_added']		= "New participant %s successfully added.";

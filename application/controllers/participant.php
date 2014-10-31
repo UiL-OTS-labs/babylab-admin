@@ -20,12 +20,13 @@ class Participant extends CI_Controller
 	public function index()
 	{
 		$add_url = array('url' => 'participant/add', 'title' => lang('add_participant'));
+		$new_url = array('url' => 'participant/registered', 'title' => lang('new_participants'));
 		$graph_url = array('url' => 'participant/graph', 'title' => lang('participant_graph'));
 
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
-		$data['action_urls'] = array($add_url, $graph_url);
+		$data['action_urls'] = array($add_url, $new_url, $graph_url);
 		$data['hide_columns'] = '6';
 
 		$this->load->view('templates/header', $data);
@@ -340,6 +341,19 @@ class Participant extends CI_Controller
 	/////////////////////////
 	// Other views
 	/////////////////////////
+
+	/** Shows all newly registered participants */
+	public function registered()
+	{
+		create_participant_table();
+		$data['ajax_source'] = 'participant/table_registered/';
+		$data['page_title'] = lang('participants');
+		$data['hide_columns'] = '6';
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/list_view', $data);
+		$this->load->view('templates/footer');
+	}
 
 	/**
 	 * Finds available participants for an experiment
@@ -704,6 +718,13 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
 
 		echo $this->datatables->generate();
+	}
+
+	public function table_registered()
+	{
+		$this->datatables->where('deactivated IS NOT NULL');
+		$this->datatables->where('deactivated_reason', DeactivateReason::NewParticipant);
+		$this->table();
 	}
 
 	public function table_by_testsurvey($testsurvey_id)
