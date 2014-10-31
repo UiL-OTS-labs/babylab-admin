@@ -1,10 +1,21 @@
+<script type="text/javascript">
+$(function() 
+{
+    $('input:radio[name="excluded"]').change(function() 
+    {
+        var excluded = $(this).val() == '1';
+        $('select[name="excluded_reason"]').parent().toggle(excluded);
+    });
+
+    $('input:radio[name="excluded"]:checked').change();
+});
+</script>
+
 <?=heading(lang('participation'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
 
-<p>
-<?=sprintf(lang('complete_part_info'), $participant_name, $experiment_name); ?>
-</p>
+<p><?=sprintf(lang('complete_part_info'), $participant_name, $experiment_name); ?></p>
 
 <?=form_open('participation/completed_submit/' . $participation_id, array('class' => 'pure-form  pure-form-aligned')); ?>
 
@@ -15,6 +26,19 @@
 <?=form_radio_and_label('interrupted', '1', $interrupted, lang('yes')); ?>
 <?=form_radio_and_label('interrupted', '0', $interrupted, lang('no'), TRUE); ?>
 </div>
+<div class="pure-control-group">
+<?=form_label(lang('excluded_long'), 'excluded'); ?>
+<?=form_radio_and_label('excluded', '1', $excluded, lang('yes')); ?>
+<?=form_radio_and_label('excluded', '0', $excluded, lang('no'), TRUE); ?>
+</div>
+<?=form_dropdown_and_label('excluded_reason', array(
+    ExcludedReason::Crying                  => 'Huilen',
+    ExcludedReason::FussyOrRestless         => 'Onrustig gedrag', 
+    ExcludedReason::ParentalInterference    => 'Inmenging ouder',
+    ExcludedReason::TechnicalProblems       => 'Technische problemen',
+    ExcludedReason::Interrupted             => lang('interrupted_long'),
+    ExcludedReason::Other                   => 'Anders',
+    ), $excluded_reason); ?>
 
 <?=form_fieldset(lang('comments')); ?>
 <p class="warning"><?=lang('part_comment_info'); ?></p>
@@ -32,4 +56,3 @@
 <?=form_controls('participation/experiment/' . $experiment_id); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-<?=validation_errors(); ?>

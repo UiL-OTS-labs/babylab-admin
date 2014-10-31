@@ -485,6 +485,9 @@ class Participation extends CI_Controller
 
 		$this->form_validation->set_rules('part_number', lang('part_number'), 'trim|required');
 		$this->form_validation->set_rules('interrupted', lang('interrupted'), 'required');
+		$this->form_validation->set_rules('excluded', lang('excluded'), 'required');
+		$this->form_validation->set_rules('excluded_reason', lang('excluded_reason'), 
+			$this->input->post('excluded') ? 'callback_not_default' : 'trim');
 		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required');
 		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim');
 		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim');
@@ -500,9 +503,12 @@ class Participation extends CI_Controller
 		else
 		{
 			// If succeeded, insert data into database
+			$r = $this->input->post('excluded_reason');
 			$participation = array(
 				'part_number' 	=> $this->input->post('part_number'),
 				'interrupted' 	=> $this->input->post('interrupted'),
+				'excluded' 		=> $this->input->post('excluded'),
+				'excluded_reason' => $r == '-1' ? NULL : $r,
 				'comment'  		=> $this->input->post('comment')
 			);
 			$this->participationModel->completed($participation_id, $participation);

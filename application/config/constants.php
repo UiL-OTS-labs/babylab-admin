@@ -99,6 +99,16 @@ class DeactivateReason {
 	const Manual		= 'manual';
 }
 
+/** Exclusion reasons */
+class ExcludedReason {
+	const Crying 				= 'crying';
+	const FussyOrRestless		= 'fussy';
+	const ParentalInterference	= 'parent';
+	const TechnicalProblems		= 'tech_problems';
+	const Interrupted			= 'interrupted';
+	const Other					= 'other';
+}
+
 /** Number of weeks to look ahead */
 define('WEEKS_AHEAD', 2);
 
