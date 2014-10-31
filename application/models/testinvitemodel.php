@@ -16,6 +16,13 @@ class TestInviteModel extends CI_Model
 		return $this->db->get('testinvite')->result();
 	}
 
+	/** Returns all uncompleted testinvites as an array */
+	public function get_uncompleted_testinvites()
+	{
+		$this->db->where('datecompleted', NULL);
+		return $this->db->get('testinvite')->result();
+	}
+
 	/** Adds a testinvite to the DB */
 	public function add_testinvite($testinvite)
 	{
@@ -67,10 +74,18 @@ class TestInviteModel extends CI_Model
 		return $this->db->get_where('testinvite', array('token' => $token))->row();
 	}
 
-	/** Returns the testinvite for a token (unique key) */
+	/** Sets a testinvite as completed */
 	public function set_completed($testinvite_id)
 	{
 		$this->db->set('datecompleted', input_datetime());
+		$this->db->where('id', $testinvite_id);
+		$this->db->update('testinvite');
+	}
+
+	/** Sets a testinvite as reminded */
+	public function set_reminded($testinvite_id)
+	{
+		$this->db->set('datereminder', input_datetime());
 		$this->db->where('id', $testinvite_id);
 		$this->db->update('testinvite');
 	}

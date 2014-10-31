@@ -3,7 +3,8 @@ class SurveyInvite extends CI_Controller
 {
 	// cron job (crontab -e):
 	// 0 9 *   *   *     php /var/www/babylab/index.php cron/surveyinvite invite
-	// will send call test invitation mails out every day at 9 AM.
+	// 0 9 *   *   *     php /var/www/babylab/index.php cron/surveyinvite reminder
+	// will send call test invitation/reminder mails out every day at 9 AM.
 
 	public function __construct()
 	{
@@ -32,7 +33,7 @@ class SurveyInvite extends CI_Controller
 			// Find all participants of the correct age
 			$participants = $this->participantModel->get_participants_of_age($testsurvey->whennr);
 			$participants += $this->participantModel->get_participants_of_age($testsurvey->whennr - 1);
-			foreach ($participants AS $participant)
+			foreach ($participants as $participant)
 			{
 				// Check if the participant has a participation, if not, continue
 				$participations = $this->participationModel->get_participations_by_participant($participant->id, TRUE);
@@ -56,6 +57,48 @@ class SurveyInvite extends CI_Controller
 				}
 			}
 		}
+	}
+
+	/**
+	 * Sends out reminders for surveys
+	 */
+	public function reminder()
+	{
+		if (!$this->input->is_cli_request())
+		{
+			echo "This script can only be accessed via the command line" . PHP_EOL;
+			return;
+		}
+
+		// Set the language to Dutch (TODO: set to language of participant?)
+		reset_language(L::Dutch);
+
+		// Get all testinvites that have not yet been returned
+		$testinvites = $this->testInviteModel->get_uncompleted_testinvites(); 
+		foreach ($testinvites as $testinvite)
+		{
+			$date_sent = new DateTime($testinvite->datesent);
+			$diff_days = $date_sent->diff(new DateTime())->days;
+
+			// If no reminder has yet been sent and it's been 7 days, send a reminder e-mail
+			if (empty($testinvite->datereminder) && $diff_days >= 7)
+			{
+				$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+				$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
+
+				$message = email_replace('mail/' . $test->code . '_reminder', $participant, NULL, NULL, $testinvite);
+
+				$this->email->clear();
+				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+				$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+				$this->email->subject('Babylab Utrecht: Herinnering uitnodiging voor vragenlijst');
+				$this->email->message($message);
+				$this->email->send();
+
+				$this->testInviteModel->set_reminded($testinvite->id);
+			}
+		}
+
 	}
 
 	/**

@@ -1,16 +1,14 @@
 <html>
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
-<?php if ($auto) { ?>
-<p>Enige tijd geleden heeft u met uw <?=$gender; ?> <?=$name; ?> deelgenomen aan onderzoek aan het BabyLab van de Universiteit Utrecht. 
-<?php } else { ?>
-<p>Binnenkort gaat u met uw <?=$gender; ?> <?=$name_first; ?> deelnemen aan onderzoek aan het BabyLab van de Universiteit Utrecht. 
-<?php } ?>
-Hier zijn we heel blij mee, zo kunnen vragen op het gebied van taalverwerving bij kinderen beantwoord worden.</p>
-<p>Een deel van het onderzoek bestaat uit het in verband brengen van de taak waarvoor u met <?=$name_first; ?> bent gekomen en <?=$gender_pos; ?> taalvaardigheid op drie verschillende momenten. 
-Om deze reden sturen wij u deze e-mail. <?=$name_first; ?> heeft nu de leeftijd bereikt voor het meetmoment na <?=$whennr; ?> maanden en wij zouden u dan ook willen vragen of u de link naar de vragenlijst aan het einde van deze e-mail wilt openen. 
-Het invullen duurt enige tijd. 
-Daar wijzen wij u op, zodat u een goed moment kunt kiezen om de vragen te beantwoorden, anderzijds kunnen antwoorden wel tussentijds worden opgeslagen.</p>
+<p>Graag willen wij u eraan herinneren dat wij u onlangs een e-mail hebben gestuurd met het verzoek een online vragenlijst in te vullen. 
+Wij stuurden u deze e-mail, omdat <?=$name; ?> de leeftijd heeft bereikt voor het meetmoment van <?=$gender_pos; ?> taalvaardigheid na <?=$whennr; ?> maanden.</p>
+<p>Deze vragenlijst is onderdeel van het experiment waarvoor u onlangs met <?=$name_first; ?> bij het Babylab bent/gaat langsgekomen.
+Zo kunnen we <?=$gender_pos; ?> taalvaardigheid in verband brengen met de resultaten van het experiment. 
+Wij zouden u dan ook willen vragen of u de link naar de vragenlijst aan het einde van deze e-mail wilt openen.</p>
+<p>Het invullen duurt enige tijd. 
+Daar wijzen wij u op, zodat u een goed moment kunt kiezen om de vragen te beantwoorden. 
+Antwoorden kunnen wel tussentijds worden opgeslagen.</p>
 <p>Belangrijk voor u om te weten, is dat u na afloop van de vragenlijst direct de resultaten te zien krijgt. 
 U krijgt een curve te zien waarin de resultaten van <?=$name_first; ?> in vergelijking worden gebracht met resultaten van andere <?=$gender_plural; ?> op dezelfde leeftijd. 
 Zo ziet u waar op dit moment de taalvaardigheid van <?=$name_first; ?> valt ten opzichte van het gemiddelde.</p>

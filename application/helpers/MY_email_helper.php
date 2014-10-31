@@ -108,6 +108,7 @@ if (!function_exists('email_replace'))
 		{
 			$testsurvey = $CI->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 			
+			$message_data['survey_name']	= testsurvey_name($testsurvey);
 			$message_data['survey_link'] 	= survey_link($testsurvey->limesurvey_id, $testinvite->token);
 			$message_data['whennr'] 		= $testsurvey->whennr;
 		}

@@ -8,7 +8,7 @@
 <p>
 	Als u verder nog vragen heeft over de vragenlijst, neem dan contact op
 	met het Babylab Utrecht via
-	<?=mailto('babylabutrecht@uu.nl'); ?>
+	<?=mailto(BABYLAB_MANAGER_EMAIL); ?>
 	.
 </p>
 <p>
