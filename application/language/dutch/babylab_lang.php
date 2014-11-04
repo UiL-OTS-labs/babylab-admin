@@ -41,6 +41,7 @@ $lang['daily']				= "Dagelijks";
 $lang['weekly']				= "Wekelijks";
 $lang['seldom']				= "Zelden";
 
+$lang['day']                = "Dag";
 $lang['days'] 				= "dagen";
 $lang['weeks'] 				= "weken";
 $lang['month']              = "Maand";

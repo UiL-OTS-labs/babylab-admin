@@ -41,6 +41,7 @@ $lang['daily']				= "Daily";
 $lang['weekly']				= "Weekly";
 $lang['seldom']				= "Seldom";
 
+$lang['day']                = "Day";
 $lang['days'] 				= "days";
 $lang['weeks'] 				= "weeks";
 $lang['month']              = "Month";
