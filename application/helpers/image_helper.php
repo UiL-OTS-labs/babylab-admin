@@ -186,6 +186,18 @@ if (!function_exists('img_active'))
 	}
 }
 
+if (!function_exists('img_edit_participant'))
+{
+	/** Returns the edit participant image */
+	function img_edit_participant($participant)
+	{
+		return img(array(
+				'src' => 'images/status_online.png',
+				'title' => sprintf(lang('edit_participant'), name($participant))
+		));
+	}
+}
+
 if (!function_exists('img_scores'))
 {
 	/** Returns the scores image */

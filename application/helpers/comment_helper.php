@@ -41,11 +41,13 @@ if (!function_exists('comment_actions'))
 	{
 		$CI =& get_instance();
 		$c = $CI->commentModel->get_comment_by_id($comment_id);
+		$p = $CI->participantModel->get_participant_by_id($c->participant_id);
 
 		$prio_link = anchor('comment/prioritize/' . $comment_id . ($c->priority ? '/0' : ''), img_star(!$c->priority));
 		$edit_link = anchor('comment/edit/' . $comment_id, img_edit());
+		$p_link = anchor('participant/edit/' . $c->participant_id, img_edit_participant($p));
 		$d_link = anchor('comment/delete/' . $comment_id, img_delete(), warning(lang('sure_delete_comment')));
 
-		return implode(' ', array($prio_link, $edit_link, $d_link));
+		return implode(' ', array($prio_link, $edit_link, $p_link, $d_link));
 	}
 }
