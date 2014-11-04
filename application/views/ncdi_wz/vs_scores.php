@@ -89,6 +89,13 @@
 </style>
 
 <?=heading($page_title, 2); ?>
+<p>De grafiek hieronder toont scores van alle proefpersonen van het Babylab Utrecht ten opzichte van het 50e percentiel.</p>
+<ul>
+	<li>De gele lijn is het 50ste percentiel.</li>
+	<li>De blauwe punten geven de scores van een kind in onze database aan.</li>
+	<li>Met de filters kunt u tussen de verschillende testcategorie&#235;n navigeren.</li>
+</ul>
+<br>
 <!--Div that will hold the dashboard-->
 <div id="dashboard_div">
 	<!--Divs that will hold each control and chart-->

@@ -64,7 +64,7 @@
 		var chart = new google.visualization.ChartWrapper({
 			chartType: 'LineChart',
 			containerId: 'chart_div',
-	        view: {columns: [<?=$participant_id == 0 ? '2, 3, 4, 5, 6, 7' : '2, 3, 4, 5, 6, 7, 8' ?>]},
+	        view: {columns: [<?='2, 3, 4, 5, 6, 7, 8' . ($participant_id == 0 ? '' : ', 9, 10') ?>]},
 			options: {
 				hAxis: {title: 'Leeftijd in maanden'},
 				vAxis: {title: 'Ruwe score'},
@@ -73,14 +73,17 @@
 				intervals: { style: 'area' }, 
 				lineWidth: 1,
 				pointSize: 3,
+				tooltip: { 
+					isHtml: true,
+				},
 				series: {
 					0: { pointSize: 7, lineWidth: 3, color: 'yellow' },
-					1: { pointSize: 7, color: 'blue' }
+					1: { pointSize: 7, color: 'blue' },
 
 					// old setup
-					//0: { color: 'yellow' },
-					//1: { lineWidth: 2, color: 'orange' },
-					//2: { pointSize: 4, lineWidth: 3, color: 'red' },
+					//0: { pointSize: 4, lineWidth: 3, color: 'red' },
+					//1: { color: 'yellow' },
+					//2: { lineWidth: 2, color: 'orange' },
 					//3: { lineWidth: 2, color: 'orange' },
 					//4: { color: 'yellow' },
 					//5: { pointSize: 5, color: 'blue' }
@@ -110,6 +113,13 @@
 </style>
 
 <?=heading($page_title, 2); ?>
+<p>De grafiek hieronder toont de scores van uw kind ten opzichte van de vastgestelde percentieltabellen.</p>
+<ul>
+	<li>De gele lijn volgt het 50ste percentiel, het donkergele gebied tussen het 15de en 85ste percentiel, en het lichtgele gebied tussen het 1ste en 99ste percentiel.</li>
+	<?php if ($participant_id) { ?> <li>De blauwe punten geven de score van uw kind aan.</li> <?php } ?>
+	<li>Met de filters kunt u tussen de verschillende testcategorie&#235;n navigeren.</li>
+</ul>
+<br>
 <!--Div that will hold the dashboard-->
 <div id="dashboard_div">
 	<!--Divs that will hold each control and chart-->

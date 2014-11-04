@@ -353,7 +353,8 @@ class Chart extends CI_Controller
 		array('label' => lang('testcat'), 'type' => 'string'),
 		array('label' => lang('gender'), 'type' => 'string'),
 		array('label' => lang('age'), 'type' => 'number'),
-		array('label' => '50e percentiel', 'type' => 'number'),
+		array('label' => '50ste percentiel', 'type' => 'number'),
+		array('type' => 'string', 'role' => 'tooltip'),
 		array('label' => '99e percentiel', 'type' => 'number', 'role' => 'interval'),
 		array('label' => '85e percentiel', 'type' => 'number', 'role' => 'interval'),
 		array('label' => '15e percentiel', 'type' => 'number', 'role' => 'interval'),
@@ -366,7 +367,7 @@ class Chart extends CI_Controller
 			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 			$p_gender = $participant->gender;
 			$p_age = age_in_months($participant, $testinvite->datecompleted);
-			array_push($table['cols'], array('label' => 'score kind', 'type' => 'number'));
+			array_push($table['cols'], array('label' => 'Score kind', 'type' => 'number'), array('type' => 'string', 'role' => 'tooltip'));
 		}
 
 		$testcat_ids = $this->get_testcat_ids($test_code);
@@ -385,6 +386,11 @@ class Chart extends CI_Controller
 			$rows[$unique]['g'] = array('v' => $gender);
 			$rows[$unique]['a'] = array('v' => $percentile->age);
 			$rows[$unique][$percentile->percentile] = array('v' => $percentile->score);
+			if ($percentile->percentile == 50) 
+			{
+				$tooltip = 'Score 50ste percentiel na ' . $percentile->age . ' maanden: ' . $percentile->score;
+				$rows[$unique]['tt'] = array('v' => $tooltip);
+			}
 
 			if (!empty($participant) && $percentile->percentile == 1) // only do this at the last run... TODO: kinda dirty
 			{
@@ -392,10 +398,13 @@ class Chart extends CI_Controller
 				{
 					$score = $this->testCatModel->total_score($percentile->testcat_id, $testinvite_id);
 					$rows[$unique][100] = array('v' => $score->score);
+					$tooltip = 'Score kind na ' . $percentile->age . ' maanden: ' . $score->score;
+					$rows[$unique][101] = array('v' => $tooltip);
 				}
 				else
 				{
 					$rows[$unique][100] = array('v' => NULL);
+					$rows[$unique][101] = array('v' => NULL);
 				}
 			}
 		}
