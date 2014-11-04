@@ -57,13 +57,13 @@ a {
 	color: red;
 }
 
-/* Bootstrap-like succes/failed/warning boxes */
+/* Bootstrap-like contextual boxes */
 .success {
 	text-align: center;
 	padding: 10px; 
 	margin-bottom: 10px;
-	border: 1px solid #00C008;
 	background-color: #DFF0D8;
+	border: 1px solid #00C008;
 }
 
 .failed {
@@ -80,6 +80,14 @@ a {
 	margin-bottom: 10px;
 	background-color: #FCF8E3;
 	border: 1px solid yellow;
+}
+
+.info {
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #D9EDF7;
+	border: 1px solid blue;
 }
 
 /* Pointers for call links */

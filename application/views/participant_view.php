@@ -69,11 +69,13 @@
 		</div>
 		<div class="pure-u-2-5">
 			<?php
-				if (!$participant->activated && $participant->deactivated_reason == DeactivateReason::NewParticipant)
+				if (!$participant->activated)
 				{
-					echo "<div class=\"warning\">";
+					$new = $participant->deactivated_reason == DeactivateReason::NewParticipant;
+					$class = $new ? 'warning' : 'info';
+					echo '<div class="' . $class . '"';
 					echo "<p>" . lang('p_not_yet_active') . "</p>";
-					echo participant_activate_link($participant, lang('activate'));
+					if ($new) echo participant_activate_link($participant, lang('activate'));
 					echo "</div>";
 				}
 			?>
