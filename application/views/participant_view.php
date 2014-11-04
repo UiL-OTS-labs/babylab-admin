@@ -47,7 +47,7 @@
 				</tr>
 				<tr>
 					<th><?=lang('age'); ?></th>
-					<td><?=age_in_mdy($participant); ?></td>
+					<td><?=age_in_ymd($participant); ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('dyslexicparent'); ?></th>

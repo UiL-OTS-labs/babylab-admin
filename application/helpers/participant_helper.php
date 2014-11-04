@@ -190,12 +190,12 @@ if (!function_exists('age_in_months_and_days'))
 	}
 }
 
-if (!function_exists('age_in_mdy'))
+if (!function_exists('age_in_ymd'))
 {
 	/** Returns the age in months and days (y;m;d) of the participant given an optional date
 	 *  Code copied from http://stackoverflow.com/questions/3324513/php-how-to-calculate-person-age-in-months
 	 *  Note that %r prints the signum */
-	function age_in_mdy($participant, $date = '')
+	function age_in_ymd($participant, $date = '')
 	{
 		$diff = date_diff(new DateTime($participant->dateofbirth), new DateTime($date));
 		$y = '%y ' . strtolower(lang('year')) . '; ';
