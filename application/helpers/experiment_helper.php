@@ -180,7 +180,7 @@ if (!function_exists('experiment_actions'))
 				$actions = array($edit_link, $part_link, $call_link, $archive_link);
 				break;
 			case UserRole::Leader:
-				$actions = array($edit_link, $part_link);
+				$actions = array($part_link);
 				break;
 			default:
 				$actions = array($call_link, $part_link);

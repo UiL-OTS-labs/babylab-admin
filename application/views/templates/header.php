@@ -132,10 +132,8 @@
 			class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-custom">
 			<ul>
 				<li><?=anchor('welcome', lang('home')); ?></li>
-				<li><?=anchor('experiment', lang('experiments')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
 				<li><?=anchor('appointment', lang('calendar')); ?></li>
-				<li><?=anchor('participant', lang('participants')); ?></li>
 			</ul>
 		</div>
 		<?php } ?>
