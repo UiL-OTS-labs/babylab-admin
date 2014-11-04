@@ -1,8 +1,6 @@
 <!-- DataTables -->
 <?=link_tag('js/datatables/media/css/jquery.dataTables.css'); ?>
-<script
-	type="text/javascript"
-	src="js/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $("<?=isset($id) ? '#' . $id : '.dataTable'; ?>").dataTable( {
@@ -23,7 +21,7 @@
 	            this.fnAdjustColumnSizing(true);
             },
 			"sPaginationType": "full_numbers",
-			"iDisplayLength": "<?=isset($id) ? '10' : '25'; ?>",
+			"iDisplayLength": <?=isset($id) ? 10 : 25; ?>,
 			"oLanguage": {
 				"sUrl": "<?=lang('table_language'); ?>"
 			},
@@ -43,9 +41,11 @@
 
 <div id="list">
 <?php
-if (!isset($id)) {
+if (!isset($id)) 
+{
 	echo $this->session->flashdata('message');
-} ?>
+} 
+?>
 
 	<div id="info">
 	<?=isset($page_info) ? $page_info : ''; ?>
@@ -57,13 +57,15 @@ if (!isset($id)) {
 
 	<div id="actions">
 	<?php
-	if (isset($action_urls)) {
-		echo '<h3>' . lang('actions') . '</h3>';
-		echo '<ul>';
-		foreach ($action_urls as $action_url) {
-			echo '<li>' . anchor($action_url['url'], $action_url['title'], array('title' => $action_url['title'])) . '</li>';
+	if (isset($action_urls)) 
+    {
+		echo heading(lang('actions'), 3);
+		$actions = array();
+		foreach ($action_urls as $action_url) 
+        {
+			array_push($actions, anchor($action_url['url'], $action_url['title'], array('title' => $action_url['title'])));
 		}
-		echo '</ul>';
+		echo ul($actions);
 	}
 	?>
 	</div>
