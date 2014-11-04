@@ -59,6 +59,8 @@ if (!function_exists('testinvite_actions'))
 	/** Possible actions for a testinvite: edit, view scores, delete */
 	function testinvite_actions($testinvite_id)
 	{
+		if (current_role() === UserRole::Caller) return img_scores(TRUE); 
+
 		$CI =& get_instance();
 		$scores = $CI->scoreModel->get_scores_by_testinvite($testinvite_id);
 		$score_link = anchor('score/testinvite/' . $testinvite_id, img_scores(empty($scores)));

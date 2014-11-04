@@ -26,6 +26,8 @@ if (!function_exists('testsurvey_get_link'))
 	/** Returns the get link for a testsurvey */
 	function testsurvey_get_link($testsurvey)
 	{
+		if (current_role() === UserRole::Caller) return testsurvey_name($testsurvey);
+
 		return anchor('testsurvey/get/' . $testsurvey->id, testsurvey_name($testsurvey));
 	}
 }

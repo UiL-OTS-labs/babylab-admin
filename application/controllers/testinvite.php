@@ -23,6 +23,8 @@ class TestInvite extends CI_Controller
 		$data['ajax_source'] = 'testinvite/table/';
 		$data['page_title'] = lang('testinvites');
 		$data['action_urls'] = array($add_url);
+		$data['sort_column'] = 3; // Sort on date sent, descending
+		$data['sort_order'] = 'desc'; 
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
