@@ -265,6 +265,9 @@ $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows voor %s";
+$lang['no_shows_info']      = "Dit overzicht toont de no-shows per proefpersoon. 
+                                Bij veel no-shows kan overwogen worden deze proefpersoon uit het bestand te halen. 
+                                Dat kan hier direct met de deactiveer-knop.";
 $lang['completed']			= "Voltooid";
 $lang['complete_part']		= "Deelname voltooien";
 $lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> aan experiment <em>%s</em> voltooien.
@@ -301,6 +304,9 @@ $lang['excluded_long']      = "Deze deelname uitsluiten van analyse";
 $lang['part_interrupted']   = "Deze deelname is uitgesloten van analyse.";
 $lang['interruptions']		= "Afgebroken deelnames";
 $lang['interruptions_for']	= "Afgebroken deelnames voor %s";
+$lang['interruptions_info'] = "Dit overzicht toont de afgebroken deelnames per proefpersoon. 
+                                Bij veel afgebroken deelnames kan overwogen worden deze proefpersoon uit het bestand te halen. 
+                                Dat kan hier direct met de deactiveer-knop.";
 $lang['part_comment']		= "Opmerking bij deelname";
 $lang['part_comment_info']	= "Deze (verplichte) opmerking wordt alleen opgeslagen bij deze deelname. <em>(voorbeeld: zat niet stil)</em>";
 $lang['pp_comment']			= "Opmerking bij proefpersoon";

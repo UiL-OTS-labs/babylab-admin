@@ -323,6 +323,7 @@ class Participation extends CI_Controller
 			$data['page_title'] = sprintf(lang('no_shows'));
 		}
 
+		$data['page_info'] = lang('no_shows_info');
 		$data['table'] = create_participation_counter_table($participations, lang('no_shows'));
 		$data['sort_column'] = 1;	// sort on count of no shows
 		$data['sort_order'] = 'desc';
@@ -347,8 +348,9 @@ class Participation extends CI_Controller
 			$data['page_title'] = sprintf(lang('interruptions'));
 		}
 
+		$data['page_info'] = lang('interruptions_info');
 		$data['table'] = create_participation_counter_table($participations, lang('interruptions'));
-		$data['sort_column'] = 1;	// sort on count of interruptions
+		$data['sort_column'] = 1; // sort on count of interruptions
 		$data['sort_order'] = 'desc';
 
 		$this->load->view('templates/header', $data);

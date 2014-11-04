@@ -264,6 +264,9 @@ $lang['no_reply']			= "No reply";
 $lang['no_show']			= "No show";
 $lang['no_shows']			= "No-shows";
 $lang['no_shows_for']		= "No-shows for %s";
+$lang['no_shows_info']      = "This overview shows the no-shows per participant.
+                                When there are a lot of these, one might want to remove the participant. 
+                                You can use the deactivate-button here for that.";
 $lang['completed']			= "Completed";
 $lang['complete_part']		= "Complete participation";
 $lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>.
@@ -296,6 +299,9 @@ $lang['interrupted_long']   = "Interrupted during experiment";
 $lang['part_interrupted']	= "This participation was interrupted.";
 $lang['interruptions']		= "Interrupted participations";
 $lang['interruptions_for']	= "Interrupted participations for %s";
+$lang['interruptions_info'] = "This overview shows the interrupted participations per participant.
+                                When there are a lot of these, one might want to remove the participant. 
+                                You can use the deactivate-button here for that.";
 $lang['excluded']           = "Excluded";
 $lang['excluded_reason']    = "Reason exclusion";
 $lang['excluded_long']      = "Exclude this participation from analysis";

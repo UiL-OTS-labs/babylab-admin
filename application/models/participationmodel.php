@@ -168,6 +168,7 @@ class ParticipationModel extends CI_Model
 	public function count_participations($count_column, $experiment_id = NULL)
 	{
 		$this->db->select('participant_id');
+		$this->db->select_sum('completed', 'count');
 		$this->db->select_sum($count_column, 'count_column');
 		if (isset($experiment_id)) $this->db->where('experiment_id', $experiment_id);
 		$this->db->group_by('participant_id');

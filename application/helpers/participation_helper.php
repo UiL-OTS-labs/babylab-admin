@@ -36,7 +36,7 @@ if (!function_exists('create_participation_counter_table'))
 		$CI =& get_instance();
 
 		base_table();
-		$CI->table->set_heading(lang('participant'), $title, lang('actions'));
+		$CI->table->set_heading(lang('participant'), lang('participations'), $title, lang('percentage'), lang('actions'));
 
 		foreach ($participations as $pp)
 		{
@@ -45,7 +45,7 @@ if (!function_exists('create_participation_counter_table'))
 			$p_link = participant_get_link($participant);
 			$act_link = participant_activate_link($participant);
 
-			$CI->table->add_row($p_link, $pp->count_column, $act_link);
+			$CI->table->add_row($p_link, $pp->count, $pp->count_column, round($pp->count_column / $pp->count * 100, 2), $act_link);
 		}
 
 		return $CI->table->generate();
