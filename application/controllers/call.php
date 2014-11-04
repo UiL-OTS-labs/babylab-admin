@@ -106,6 +106,8 @@ class Call extends CI_Controller
 		}
 		else
 		{
+			$ad_hoc = FALSE;
+
 			// If succeeded, insert data into database
 			if (!$appointment)
 			{
@@ -116,6 +118,8 @@ class Call extends CI_Controller
 			{
 				// This is an ad-hoc participation send via url as Unix timestamp, so directly convert to MySQL date.
 				$appointment = date('Y-m-d H:i:s', $appointment);
+				// Set a flag to not send a confirmation email / return to participations overview
+				$ad_hoc = TRUE;
 			}
 
 			// End the call, confirm the participation
@@ -149,7 +153,10 @@ class Call extends CI_Controller
 			// Else we can send a simple confirmation e-mail
 			else 
 			{
-				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+				if (!$ad_hoc)
+				{
+					$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+				}
 			}
 
 			// If we send a concept, add that to the confirmation message
@@ -160,7 +167,7 @@ class Call extends CI_Controller
 
 			// Return to the find participants page with a success message
 			flashdata(sprintf(lang('part_confirmed'), name($participant), $experiment->name) . $flashdata);
-			redirect('/participant/find/' . $experiment->id, 'refresh');
+			redirect($ad_hoc ? '/participation/' : '/participant/find/' . $experiment->id, 'refresh');
 		}
 	}
 
