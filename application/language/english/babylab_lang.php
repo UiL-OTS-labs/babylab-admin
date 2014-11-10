@@ -131,7 +131,7 @@ $lang['data_for_experiment']= "Details of experiment <em>%s</em>";
 $lang['show_archived_exps'] = "Show archived experiments";
 $lang['not_show_archived_exps'] = "Don't show archived experiments";
 $lang['archived_exp']		= "Archived experiment successfully.";
-$lang['unarchived_exp']		= "Acitvated experiment successfully.";
+$lang['unarchived_exp']		= "Activated experiment successfully.";
 $lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range.";
 $lang['act_nr_part']		= "Current number of participants";
 
