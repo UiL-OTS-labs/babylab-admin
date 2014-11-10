@@ -142,16 +142,22 @@ class Participation extends CI_Controller
 			if (empty($participation))
 			{
 				// No participation exists yet, create a new one
-				$participation_id = $this->participationModel->create_participation($experiment,$participant);
-				$call_id = $this->callModel->create_call($participation_id);
-				redirect('call/confirm/' . $call_id . '/' . strtotime($this->input->post('appointment')), 'refresh');
+				$participation_id = $this->participationModel->create_participation($experiment, $participant);
 			} 
+			else if ($participation->status == ParticipationStatus::Unconfirmed)
+			{
+				// A non-completed participation exists, use this one
+				$participation_id = $participation->id;
+			}
 			else 
 			{
-				// Participation already exists, error.
+				// Participation already exists and is completed, error.
 				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name), FALSE);
 				redirect('participation/add');
 			}
+
+			$call_id = $this->callModel->create_call($participation_id);
+			redirect('call/confirm/' . $call_id . '/' . strtotime($this->input->post('appointment')), 'refresh');
 		}
 	}
 

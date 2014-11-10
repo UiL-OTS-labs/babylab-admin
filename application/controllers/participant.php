@@ -40,7 +40,7 @@ class Participant extends CI_Controller
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		$comments = $this->commentModel->get_comments_by_participant($participant_id);
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
-		$participations = $this->participationModel->get_participations_by_participant($participant_id);
+		$participations = $this->participationModel->get_participations_by_participant($participant_id, TRUE);
 		
 		$data['participant'] = $participant;
 		$data['last_called'] = $this->participantModel->last_called($participant_id);
