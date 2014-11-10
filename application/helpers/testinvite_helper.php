@@ -29,6 +29,18 @@ if (!function_exists('create_testinvite_participant_table'))
 	}
 }
 
+if (!function_exists('create_testinvite_experiment_table'))
+{
+	/** Creates the table with testinvite data for a participant */
+	function create_testinvite_experiment_table($id = NULL)
+	{
+		$CI =& get_instance();
+		base_table($id);
+		$heading = array(lang('testsurvey'), lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('actions'));
+		$CI->table->set_heading($heading);
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////
@@ -59,7 +71,7 @@ if (!function_exists('testinvite_actions'))
 	/** Possible actions for a testinvite: edit, view scores, delete */
 	function testinvite_actions($testinvite_id)
 	{
-		if (current_role() === UserRole::Caller) return img_scores(TRUE); 
+		if (!is_admin()) return img_scores(TRUE); 
 
 		$CI =& get_instance();
 		$scores = $CI->scoreModel->get_scores_by_testinvite($testinvite_id);

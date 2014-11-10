@@ -212,7 +212,7 @@ class Experiment extends CI_Controller
 	public function download_scores($experiment_id, $test_code)
 	{
 		// Retrieve the scores
-		$table = $this->get_results_table($experiment_id);
+		$table = $this->get_results_table($experiment_id, $test_code);
 		
 		// Retrieve the headers
 		$headers = array(lang('name'), lang('gender'), lang('age'), 'Leeftijd (maanden;dagen)');
@@ -295,7 +295,7 @@ class Experiment extends CI_Controller
 	 * Returns all scores for participants of an experiment.
 	 * @param integer $experiment_id
 	 */
-	private function get_results_table($experiment_id) 
+	private function get_results_table($experiment_id, $test_code) 
 	{
 		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id, TRUE);
 		
@@ -305,11 +305,15 @@ class Experiment extends CI_Controller
 			$testinvites = $this->testInviteModel->get_testinvites_by_participant($participant->id);
 			foreach ($testinvites as $testinvite)
 			{
-				$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
-				
-				foreach ($scores as $score)
+				$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+				if ($test->code === $test_code)
 				{
-					$result[$score->testinvite_id][$score->testcat_id] = $score->score;
+					$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
+					
+					foreach ($scores as $score)
+					{
+						$result[$score->testinvite_id][$score->testcat_id] = $score->score;
+					}
 				}
 			}
 		}

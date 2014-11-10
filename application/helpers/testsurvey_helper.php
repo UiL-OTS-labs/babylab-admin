@@ -40,7 +40,7 @@ if (!function_exists('testsurvey_get_link_by_id'))
 		$CI =& get_instance();
 		$testsurvey = $CI->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
 
-		return testsurvey_get_link($testsurvey);
+		return $testsurvey ? testsurvey_get_link($testsurvey) : '';
 	}
 }
 

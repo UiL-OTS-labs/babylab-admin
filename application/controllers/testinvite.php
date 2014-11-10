@@ -159,7 +159,7 @@ class TestInvite extends CI_Controller
 		$this->datatables->edit_column('datecompleted', '$1', 'output_date(datecompleted)');
 		$this->datatables->edit_column('id', '$1', 'testinvite_actions(id)');
 
-		$this->datatables->unset_column('test_id');
+		$this->datatables->unset_column('testsurvey_id');
 		$this->datatables->unset_column('participant_id');
 
 		echo $this->datatables->generate();
@@ -183,6 +183,15 @@ class TestInvite extends CI_Controller
 	{
 		$this->datatables->where('participant.id', $participant_id);
 		$this->datatables->unset_column('p');
+		$this->table();
+	}
+
+	public function table_by_experiment($experiment_id)
+	{
+		$participant_ids = get_object_ids($this->experimentModel->get_participants_by_experiment($experiment_id, TRUE));
+		if (empty($participant_ids)) $this->datatables->where('participant.id', 0)	; // no participants then
+		else $this->datatables->where('participant.id IN (' . implode(",", $participant_ids) . ')');
+
 		$this->table();
 	}
 }

@@ -111,6 +111,12 @@
 	<?=lang('scores'); ?>
 	</h3>
 	<div>
+	<?php
+		create_testinvite_experiment_table('testinvites');
+		$testinvites['id'] = 'testinvites';
+		$testinvites['ajax_source'] = 'testinvite/table_by_experiment/' . $experiment->id;
+		$this->load->view('templates/list_view', $testinvites);
+	?>
 	<?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download NCDI scores'); ?>
 	</div>
 </div>
