@@ -186,26 +186,27 @@ class Participation extends CI_Controller
 	/** Shows the page for a specific experiment */
 	public function experiment($experiment_id)
 	{
+		switch (current_role())
+		{
+			case UserRole::Leader: 
+				create_participation_leader_table();
+				$source = 'participation/table_by_leader/' . $experiment_id; 
+				break;
+			default: 
+				create_participation_table();
+				$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
+				$source = 'participation/table/0/' . $experiment_id; 
+				$data['action_urls'] = array($add_url); 
+				break;
+		}
+
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 		$data['page_title'] = sprintf(lang('participations_for'), $experiment->name);
+		$data['ajax_source'] = $source;
 
-		if (is_risk($experiment))
-		{
-			$data['experiment_id'] = $experiment_id;
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('participation_risk_view', $data);
-			$this->load->view('templates/footer');
-		}
-		else
-		{
-			create_participation_table();
-			$data['ajax_source'] = 'participation/table/0/' . $experiment_id;
-
-			$this->load->view('templates/header', $data);
-			$this->load->view('templates/list_view', $data);
-			$this->load->view('templates/footer');
-		}
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/list_view', $data);
+		$this->load->view('templates/footer');
 	}
 
 	/**
@@ -667,7 +668,7 @@ class Participation extends CI_Controller
 	{
 		$experiment_ids = $this->leaderModel->get_experiment_ids_by_leader(current_user_id());
 
-		$this->datatables->select('name AS e, part_number, risk, appointment, appointment AS age, interrupted, comment,
+		$this->datatables->select('name AS e, part_number, risk, appointment, appointment AS age, interrupted, excluded, comment,
 									participation.id AS id, participant_id, experiment_id', FALSE);
 		$this->datatables->from('participation');
 		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
@@ -683,6 +684,8 @@ class Participation extends CI_Controller
 		$this->datatables->edit_column('risk', '$1', 'img_tick(risk, 0)');
 		$this->datatables->edit_column('age', '$1', 'age_in_md_by_id(participant_id, age)');
 		$this->datatables->edit_column('interrupted', '$1', 'img_tick(interrupted, 0)');
+		$this->datatables->edit_column('excluded', '$1', 'img_tick(excluded, 0)');
+		$this->datatables->edit_column('comment', '$1', 'comment_body(comment, 50)');
 		$this->datatables->edit_column('id', '$1', 'participation_actions(id)');
 
 		$this->datatables->unset_column('experiment_id');

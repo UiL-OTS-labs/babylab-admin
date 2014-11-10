@@ -13,7 +13,11 @@
 	<table class="pure-table">
 		<tr>
 			<th><?=lang('participant'); ?></th>
-			<td><?=participant_get_link($participant); ?></td>
+			<td><?=is_leader() ? $participant->firstname : participant_get_link($participant); ?></td>
+		</tr>
+		<tr>
+			<th><?=lang('parent'); ?></th>
+			<td><?=is_leader() ? $participant->parentfirstname : parent_name($participant); ?></td>
 		</tr>
 		<tr>
 			<th><?=lang('experiment'); ?></th>
@@ -57,6 +61,7 @@
 </div>
 
 <!-- Calls -->
+<?php if (!is_leader()) { ?>
 <h3>
 <?=lang('calls'); ?>
 </h3>
@@ -70,6 +75,7 @@ $calls['ajax_source'] = 'call/table_by_participation/' . $participation->id;
 echo $this->load->view('templates/list_view', $calls);
 ?>
 </div>
+<?php } ?>
 
 <!-- Results -->
 <h3>

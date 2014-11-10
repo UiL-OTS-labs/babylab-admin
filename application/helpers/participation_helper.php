@@ -22,7 +22,7 @@ if (!function_exists('create_participation_leader_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), lang('age'), lang('interrupted'), lang('comment'), lang('actions'));
+		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), lang('age'), lang('interrupted'), lang('excluded'), lang('comment'), lang('actions'));
 	}
 }
 
