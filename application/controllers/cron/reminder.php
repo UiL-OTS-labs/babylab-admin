@@ -14,7 +14,7 @@ class Reminder extends CI_Controller
 	}
 
 	/** 
-	 * Sends out reminders for appointments. 
+	 * Sends out reminders for appointments (that are tomorrow)
 	 */
 	public function appointments()
 	{
@@ -28,7 +28,7 @@ class Reminder extends CI_Controller
 		foreach ($participations as $participation)
 		{
 			$appointment = strtotime($participation->appointment); 
-			if ($appointment > time() && $appointment < strtotime('+1 day')) 
+			if ($appointment > strtotime('tomorrow') && $appointment <= strtotime('tomorrow + 1 day')) 
 			{					
 				reset_language(L::Dutch);
 				
