@@ -168,7 +168,7 @@ class Appointment extends CI_Controller
 		$loc_link .= location_get_link_by_id($experiment->location_id);
 		$loc_link .= br();
 
-		$participation_actions = "<center>" . participation_actions($id) . "</center>";
+		$participation_actions = is_leader() ? '' : '<center>' . participation_actions($id) . '</center>';
 
 		return addslashes($exp_link . $part_link . $loc_link . $participation_actions);
 	}
