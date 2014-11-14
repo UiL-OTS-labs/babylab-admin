@@ -437,6 +437,10 @@ $lang['send_anamnese'] 		= "Anamnese versturen?";
 
 /* Availability view */
 $lang['availability']		= "Beschikbaarheid";
+$lang['your_availability']	= "Uw beschikbaarheid";
+$lang['create_availability'] = "Nieuwe beschikbaarheidsinformatie toevoegen";
+$lang['availability_include_past'] = "Oude beschikbaarheidsinformatie tonen";
+$lang['availability_not_include_past'] = "Oude beschikbaarheidsinformatie verbergen";
 $lang['availability_add']	= "Toevoegen";
 $lang['availability_reset']	= "Beginwaarden";
 $lang['availability_schedule']	= "Huidige beschikbaarheid";
@@ -444,5 +448,6 @@ $lang['time_from']			= "Tijd vanaf";
 $lang['time_to']			= "Tijd tot";
 $lang['availability_select'] = "Selecteer datum en tijden";
 $lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
-$lang['daterange_already_exists'] = "De volgende items bestaan al in de database of overlappen deels met reeds bestaande items:<br/>%sU kunt de items aanpassen, maar de huidige items kunnen niet worden toegevoegd zolang de oude items nog bestaan.";
+$lang['daterange_already_exists'] = "De volgende items bestaan al in de database of overlappen deels met reeds bestaande items:<br/>%sU kunt deze items verwijderen en het daarna nogmaals proberen.";
+$lang['no_permission']			= "U bent niet gemachtigd deze bewerking uit te voeren";
 ?>

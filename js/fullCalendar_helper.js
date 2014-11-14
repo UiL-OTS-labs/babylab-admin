@@ -4,18 +4,24 @@
  */
 function initializeCalendar(lang) {
 	$('#calendar').fullCalendar({
-		events: {
-			url: 'appointment/events/',
-			type: 'POST',
-			data: function() { // a function that returns an object
-	            return {
-	            	participant_ids: $('.select-participant').val(),
-	                experiment_ids: $('.select-experiment').val(),
-	                location_ids: $('.select-location').val(),
-	                exclude_canceled: $('#exclude-canceled').is(':checked'),
-	            };
+		eventSources: [
+			{
+				url: 'appointment/events/',
+				type: 'POST',
+				data: function() { // a function that returns an object
+		            return {
+		            	participant_ids: $('.select-participant').val(),
+		                experiment_ids: $('.select-experiment').val(),
+		                location_ids: $('.select-location').val(),
+		                exclude_canceled: $('#exclude-canceled').is(':checked'),
+		            };
+				},
 			},
-		},
+			{
+				url: 'appointment/availabilities/',
+				type: 'POST',
+			},
+		],
 		lang: lang,
 		header:
 	    {

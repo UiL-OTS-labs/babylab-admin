@@ -163,7 +163,6 @@ class Impediment extends CI_Controller
 		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
-		$this->datatables->edit_column('comment', '$1', 'comment_body(comment)');
 		$this->datatables->edit_column('from', '$1', 'impediment_dates_by_id(id)');
 		$this->datatables->edit_column('id', '$1', 'impediment_actions(id)');
 

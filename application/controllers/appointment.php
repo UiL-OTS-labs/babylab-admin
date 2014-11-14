@@ -199,4 +199,34 @@ class Appointment extends CI_Controller
 	{
 		return ($appointment->cancelled) ? lang('rescheduled') : "";
 	}
+
+	public function availabilities()
+	{
+		$availabilities = $this->availabilityModel->get_all_availabilities();
+		$result = array();
+
+		foreach ($availabilities as $a)
+		{
+			// Begin and end datetime
+			$start = new DateTime($a->from);
+			$start = $start->format(DateTime::ISO8601);
+			
+			$end = new DateTime($a->to);
+			$end = $end->format(DateTime::ISO8601);
+
+
+			// Generate array for event
+			$event = array(
+				"title" 	=> $this->userModel->get_user_by_id($a->user_id)->username,
+				"start" 	=> $start,
+				"end"		=> $end,
+				"tooltip"	=> 'NO TOLTIP',
+				"allDay" 	=> false,
+			);
+
+			array_push($result, $event);
+		}
+
+		echo json_encode($result);
+	}
 }

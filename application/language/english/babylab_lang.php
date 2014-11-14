@@ -436,6 +436,10 @@ $lang['send_anamnese'] 		= "Send the anamnese?";
 
 /* Availability view */
 $lang['availability']		= "Availability";
+$lang['your_availability']	= "Your availability";
+$lang['create_availability'] = "Add new availability information";
+$lang['availability_include_past'] = "Show old availability information";
+$lang['availability_not_include_past'] = "Do not show old availability information";
 $lang['availability_add']	= "Add to table";
 $lang['availability_reset']	= "Reset";
 $lang['availability_schedule']	= "Table of availability";
@@ -443,5 +447,6 @@ $lang['time_from']			= "Time from";
 $lang['time_to']			= "Time to";
 $lang['availability_select'] = "Select date and times";
 $lang['date_range']			= "Select multiple dates in one go";
-$lang['daterange_already_exists'] = "De following items already exist or are in the same range as items in the database:<br/>%sYou can edit these items, but not add new items in these ranges while the others exist.";
+$lang['daterange_already_exists'] = "De following items already exist or are in the same range as items in the database:<br/>%sPlease delete these items and try again";
+$lang['no_permission']			= "You have no permission for this action";
 ?>

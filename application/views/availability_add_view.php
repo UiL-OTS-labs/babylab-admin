@@ -37,7 +37,7 @@
 						style="font-size: 1em;" value="<?=lang('availability_add');?>" id="clickme" />
 					<input class="pure-button pure-button-primary" type="button" 
 						style="font-size: 1em;" value="<?=lang('availability_reset');?>" id="resetTimeRange"/>
-					<p><input id="daterange" type="checkbox" checked='false'/> <label for="daterange" id="date-range-label"><?=lang('date_range');?></label></p>
+					<p><input id="daterange" type="checkbox" /> <label for="daterange" id="date-range-label"><?=lang('date_range');?></label></p>
 				</div>
 
 			</div>

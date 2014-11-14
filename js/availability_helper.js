@@ -44,6 +44,9 @@ $("#resetTimeRange").click(function(){
 	$("#timeselector").selectorTable('reset');
 });
 
+
+$("#daterange").attr('checked', false);
+
 $("#clickme").click(function(){
 
 	var datum = moment($("#datum").datepicker("getDate"));

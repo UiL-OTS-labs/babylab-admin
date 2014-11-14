@@ -26,15 +26,15 @@ class AvailabilityModel extends CI_Model
 	}
 
 	/** Deletes an availability from the DB */
-	public function delete_availability($impediment_id)
+	public function delete_availability($availability_id)
 	{
-		$this->db->delete('availability', array('id' => $impediment_id));
+		$this->db->delete('availability', array('id' => $availability_id));
 	}
 
 	/** Returns the availability for an id */
-	public function get_availability_by_id($impediment_id)
+	public function get_availability_by_id($availability_id)
 	{
-		return $this->db->get_where('availability', array('id' => $impediment_id))->row();
+		return $this->db->get_where('availability', array('id' => $availability_id))->row();
 	}
 
 
@@ -48,6 +48,19 @@ class AvailabilityModel extends CI_Model
 	{
 		$this->db->where('user_id', $user_id);
 		$this->db->where('to >=', input_date());
+		return $this->db->get('availability')->result();
+	}
+
+	public function get_future_availabilities_by_users($ids)
+	{
+		$this->db->where_in('user_id', $ids);
+		$this->db->where('to >=', input_date());
+		return $this->db->get('availability')->result();
+	}
+
+	public function get_availabilities_by_users($ids)
+	{
+		$this->db->where_in('user_id', $ids);
 		return $this->db->get('availability')->result();
 	}
 
@@ -69,7 +82,7 @@ class AvailabilityModel extends CI_Model
 	{
 		$this->db->where('user_id', $user_id);
 		$this->db->where('from <=', $date);
-		$this->db->where('to >', $date);
+		$this->db->where('to >=', $date);
 		$this->db->from('availability');
 		return $this->db->count_all_results() > 0;
 	}
