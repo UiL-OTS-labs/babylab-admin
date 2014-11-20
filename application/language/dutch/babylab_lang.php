@@ -431,6 +431,7 @@ $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Verberg geannuleerde afspraken";
 $lang['date_text']			= "Ga naar datum";
 $lang['show_calendar']		= "Toon de agenda";
+$lang['show_availability']	= "Toon aanwezigheid voor onderzoeksleiders";
 
 /* Anamnese */
 $lang['send_anamnese'] 		= "Anamnese versturen?";
@@ -450,4 +451,6 @@ $lang['availability_select'] = "Selecteer datum en tijden";
 $lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
 $lang['daterange_already_exists'] = "De volgende items bestaan al in de database of overlappen deels met reeds bestaande items:<br/>%sU kunt deze items verwijderen en het daarna nogmaals proberen.";
 $lang['no_permission']			= "U bent niet gemachtigd deze bewerking uit te voeren";
+$lang['exp_for_leader']		= "%s is leider voor de volgende experimenten";
+$lang['availability_from_to'] = "%s is op %s beschikbaar van %s tot %s";
 ?>

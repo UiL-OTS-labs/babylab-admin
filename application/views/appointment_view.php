@@ -74,6 +74,11 @@ $(function(){
 		<input type="checkbox" name="exclude-canceled" style="vertical-align: middle;" checked="checked" id="exclude-canceled" />
 		&nbsp;<?=lang('exclude_empty');?>
 	</label></div>
+
+	<div style="margin-top: 10px"><label id="include-availability-label" style="vertical-align: middle;">
+		<input type="checkbox" name="include-availability" style="vertical-align: middle;" checked="checked" id="include-availability"/>
+		&nbsp;<?=lang('show_availability');?>
+	</label></div>
 	<input type="hidden" name="date_picker" id="date_picker" />
 </div>
 <div id='calendar'></div>

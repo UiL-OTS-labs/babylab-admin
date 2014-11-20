@@ -20,6 +20,12 @@ function initializeCalendar(lang) {
 			{
 				url: 'appointment/availabilities/',
 				type: 'POST',
+				data: function() { // a function that returns an object
+		            return {
+		                experiment_ids: $('.select-experiment').val(),
+		                include_availability: $('#include-availability').is(':checked'),
+		            };
+				},
 			},
 		],
 		lang: lang,
@@ -44,22 +50,24 @@ function initializeCalendar(lang) {
 
 	    // Add qTip tooltips to events 
 	    eventRender: function(event, element) {
-			element.css('cursor', 'pointer');
-	        element.qtip({
-	            content: stripslashes(event.tooltip),
-	            position: {
-	                my: 'bottom left',
-	                at: 'top left'
-	            },
-		        show: {
-		            event: 'click'
-		        },
-		        hide: {
-			        event: 'click',
-			        inactive: 3000,
-		        }
-	        });
-	        element.add(event.message);
+	    	if(event.tooltip != null){
+				element.css('cursor', 'pointer');
+		        element.qtip({
+		            content: stripslashes(event.tooltip),
+		            position: {
+		                my: 'bottom left',
+		                at: 'top left'
+		            },
+			        show: {
+			            event: 'click'
+			        },
+			        hide: {
+				        event: 'click',
+				        inactive: 3000,
+			        }
+		        });
+		        element.add(event.message);
+	        }
 	    },
 	});
 }
@@ -154,6 +162,10 @@ function addFilters() {
 	});
 	
 	$('#exclude-canceled').change( function() {
+		$('#calendar').fullCalendar( 'refetchEvents' );
+	});
+
+	$('#include-availability').change( function() {
 		$('#calendar').fullCalendar( 'refetchEvents' );
 	});
 	

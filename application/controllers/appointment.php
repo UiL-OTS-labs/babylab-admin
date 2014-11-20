@@ -176,11 +176,15 @@ class Appointment extends CI_Controller
 	/**
 	 * Generates the content of the legend tooltip
 	 */
-	private function generate_legend()
+	private function generate_legend($exps = null, $title = null)
 	{
-		$exps = $this->experimentModel->get_all_experiments();
+		
+		if(!isset($exps))
+			$exps = $this->experimentModel->get_all_experiments();
 
-		$title = heading(lang('experiment_color'), 3);
+		if(!isset($title))
+			$title = heading(lang('experiment_color'), 3);
+
 		$colors = "";
 
 		foreach ($exps as $e)
@@ -200,28 +204,32 @@ class Appointment extends CI_Controller
 		return ($appointment->cancelled) ? lang('rescheduled') : "";
 	}
 
+	/**
+	 * Generates events off of the availabilities from leaders and administrators
+	 */
 	public function availabilities()
 	{
-		$availabilities = $this->availabilityModel->get_all_availabilities();
+		$availabilities = $this->filter_availabilities();
 		$result = array();
 
 		foreach ($availabilities as $a)
 		{
 			// Begin and end datetime
-			$start = new DateTime($a->from);
-			$start = $start->format(DateTime::ISO8601);
+			$s = new DateTime($a->from);
+			$start = $s->format(DateTime::ISO8601);
 			
-			$end = new DateTime($a->to);
-			$end = $end->format(DateTime::ISO8601);
+			$e = new DateTime($a->to);
+			$end = $e->format(DateTime::ISO8601);
 
+			$user = $this->userModel->get_user_by_id($a->user_id);
 
 			// Generate array for event
 			$event = array(
-				"title" 	=> $this->userModel->get_user_by_id($a->user_id)->username,
+				"title" 	=> lang('availability') . " " . $user->username,
 				"start" 	=> $start,
 				"end"		=> $end,
-				"tooltip"	=> 'NO TOLTIP',
-				"allDay" 	=> false,
+				"allDay"	=> true,
+				"tooltip"	=> $this->generate_label($user, $s, $e)
 			);
 
 			array_push($result, $event);
@@ -229,4 +237,39 @@ class Appointment extends CI_Controller
 
 		echo json_encode($result);
 	}
+
+	/**
+	 * Runs the filter on availabilities
+	 */
+	private function filter_availabilities()
+	{
+		$experiment_ids = $this->input->post('experiment_ids');
+		$include_availability = $this->input->post('include_availability') == "true";
+
+		if($include_availability)
+		{
+			if($experiment_ids != '')
+				return $this->availabilityModel->get_availabilities_by_experiments($experiment_ids);
+			else
+				return $this->availabilityModel->get_all_availabilities();
+		} else {
+			return array();
+		}
+	}
+
+	/**
+	 * Generates the tooltip label of availability-events
+	 */
+	private function generate_label($user, $start, $end)
+	{
+		//$html = "<b>" . lang('availability') . " " . $start->format('H:i') . "-" . $end->format('H:i') . "</b>" . br() ;
+		$html = heading(sprintf(lang('availability_from_to'), $user->username, $start->format('Y-m-d'), 
+			$start->format('H:i') , $end->format('H:i')), 3) . br();
+		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
+		if(!empty($experiments))
+			$html .= $this->generate_legend($experiments, sprintf(lang('exp_for_leader'), $user->username));
+
+		return $html;
+	}
+
 }

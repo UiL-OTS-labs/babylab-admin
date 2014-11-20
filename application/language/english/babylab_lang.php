@@ -430,6 +430,7 @@ $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";
 $lang['show_calendar']		= "Show the calendar";
+$lang['show_availability']	= "Show availability of research leaders";
 
 /* Anamnese */
 $lang['send_anamnese'] 		= "Send the anamnese?";
@@ -449,4 +450,7 @@ $lang['availability_select'] = "Select date and times";
 $lang['date_range']			= "Select multiple dates in one go";
 $lang['daterange_already_exists'] = "De following items already exist or are in the same range as items in the database:<br/>%sPlease delete these items and try again";
 $lang['no_permission']			= "You have no permission for this action";
+$lang['exp_for_leader']		= "%s is leader for the following experiments";
+$lang['%s is available  on %s from %s to %s'];
+
 ?>

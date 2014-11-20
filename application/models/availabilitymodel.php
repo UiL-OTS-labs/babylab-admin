@@ -71,6 +71,15 @@ class AvailabilityModel extends CI_Model
 		return $this->db->get('availability')->result();
 	}
 
+	/** Returns all availabilities for leaders of the experiments */
+	public function get_availabilities_by_experiments($ids)
+	{
+		$this->db->select('availability.*');
+		$this->db->join('leader', 'leader.user_id_leader = availability.user_id');
+		$this->db->where_in('leader.experiment_id', $ids);
+		return $this->db->get('availability')->result();
+	}
+
 	/** Returns the user for an availability */
 	public function get_user_by_availability($availability)
 	{
