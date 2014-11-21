@@ -241,46 +241,54 @@ class Appointment extends CI_Controller
 	 */
 	private function filter_availabilities()
 	{
-		//$experiment_ids = $this->input->post('experiment_ids');
-		//$include_availability = $this->input->post('include_availability') == "true";
+		// Post Data
+		$experiment_ids = $this->input->post('experiment_ids');
+		$include_availability = $this->input->post('include_availability') == "true";
 
-		//if($include_availability)
-		//{
-		//	if($experiment_ids != '')
-		//		return $this->availabilityModel->get_availabilities_by_experiments($experiment_ids);
-		//	else
-		//	{
-				$availabilities = array();
+		if($include_availability)
+		{
+			if($experiment_ids != '')
+				$users = $this->leaderModel->get_leader_users_by_experiments($experiment_ids);
+			else
 				$users = $this->userModel->get_all_users();
+			
+			// For every selected user, get all availabilities
+			foreach($users as $u)
+			{
+				$c_u = array();
 
-				foreach($users as $u)
+				// Get availabilities for current user
+				$av = $this->availabilityModel->get_availabilities_by_user($u->id);
+
+				// Iterate through availabilities
+				foreach($av as $a)
 				{
-					$c_u = array();
-
-					$av = $this->availabilityModel->get_availabilities_by_user($u->id);
-
-					foreach($av as $a)
-					{
-						$c_a = array("from" => $a->from, "to" => $a->to, "comment" => $a->comment);
+					// Current availability
+					$c_a = array("from" => $a->from, "to" => $a->to, "comment" => $a->comment);
 					
-						$date = new DateTime($a->from);
-						$k = $date->format('Y-m-d');
-						if(isset($c_u[$k]))
-						{
-							array_push($c_u[$k], $c_a);
-						} else {
-							$c_u[$k] = array($c_a);
-						}
-					}
+					// Get the date of the current availability
+					$date = new DateTime($a->from);
+					$k = $date->format('Y-m-d');
 
-					$availabilities[$u->id] = $c_u;
+					// If an entry exists for this day, append, otherwise, create
+					if(isset($c_u[$k]))
+					{
+						array_push($c_u[$k], $c_a);
+					} else {
+						$c_u[$k] = array($c_a);
+					}
 				}
 
-				return $availabilities;
-		//	}
-		//} else {
-		//	return array();
-		//}
+				// Add the availabilities for the current user to the total
+				$availabilities[$u->id] = $c_u;
+			}
+
+			// Return the availabilities
+			return $availabilities;
+		} else {
+			// Do not show. Easiest solution
+			return array();
+		}
 	}
 
 	/**

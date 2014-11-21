@@ -109,6 +109,16 @@ class LeaderModel extends CI_Model
 		return $this->db->get()->result(); 
 	}
 
+	/** Returns all leader users for the given experiments */
+	public function get_leader_users_by_experiments($experiment_ids)
+	{
+		$this->db->select('user.*');
+		$this->db->from('leader');
+		$this->db->join('user', 'user.id = leader.user_id_leader');
+		$this->db->where_in('experiment_id', $experiment_ids);
+		return $this->db->get()->result(); 
+	}
+
 	/** Returns all leader mails for the given experiment */
 	public function get_leader_emails_by_experiment($experiment_id)
 	{

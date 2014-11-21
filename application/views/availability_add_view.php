@@ -66,7 +66,7 @@
 	var img = '<?=img_delete(); ?>';
 	var preselectedTimes = <?=$preselect;?>;
 	var hourFormat, hourSuffix, dateTimeFormat;
-	<?php if ($lang == 'en')
+	<?php if ($lang == 'nl')
 	{
 		echo "hourFormat = true;";
 		echo "hourSuffix = 'uur';";
