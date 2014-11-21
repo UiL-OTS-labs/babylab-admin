@@ -210,29 +210,27 @@ class Appointment extends CI_Controller
 	public function availabilities()
 	{
 		$availabilities = $this->filter_availabilities();
+
 		$result = array();
 
-		foreach ($availabilities as $a)
+		// For each user
+		foreach($availabilities as $u_id => $u)
 		{
-			// Begin and end datetime
-			$s = new DateTime($a->from);
-			$start = $s->format(DateTime::ISO8601);
+			// For each day
+			foreach($u as $day => $d)
+			{
+				// Begin and end datetime
+				$user = $this->userModel->get_user_by_id($u_id);
+
+				$event = array(
+					"title" 	=> lang('availability') . " " . $user->username,
+					"start" 	=> $day,
+					"allDay"	=> true,
+					"tooltip"	=> $this->generate_label($user, $d)
+				);
 			
-			$e = new DateTime($a->to);
-			$end = $e->format(DateTime::ISO8601);
-
-			$user = $this->userModel->get_user_by_id($a->user_id);
-
-			// Generate array for event
-			$event = array(
-				"title" 	=> lang('availability') . " " . $user->username,
-				"start" 	=> $start,
-				"end"		=> $end,
-				"allDay"	=> true,
-				"tooltip"	=> $this->generate_label($user, $s, $e)
-			);
-
-			array_push($result, $event);
+				array_push($result, $event);
+			}
 		}
 
 		echo json_encode($result);
@@ -243,32 +241,77 @@ class Appointment extends CI_Controller
 	 */
 	private function filter_availabilities()
 	{
-		$experiment_ids = $this->input->post('experiment_ids');
-		$include_availability = $this->input->post('include_availability') == "true";
+		//$experiment_ids = $this->input->post('experiment_ids');
+		//$include_availability = $this->input->post('include_availability') == "true";
 
-		if($include_availability)
-		{
-			if($experiment_ids != '')
-				return $this->availabilityModel->get_availabilities_by_experiments($experiment_ids);
-			else
-				return $this->availabilityModel->get_all_availabilities();
-		} else {
-			return array();
-		}
+		//if($include_availability)
+		//{
+		//	if($experiment_ids != '')
+		//		return $this->availabilityModel->get_availabilities_by_experiments($experiment_ids);
+		//	else
+		//	{
+				$availabilities = array();
+				$users = $this->userModel->get_all_users();
+
+				foreach($users as $u)
+				{
+					$c_u = array();
+
+					$av = $this->availabilityModel->get_availabilities_by_user($u->id);
+
+					foreach($av as $a)
+					{
+						$c_a = array("from" => $a->from, "to" => $a->to, "comment" => $a->comment);
+					
+						$date = new DateTime($a->from);
+						$k = $date->format('Y-m-d');
+						if(isset($c_u[$k]))
+						{
+							array_push($c_u[$k], $c_a);
+						} else {
+							$c_u[$k] = array($c_a);
+						}
+					}
+
+					$availabilities[$u->id] = $c_u;
+				}
+
+				return $availabilities;
+		//	}
+		//} else {
+		//	return array();
+		//}
 	}
 
 	/**
 	 * Generates the tooltip label of availability-events
 	 */
-	private function generate_label($user, $start, $end)
+	private function generate_label($user, $d)
 	{
-		//$html = "<b>" . lang('availability') . " " . $start->format('H:i') . "-" . $end->format('H:i') . "</b>" . br() ;
-		$html = heading(sprintf(lang('availability_from_to'), $user->username, $start->format('Y-m-d'), 
-			$start->format('H:i') , $end->format('H:i')), 3) . br();
-		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
-		if(!empty($experiments))
-			$html .= $this->generate_legend($experiments, sprintf(lang('exp_for_leader'), $user->username));
+		$html = heading(sprintf(lang('availability_for_user'), ucfirst($user->username)), 3);
 
+		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
+
+		$html .= "<ul>";
+		foreach($d as $times)
+		{
+			$s = new Datetime($times["from"]);
+			$e = new Datetime($times["to"]);
+			$html .= "<li>";
+			$html .= $s->format("H:i") . " - " . $e->format("H:i");
+			if(isset($times->comment))
+				$html .= "(" . $times->comment . ")";
+		}
+		$html .= "</ul>";
+
+		if(sizeof($experiments) > 0)
+		{
+			$title = heading(sprintf(lang('exp_for_leader'), ucfirst($user->username)),3);
+			$html .= $this->generate_legend($experiments, $title);
+		} else {
+			$html .= sprintf(lang('has_no_experiments'), ucfirst($user->username));
+		}
+		
 		return $html;
 	}
 

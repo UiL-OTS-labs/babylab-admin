@@ -183,6 +183,7 @@ $lang['sure_delete_leader']	= "Weet u zeker dat u deze leider voor dit experimen
 $lang['deleted_leader']		= "Leider succesvol verwijderd.";
 $lang['leader_action']		= "Leiders toevoegen aan experimenten (nu: %s experiment(en) zonder leiders)";
 $lang['not_leader']			= "U bent geen leider voor experiment %s.";
+$lang['has_no_experiments']	= "%s leidt op dit moment geen experimenten.";
 
 /* Participants */
 $lang['participant']	 	= "Proefpersoon";
@@ -451,6 +452,6 @@ $lang['availability_select'] = "Selecteer datum en tijden";
 $lang['date_range']			= "Voeg meerdere dagen tegelijk toe";
 $lang['daterange_already_exists'] = "De volgende items bestaan al in de database of overlappen deels met reeds bestaande items:<br/>%sU kunt deze items verwijderen en het daarna nogmaals proberen.";
 $lang['no_permission']			= "U bent niet gemachtigd deze bewerking uit te voeren";
-$lang['exp_for_leader']		= "%s is leider voor de volgende experimenten";
-$lang['availability_from_to'] = "%s is op %s beschikbaar van %s tot %s";
+$lang['exp_for_leader']		= "%s is leider voor de volgende experimenten:";
+$lang['availability_for_user'] = "%s is beschikbaar op de volgende tijdstippen:";
 ?>

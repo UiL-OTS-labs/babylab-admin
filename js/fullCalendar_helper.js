@@ -1,6 +1,12 @@
 /**
  * Function to generate the calendar.
  * All kinds of settings, which is nice.
+ *
+ * @Possible-TODO: Use the start and end get variables
+ * to determine the daterange for which events need to
+ * be fetched. This has to be done in the model as well
+ * as the controller
+ * http://fullcalendar.io/docs/event_data/events_json_feed/
  */
 function initializeCalendar(lang) {
 	$('#calendar').fullCalendar({

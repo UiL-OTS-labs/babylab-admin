@@ -61,6 +61,7 @@ class AvailabilityModel extends CI_Model
 	public function get_availabilities_by_users($ids)
 	{
 		$this->db->where_in('user_id', $ids);
+		$this->db->orderby('from');
 		return $this->db->get('availability')->result();
 	}
 

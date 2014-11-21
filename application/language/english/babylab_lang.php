@@ -182,6 +182,7 @@ $lang['sure_delete_leader']	= "Are you sure you want to delete this leader for t
 $lang['deleted_leader']		= "Deleted leader successfully.";
 $lang['leader_action']		= "Adding leaders to experiments (now: %s experiment(s) without leaders)";
 $lang['not_leader']			= "You are not a leader for experiment %s.";
+$lang['has_no_experiments']	= "%s is not currently leading any experiments.";
 
 /* Participants */
 $lang['participant']	 	= "Participant";
@@ -450,7 +451,7 @@ $lang['availability_select'] = "Select date and times";
 $lang['date_range']			= "Select multiple dates in one go";
 $lang['daterange_already_exists'] = "De following items already exist or are in the same range as items in the database:<br/>%sPlease delete these items and try again";
 $lang['no_permission']			= "You have no permission for this action";
-$lang['exp_for_leader']		= "%s is leader for the following experiments";
-$lang['%s is available  on %s from %s to %s'];
+$lang['exp_for_leader']		= "%s is leader for the following experiments:";
+$lang['availability_for_user'] = "%s is available at the following times:";
 
 ?>
