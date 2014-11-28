@@ -407,6 +407,9 @@ class Participant extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	/**
+	 * Returns the JSON for the participant graph
+	 */
 	public function graph_json() 
 	{
 		$table = array();
@@ -458,11 +461,29 @@ class Participant extends CI_Controller
 		echo json_encode($table);
 	}
 
+	/**
+	 * Flattens the results
+	 */
 	private function flatten($rows)
 	{
 		$result = array();
 		foreach ($rows as $row) array_push($result, array('c' => array_values($row)));
 		return $result;
+	}
+
+	/**
+	 * Shows an age overview of all participants
+	 */
+	public function age_overview($age_in_months = 18, $months_from_now = 0)
+	{
+		create_participant_table();
+		$data['ajax_source'] = 'participant/table_by_age/' . $months_from_now . '/' . $age_in_months;
+		$data['page_title'] = lang('participants');
+		$data['hide_columns'] = '6';
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/list_view', $data);
+		$this->load->view('templates/footer');
 	}
 
 	/////////////////////////
@@ -724,6 +745,12 @@ class Participant extends CI_Controller
 	{
 		$this->datatables->where('deactivated IS NOT NULL');
 		$this->datatables->where('deactivated_reason', DeactivateReason::NewParticipant);
+		$this->table();
+	}
+
+	public function table_by_age($months_from_now, $age_in_months)
+	{
+		$this->datatables->where('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date('+' . $months_from_now . ' months') . '") = ' . $age_in_months);
 		$this->table();
 	}
 

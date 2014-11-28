@@ -230,6 +230,18 @@ class ParticipantModel extends CI_Model
 		return $this->db->get('participant')->result();
 	}
 
+	/** Returns all participants of a certain age in months */
+	public function get_participants_per_month($date = 'now')
+	{
+		$this->db->select('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date($date) . '") AS age', FALSE);
+		$this->db->select('COUNT(*) AS count');
+		$this->db->where('activated', TRUE);
+		$this->db->group_by('age');
+		$this->db->having('age >=', 0);
+		$this->db->order_by('age', 'asc');
+		return $this->db->get('participant')->result();
+	}
+
 	/** Activates the specified participant */
 	public function activate($participant_id)
 	{
