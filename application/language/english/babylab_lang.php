@@ -188,6 +188,7 @@ $lang['has_no_experiments']	= "%s is not currently leading any experiments.";
 $lang['participant']	 	= "Participant";
 $lang['participants']	 	= "Participants";
 $lang['new_participants']   = "Show newly registered (still deactivated) participants";
+$lang['age_overview']       = "Show age overview";
 $lang['data_for_pp']		= "Details of participant <em>%s</em>";
 $lang['add_participant'] 	= "Add participant";
 $lang['new_pp_added']		= "New participant <em>%s</em> successfully added.";

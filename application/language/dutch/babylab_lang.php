@@ -189,6 +189,7 @@ $lang['has_no_experiments']	= "%s leidt op dit moment geen experimenten.";
 $lang['participant']	 	= "Proefpersoon";
 $lang['participants']	 	= "Proefpersonen";
 $lang['new_participants']   = "Toon nieuw aangemelde (nog gedeactiveerde) proefpersonen";
+$lang['age_overview']       = "Toon leeftijdsoverzicht";
 $lang['data_for_pp']		= "Details van proefpersoon <em>%s</em>";
 $lang['add_participant'] 	= "Voeg proefpersoon toe";
 $lang['new_pp_added']		= "Nieuwe proefpersoon <em>%s</em> succesvol toegevoegd.";

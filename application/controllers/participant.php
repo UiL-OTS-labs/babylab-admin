@@ -21,12 +21,13 @@ class Participant extends CI_Controller
 	{
 		$add_url = array('url' => 'participant/add', 'title' => lang('add_participant'));
 		$new_url = array('url' => 'participant/registered', 'title' => lang('new_participants'));
+		$overview_url = array('url' => 'participant/age_overview', 'title' => lang('age_overview'));
 		$graph_url = array('url' => 'participant/graph', 'title' => lang('participant_graph'));
 
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
-		$data['action_urls'] = array($add_url, $new_url, $graph_url);
+		$data['action_urls'] = array($add_url, $new_url, $overview_url, $graph_url);
 		$data['hide_columns'] = '6';
 
 		$this->load->view('templates/header', $data);
@@ -474,7 +475,37 @@ class Participant extends CI_Controller
 	/**
 	 * Shows an age overview of all participants
 	 */
-	public function age_overview($age_in_months = 18, $months_from_now = 0)
+	public function age_overview()
+	{
+		// Get the number of months to look in the future
+		$months_from_now = $this->input->post('months_from_now') ? $this->input->post('months_from_now') : 0;
+
+		// Set up the table 
+		base_table();
+		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', lang('actions'));
+
+		// Calculate the number of participants per month, given the data 
+		foreach ($this->participantModel->get_participants_per_month('+' . $months_from_now . ' months') as $p)
+		{
+			$this->table->add_row($p->age, $p->count, 
+				anchor('participant/age_overview_detail/' . $p->age . '/' . $months_from_now, img_zoom('participants')));
+		}
+
+		$data['table'] = $this->table->generate();
+		$data['months_from_now'] = $months_from_now;
+		$data['page_info'] = $this->load->view('participant_age_overview', $data, TRUE);
+		$data['page_title'] = lang('participants');
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/table_view', $data);
+		$this->load->view('templates/footer');
+	}
+
+
+	/**
+	 * Shows an age overview of all participants
+	 */
+	public function age_overview_detail($age_in_months, $months_from_now = 0)
 	{
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table_by_age/' . $months_from_now . '/' . $age_in_months;
@@ -751,6 +782,7 @@ class Participant extends CI_Controller
 	public function table_by_age($months_from_now, $age_in_months)
 	{
 		$this->datatables->where('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date('+' . $months_from_now . ' months') . '") = ' . $age_in_months);
+		$this->datatables->where('activated', TRUE);
 		$this->table();
 	}
 
