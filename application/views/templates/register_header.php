@@ -7,8 +7,8 @@
 <title><?=lang('babylab'); ?></title>
 <!-- Common JQuery -->
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script type="text/javascript" src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <!-- (default) CSS -->
 <?=link_tag('css/pure-min.css'); ?>
 <?=link_tag('css/style.css'); ?>
