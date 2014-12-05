@@ -155,7 +155,7 @@ a {
 	text-align: left;
 }
 
-.pure-form-aligned input { 
+.pure-form-aligned input[type="text"] { 
 	width: 15em;
 }
 
