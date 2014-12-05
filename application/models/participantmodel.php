@@ -235,6 +235,8 @@ class ParticipantModel extends CI_Model
 	{
 		$this->db->select('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date($date) . '") AS age', FALSE);
 		$this->db->select('COUNT(*) AS count');
+		$this->db->select('SUM(CASE WHEN dyslexicparent IS NOT NULL THEN 1 ELSE 0 END) AS dyslexic');
+		$this->db->select('SUM(multilingual) AS multilingual');
 		$this->db->where('activated', TRUE);
 		$this->db->group_by('age');
 		$this->db->having('age >=', 0);

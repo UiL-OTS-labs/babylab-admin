@@ -478,21 +478,21 @@ class Participant extends CI_Controller
 	public function age_overview()
 	{
 		// Get the number of months to look in the future
-		$months_from_now = $this->input->post('months_from_now') ? $this->input->post('months_from_now') : 0;
+		$date = $this->input->post('date') ? $this->input->post('date') : output_date('now', TRUE);
 
 		// Set up the table 
 		base_table();
-		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', lang('actions'));
+		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal tweetalig', lang('actions'));
 
 		// Calculate the number of participants per month, given the data 
-		foreach ($this->participantModel->get_participants_per_month('+' . $months_from_now . ' months') as $p)
+		foreach ($this->participantModel->get_participants_per_month($date) as $p)
 		{
-			$this->table->add_row($p->age, $p->count, 
-				anchor('participant/age_overview_detail/' . $p->age . '/' . $months_from_now, img_zoom('participants')));
+			$this->table->add_row($p->age, $p->count, $p->dyslexic, $p->multilingual, 
+				anchor('participant/age_overview_detail/' . $p->age . '/' . $date, img_zoom('participants')));
 		}
 
 		$data['table'] = $this->table->generate();
-		$data['months_from_now'] = $months_from_now;
+		$data['date'] = $date;
 		$data['page_info'] = $this->load->view('participant_age_overview', $data, TRUE);
 		$data['page_title'] = lang('participants');
 
@@ -505,10 +505,10 @@ class Participant extends CI_Controller
 	/**
 	 * Shows an age overview of all participants
 	 */
-	public function age_overview_detail($age_in_months, $months_from_now = 0)
+	public function age_overview_detail($age_in_months, $date)
 	{
 		create_participant_table();
-		$data['ajax_source'] = 'participant/table_by_age/' . $months_from_now . '/' . $age_in_months;
+		$data['ajax_source'] = 'participant/table_by_age/' . $date . '/' . $age_in_months;
 		$data['page_title'] = lang('participants');
 		$data['hide_columns'] = '6';
 
@@ -779,9 +779,9 @@ class Participant extends CI_Controller
 		$this->table();
 	}
 
-	public function table_by_age($months_from_now, $age_in_months)
+	public function table_by_age($date, $age_in_months)
 	{
-		$this->datatables->where('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date('+' . $months_from_now . ' months') . '") = ' . $age_in_months);
+		$this->datatables->where('TIMESTAMPDIFF(MONTH, dateofbirth, "' . input_date($date) . '") = ' . $age_in_months);
 		$this->datatables->where('activated', TRUE);
 		$this->table();
 	}

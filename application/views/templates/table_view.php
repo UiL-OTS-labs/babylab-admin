@@ -7,6 +7,7 @@
 	$(document).ready(function() {
 	    $('.dataTable').dataTable( {
 			"sPaginationType": "full_numbers",
+			"iDisplayLength": 25,
 			"oLanguage": {
 				"sUrl": "<?=lang('table_language'); ?>"
 			},
