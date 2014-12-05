@@ -66,6 +66,16 @@ if (!function_exists('current_language'))
 	}
 }
 
+if (!function_exists('current_email'))
+{
+	/** Returns the preferred language of the current user */
+	function current_email()
+	{
+		$CI =& get_instance();
+		return $CI->session->userdata('email');
+	}
+}
+
 if (!function_exists('current_role'))
 {
 	/** Returns the role of the current user */

@@ -53,6 +53,20 @@ class ParticipantModel extends CI_Model
 		return $this->db->get_where('participant', array('id' => $participant_id))->row();
 	}
 
+	/** Returns the participant for an email */
+	public function get_participants_by_email($email)
+	{
+		$this->db->where('email', $email);
+		$this->db->order_by('dateofbirth');
+		return $this->db->get('participant')->result();
+	}
+
+	/** Returns the participant for an selfservicecode */
+	public function get_participants_by_selfservicecode($selfservicecode)
+	{
+		return $this->db->get_where('participant', array('selfservicecode' => $selfservicecode))->result();
+	}
+
 	/** Returns the participants given part of the name */
 	public function find_participants_by_name($name)
 	{

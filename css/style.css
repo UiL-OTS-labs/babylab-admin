@@ -155,6 +155,10 @@ a {
 	text-align: left;
 }
 
+.pure-form-aligned input { 
+	width: 15em;
+}
+
 /*	Experiment colored label */
 .experiment-color{
 	padding: 3px;
