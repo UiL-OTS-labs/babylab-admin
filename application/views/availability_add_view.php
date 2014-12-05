@@ -1,4 +1,4 @@
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dot-luv/jquery-ui.css" type="text/css" rel="stylesheet"></link>
+<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/dot-luv/jquery-ui.css" type="text/css" rel="stylesheet"></link>
 <script type="text/javascript" src="js/moment-locales.js"/></script>
 <link type="text/css" rel="stylesheet" href="css/timerangeselector.css"/>
 <script type="text/javascript" src="js/jquery.ui.timerangeselector.js"></script>
