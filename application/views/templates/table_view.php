@@ -1,8 +1,6 @@
 <!-- DataTables -->
 <?=link_tag('js/datatables/media/css/jquery.dataTables.css'); ?>
-<script
-	type="text/javascript"
-	src="js/datatables/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.9.4/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 	    $('.dataTable').dataTable( {
