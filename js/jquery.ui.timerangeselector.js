@@ -275,8 +275,9 @@
         },
         
         
-        _toTime: function(cell, last=false)
+        _toTime: function(cell, last)
         {
+            last = last || false; 
             var that = this;
             var o = that.options;
 
