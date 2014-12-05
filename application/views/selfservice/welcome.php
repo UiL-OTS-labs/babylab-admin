@@ -1,10 +1,22 @@
+<script>
+$(function() {
+    $(":checkbox[name^='active']").change(function() {
+        // If the 'active' checkbox is unchecked...
+        if (!$(this).is(':checked')) {
+            // ... select the next checkbox, set it to false
+            $(this).parent().next().children().attr('checked', false);
+        }
+    });
+});
+</script>
+
 <?=heading('Selfservice Babylab Utrecht', 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
 
 <p>Op deze pagina kunt u uw gegevens wijzigen en (indien gewenst) uw kinderen uitschrijven voor onderzoek van het BabyLab Utrecht en andere Babylabs.</p>
 
-<?=form_open('submit', array('class' => 'pure-form pure-form-aligned')); ?>
+<?=form_open('selfservice/welcome_submit', array('class' => 'pure-form pure-form-aligned')); ?>
 
 <?=form_fieldset('Uw gegevens'); ?>
 <?=form_input_and_label('parentfirstname', $parentfirstname, 'required'); ?>
@@ -24,7 +36,9 @@
     $this->table->set_heading('Kind', lang('gender'), lang('dob'), 'Babylab Utrecht', 'Andere Babylabs');
     foreach ($participants as $p)
     {
-        $this->table->add_row(name($p), gender_sex($p->gender), output_date($p->dateofbirth), form_checkbox('active'), form_checkbox('other'));
+        $this->table->add_row(name($p), gender_sex($p->gender), output_date($p->dateofbirth), 
+            form_checkbox('active_' . $p->id, TRUE, $p->activated), 
+            form_checkbox('other_' . $p->id, TRUE, $p->otherbabylabs));
     } 
     echo $this->table->generate();
 ?>

@@ -97,6 +97,7 @@ class DeactivateReason {
 	const DuringCall	= 'call';
 	const AfterExp		= 'exp';
 	const Manual		= 'manual';
+	const SelfService	= 'selfservice';
 }
 
 /** Exclusion reasons */

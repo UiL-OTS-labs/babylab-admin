@@ -26,20 +26,32 @@ class SelfService extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /** Submits the username and password and redirects based on validation. */
+    /** Submits the e-mail and redirects based on validation. */
     public function submit($language = L::Dutch)
     {
-        // E-mai = NOT OK -> return to index
-        if (!$this->validate($language))
+        // E-mail = NOT OK -> return to index
+        if (!$this->validate_email($language))
         {
             $this->index($language);
-            return;
         }
         // E-mail = OK -> create a single-time login code, send an e-mail to the user with the link.
         else
         {
-            if ($this->authenticate($language)) redirect('selfservice/welcome');
-            else $this->index($language);
+            $email = $this->input->post('email');
+
+            $code = $language . '/' . bin2hex(openssl_random_pseudo_bytes(8));
+            $update = array('selfservicecode' => $code, 'selfservicetime' => input_datetime('+1 day'));
+
+            $participants = $this->participantModel->get_participants_by_email($email); 
+            foreach ($participants as $p)
+            {
+                $this->participantModel->update_participant($p->id, $update);
+            }
+
+            // TODO: send e-mail
+
+            flashdata(sprintf('E-mail voor toegang selfservice verstuurd naar %s', $email));
+            redirect('selfservice');
         }
     }
 
@@ -59,6 +71,43 @@ class SelfService extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    /** Submits the username and password and redirects based on validation. */
+    public function welcome_submit()
+    {
+        // Run validation
+        if (!$this->validate_participant())
+        {
+            // If not succeeded, show form again with error messages
+            $this->welcome();
+        }
+        else
+        {
+            // If succeeded, update the participants
+            $participant = $this->post_participant();
+
+            $participants = $this->participantModel->get_participants_by_email(current_email()); 
+            foreach ($participants as $p)
+            {
+                $activate = $this->input->post('active_' . $p->id); 
+                if ($p->activated && !$activate)
+                {
+                    $this->participantModel->deactivate($p->id, DeactivateReason::SelfService);
+                }
+                else if (!$p->activated && $activate)
+                {
+                    $this->participantModel->activate($p->id);
+                }
+
+                $participant['otherbabylabs'] = $this->input->post('other_' . $p->id); 
+                $this->participantModel->update_participant($p->id, $participant);
+            }
+
+            // Display success
+            flashdata('Gegevens succesvol bewerkt.');
+            redirect('selfservice/welcome', 'refresh');
+        }
+    }
+
     /** Logs out the current user by destroying the session. Returns to login page. */
     public function logout()
     {
@@ -71,8 +120,8 @@ class SelfService extends CI_Controller
     // Form validation
     /////////////////////////
 
-    /** Validates username and password. */
-    public function validate($language)
+    /** Validates an e-mail */
+    public function validate_email($language)
     {
         reset_language($language);
 
@@ -82,41 +131,77 @@ class SelfService extends CI_Controller
         return $this->form_validation->run();
     }
 
+    /** Validates a participant */
+    private function validate_participant()
+    {
+        $this->form_validation->set_rules('parentfirstname', lang('parentfirstname'), 'trim|required');
+        $this->form_validation->set_rules('parentlastname', lang('parentlastname'), 'trim');
+        $this->form_validation->set_rules('city', lang('city'), 'trim');
+        $this->form_validation->set_rules('phone', lang('phone'), 'trim|required');
+        $this->form_validation->set_rules('phonealt', lang('phonealt'), 'trim');
+        $this->form_validation->set_rules('email', lang('email'), 'trim|valid_email');
+
+        return $this->form_validation->run();
+    }
+
+    /** Posts the data for a participant */
+    private function post_participant()
+    {
+        return array(
+                'parentfirstname'       => $this->input->post('parentfirstname'),
+                'parentlastname'        => $this->input->post('parentlastname'),
+                'city'                  => $this->input->post('city'),
+                'phone'                 => $this->input->post('phone'),
+                'phonealt'              => $this->input->post('phonealt'),
+                'email'                 => $this->input->post('email'),
+        );
+    }
+
     /////////////////////////
     // Callbacks
     /////////////////////////
 
-    /** Authenticates username and password. Returns true if authentication was successful. */
-    public function authenticate($language)
+    public function participant_exists($email)
     {
-        $email = $this->input->post('email');
-
         $participants = $this->participantModel->get_participants_by_email($email);
-
-        // If there are participants found in DB...
-        if ($participants)
+        if (!$participants)
         {
-            // Destroy old session
-            $this->session->sess_destroy();
+            $this->form_validation->set_message('participant_exists', lang('unknown_email'));
+            return FALSE;
+        }
+        return TRUE;
+    }
 
+    /////////////////////////
+    // Helpers
+    /////////////////////////
+
+    /** Authenticates the single-login code. Returns true if authentication was successful. */
+    public function auth($language, $selfservicecode)
+    {
+        $participants = $this->participantModel->get_participants_by_selfservicecode($language . '/' . $selfservicecode);
+
+        // If there are participants found, and request is not too old... 
+        if ($participants && $participants[0]->selfservicetime > input_datetime())
+        {
             // Create a fresh, brand new session
             $this->session->sess_create();
 
             // Set session data
             $session_data = array(
-                    'email'     => $email,
+                    'email'     => $participants[0]->email,
                     'language'  => $language,
             );
             $this->session->set_userdata($session_data);
 
             // Login was successful
-            return TRUE;
+            redirect('selfservice/welcome');
         }
         // If there is no database result found, destroy the session
         else
         {
-            $this->session->sess_destroy();
-            return FALSE;
+            flashdata('Incorrect URL or request timed out. Please send a new request.', FALSE);
+            redirect('selfservice');
         }
     }
 }
