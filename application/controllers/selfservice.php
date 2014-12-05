@@ -55,6 +55,35 @@ class SelfService extends CI_Controller
         }
     }
 
+    /** Authenticates the single-login code. Returns true if authentication was successful. */
+    public function auth($language, $selfservicecode)
+    {
+        $participants = $this->participantModel->get_participants_by_selfservicecode($language . '/' . $selfservicecode);
+
+        // If there are participants found, and request is not too old... 
+        if ($participants && $participants[0]->selfservicetime > input_datetime())
+        {
+            // Create a fresh, brand new session
+            $this->session->sess_create();
+
+            // Set session data
+            $session_data = array(
+                    'email'     => $participants[0]->email,
+                    'language'  => $language,
+            );
+            $this->session->set_userdata($session_data);
+
+            // Login was successful
+            redirect('selfservice/welcome');
+        }
+        // If there is no database result found, destroy the session
+        else
+        {
+            flashdata('Incorrect URL or request timed out. Please send a new request.', FALSE);
+            redirect('selfservice');
+        }
+    }
+
     public function welcome() 
     {
         $participants = $this->participantModel->get_participants_by_email(current_email());
@@ -170,38 +199,5 @@ class SelfService extends CI_Controller
             return FALSE;
         }
         return TRUE;
-    }
-
-    /////////////////////////
-    // Helpers
-    /////////////////////////
-
-    /** Authenticates the single-login code. Returns true if authentication was successful. */
-    public function auth($language, $selfservicecode)
-    {
-        $participants = $this->participantModel->get_participants_by_selfservicecode($language . '/' . $selfservicecode);
-
-        // If there are participants found, and request is not too old... 
-        if ($participants && $participants[0]->selfservicetime > input_datetime())
-        {
-            // Create a fresh, brand new session
-            $this->session->sess_create();
-
-            // Set session data
-            $session_data = array(
-                    'email'     => $participants[0]->email,
-                    'language'  => $language,
-            );
-            $this->session->set_userdata($session_data);
-
-            // Login was successful
-            redirect('selfservice/welcome');
-        }
-        // If there is no database result found, destroy the session
-        else
-        {
-            flashdata('Incorrect URL or request timed out. Please send a new request.', FALSE);
-            redirect('selfservice');
-        }
     }
 }
