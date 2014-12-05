@@ -37,20 +37,12 @@ class Authenticate
 
 	public function authenticate_session($role)
 	{
-		$session_bool = $this->CI->session->userdata('logged_in');
 		$session_role = $this->CI->session->userdata('role');
 
 		$correct_role = $role === UserRole::Admin ? $session_role === UserRole::Admin : TRUE;
 		$correct_role &= $role === UserRole::Leader ? in_array($session_role, array(UserRole::Admin, UserRole::Leader)) : TRUE;
 
-		if (isset($session_bool) && $session_bool == TRUE && $correct_role) 
-		{
-			return TRUE;
-		}
-		else 
-		{
-			return FALSE;
-		}
+		return $this->logged_in() && $correct_role;
 	}
 
 	/**

@@ -140,12 +140,25 @@
 
 		<?php if (current_user_id() > 0) { ?>
 		<div id="welcome">
-			<em><?=current_username(); ?> </em> |
-			<?=anchor('user/edit/' . current_user_id(), lang('edit_user_profile')); ?>
-			|
-			<?=anchor('user/change_password/' . current_user_id(), lang('change_password')); ?>
-			|
-			<?=anchor('login/logout', lang('logout')); ?>
+		<?php 
+			echo "<em>" . current_username() . "</em>";
+			echo " | ";
+			echo anchor('user/edit/' . current_user_id(), lang('edit_user_profile'));
+			echo " | ";
+			echo anchor('user/change_password/' . current_user_id(), lang('change_password'));
+			echo " | ";
+			if (is_admin()) 
+			{
+				echo anchor('login/switch_to/leader', 'Login als leider');
+				echo " | ";
+			}
+			if (is_admin() || is_leader()) 
+			{
+				echo anchor('login/switch_to/caller', 'Login als beller');
+				echo " | ";
+			}
+			echo anchor('login/logout', lang('logout'));
+		?>
 		</div>
 		<?php } ?>
 

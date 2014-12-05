@@ -49,8 +49,8 @@ class Experiment extends CI_Controller
 	/** Specifies the contents of the add experiment page */
 	public function add()
 	{
-		$leaders = $this->userModel->get_all_leaders();
-		$callers = $this->userModel->get_all_callers();
+		$leaders = $this->userModel->get_all_leaders() + $this->userModel->get_all_admins();
+		$callers = $this->userModel->get_all_users();
 		$experiments = $this->experimentModel->get_all_experiments();
 
 		$data['page_title'] = lang('add_experiment');
@@ -98,8 +98,8 @@ class Experiment extends CI_Controller
 		}
 
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
-		$leaders = $this->userModel->get_all_leaders();
-		$callers = $this->userModel->get_all_callers();
+		$leaders = $this->userModel->get_all_leaders() + $this->userModel->get_all_admins();
+		$callers = $this->userModel->get_all_users();
 		$experiments = $this->experimentModel->get_all_experiments(TRUE, $experiment_id);
 
 		$data['page_title'] = lang('edit_experiment');

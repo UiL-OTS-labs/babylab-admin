@@ -10,7 +10,7 @@ class Availability extends CI_Controller
 
 	public function index($include_past = FALSE)
 	{
-		$add_url = array('url' => 'availability/add', 'title'	=> lang('create_availability'));
+		$add_url = array('url' => 'availability/add', 'title' => lang('create_availability'));
 		$past_url = availability_past_url($include_past);
 
 		create_availability_table();

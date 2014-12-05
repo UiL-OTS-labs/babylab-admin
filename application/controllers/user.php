@@ -155,7 +155,6 @@ class User extends CI_Controller
 			if (current_user_id() == $user_id)
 			{
 				$u = $this->userModel->get_user_by_id($user_id);
-				$this->session->set_userdata('role', $u->role);
 				$this->session->set_userdata('language', user_language($u));
 			}
 

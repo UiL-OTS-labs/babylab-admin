@@ -31,7 +31,7 @@
 
 <!-- Experiments -->
 <?php
-if ($user->role != UserRole::Admin)
+if (is_admin())
 {
 	echo heading(lang('experiments'), 3);
 	create_experiment_table('experiments');
@@ -52,7 +52,7 @@ echo $this->load->view('templates/list_view', $comments);
 
 <!-- Calls -->
 <?php
-if ($user->role === UserRole::Caller)
+if (current_role() === UserRole::Caller)
 {
 	echo heading(lang('calls'), 3);
 	create_call_table('calls', FALSE);

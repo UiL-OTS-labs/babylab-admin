@@ -77,6 +77,25 @@ class Login extends CI_Controller
 		redirect($language == L::Dutch ? 'inloggen' : 'login');
 	}
 
+	/** Switches the role of the current user, if he has that privilege. Returns to the welcome page. */
+	public function switch_to($role)
+	{
+		if (is_admin() && in_array($role, array(UserRole::Caller, UserRole::Leader))) 
+		{
+			$this->session->set_userdata(array('role' => $role));
+			redirect('welcome');
+		}
+		else if (is_leader() && $role == UserRole::Caller) 
+		{
+			$this->session->set_userdata(array('role' => $role));
+			redirect('welcome');
+		}
+		else 
+		{
+			show_error('Sorry, you are not allowed to do this.');
+		}
+	}
+
 	/////////////////////////
 	// Form validation
 	/////////////////////////
