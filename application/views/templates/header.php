@@ -69,12 +69,18 @@
 				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participations'); ?></a>
 					<ul>
 						<li><?=anchor('participation', lang('overview')); ?></li>
-						<li><?=anchor('appointment', lang('calendar')); ?></li>
 						<li><?=anchor('call', lang('calls')); ?></li>
 						<li><?=anchor('result', lang('results')); ?></li>
 						<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
 						<li class='last'><?=anchor('participation/interruptions', lang('interruptions')); ?>
 						</li>
+					</ul>
+				</li>
+				<li class='has-sub'><a href="javascript:void(0)"><?=lang('calendar'); ?></a>
+					<ul>
+						<li><?=anchor('appointment', lang('calendar')); ?></li>
+						<li><?=anchor('impediment', lang('impediments')); ?></li>
+						<li class='last'><?=anchor('closing', lang('closings')); ?></li>
 					</ul>
 				</li>
 				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participants'); ?></a>

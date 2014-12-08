@@ -460,10 +460,12 @@ $lang['availability_for_user'] = "%s is beschikbaar op de volgende tijdstippen:"
 $lang['closing']            = "Sluiting";
 $lang['closings']           = "Sluitingen";
 $lang['add_closing']        = "Sluiting toevoegen";
+$lang['closing_added']      = "Sluiting toegevoegd";
 $lang['delete_closing']     = "Sluiting verwijderen";
 $lang['closing_deleted']    = "Sluiting verwijderd";
 $lang['sure_delete_closing']  = "Weet u zeker dat u deze sluiting wilt verwijderen?";
 $lang['closing_include_past'] = "Sluitingen uit verleden tonen";
 $lang['closing_exclude_past'] = "Sluitingen uit verleden niet tonen";
+$lang['closing_within_bounds']= "De '%s' valt binnen een bestaande sluiting voor deze locatie.";
 
 ?>

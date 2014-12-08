@@ -9,8 +9,9 @@
 </head>
 <body>
 	<div id="wrapper">
+        <?=heading('Geen toegang', 2); ?>
 		<div class="failed">
-		<?=$error; ?>
+            <?=$error; ?>
 		</div>
 	</div>
 </body>

@@ -8,6 +8,10 @@ class Availability extends CI_Controller
 		reset_language(current_language());
 	}
 
+	/////////////////////////
+	// CRUD-actions
+	/////////////////////////
+
 	public function index($include_past = FALSE)
 	{
 		$add_url = array('url' => 'availability/add', 'title' => lang('create_availability'));

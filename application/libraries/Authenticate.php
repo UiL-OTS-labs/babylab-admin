@@ -29,7 +29,6 @@ class Authenticate
 		}
 		else 
 		{
-
 			$data['error'] = $message_login_failed === '' ? lang('not_authorized') : $message_login_failed;
 			$this->CI->load->view('templates/error', $data);
 		}
