@@ -14,7 +14,7 @@
 			$( this ).next().toggle( "slow" );
 		});
 
-		// Appointment scheduling
+		// Appointment(s) scheduling
 		$( ".appointment" ).datetimepicker({
 			changeMonth : true,
 			changeYear : true,
@@ -26,11 +26,12 @@
 			buttonText : 'Pick a date and time'
 		});
 		
+        // Set the appointment field(s) to read-only
 		$( ".appointment" ).attr({
 			readOnly : true
 		});
 
-		// 
+		// If one wants to send an invitation for a combination experiment, toggle that appointment field. 
 		$('input[name="send_combination"]').click(function() {
         	$('#comb_appointment').toggle();
     	});
@@ -38,7 +39,6 @@
 		// Navigation handling: only allow navigation from forms or the cancel link.
 		var correct = false; 
 
-		// 
 		$( "form" ).submit(function() {
 			correct = true;
 		});
@@ -59,7 +59,7 @@
 	});
 </script>
 
-					   <?=heading($page_title, 2); ?>
+<?=heading($page_title, 2); ?>
 <div id="accordion">
 	<h3>
 	<?=lang('contact_details'); ?>
@@ -141,6 +141,8 @@
 							<?=form_label(sprintf(lang('send_combination'), $combination_exp->name)); ?>
 							<span id="comb_appointment">
 							<?=form_input('comb_appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
+                            <?=form_label(lang('leader')); ?>
+                            <?=form_dropdown('comb_leader', $leaders, array(), 'class="required"'); ?>
 							<?=form_hidden('comb_exp', $combination_exp->id); ?>
 							</span>
 							</p>
@@ -148,6 +150,8 @@
 						<p>
 						<?=form_label(lang('appointment')); ?>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
+						<?=form_label(lang('leader')); ?>
+						<?=form_dropdown('leader', $leaders, array(), 'class="required"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>

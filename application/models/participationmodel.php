@@ -182,12 +182,13 @@ class ParticipationModel extends CI_Model
 	/////////////////////////
 
 	/** Makes an appointment for the specified participation */
-	public function confirm($participation_id, $appointment)
+	public function confirm($participation_id, $appointment, $leader_id)
 	{
 		$this->db->where('id', $participation_id);
 		$this->db->update('participation', array(
 			'confirmed' 	=> 1, 
 			'appointment' 	=> $appointment, 
+			'user_id_leader'=> $leader_id, 
 			'status' 		=> ParticipationStatus::Confirmed));
 
 		$this->update_nr_calls($participation_id);

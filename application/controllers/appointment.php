@@ -62,7 +62,7 @@ class Appointment extends CI_Controller
 				"textColor" => $textcolor,
 				"experiment" => $experiment->name,
 				"type"		=> $experiment->type,
-				"tooltip"	=> $this->generate_tooltip($appointment->id, $participant, $experiment),
+				"tooltip"	=> $this->generate_tooltip($appointment, $participant, $experiment),
 				"message"	=> $this->get_messages($appointment),
 				"className" => ($appointment->cancelled != 0) ? "event-cancelled" : "",
 			);
@@ -150,11 +150,11 @@ class Appointment extends CI_Controller
 
 	/**
 	 * Generates HTML Output for the calender tooltip
-	 * @param int $id participation ID
+	 * @param Participation $participation ID
 	 * @param Participant $participant
 	 * @param Experiment $experiment
 	 */
-	private function generate_tooltip($id, $participant, $experiment)
+	private function generate_tooltip($participation, $participant, $experiment)
 	{
 		$exp_link = lang('experiment') . ': ';
 		$exp_link .= experiment_get_link($experiment);
@@ -168,9 +168,17 @@ class Appointment extends CI_Controller
 		$loc_link .= location_get_link_by_id($experiment->location_id);
 		$loc_link .= br();
 
-		$participation_actions = is_leader() ? '' : '<center>' . participation_actions($id) . '</center>';
+		$user_link = '';
+		if ($participation->user_id_leader)
+		{
+			$user_link .= lang('leader') . ': ';
+			$user_link .= user_get_link_by_id($participation->user_id_leader);
+			$user_link .= br();
+		}
 
-		return addslashes($exp_link . $part_link . $loc_link . $participation_actions);
+		$participation_actions = is_leader() ? '' : '<center>' . participation_actions($participation->id) . '</center>';
+
+		return addslashes($exp_link . $part_link . $loc_link . $user_link . $participation_actions);
 	}
 
 	/**

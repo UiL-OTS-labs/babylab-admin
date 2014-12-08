@@ -32,7 +32,8 @@ if (!function_exists('caller_actions'))
 
 if (!function_exists('caller_options'))
 {
-	/** Returns an option list of callers */
+	/** Returns an option list of callers 
+		Note that the parameter for this function is actually an array of users, not callers. */
 	function caller_options($callers)
 	{
 		$c_options = array();

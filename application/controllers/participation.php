@@ -255,6 +255,7 @@ class Participation extends CI_Controller
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
 		$experiments = $this->experimentModel->get_experiments_by_participant($participant_id);
 		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
+		$leaders = $this->leaderModel->get_leader_users_by_experiments($experiment_id);
 		$first_visit = count($this->participationModel->get_participations_by_participant($participant_id, TRUE)) == 0;
 
 		// Retrieve or create participation record
@@ -288,6 +289,7 @@ class Participation extends CI_Controller
 		$data['experiment'] = $experiment;
 		$data['participation'] = $participation;
 		$data['participation_id'] = $participation_id;
+		$data['leaders'] = leader_options($leaders);
 		$data['call_id'] = $call_id;
 		$data['previous_call'] = $previous_call;
 		$data['comment_size'] = count($comments);
@@ -628,11 +630,14 @@ class Participation extends CI_Controller
 
 	public function table($participant_id = NULL, $experiment_id = NULL)
 	{
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, name AS e, appointment, cancelled, noshow, completed,
+		$this->datatables->select('CONCAT(participant.firstname, " ", participant.lastname) AS p, 
+									name AS e, appointment, username, 
+									cancelled, noshow, completed,
 									participation.id AS id, participant_id, experiment_id', FALSE);
 		$this->datatables->from('participation');
 		$this->datatables->join('participant', 'participant.id = participation.participant_id');
 		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
+		$this->datatables->join('user', 'user.id = participation.user_id_leader', 'LEFT');
 
 		// Exclude empty participations
 		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');

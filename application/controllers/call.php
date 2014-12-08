@@ -107,6 +107,7 @@ class Call extends CI_Controller
 		else
 		{
 			$ad_hoc = FALSE;
+			$leader_id = $this->input->post('leader');
 
 			// If succeeded, insert data into database
 			if (!$appointment)
@@ -124,7 +125,7 @@ class Call extends CI_Controller
 
 			// End the call, confirm the participation
 			$this->callModel->end_call($call_id, CallStatus::Confirmed);
-			$this->participationModel->confirm($participation->id, $appointment);
+			$this->participationModel->confirm($participation->id, $appointment, $leader_id);
 			$this->participationModel->release_lock($participation->id);
 
 			// Fetch the participant's email (or the concept e-mail)
@@ -145,9 +146,10 @@ class Call extends CI_Controller
 			if ($this->input->post('comb_appointment'))
 			{
 				$comb_experiment = $this->experimentModel->get_experiment_by_id($this->input->post('comb_exp'));
+				$comb_leader = $this->input->post('comb_leader');
 				$comb_participation_id = $this->participationModel->create_participation($comb_experiment, $participant);
 				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
-				$this->participationModel->confirm($comb_participation_id, $comb_appointment);
+				$this->participationModel->confirm($comb_participation_id, $comb_appointment, $comb_leader);
 				$flashdata .= br() . $this->send_confirmation_email($comb_participation_id, $testinvite, $email, $comb_experiment);
 			}
 			// Else we can send a simple confirmation e-mail

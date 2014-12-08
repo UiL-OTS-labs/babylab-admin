@@ -32,7 +32,8 @@ if (!function_exists('leader_actions'))
 
 if (!function_exists('leader_options'))
 {
-	/** Returns an option list of leaders */
+	/** Returns an option list of leaders. 
+		Note that the parameter for this function is actually an array of users, not leaders. */
 	function leader_options($leaders)
 	{
 		$l_options = array();
