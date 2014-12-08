@@ -6,7 +6,7 @@ $(function() {
 });
 </script>
 
-<!-- Color Picker -->
+<!-- Color Picker TODO: consider a more lightweight package like Spectrum (http://bgrins.github.io/spectrum/) -->
 <?=link_tag('css/colorpicker.css'); ?>
 <script src="js/colorPicker.min.js"></script>
 <script type="text/javascript">
