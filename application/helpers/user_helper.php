@@ -62,15 +62,6 @@ if (!function_exists('user_get_link_by_id'))
 	}
 }
 
-if (!function_exists('user_is_admin'))
-{
-	/** Returns whether or not a user is an admin */
-	function user_is_admin($user)
-	{
-		return $user->role === UserRole::Admin;
-	}
-}
-
 if (!function_exists('user_actions'))
 {
 	/** Possible actions for a user: edit, view participants, call, archive, delete */
@@ -81,7 +72,7 @@ if (!function_exists('user_actions'))
 
 		$edit_link = anchor('user/edit/' . $u->id, img_edit());
 		$act_link = is_activated($u) ? anchor('user/deactivate/' . $u->id, img_active(TRUE)) : anchor('user/activate/' . $u->id, img_active(FALSE));
-		$delete_link = user_is_admin($u) ? img_delete(TRUE) : anchor('user/delete/' . $u->id, img_delete(), warning(lang('sure_delete_user')));
+		$delete_link = is_admin($u) ? img_delete(TRUE) : anchor('user/delete/' . $u->id, img_delete(), warning(lang('sure_delete_user')));
 
 		return implode(' ', array($edit_link, $act_link, $delete_link));
 	}
