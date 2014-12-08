@@ -31,10 +31,10 @@ class Appointment extends CI_Controller
 	/** Generates an array of events (JSON encoded) for the calender */
 	public function events()
 	{
-		$appointments = $this->filter_appointments();
 		$events = array();
 
 		// For each appointment, create an event
+		$appointments = $this->filter_appointments();
 		foreach ($appointments as $appointment)
 		{
 			// Participant, Experiment and Location
@@ -52,26 +52,40 @@ class Appointment extends CI_Controller
 
 			// Colors
 			$bgcolor = $experiment->experiment_color;
-			$textcolor = isset($bgcolor) ? get_foreground_color($bgcolor) : "";
+			$textcolor = isset($bgcolor) ? get_foreground_color($bgcolor) : '';
 
 			// Generate array for event
 			$event = array(
-				"title" 	=> "\n" . name($participant) . "\n" . $location_name,
-				"start" 	=> $startTime,
-				"end"		=> $end,
-				"color" 	=> $bgcolor,
-				"textColor" => $textcolor,
-				"experiment" => $experiment->name,
-				"type"		=> $experiment->type,
-				"tooltip"	=> $this->generate_tooltip($appointment, $participant, $experiment),
-				"message"	=> $this->get_messages($appointment),
-				"className" => ($appointment->cancelled != 0) ? "event-cancelled" : "",
+				'title' 	=> "\n" . name($participant) . "\n" . $location_name,
+				'start' 	=> $startTime,
+				'end'		=> $end,
+				'color' 	=> $bgcolor,
+				'textColor' => $textcolor,
+				'experiment' => $experiment->name,
+				'type'		=> $experiment->type,
+				'tooltip'	=> $this->generate_tooltip($appointment, $participant, $experiment),
+				'message'	=> $this->get_messages($appointment),
+				'className' => ($appointment->cancelled != 0) ? 'event-cancelled' : '',
 			);
 
-			/*if ($appointment->cancelled != 0)
-			 {
-				$event .= array("className" => "event-cancelled");
-				}*/
+			// Add array to events
+			array_push($events, $event);
+		}
+
+		$closings = $this->closingModel->get_all_closings(); 
+		foreach ($closings as $closing) 
+		{
+			$location = location_name($closing->location_id);
+			$from = new DateTime($closing->from);
+			$to = new DateTime($closing->to);
+
+			$event = array(
+				'title' 	=> lang('closing') . ' ' . $location,
+				'allDay'	=> $from->diff($to)->format('%a') > 1,
+				'start' 	=> $from->format(DateTime::ISO8601),
+				'end'		=> $to->format(DateTime::ISO8601),
+				'tooltip'	=> $closing->comment,
+			);
 
 			// Add array to events
 			array_push($events, $event);
@@ -91,7 +105,7 @@ class Appointment extends CI_Controller
 		$experiment_ids = $this->input->post('experiment_ids');
 		$participant_ids = $this->input->post('participant_ids');
 		$location_ids = $this->input->post('location_ids');
-		$exclude_canceled = $this->input->post('exclude_canceled') == "true";
+		$exclude_canceled = $this->input->post('exclude_canceled') == 'true';
 		
 		// This just makes things look a little bit more fancy
 		$experiment = !empty($experiment_ids);
@@ -194,7 +208,7 @@ class Appointment extends CI_Controller
 		if(!isset($title))
 			$title = heading(lang('experiment_color'), 3);
 
-		$colors = "";
+		$colors = '';
 
 		foreach ($exps as $e)
 		{
@@ -210,7 +224,7 @@ class Appointment extends CI_Controller
 	 */
 	private function get_messages($appointment)
 	{
-		return ($appointment->cancelled) ? lang('rescheduled') : "";
+		return ($appointment->cancelled) ? lang('rescheduled') : '';
 	}
 
 	/**
@@ -232,10 +246,10 @@ class Appointment extends CI_Controller
 				$user = $this->userModel->get_user_by_id($u_id);
 
 				$event = array(
-					"title" 	=> lang('availability') . " " . $user->username,
-					"start" 	=> $day,
-					"allDay"	=> true,
-					"tooltip"	=> $this->generate_label($user, $d)
+					'title' 	=> lang('availability') . ' ' . $user->username,
+					'start' 	=> $day,
+					'allDay'	=> true,
+					'tooltip'	=> $this->generate_label($user, $d)
 				);
 			
 				array_push($result, $event);
@@ -252,7 +266,7 @@ class Appointment extends CI_Controller
 	{
 		// Post Data
 		$experiment_ids = $this->input->post('experiment_ids');
-		$include_availability = $this->input->post('include_availability') == "true";
+		$include_availability = $this->input->post('include_availability') == 'true';
 
 		if($include_availability)
 		{
@@ -273,7 +287,7 @@ class Appointment extends CI_Controller
 				foreach($av as $a)
 				{
 					// Current availability
-					$c_a = array("from" => $a->from, "to" => $a->to, "comment" => $a->comment);
+					$c_a = array('from' => $a->from, 'to' => $a->to, 'comment' => $a->comment);
 					
 					// Get the date of the current availability
 					$date = new DateTime($a->from);
@@ -309,17 +323,17 @@ class Appointment extends CI_Controller
 
 		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
 
-		$html .= "<ul>";
+		$html .= '<ul>';
 		foreach($d as $times)
 		{
-			$s = new Datetime($times["from"]);
-			$e = new Datetime($times["to"]);
-			$html .= "<li>";
-			$html .= $s->format("H:i") . " - " . $e->format("H:i");
+			$s = new Datetime($times['from']);
+			$e = new Datetime($times['to']);
+			$html .= '<li>';
+			$html .= $s->format('H:i') . ' - ' . $e->format('H:i');
 			if(isset($times->comment))
-				$html .= "(" . $times->comment . ")";
+				$html .= '(' . $times->comment . ')';
 		}
-		$html .= "</ul>";
+		$html .= '</ul>';
 
 		if(sizeof($experiments) > 0)
 		{
@@ -331,5 +345,4 @@ class Appointment extends CI_Controller
 		
 		return $html;
 	}
-
 }
