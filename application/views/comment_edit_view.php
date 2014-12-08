@@ -1,3 +1,4 @@
+<!-- Form for editing comments -->
 <?=heading(lang('comments'), 2); ?>
 
 <?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>

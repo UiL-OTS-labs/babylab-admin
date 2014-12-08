@@ -5,7 +5,6 @@ $(function() {
 	$(".chosen-select").chosen();
 });
 </script>
-<script type="text/javascript" src="js/score.js"></script>
 
 <?=heading(lang('dyslexia'), 2); ?>
 

@@ -1,4 +1,4 @@
-<!-- Calender -->
+<!-- Calendar -->
 
 <!-- Refresh every minute -->
 <meta http-equiv="refresh" content="60">

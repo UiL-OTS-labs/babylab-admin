@@ -1,4 +1,4 @@
-<!-- Form for adding comments -->
+<!-- Form for adding (short) comments -->
 <?=form_open('comment/add_submit/' . $participant->id, array('class' => 'pure-form')); ?>
 <?=form_fieldset(lang('add_comment')); ?>
 <?=$this->session->flashdata('comment_message'); ?>
