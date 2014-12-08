@@ -1,4 +1,5 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 class Dyslexia extends CI_Controller
 {
 	// TODO: on save, propagate correct values to participant.
