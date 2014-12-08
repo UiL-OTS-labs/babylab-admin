@@ -52,8 +52,9 @@ $autoload['packages'] = array();
  |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
  */
 
-$autoload['libraries'] = array('database', 'form_validation', 'session', 'table', 'pagination', 'user_agent', 'email', 	// CI
-		'authenticate', 'datatables', 'phpass');													// Other
+$autoload['libraries'] = array(
+    'database', 'form_validation', 'session', 'table', 'pagination', 'user_agent', 'email', 	// CI
+	'authenticate', 'datatables', 'phpass');													// Other
 
 
 /*
@@ -66,15 +67,15 @@ $autoload['libraries'] = array('database', 'form_validation', 'session', 'table'
  */
 
 $autoload['helper'] = array(
-		'url', 'form', 'html', 'language', 'flashdata', 'date', 'email',    // CI
-		'experiment', 'relation', 'location', 
-        'participant', 'comment', 'impediment', 'language_c', 'dyslexia',   // Models
-        'participation', 'call', 'result',  
-        'user', 'caller', 'leader', 
-        'test', 'testcat', 'score', 'percentile', 
-		'testsurvey', 'testinvite', 'testtemplate', 
-        'availability', 'closing',
-		'session', 'table', 'base64', 'image');                              // Own
+	'url', 'form', 'html', 'language', 'flashdata', 'date', 'email',    // CI
+	'experiment', 'relation', 'location', 
+    'participant', 'comment', 'impediment', 'language_c', 'dyslexia',   // Models
+    'participation', 'call', 'result',  
+    'user', 'caller', 'leader', 
+    'test', 'testcat', 'score', 'percentile', 
+	'testsurvey', 'testinvite', 'testtemplate', 
+    'availability', 'closing',
+	'session', 'table', 'base64', 'image');                              // Own
 
 
 /*
