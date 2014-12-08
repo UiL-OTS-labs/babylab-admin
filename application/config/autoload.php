@@ -75,7 +75,7 @@ $autoload['helper'] = array(
     'test', 'testcat', 'score', 'percentile', 
 	'testsurvey', 'testinvite', 'testtemplate', 
     'availability', 'closing',
-	'session', 'table', 'base64', 'image');                              // Own
+	'session', 'table', 'image');                              // Own
 
 
 /*
