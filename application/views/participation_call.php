@@ -61,9 +61,7 @@
 
 <?=heading($page_title, 2); ?>
 <div id="accordion">
-	<h3>
-	<?=lang('contact_details'); ?>
-	</h3>
+	<?=heading(lang('contact_details'), 3); ?>
 	<div class="pure-g">
 		<div class="pure-u-3-5">	
 			<?=sprintf(lang('now_calling'), name($participant), gender($participant->gender), dob($participant->dateofbirth), age_in_months($participant)); ?>

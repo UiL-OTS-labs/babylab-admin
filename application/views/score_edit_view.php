@@ -1,14 +1,9 @@
 <script type="text/javascript" src="js/score.js"></script>
-<script
-	type="text/javascript" src="js/testcats_filter_score.js"></script>
-<script
-	type="text/javascript" src="js/testsurveys_filter.js"></script>
-<script
-	type="text/javascript" src="js/participants_filter.js"></script>
+<script type="text/javascript" src="js/testcats_filter_score.js"></script>
+<script type="text/javascript" src="js/testsurveys_filter.js"></script>
+<script type="text/javascript" src="js/participants_filter.js"></script>
 
-<h2>
-<?=lang('scores'); ?>
-</h2>
+<?=heading(lang('scores'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
 

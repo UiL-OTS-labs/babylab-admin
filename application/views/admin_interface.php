@@ -4,9 +4,7 @@
 
 <?=lang('welcome_admin'); ?>
 
-<h3>
-<?=lang('tasks'); ?>
-</h3>
+<?=heading(lang('tasks'), 3); ?>
 <ul>
 	<li><?=anchor('participant', lang('pp_action')); ?></li>
 	<li><?=anchor('comment/priority', sprintf(lang('comment_action'), $prio_comment_nr)); ?>

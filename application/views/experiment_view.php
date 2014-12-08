@@ -11,12 +11,9 @@
 
 <?=$this->session->flashdata('message'); ?>
 
-<div
-	id="accordion">
+<div id="accordion">
 	<!-- General info -->
-	<h3>
-	<?=lang('general_info'); ?>
-	</h3>
+	<?=heading(lang('general_info'), 3); ?>
 	<div>
 		<table class="pure-table">
 			<tr>
@@ -55,68 +52,58 @@
 	</div>
 
 	<!-- Callers -->
-	<h3>
-	<?=lang('callers'); ?>
-	</h3>
+	<?=heading(lang('callers'), 3); ?>
 	<div>
-	<?php
-	create_caller_table('callers');
-	$callers['id'] = 'callers';
-	$callers['ajax_source'] = 'caller/table_by_experiment/' . $experiment->id;
-	$this->load->view('templates/list_view', $callers);
-	?>
+		<?php
+			create_caller_table('callers');
+			$callers['id'] = 'callers';
+			$callers['ajax_source'] = 'caller/table_by_experiment/' . $experiment->id;
+			$this->load->view('templates/list_view', $callers);
+		?>
 	</div>
 
 	<!-- Leaders -->
-	<h3>
-	<?=lang('leaders'); ?>
-	</h3>
+	<?=heading(lang('leaders'), 3); ?>
 	<div>
-	<?php
-	create_leader_table('leaders');
-	$leaders['id'] = 'leaders';
-	$leaders['ajax_source'] = 'leader/table_by_experiment/' . $experiment->id;
-	$this->load->view('templates/list_view', $leaders);
-	?>
+		<?php
+			create_leader_table('leaders');
+			$leaders['id'] = 'leaders';
+			$leaders['ajax_source'] = 'leader/table_by_experiment/' . $experiment->id;
+			$this->load->view('templates/list_view', $leaders);
+		?>
 	</div>
 
 	<!-- Participations -->
-	<h3>
-	<?=lang('participations') . ' (' . $nr_participations . ')'; ?>
-	</h3>
+	<?=heading(lang('participations') . ' (' . $nr_participations . ')', 3); ?>
 	<div>
-	<?php
-	is_leader() ? create_participation_leader_table('participations') : create_participation_table('participations');
-	$participations['id'] = 'participations';
-	$participations['ajax_source'] = is_leader() ? 'participation/table_by_leader/' . $experiment->id : 'participation/table/0/' . $experiment->id;
-	$this->load->view('templates/list_view', $participations);
-	?>
+		<?php
+			is_leader() ? create_participation_leader_table('participations') : create_participation_table('participations');
+			$participations['id'] = 'participations';
+			$participations['ajax_source'] = is_leader() ? 'participation/table_by_leader/' . $experiment->id : 'participation/table/0/' . $experiment->id;
+			$this->load->view('templates/list_view', $participations);
+		?>
 	</div>
 
 	<!-- Relations -->
-	<h3>
-	<?=lang('relations'); ?>
-	</h3>
+	<?=heading(lang('relations'), 3); ?>
 	<div>
-	<?php
-	create_relation_table('relations');
-	$relations['id'] = 'relations';
-	$relations['ajax_source'] = 'relation/table_by_experiment/' . $experiment->id;
-	$this->load->view('templates/list_view', $relations);
+		<?php
+			create_relation_table('relations');
+			$relations['id'] = 'relations';
+			$relations['ajax_source'] = 'relation/table_by_experiment/' . $experiment->id;
+			$this->load->view('templates/list_view', $relations);
 		?>
 	</div>
 	
 	<!-- Scores -->
-	<h3>
-	<?=lang('scores'); ?>
-	</h3>
+	<?=heading(lang('scores'), 3); ?>
 	<div>
-	<?php
-		create_testinvite_experiment_table('testinvites');
-		$testinvites['id'] = 'testinvites';
-		$testinvites['ajax_source'] = 'testinvite/table_by_experiment/' . $experiment->id;
-		$this->load->view('templates/list_view', $testinvites);
-	?>
-	<?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download NCDI scores'); ?>
+		<?php
+			create_testinvite_experiment_table('testinvites');
+			$testinvites['id'] = 'testinvites';
+			$testinvites['ajax_source'] = 'testinvite/table_by_experiment/' . $experiment->id;
+			$this->load->view('templates/list_view', $testinvites);
+		?>
+		<?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download NCDI scores'); ?>
 	</div>
 </div>

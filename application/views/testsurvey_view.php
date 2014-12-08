@@ -4,9 +4,7 @@
 
 <div>
 	<!-- General info -->
-	<h3>
-	<?=lang('general_info'); ?>
-	</h3>
+	<?=heading(lang('general_info'), 3); ?>
 	<table class="pure-table">
 		<tr>
 			<th><?=lang('test'); ?></th>
@@ -24,28 +22,24 @@
 	</table>
 
 	<!-- Scores -->
-	<h3>
-	<?=lang('scores'); ?>
-	</h3>
+	<?=heading(lang('scores'), 3); ?>
 	<div>
-	<?php
-	create_score_table('scores', 'testsurvey');
-	$scores['id'] = 'scores';
-	$scores['ajax_source'] = 'score/table_by_testsurvey/' . $testsurvey->id;
-	$this->load->view('templates/list_view', $scores);
-	?>
+		<?php
+			create_score_table('scores', 'testsurvey');
+			$scores['id'] = 'scores';
+			$scores['ajax_source'] = 'score/table_by_testsurvey/' . $testsurvey->id;
+			$this->load->view('templates/list_view', $scores);
+		?>
 	</div>
 
 	<!-- Testinvites -->
-	<h3>
-	<?=lang('testinvites'); ?>
-	</h3>
+	<?=heading(lang('testinvites'), 3); ?>
 	<div>
-	<?php
-	create_testinvite_table('testinvites');
-	$testinvites['id'] = 'testinvites';
-	$testinvites['ajax_source'] = 'testinvite/table_by_testsurvey/' . $testsurvey->id;
-	$this->load->view('templates/list_view', $testinvites);
+		<?php
+			create_testinvite_table('testinvites');
+			$testinvites['id'] = 'testinvites';
+			$testinvites['ajax_source'] = 'testinvite/table_by_testsurvey/' . $testsurvey->id;
+			$this->load->view('templates/list_view', $testinvites);
 		?>
 	</div>
 </div>
