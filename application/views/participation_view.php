@@ -62,30 +62,26 @@
 
 <!-- Calls -->
 <?php if (!is_leader()) { ?>
-<h3>
-<?=lang('calls'); ?>
-</h3>
-<div>
-<?php
-create_call_table('calls');
-$calls['id'] = 'calls';
-$calls['sort_column'] = 5;
-$calls['sort_order'] = 'desc';
-$calls['ajax_source'] = 'call/table_by_participation/' . $participation->id;
-echo $this->load->view('templates/list_view', $calls);
-?>
-</div>
+	<?=heading(lang('calls'), 3); ?>
+	<div>
+		<?php
+			create_call_table('calls');
+			$calls['id'] = 'calls';
+			$calls['sort_column'] = 5;
+			$calls['sort_order'] = 'desc';
+			$calls['ajax_source'] = 'call/table_by_participation/' . $participation->id;
+			echo $this->load->view('templates/list_view', $calls);
+		?>
+	</div>
 <?php } ?>
 
 <!-- Results -->
-<h3>
-<?=lang('results'); ?>
-</h3>
+<?=heading(lang('results'), 3); ?>
 <div>
-<?php
-create_result_table('results');
-$results['id'] = 'results';
-$results['ajax_source'] = 'result/table_by_participation/' . $participation->id;
+	<?php
+		create_result_table('results');
+		$results['id'] = 'results';
+		$results['ajax_source'] = 'result/table_by_participation/' . $participation->id;
 		echo $this->load->view('templates/list_view', $results);
 	?>
 </div>

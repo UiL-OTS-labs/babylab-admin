@@ -66,11 +66,15 @@ $autoload['libraries'] = array('database', 'form_validation', 'session', 'table'
  */
 
 $autoload['helper'] = array(
-		'url', 'form', 'html', 'language', 'flashdata', 'date', 'email',					// CI
-		'experiment', 'relation', 'location', 'participant', 'participation', 'comment', 'impediment', 	// Model
-		'call', 'caller', 'leader', 'user', 'test', 'testcat', 'score', 'percentile', 'result',			// Model
-		'testsurvey',	'testinvite', 'testtemplate', 'language_c', 'dyslexia',	// Model
-		'session', 'table', 'base64', 'image', 'availability');									// Other
+		'url', 'form', 'html', 'language', 'flashdata', 'date', 'email',    // CI
+		'experiment', 'relation', 'location', 
+        'participant', 'comment', 'impediment', 'language_c', 'dyslexia',   // Models
+        'participation', 'call', 'result',  
+        'user', 'caller', 'leader', 
+        'test', 'testcat', 'score', 'percentile', 
+		'testsurvey', 'testinvite', 'testtemplate', 
+        'availability', 'closing',
+		'session', 'table', 'base64', 'image');                              // Own
 
 
 /*
@@ -115,10 +119,11 @@ $autoload['language'] = array();
  |
  */
 
-$autoload['model'] = array('callModel', 'callerModel', 'commentModel', 'experimentModel', 'relationModel',
-							'locationModel', 'impedimentModel', 'leaderModel', 'userModel', 'languageModel', 'dyslexiaModel',
-							'participantModel', 'participationModel', 'percentileModel', 'resultModel', 
-							'scoreModel', 'testModel', 'testCatModel', 'testSurveyModel', 'testInviteModel', 'testTemplateModel', 'availabilityModel');
+$autoload['model'] = array(
+    'availabilityModel', 'callModel', 'callerModel', 'closingModel', 'commentModel', 'experimentModel', 
+    'locationModel', 'impedimentModel', 'leaderModel', 'userModel', 'languageModel', 'dyslexiaModel',
+    'participantModel', 'participationModel', 'percentileModel', 'relationModel', 'resultModel', 
+    'scoreModel', 'testModel', 'testCatModel', 'testSurveyModel', 'testInviteModel', 'testTemplateModel',);
 
 
 /* End of file autoload.php */

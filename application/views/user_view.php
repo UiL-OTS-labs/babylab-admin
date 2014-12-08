@@ -3,13 +3,11 @@
 <?=$this->session->flashdata('message'); ?>
 
 <!-- General info -->
-<h3>
-<?=lang('general_info'); ?>
-</h3>
+<?=heading(lang('general_info'), 3); ?>
 <table class="pure-table">
 	<tr>
 		<th><?=lang('user'); ?></th>
-		<td><?=$user->username; ?> (<em><?=lang($user->role); ?> </em>)</td>
+		<td><?=$user->username; ?> (<em><?=lang($user->role); ?></em>)</td>
 	</tr>
 	<tr>
 		<th><?=lang('phone'); ?></th>
@@ -43,23 +41,23 @@ if (is_admin())
 
 <!-- Comments -->
 <?php
-echo heading(lang('comments'), 3);
-create_comment_table('comments');
-$comments['id'] = 'comments';
-$comments['ajax_source'] = 'comment/table_by_user/' . $user->id;
-echo $this->load->view('templates/list_view', $comments);
+	echo heading(lang('comments'), 3);
+	create_comment_table('comments');
+	$comments['id'] = 'comments';
+	$comments['ajax_source'] = 'comment/table_by_user/' . $user->id;
+	echo $this->load->view('templates/list_view', $comments);
 ?>
 
 <!-- Calls -->
 <?php
-if (current_role() === UserRole::Caller)
-{
-	echo heading(lang('calls'), 3);
-	create_call_table('calls', FALSE);
-	$calls['id'] = 'calls';
-	$calls['sort_column'] = 4;
-	$calls['sort_order'] = 'desc';
-	$calls['ajax_source'] = 'call/table_by_user/' . $user->id;
-	echo $this->load->view('templates/list_view', $calls);
+	if (current_role() === UserRole::Caller)
+	{
+		echo heading(lang('calls'), 3);
+		create_call_table('calls', FALSE);
+		$calls['id'] = 'calls';
+		$calls['sort_column'] = 4;
+		$calls['sort_order'] = 'desc';
+		$calls['ajax_source'] = 'call/table_by_user/' . $user->id;
+		echo $this->load->view('templates/list_view', $calls);
 	}
 ?>

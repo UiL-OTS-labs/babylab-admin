@@ -410,10 +410,9 @@ class Experiment extends CI_Controller
 		if (!preg_match($pattern, $str))
 		{
 			$this->form_validation->set_message('wbs_check', lang('wbs_check'));
-			return false;
-		} else {
-			return true;
-		}
+			return FALSE;
+		} 
+		return TRUE;
 	}
 
 	/////////////////////////
@@ -423,8 +422,8 @@ class Experiment extends CI_Controller
 	public function table($archived = FALSE, $caller_id = '', $leader_id = '')
 	{
 		$experiment_ids = array(); // where id IN een niet lege array, dat is wel handig
-		if (!empty($caller_id)) $experiment_ids += $this->callerModel->get_experiment_ids_by_caller($caller_id);
-		if (!empty($leader_id)) $experiment_ids += $this->leaderModel->get_experiment_ids_by_leader($leader_id);
+		if ($caller_id) $experiment_ids += $this->callerModel->get_experiment_ids_by_caller($caller_id);
+		if ($leader_id) $experiment_ids += $this->leaderModel->get_experiment_ids_by_leader($leader_id);
 
 		if (empty($experiment_ids)) array_push($experiment_ids, 0);
 
@@ -432,7 +431,7 @@ class Experiment extends CI_Controller
 		$this->datatables->from('experiment');
 
 		if (!$archived) $this->datatables->where('archived', $archived);
-		if (!empty($caller_id) || !empty($leader_id)) $this->datatables->where('id IN ('. implode(',', $experiment_ids) . ')');
+		if ($caller_id || $leader_id) $this->datatables->where('id IN ('. implode(',', $experiment_ids) . ')');
 
 		$this->datatables->edit_column('name', '$1', 'experiment_get_link_by_id(id)');
 		$this->datatables->edit_column('agefrommonths', '$1', 'age_range_by_id(id)');
@@ -443,12 +442,10 @@ class Experiment extends CI_Controller
 		$this->datatables->edit_column('id', '$1', 'experiment_actions(id)');
 
 		echo $this->datatables->generate();
-
 	}
 
 	public function table_by_user($user_id)
 	{
 		$this->table(FALSE, $user_id, $user_id);
 	}
-	
 }
