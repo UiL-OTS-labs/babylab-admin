@@ -9,8 +9,12 @@ class Appointment extends CI_Controller
 		reset_language(current_language());
 	}
 
+	/////////////////////////
+	// Index
+	/////////////////////////
+
 	/** Specifies the contents of the default page. */
-	public function index($header=1)
+	public function index($header = 1)
 	{
 		// Prepare the data
 		$data['page_title'] = lang('calendar');
@@ -28,6 +32,10 @@ class Appointment extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	/////////////////////////
+	// JSON 
+	/////////////////////////
+
 	/** Generates an array of events (JSON encoded) for the calender */
 	public function appointments()
 	{
@@ -41,13 +49,12 @@ class Appointment extends CI_Controller
 			$participant = $this->participationModel->get_participant_by_participation($appointment->id);
 			$experiment = $this->participationModel->get_experiment_by_participation($appointment->id);
 			$location_name = location_name($experiment->location_id);
-			
 
 			// Begin and end datetime
 			$dateTime = new DateTime($appointment->appointment);
 			$startTime = $dateTime->format(DateTime::ISO8601);
-			$totalTime = $experiment->duration + INSTRUCTION_DURATION;
-			date_add($dateTime, date_interval_create_from_date_string($totalTime . ' minutes'));
+			$minutes = $experiment->duration + INSTRUCTION_DURATION;
+			$dateTime->add(new DateInterval('PT' . $minutes . 'M'));
 			$end = $dateTime->format(DateTime::ISO8601);
 
 			// Colors
@@ -74,6 +81,38 @@ class Appointment extends CI_Controller
 
 		// Returns a json array
 		echo json_encode($events);
+	}
+
+	/**
+	 * Generates events off of the availabilities from leaders and administrators
+	 */
+	public function availabilities()
+	{
+		$availabilities = $this->filter_availabilities();
+
+		$result = array();
+
+		// For each user
+		foreach ($availabilities as $u_id => $u)
+		{
+			// For each day
+			foreach ($u as $day => $d)
+			{
+				// Begin and end datetime
+				$user = $this->userModel->get_user_by_id($u_id);
+
+				$event = array(
+					'title' 	=> lang('availability') . ' ' . $user->username,
+					'start' 	=> $day,
+					'allDay'	=> true,
+					'tooltip'	=> $this->generate_label($user, $d)
+				);
+			
+				array_push($result, $event);
+			}
+		}
+
+		echo json_encode($result);
 	}
 
 	/** Generates an array of closings (JSON encoded) for the calender */
@@ -103,6 +142,10 @@ class Appointment extends CI_Controller
 		// Returns a json array
 		echo json_encode($events);
 	}
+
+	/////////////////////////
+	// Filters 
+	/////////////////////////
 
 	/**
 	 * Returns the appointments based on the filters provided. 
@@ -136,8 +179,69 @@ class Appointment extends CI_Controller
 			}
 		}
 
-		return $this->participationModel->get_participations_by_filter($experiment_ids, $participant_ids, $exclude_canceled);
+		// Leaders can only see appointments starting from a month ago
+		$date_from = current_role() === UserRole::Leader ? input_date('-1 month') : NULL;
+		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $exclude_canceled, $date_from);
 	}
+
+	/**
+	 * Runs the filter on availabilities
+	 */
+	private function filter_availabilities()
+	{
+		// Post Data
+		$experiment_ids = $this->input->post('experiment_ids');
+		$include_availability = $this->input->post('include_availability') == 'true';
+
+		if ($include_availability)
+		{
+			if ($experiment_ids != '')
+				$users = $this->leaderModel->get_leader_users_by_experiments($experiment_ids);
+			else
+				$users = $this->userModel->get_all_users();
+			
+			// For every selected user, get all availabilities
+			foreach($users as $u)
+			{
+				$c_u = array();
+
+				// Get availabilities for current user
+				$av = $this->availabilityModel->get_availabilities_by_user($u->id);
+
+				// Iterate through availabilities
+				foreach($av as $a)
+				{
+					// Current availability
+					$c_a = array('from' => $a->from, 'to' => $a->to, 'comment' => $a->comment);
+					
+					// Get the date of the current availability
+					$date = new DateTime($a->from);
+					$k = $date->format('Y-m-d');
+
+					// If an entry exists for this day, append, otherwise, create
+					if(isset($c_u[$k]))
+					{
+						array_push($c_u[$k], $c_a);
+					} else {
+						$c_u[$k] = array($c_a);
+					}
+				}
+
+				// Add the availabilities for the current user to the total
+				$availabilities[$u->id] = $c_u;
+			}
+
+			// Return the availabilities
+			return $availabilities;
+		} else {
+			// Do not show. Easiest solution
+			return array();
+		}
+	}
+
+	/////////////////////////
+	// Helpers 
+	/////////////////////////
 
 	/**
 	 * Generates HTML Output for the calender tooltip
@@ -200,94 +304,7 @@ class Appointment extends CI_Controller
 	 */
 	private function get_messages($appointment)
 	{
-		return ($appointment->cancelled) ? lang('rescheduled') : '';
-	}
-
-	/**
-	 * Generates events off of the availabilities from leaders and administrators
-	 */
-	public function availabilities()
-	{
-		$availabilities = $this->filter_availabilities();
-
-		$result = array();
-
-		// For each user
-		foreach($availabilities as $u_id => $u)
-		{
-			// For each day
-			foreach($u as $day => $d)
-			{
-				// Begin and end datetime
-				$user = $this->userModel->get_user_by_id($u_id);
-
-				$event = array(
-					'title' 	=> lang('availability') . ' ' . $user->username,
-					'start' 	=> $day,
-					'allDay'	=> true,
-					'tooltip'	=> $this->generate_label($user, $d)
-				);
-			
-				array_push($result, $event);
-			}
-		}
-
-		echo json_encode($result);
-	}
-
-	/**
-	 * Runs the filter on availabilities
-	 */
-	private function filter_availabilities()
-	{
-		// Post Data
-		$experiment_ids = $this->input->post('experiment_ids');
-		$include_availability = $this->input->post('include_availability') == 'true';
-
-		if ($include_availability)
-		{
-			if ($experiment_ids != '')
-				$users = $this->leaderModel->get_leader_users_by_experiments($experiment_ids);
-			else
-				$users = $this->userModel->get_all_users();
-			
-			// For every selected user, get all availabilities
-			foreach($users as $u)
-			{
-				$c_u = array();
-
-				// Get availabilities for current user
-				$av = $this->availabilityModel->get_availabilities_by_user($u->id);
-
-				// Iterate through availabilities
-				foreach($av as $a)
-				{
-					// Current availability
-					$c_a = array('from' => $a->from, 'to' => $a->to, 'comment' => $a->comment);
-					
-					// Get the date of the current availability
-					$date = new DateTime($a->from);
-					$k = $date->format('Y-m-d');
-
-					// If an entry exists for this day, append, otherwise, create
-					if(isset($c_u[$k]))
-					{
-						array_push($c_u[$k], $c_a);
-					} else {
-						$c_u[$k] = array($c_a);
-					}
-				}
-
-				// Add the availabilities for the current user to the total
-				$availabilities[$u->id] = $c_u;
-			}
-
-			// Return the availabilities
-			return $availabilities;
-		} else {
-			// Do not show. Easiest solution
-			return array();
-		}
+		return $appointment->cancelled ? lang('rescheduled') : '';
 	}
 
 	/**
@@ -300,13 +317,13 @@ class Appointment extends CI_Controller
 		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
 
 		$html .= '<ul>';
-		foreach($d as $times)
+		foreach ($d as $times)
 		{
 			$s = new Datetime($times['from']);
 			$e = new Datetime($times['to']);
 			$html .= '<li>';
 			$html .= $s->format('H:i') . ' - ' . $e->format('H:i');
-			if(isset($times->comment))
+			if (isset($times->comment))
 				$html .= '(' . $times->comment . ')';
 		}
 		$html .= '</ul>';
@@ -315,7 +332,9 @@ class Appointment extends CI_Controller
 		{
 			$title = heading(sprintf(lang('exp_for_leader'), ucfirst($user->username)),3);
 			$html .= $this->generate_legend($experiments, $title);
-		} else {
+		} 
+		else 
+		{
 			$html .= sprintf(lang('has_no_experiments'), ucfirst($user->username));
 		}
 		
