@@ -1,10 +1,3 @@
-<link rel="stylesheet" href="css/chosen.css" />
-<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-	$(".chosen-select").chosen();
-});
-</script>
 <script type="text/javascript" src="js/date_range.js"></script>
 
 <?php if (!isset($id)) {
@@ -20,7 +13,7 @@ $(function() {
 <?=form_input('comment', '', 'placeholder="' . lang('comment') . '"'); ?>
 <?php if (isset($participants)) {
 	echo br(2);
-	echo form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select" style="width: 350px;"');
+	echo form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select"');
 	echo br(2);
 } ?>
 

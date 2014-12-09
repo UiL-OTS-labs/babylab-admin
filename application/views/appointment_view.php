@@ -7,14 +7,12 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" />
 <link rel="stylesheet" href="css/calendar.css" />
-<link rel="stylesheet" href="css/chosen.css" />
 
 <!-- Scripts for this page only -->
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/lang/nl.js"></script>
-<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
 
 <!-- Build the calendar -->
 <script type="text/javascript" src="js/fullCalendar_helper.js"></script>
@@ -38,7 +36,7 @@ $(function(){
 </div>-->
 
 <div class="filter" style="margin-bottom: 10px;">
-	<select class="chosen-select select-experiment" style="width: 350px;" multiple data-placeholder="<?=lang('filter_experiment');?>">
+	<select class="chosen-select select-experiment" multiple data-placeholder="<?=lang('filter_experiment');?>">
 		<?php 
 		foreach (experiment_options($experiments) as $id => $option)
 		{
@@ -47,7 +45,7 @@ $(function(){
 		?>
 	</select>
 	
-	<select class="chosen-select select-participant" style="width: 350px;" multiple data-placeholder="<?=lang('filter_participant');?>">
+	<select class="chosen-select select-participant" multiple data-placeholder="<?=lang('filter_participant');?>">
 		<?php 
 		foreach (participant_options($participants) as $id => $option)
 		{
@@ -56,7 +54,7 @@ $(function(){
 		?>
 	</select>
 
-	<select class="chosen-select select-location" style="width: 350px;" multiple data-placeholder="<?=lang('filter_location');?>">
+	<select class="chosen-select select-location" multiple data-placeholder="<?=lang('filter_location');?>">
 		<?php 
 		foreach (location_options($locations) as $id => $option)
 		{

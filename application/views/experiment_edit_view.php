@@ -1,11 +1,3 @@
-<?=link_tag('css/chosen.css'); ?>
-<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-	$(".chosen-select").chosen({width: "350px"});
-});
-</script>
-
 <!-- Color Picker TODO: consider a more lightweight package like Spectrum (http://bgrins.github.io/spectrum/) -->
 <?=link_tag('css/colorpicker.css'); ?>
 <script src="js/colorPicker.min.js"></script>

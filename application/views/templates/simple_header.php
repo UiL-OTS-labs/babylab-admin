@@ -13,6 +13,7 @@
 <?=link_tag('css/pure-min.css'); ?>
 <?=link_tag('css/style.css'); ?>
 <?=link_tag('css/menu.css'); ?>
+<?=link_tag('css/chosen.css'); ?>
 <!-- Date / Timepicker -->
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
@@ -34,6 +35,13 @@
 <script type="text/javascript">$(function() {$('.boxplot').sparkline('html', {type: 'box'});});</script>
 <!-- Masks -->
 <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+<!-- Chosen -->
+<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$(".chosen-select").chosen({width: "350px"});
+});
+</script>
 
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
 <script>

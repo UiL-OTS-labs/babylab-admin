@@ -1,11 +1,3 @@
-<link rel="stylesheet" href="css/chosen.css" />
-<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-	$(".chosen-select").chosen();
-});
-</script>
-
 <?=heading(lang('dyslexia'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
@@ -14,7 +6,7 @@ $(function() {
 <?=form_fieldset($page_title); ?>
 
 <?php if ($new_dyslexia) {
-	echo form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select" style="width: 350px;"');
+	echo form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select"');
 } else {
 	echo form_input_and_label('participant', name($participant), 'readonly');
 } ?>
