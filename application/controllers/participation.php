@@ -108,12 +108,14 @@ class Participation extends CI_Controller
 
 		$participants = $this->participantModel->get_all_participants();
 		$experiments = $this->experimentModel->get_all_experiments();
+		$leaders = $this->userModel->get_all_users();
 
 		$data['page_title'] = lang('ad_hoc_participation');
 		$data['action'] = 'participation/add_submit';
 
 		$data['experiments'] = experiment_options($experiments);
 		$data['participants'] = participant_options($participants);
+		$data['leaders'] = leader_options($leaders);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participation_add_view', $data);
@@ -137,7 +139,7 @@ class Participation extends CI_Controller
 		}
 		else
 		{
-			// No errors
+			// No errors, get the current participation
 			$participation = $this->participationModel->get_participation($experiment->id, $participant->id);
 				
 			if (empty($participation))
@@ -158,7 +160,9 @@ class Participation extends CI_Controller
 			}
 
 			$call_id = $this->callModel->create_call($participation_id);
-			redirect('call/confirm/' . $call_id . '/' . strtotime($this->input->post('appointment')), 'refresh');
+			redirect('call/confirm/' . $call_id . '/' . 
+				$this->input->post('leader') . '/' . 
+				strtotime($this->input->post('appointment')), 'refresh');
 		}
 	}
 

@@ -26,6 +26,7 @@ $(function() {
 <?=form_fieldset($page_title); ?>
 <?=form_dropdown_and_label('experiment', $experiments, array(), 'class="chosen-select"'); ?>
 <?=form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select"'); ?>
+<?=form_dropdown_and_label('leader', $leaders, array(), 'class="chosen-select"'); ?>
 <?=form_input_and_label('appointment', '', 'placeholder= "' . lang('appointment') . '" id="appointment"'); ?>
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

@@ -88,7 +88,7 @@ class Call extends CI_Controller
 	}
 
 	/** Confirm: confirms the participation with a scheduled date */
-	public function confirm($call_id, $appointment = NULL)
+	public function confirm($call_id, $leader = NULL, $appointment = NULL)
 	{
 		$this->check_integrity($call_id);
 		
@@ -108,7 +108,7 @@ class Call extends CI_Controller
 		else
 		{
 			$ad_hoc = FALSE;
-			$leader_id = $this->input->post('leader');
+			$leader_id = $leader ? $leader : $this->input->post('leader');
 
 			// If succeeded, insert data into database
 			if (!$appointment)
