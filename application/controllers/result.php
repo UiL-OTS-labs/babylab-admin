@@ -112,7 +112,7 @@ class Result extends CI_Controller
 
 	private function starts_with($haystack, $needle)
 	{
-		return $needle === "" || strpos($haystack, $needle) === 0;
+		return $needle === '' || strpos($haystack, $needle) === 0;
 	}
 
 	/** Specifies the contents of the edit result page */

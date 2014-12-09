@@ -761,7 +761,7 @@ class Participant extends CI_Controller
 		if (!is_admin()) 
 		{
 			if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
-			else $this->datatables->where('id IN (' . implode(",", $participant_ids) . ')');
+			else $this->datatables->where('id IN (' . implode(',', $participant_ids) . ')');
 		}
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
@@ -797,7 +797,7 @@ class Participant extends CI_Controller
 		$this->datatables->from('participant');
 
 		if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
-		else $this->datatables->where('id IN (' . implode(",", $participant_ids) . ')');
+		else $this->datatables->where('id IN (' . implode(',', $participant_ids) . ')');
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
@@ -821,7 +821,7 @@ class Participant extends CI_Controller
 		$this->datatables->join('participation', 'participation.participant_id = participant.id AND participation.experiment_id = ' . $experiment_id, 'left');
 
 		if (empty($participant_ids)) $this->datatables->where('participant.id', 0)	; // no participants then
-		else $this->datatables->where('participant.id IN (' . implode(",", $participant_ids) . ')');
+		else $this->datatables->where('participant.id IN (' . implode(',', $participant_ids) . ')');
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');

@@ -673,7 +673,7 @@ class Participation extends CI_Controller
 	public function table_by_caller()
 	{
 		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
-		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
+		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
 		$this->table();
 	}
 
@@ -692,7 +692,7 @@ class Participation extends CI_Controller
 		// Exclude empty participations
 		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
 
-		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(",", $experiment_ids) . ')');
+		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
 		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');

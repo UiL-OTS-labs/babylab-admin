@@ -191,7 +191,7 @@ class TestInvite extends CI_Controller
 	{
 		$participant_ids = get_object_ids($this->experimentModel->get_participants_by_experiment($experiment_id, TRUE));
 		if (empty($participant_ids)) $this->datatables->where('participant.id', 0)	; // no participants then
-		else $this->datatables->where('participant.id IN (' . implode(",", $participant_ids) . ')');
+		else $this->datatables->where('participant.id IN (' . implode(',', $participant_ids) . ')');
 
 		$this->table();
 	}
