@@ -1,8 +1,5 @@
 <!-- Calendar -->
 
-<!-- Refresh every minute -->
-<meta http-equiv="refresh" content="60">
-
 <!-- Stylesheets for this page only -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.0.2/fullcalendar.css" />
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.min.css" />
@@ -22,6 +19,9 @@ $(function(){
 	addDateSelectTool("<?=lang('date_text'); ?>");
 	addLegendButton("<?=$legend;?>", "<?=lang('legend');?>");
 	addFilters();
+	
+	// Refresh every minute
+	setInterval(function() { $('#calendar').fullCalendar('refetchEvents'); }, 60000);
 });
 </script>
 
