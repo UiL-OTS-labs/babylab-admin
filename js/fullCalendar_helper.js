@@ -12,7 +12,7 @@ function initializeCalendar(lang) {
 	$('#calendar').fullCalendar({
 		eventSources: [
 			{
-				url: 'appointment/events/',
+				url: 'appointment/appointments/',
 				type: 'POST',
 				data: function() { // a function that returns an object
 		            return {
@@ -32,6 +32,10 @@ function initializeCalendar(lang) {
 		                include_availability: $('#include-availability').is(':checked'),
 		            };
 				},
+			},
+			{
+				url: 'appointment/closings/',
+				type: 'POST',
 			},
 		],
 		lang: lang,

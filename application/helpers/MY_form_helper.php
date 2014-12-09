@@ -86,7 +86,6 @@ if (!function_exists('form_multiselect_and_label'))
 	}
 }
 
-
 if (!function_exists('form_radio_and_label'))
 {
 	function form_radio_and_label($name, $value, $current = '', $label = '', $checked = FALSE)

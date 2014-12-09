@@ -29,7 +29,7 @@ class Appointment extends CI_Controller
 	}
 
 	/** Generates an array of events (JSON encoded) for the calender */
-	public function events()
+	public function appointments()
 	{
 		$events = array();
 
@@ -72,6 +72,15 @@ class Appointment extends CI_Controller
 			array_push($events, $event);
 		}
 
+		// Returns a json array
+		echo json_encode($events);
+	}
+
+	/** Generates an array of closings (JSON encoded) for the calender */
+	public function closings()
+	{
+		$events = array();
+
 		$closings = $this->closingModel->get_all_closings(); 
 		foreach ($closings as $closing) 
 		{
@@ -97,70 +106,37 @@ class Appointment extends CI_Controller
 
 	/**
 	 * Returns the appointments based on the filters provided. 
-	 * TODO: this can probably be done cleaner, call to one function and dealing with conditions in the model.
 	 */
 	private function filter_appointments()
 	{
-		// Fetch POST data
 		$experiment_ids = $this->input->post('experiment_ids');
 		$participant_ids = $this->input->post('participant_ids');
 		$location_ids = $this->input->post('location_ids');
 		$exclude_canceled = $this->input->post('exclude_canceled') == 'true';
-		
-		// This just makes things look a little bit more fancy
-		$experiment = !empty($experiment_ids);
-		$participant = !empty($participant_ids);
-		$location = !empty($location_ids);
-			
-		switch (true)
+
+		// If there are locations selected... 
+		if ($location_ids)
 		{
-			case $experiment && !$participant && !$location;
-				// Filter on experiments only
-				$appointments = $this->participationModel->get_participations_by_experiments($experiment_ids, $exclude_canceled);
-				break;
-			
-			case !$experiment && $participant && !$location;
-				// Filter on participants only
-				$appointments = $this->participationModel->get_participations_by_participants($participant_ids, $exclude_canceled);
-				break;
-			
-			case !$experiment && !$participant && $location;
-				// Filter on location only
-				$experiments = $this->experimentModel->get_experiments_by_locations($location_ids);
-				$appointments = $this->participationModel->get_participations_by_experiments($experiments, $exclude_canceled);
-				break;
-			
-			case $experiment && $participant && !$location;
-				// Filter by experiment AND participant but not by location
-				$appointments = $this->participationModel->get_participations_by_filter($experiment_ids, $participant_ids, $exclude_canceled);
-				break;
-			
-			case $experiment && !$participant && $location;
-				// There is a filter on experiment AND location but not on participants
-				$experiments_ids = array_intersect($experiment_ids, $this->experimentModel->get_experiments_by_locations($location_ids));
-				$appointments = $this->participationModel->get_participations_by_experiments($experiments_ids, $exclude_canceled);
-				break;
-			
-			case !$experiment && $participant && $location;
-				// There is a filter on participant AND location but not on experiment
-				// TODO: Fix this shit!
-				$experiments_ids = $this->experimentModel->get_experiments_by_locations($location_ids);
-				$appointments = $this->participationModel->get_participations_by_filter($experiments_ids, $participant_ids, $exclude_canceled);
-				break;
-			
-			case $experiment && $participant && $location;
-				// Filters on participant AND location AND experiment
-				$experiments_ids = array_intersect($experiment_ids, $this->experimentModel->get_experiments_by_locations($location_ids));
-				$appointments = $this->participationModel->get_participations_by_filter($experiments_ids, $participant_ids, $exclude_canceled);
-				break;
-			
-			default:
-				// No filters exist. Proceed normally
-				$appointments = $this->participationModel->get_all_appointments($exclude_canceled);
-				break; 
+			// ... get the accompanying experiments
+			$exp_locations = $this->experimentModel->get_experiments_by_locations($location_ids);
+			// If no locations found, don't return experiments
+			if (!$exp_locations) 
+			{
+				return array();
+			}
+			// Else, if no experiments selected, return only the experiments for the selected locations
+			elseif (!$experiment_ids) 
+			{
+				$experiment_ids = $exp_locations;
+			}
+			// Else, return the intersection of both
+			else 
+			{
+				$experiment_ids = array_intersect($experiment_ids, $exp_locations);
+			}
 		}
 
-		return $appointments;
+		return $this->participationModel->get_participations_by_filter($experiment_ids, $participant_ids, $exclude_canceled);
 	}
 
 	/**
@@ -268,9 +244,9 @@ class Appointment extends CI_Controller
 		$experiment_ids = $this->input->post('experiment_ids');
 		$include_availability = $this->input->post('include_availability') == 'true';
 
-		if($include_availability)
+		if ($include_availability)
 		{
-			if($experiment_ids != '')
+			if ($experiment_ids != '')
 				$users = $this->leaderModel->get_leader_users_by_experiments($experiment_ids);
 			else
 				$users = $this->userModel->get_all_users();
