@@ -88,11 +88,10 @@ class Appointment extends CI_Controller
 	 */
 	public function availabilities()
 	{
-		$availabilities = $this->filter_availabilities();
-
 		$result = array();
 
 		// For each user
+		$availabilities = $this->filter_availabilities();
 		foreach ($availabilities as $u_id => $u)
 		{
 			// For each day
@@ -233,7 +232,9 @@ class Appointment extends CI_Controller
 
 			// Return the availabilities
 			return $availabilities;
-		} else {
+		} 
+		else 
+		{
 			// Do not show. Easiest solution
 			return array();
 		}
