@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function() {
 	$("#wbs_number").on('keyup', function(e)  {
-		   $(this).val($(this).val().toUpperCase());
+        $(this).val($(this).val().toUpperCase());
 	});
 	
 	$('#wbs_number').mask(
