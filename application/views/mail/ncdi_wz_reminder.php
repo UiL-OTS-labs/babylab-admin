@@ -3,7 +3,7 @@
 <p>Beste <?=$name_parent; ?>,</p>
 <p>Graag willen wij u eraan herinneren dat wij u onlangs een e-mail hebben gestuurd met het verzoek een online vragenlijst in te vullen. 
 Wij stuurden u deze e-mail, omdat <?=$name; ?> de leeftijd heeft bereikt voor het meetmoment van <?=$gender_pos; ?> taalvaardigheid na <?=$whennr; ?> maanden.</p>
-<p>Deze vragenlijst is onderdeel van het experiment waarvoor u onlangs met <?=$name_first; ?> bij het Babylab bent/gaat langsgekomen.
+<p>Deze vragenlijst is onderdeel van het experiment waarvoor u met <?=$name_first; ?> bij het Babylab bent langsgekomen of nog gaat langskomen.
 Zo kunnen we <?=$gender_pos; ?> taalvaardigheid in verband brengen met de resultaten van het experiment. 
 Wij zouden u dan ook willen vragen of u de link naar de vragenlijst aan het einde van deze e-mail wilt openen.</p>
 <p>Het invullen duurt enige tijd. 
