@@ -105,6 +105,19 @@ if (!function_exists('is_leader'))
 }
 
 /////////////////////////
+// Server-related
+/////////////////////////
+
+if (!function_exists('in_development'))
+{
+	/** Returns whether or we are in development mode */
+	function in_development()
+	{
+		return ENVIRONMENT === 'development';
+	}
+}
+
+/////////////////////////
 // DB-related
 /////////////////////////
 

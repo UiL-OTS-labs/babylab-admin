@@ -300,7 +300,6 @@ class Call extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $email);
-
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		if ($experiment->attachment) $this->email->attach($experiment->attachment);
