@@ -28,7 +28,7 @@ class SurveyModel extends CI_Model
 	public function get_result_by_token($survey_id, $token)
 	{
 		return $this->survey_db->get_where('survey_' . $survey_id, 
-			array('token' => $token, 'submitdate IS NOT NULL'))->row();
+			array('token' => $token, 'submitdate IS NOT' => 'NULL'))->row();
 	}
 
 	/** Returns all question id's and answer values */
