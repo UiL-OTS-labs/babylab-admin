@@ -27,7 +27,7 @@ class SurveyModel extends CI_Model
 	/** Returns the testinvite for an id */
 	public function get_result_by_token($survey_id, $token)
 	{
-		$this->survey_db->where('token' => $token);
+		$this->survey_db->where('token', $token);
 		$this->survey_db->where('submitdate IS NOT NULL');
 		$this->survey_db->get('survey_' . $survey_id)->row();
 	}
