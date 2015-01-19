@@ -19,6 +19,8 @@
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
     <?=form_radio_and_label('role', UserRole::Leader, $role); ?>
 </div>
+<?=form_input_and_label('firstname', $firstname, 'required'); ?>
+<?=form_input_and_label('lastname', $lastname, 'required'); ?>
 <?=form_input_and_label('email', $email, 'required'); ?>
 <?=form_input_and_label('phone', $phone); ?>
 <?=form_input_and_label('mobile', $mobile); ?>

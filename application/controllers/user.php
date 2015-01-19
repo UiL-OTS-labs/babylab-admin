@@ -511,6 +511,8 @@ class User extends CI_Controller
 	private function validate_user()
 	{
 		$this->form_validation->set_rules('role', lang('role'), 'trim|required');
+		$this->form_validation->set_rules('firstname', lang('firstname'), 'trim|required');
+		$this->form_validation->set_rules('lastname', lang('lastname'), 'trim|required');
 		$this->form_validation->set_rules('phone', lang('phone'), 'trim');
 		$this->form_validation->set_rules('mobile', lang('mobile'), 'trim');
 		$this->form_validation->set_rules('preferredlanguage', lang('preferredlanguage'), 'trim|required');
@@ -524,6 +526,8 @@ class User extends CI_Controller
 	{
 		$user = array(
 				'role' 				=> $this->input->post('role'),
+				'firstname'			=> $this->input->post('firstname'),
+				'lastname'			=> $this->input->post('lastname'),
 				'email'				=> $this->input->post('email'),
 				'phone' 			=> $this->input->post('phone'),
 				'mobile' 			=> $this->input->post('mobile'),
