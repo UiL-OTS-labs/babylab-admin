@@ -99,7 +99,7 @@ class Closing extends CI_Controller
     public function check_within_bounds($date)
     {
         $location_id = $this->input->post('location');
-        if ($this->closingModel->within_bounds(input_date($date), $location_id))
+        if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
         {
             $this->form_validation->set_message('check_within_bounds', lang('closing_within_bounds'));
             return FALSE;
