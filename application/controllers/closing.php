@@ -85,8 +85,8 @@ class Closing extends CI_Controller
     {
         return array(
             'location_id'       => $this->input->post('location'),
-            'from'              => input_date($this->input->post('from_date')),
-            'to'                => input_date($this->input->post('to_date')),
+            'from'              => input_datetime($this->input->post('from_date')),
+            'to'                => input_datetime($this->input->post('to_date')),
             'comment'           => $this->input->post('comment'),
             );
     }

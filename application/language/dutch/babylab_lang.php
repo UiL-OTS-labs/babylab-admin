@@ -150,12 +150,13 @@ $lang['location']			= "Locatie";
 $lang['locations']			= "Locaties";
 $lang['data_for_location']	= "Details van locatie <em>%s</em>";
 $lang['add_location'] 		= "Voeg locatie toe";
-$lang['location_added']		= "Nieuwe locatie %s succesvol toegevoegd.";
-$lang['edit_location']		= "Bewerk locatie %s";
-$lang['location_edited'] 	= "Locatie %s succesvol bewerkt.";
+$lang['location_added']		= "Nieuwe locatie <em>%s</em> succesvol toegevoegd.";
+$lang['edit_location']		= "Bewerk locatie <em>%s</em>";
+$lang['location_edited'] 	= "Locatie <em>%s</em> succesvol bewerkt.";
 $lang['sure_delete_location']= "Weet u zeker dat u deze locatie wilt verwijderen?";
 $lang['location_deleted'] 	= "Locatie succesvol verwijderd.";
 $lang['roomnumber']			= "Kamernummer";
+$lang['location_closed']	= "Locatie <em>%s</em> is op dat moment gesloten.";
 
 /* Callers */
 $lang['caller'] 			= "Beller";

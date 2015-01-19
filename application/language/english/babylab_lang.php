@@ -155,6 +155,7 @@ $lang['location_edited'] 	= "Location <em>%s</em> was succesfully edited.";
 $lang['sure_delete_location']= "Are you sure you want to remove this location?";
 $lang['location_deleted'] 	= "Location was succesfully removed.";
 $lang['roomnumber']			= "Room number";
+$lang['location_closed']	= "Location <em>%s</em> is closed then.";
 
 /* Callers */
 $lang['caller'] 			= "Caller";

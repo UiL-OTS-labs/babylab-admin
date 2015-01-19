@@ -148,8 +148,13 @@
 						<p>
 						<?=form_label(lang('appointment')); ?>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
+                        <?=form_error('appointment'); ?>
+                        </p>
+                        <p>
 						<?=form_label(lang('leader')); ?>
 						<?=form_dropdown('leader', $leaders, array(), 'class="required"'); ?>
+                        </p>
+                        <p>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>

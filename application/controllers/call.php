@@ -96,7 +96,8 @@ class Call extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
-		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required');
+		$this->form_validation->set_rules('appointment', lang('appointment'), 
+                'trim|required|callback_check_closings[' . $experiment->location_id . ']');
 		
 		// Run validation
 		if (!$this->form_validation->run() && $appointment == NULL)
@@ -370,6 +371,22 @@ class Call extends CI_Controller
 				'user_id'		 	=> $user_id
 		);
 	}
+
+    /////////////////////////
+    // Callbacks
+    /////////////////////////
+
+    /** Checks whether the given date is within bounds of an existing closing for this location */
+    public function check_closings($date, $location_id)
+    {
+        if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
+        {
+            $this->form_validation->set_message('check_closings', 
+                    sprintf(lang('location_closed'), location_name($location_id)));
+            return FALSE;
+        }
+        return TRUE;
+    }
 
 	/////////////////////////
 	// Table
