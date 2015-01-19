@@ -3,4 +3,4 @@
 .settings/org.eclipse.php.core.prefs
 application/config/email.php
 application/config/database.php
-
+/nbproject/
