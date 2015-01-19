@@ -308,11 +308,11 @@ class Chart extends CI_Controller
 	private function set_token_data($data, $token)
 	{
 		// Check whether we received a token
-		if (!empty($token))
+		if ($token)
 		{
 			// Check whether this is an existing token
 			$testinvite = $this->testInviteModel->get_testinvite_by_token($token);
-			if (!empty($testinvite))
+			if ($testinvite)
 			{
 				// Check whether this token is for the correct test
 				$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
@@ -363,7 +363,7 @@ class Chart extends CI_Controller
 		array('label' => '1e percentiel', 'type' => 'number', 'role' => 'interval')
 		);
 
-		if (!empty($testinvite_id))
+		if ($testinvite_id)
 		{
 			$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
 			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
@@ -394,7 +394,7 @@ class Chart extends CI_Controller
 				$rows[$unique]['tt'] = array('v' => $tooltip);
 			}
 
-			if (!empty($participant) && $percentile->percentile == 1) // only do this at the last run... TODO: kinda dirty
+			if ($participant && $percentile->percentile == 1) // only do this at the last run... TODO: kinda dirty
 			{
 				if ((empty($percentile->gender) || $percentile->gender === $p_gender) && $percentile->age == $p_age)
 				{

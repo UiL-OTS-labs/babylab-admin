@@ -176,7 +176,7 @@ class Dyslexia extends CI_Controller
 	{
 		$gender = $this->input->post('gender');
 		$dyslexia = $this->dyslexiaModel->get_dyslexia_by_participant_gender($participant_id, $gender);
-		if (!empty($dyslexia))
+		if ($dyslexia)
 		{
 			$participant = $this->participantModel->get_participant_by_id($participant_id);
 			$message = sprintf(lang('unique_dyslexia'), strtolower(gender_parent($gender)), name($participant));

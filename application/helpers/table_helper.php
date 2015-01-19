@@ -7,7 +7,7 @@ if (!function_exists('base_table'))
 	{
 		$CI =& get_instance();
 		$tmpl = array (
-				'table_open'	=> '<table border="0" cellpadding="0" cellspacing="0" ' . (!empty($id) ? 'id="' . $id . '">' : 'class="dataTable">'),
+				'table_open'	=> '<table border="0" cellpadding="0" cellspacing="0" ' . ($id ? 'id="' . $id . '">' : 'class="dataTable">'),
 		);
 
 		$CI->table->set_template($tmpl);

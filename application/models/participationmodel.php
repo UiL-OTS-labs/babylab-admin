@@ -19,7 +19,7 @@ class ParticipationModel extends CI_Model
 	/** Returns all participations that have been confirmed, but no other action has been taken */
 	public function get_confirmed_participations($experiments = array())
 	{
-		if (!empty($experiments))
+		if ($experiments)
 		{
 			$this->db->where_in('experiment_id', get_object_ids($experiments));
 		}

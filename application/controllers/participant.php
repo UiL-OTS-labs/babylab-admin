@@ -95,7 +95,7 @@ class Participant extends CI_Controller
 
 			// Add (possible) comment
 			$comment = $this->post_comment($participant_id);
-			if (!empty($comment)) $this->commentModel->add_comment($comment);
+			if ($comment) $this->commentModel->add_comment($comment);
 
 			// Create the languages
 			$this->create_languages($participant_id);
@@ -154,7 +154,7 @@ class Participant extends CI_Controller
 
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
-			if (!empty($comment)) $this->commentModel->add_comment($comment);
+			if ($comment) $this->commentModel->add_comment($comment);
 
 			// Create/update the languages
 			$this->create_languages($participant_id);
@@ -210,7 +210,7 @@ class Participant extends CI_Controller
 
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
-			if (!empty($comment)) $this->commentModel->add_comment($comment);
+			if ($comment) $this->commentModel->add_comment($comment);
 
 			// Don't activate, but send an e-mail to all admins to activate
 			$this->participantModel->deactivate($participant_id, DeactivateReason::NewParticipant);
@@ -671,7 +671,7 @@ class Participant extends CI_Controller
 	{
 		$languages = array((object) array('language' => '', 'percentage' => ''));
 
-		if (!empty($language_array))
+		if ($language_array)
 		{
 			$languages = array();
 			foreach ($language_array as $l)

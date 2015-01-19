@@ -48,7 +48,7 @@ class ImpedimentModel extends CI_Model
 		$this->db->where('to >=', input_date());
 		$this->db->order_by('from', 'asc');
 		$imp = $this->db->get('impediment')->result();
-		return !empty($imp) ? $imp[0] : NULL;
+		return $imp ? $imp[0] : NULL;
 	}
 
 	/** Returns all future impediments for a participant */

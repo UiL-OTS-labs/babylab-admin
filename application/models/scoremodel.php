@@ -36,7 +36,7 @@ class ScoreModel extends CI_Model
 		// TODO: has to be changed
 		$s = $this->get_score($score['testcat_id'], $score['participant_id']);
 
-		if (!empty($s))
+		if ($s)
 		{
 			$this->update_score($s->id, $score);
 			return $s->id;

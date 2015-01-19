@@ -78,7 +78,7 @@ class Reminder extends CI_Controller
 				}
 			}
 
-			if (!empty($call_messages))
+			if ($call_messages)
 			{
 				$message = sprintf(lang('mail_heading'), $user->username);
 				$message .= br(2);

@@ -48,7 +48,7 @@ class Score extends CI_Controller
 		$data['testcat_id'] = $testcat_id;
 		$data['testsurvey_id'] = $testsurvey_id;
 		$data['participant_id'] = $participant_id;
-		if (!empty($participant_id))
+		if ($participant_id)
 		{
 			$data['participant'] = name($this->participantModel->get_participant_by_id($participant_id));
 		}
@@ -349,7 +349,7 @@ class Score extends CI_Controller
 
 		$testcat_id = $this->input->post('testcat');
 		$score = $this->scoreModel->get_score_by_testcat_testinvite($testcat_id, $testinvite->id);
-		if (!empty($score))
+		if ($score)
 		{
 			$this->form_validation->set_message('unique_score', lang('unique_score'));
 			return FALSE;
@@ -417,7 +417,7 @@ class Score extends CI_Controller
 		foreach ($testcats as $tc)
 		{
 			$score = $this->scoreModel->get_score($tc->id, $participant_id);
-			$value = !empty($score) ? $score->score : '';
+			$value = $score ? $score->score : '';
 
 			echo '<div class="pure-u-1-3">';
 			echo form_label(testcat_code_name($tc), $tc->id);

@@ -265,7 +265,7 @@ class Participation extends CI_Controller
 
 		// Retrieve or create participation record
 		$participation = $this->participationModel->get_participation($experiment_id, $participant_id);
-		if (!empty($participation))
+		if ($participation)
 		{
 			$participation_id = $participation->id;
 		}
@@ -647,8 +647,8 @@ class Participation extends CI_Controller
 		// Exclude empty participations
 		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
 
-		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
-		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
+		if ($participant_id) $this->datatables->where('participant_id', $participant_id);
+		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
@@ -673,7 +673,7 @@ class Participation extends CI_Controller
 	public function table_by_caller()
 	{
 		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
-		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
 		$this->table();
 	}
 
@@ -692,8 +692,8 @@ class Participation extends CI_Controller
 		// Exclude empty participations
 		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
 
-		if (!empty($experiment_ids)) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
-		if (!empty($experiment_id)) $this->datatables->where('experiment_id', $experiment_id);
+		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');

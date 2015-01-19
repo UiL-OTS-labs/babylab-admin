@@ -233,7 +233,7 @@ class TestCat extends CI_Controller
 	public function table_roots($test_id = NULL)
 	{
 		$this->datatables->where('parent_id', NULL);
-		if (!empty($test_id))
+		if ($test_id)
 		{
 			$this->datatables->where('test_id', $test_id);
 			$this->datatables->unset_column('t');

@@ -215,10 +215,10 @@ if (!function_exists('last_called'))
 
 		$CI =& get_instance();
 		$participation = $CI->participationModel->get_participation($experiment_id, $participant_id);
-		if (!empty($participation))
+		if ($participation)
 		{
 			$call = $CI->callModel->last_call($participation->id);
-			if (!empty($call) && !empty($call->timeend))
+			if ($call && $call->timeend)
 			{
 				$result = '<abbr title="' . format_datetime($call->timeend) . '">';
 				$result .= lang($call->status);

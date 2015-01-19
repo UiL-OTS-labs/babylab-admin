@@ -129,7 +129,7 @@ class Login extends CI_Controller
 		$user = $this->userModel->get_user_by_username($username);
 
 		// If username found in DB...
-		if (!empty($user))
+		if ($user)
 		{
 			// Check against password and if activated
 			if (!$this->phpass->check($password, $user->password) || !is_activated($user))

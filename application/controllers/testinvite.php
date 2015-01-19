@@ -130,7 +130,7 @@ class TestInvite extends CI_Controller
 		$participant_id = $this->input->post('participant');
 		$testinvite = $this->testInviteModel->get_testinvite_by_testsurvey_participant($testsurvey_id, $participant_id);
 
-		if (!empty($testinvite))
+		if ($testinvite)
 		{
 			$participant = $this->participantModel->get_participant_by_id($participant_id);
 			$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);

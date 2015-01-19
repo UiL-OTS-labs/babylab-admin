@@ -5,7 +5,7 @@ if (!function_exists('form_input_and_label'))
 	function form_input_and_label($name, $value = '', $extra = '', $is_password = FALSE, $div = 'pure-control-group')
 	{
 		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"';
-		$value = !empty($value) || $value == 0 ? $value : '';
+		$value = $value || $value == 0 ? $value : '';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
@@ -22,7 +22,7 @@ if (!function_exists('form_colorpicker'))
 	function form_colorpicker($name, $value='', $extra = '', $div = 'pure-control-group')
 	{
 		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"' . ' style="display: none;"';
-		$value = !empty($value) || $value == 0 ? $value : '';
+		$value = $value || $value == 0 ? $value : '';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
@@ -40,7 +40,7 @@ if (!function_exists('form_textarea_and_label'))
 	{
 		$label = empty($label) ? lang($name) : $label;
 		$extra = $extra . ' placeholder="' . $label . '" id="' . $name . '"';
-		$value = !empty($value) || $value == 0 ? $value : '';
+		$value = $value || $value == 0 ? $value : '';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label, $name);
@@ -151,7 +151,7 @@ if (!function_exists('form_controls'))
 }</script>";
 		$submit = form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"');
 		$reset = form_reset('reset', lang('reset'), 'class="pure-button pure-button-secondary" onClick="clear_chosen_select()"');
-		$cancel = !empty($cancel_link) ? form_cancel($cancel_link) : '';
+		$cancel = $cancel_link ? form_cancel($cancel_link) : '';
 		$div_end = '</div>';
 
 		return $div_start . $submit . $reset . $cancel . $div_end;

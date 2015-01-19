@@ -161,7 +161,7 @@ class Impediment extends CI_Controller
 		$this->datatables->join('participant', 'participant.id = impediment.participant_id');
 
 		if (!$include_past) $this->db->where('to >=', input_date());
-		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
+		if ($participant_id) $this->datatables->where('participant_id', $participant_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('from', '$1', 'impediment_dates_by_id(id)');

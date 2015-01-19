@@ -183,7 +183,7 @@ class Test extends CI_Controller
 	public function unique_code($code, $test_id)
 	{
 		$test = $this->testModel->get_test_by_code($code);
-		if (!empty($test) && $test->id != $test_id)
+		if ($test && $test->id != $test_id)
 		{
 			$this->form_validation->set_message('unique_code', lang('is_unique'));
 			return FALSE;

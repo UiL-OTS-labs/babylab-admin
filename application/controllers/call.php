@@ -228,7 +228,10 @@ class Call extends CI_Controller
 
 		// Add (possible) comment
 		$comment = $this->post_comment($participant->id);
-		if (!empty($comment)) $this->commentModel->add_comment($comment);
+		if ($comment) 
+        {
+            $this->commentModel->add_comment($comment);
+        }
 
 		// End the call
 		$this->callModel->end_call($call_id, CallStatus::Cancelled);

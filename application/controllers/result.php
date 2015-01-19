@@ -75,7 +75,7 @@ class Result extends CI_Controller
 		$filtered = '';
 		foreach ($lines as $line)
 		{
-			if (!empty($line) && strpos($line, '6232') === 0)
+			if ($line && strpos($line, '6232') === 0)
 			{
 				$filtered .= $line . PHP_EOL;
 			}
@@ -89,7 +89,7 @@ class Result extends CI_Controller
 			$prev_phase = empty($phase) ? NULL : $phase;
 			$phase = $row[4];
 				
-			if (!empty($prev_phase) && $prev_phase != $phase)
+			if ($prev_phase && $prev_phase != $phase)
 			{
 				$nr++;
 			}

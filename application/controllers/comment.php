@@ -169,7 +169,7 @@ class Comment extends CI_Controller
 		$this->datatables->join('user', 'user.id = comment.user_id');
 
 		if ($priority_only) $this->datatables->where('priority', TRUE);
-		if (!empty($participant_id)) $this->datatables->where('participant_id', $participant_id);
+		if ($participant_id) $this->datatables->where('participant_id', $participant_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('timecreated', '$1', 'output_date(timecreated)');
