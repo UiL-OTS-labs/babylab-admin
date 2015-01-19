@@ -134,12 +134,13 @@ class Chart extends CI_Controller
 
 			$this->load->model('surveyModel');
 			$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
+            $date = $this->surveyModel->get_submit_date($testsurvey->limesurvey_id, $token);
 
 			foreach ($result as $question => $answer)
 			{
 				$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
 
-				if (!empty($testcat))
+				if ($testcat)
 				{
 					$score_type = $testcat->score_type;
 
@@ -160,14 +161,14 @@ class Chart extends CI_Controller
 					'testcat_id'			=> $testcat->id,
 					'testinvite_id' 		=> $testinvite->id,
 					'score'					=> $answer,
-					'date'					=> input_date()
+					'date'					=> $date
 					);
 
 					$this->scoreModel->add_score($score);
 				}
 			}
 
-			$this->testInviteModel->set_completed($testinvite->id);
+			$this->testInviteModel->set_completed($testinvite->id, $date);
 			redirect('c/' . $test_code . '/' . $token . '/home');
 		}
 	}

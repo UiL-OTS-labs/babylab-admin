@@ -31,6 +31,13 @@ class SurveyModel extends CI_Model
 		$this->survey_db->where('submitdate IS NOT NULL');
 		return $this->survey_db->get('survey_' . $survey_id)->row();
 	}
+    
+    /** Returns the submit date for a token */
+	public function get_submit_date($survey_id, $token)
+	{
+        $result = $this->get_result_by_token($survey_id, $token);
+        return $result->submitdate;
+    }
 
 	/** Returns all question id's and answer values */
 	public function get_result_array($survey_id, $token)

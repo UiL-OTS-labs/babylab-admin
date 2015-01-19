@@ -75,9 +75,9 @@ class TestInviteModel extends CI_Model
 	}
 
 	/** Sets a testinvite as completed */
-	public function set_completed($testinvite_id)
+	public function set_completed($testinvite_id, $date)
 	{
-		$this->db->set('datecompleted', input_datetime());
+		$this->db->set('datecompleted', $date);
 		$this->db->where('id', $testinvite_id);
 		$this->db->update('testinvite');
 	}
