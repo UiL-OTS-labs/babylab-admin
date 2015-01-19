@@ -37,11 +37,9 @@ class AvailabilityModel extends CI_Model
 		return $this->db->get_where('availability', array('id' => $availability_id))->row();
 	}
 
-
 	/////////////////////////
 	// User actions
 	/////////////////////////
-
 
 	/** Returns all future availabilities for a user */
 	public function get_future_availabilities_by_user($user_id)
@@ -86,6 +84,10 @@ class AvailabilityModel extends CI_Model
 	{
 		return $this->db->get_where('user', array('id' => $availability->user_id))->row();
 	}
+
+	/////////////////////////
+	// Helpers
+	/////////////////////////
 
 	/** Returns whether there is already an availability for the given date and user */
 	public function within_bounds($date, $user_id)

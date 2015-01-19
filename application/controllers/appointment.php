@@ -9,12 +9,8 @@ class Appointment extends CI_Controller
 		reset_language(current_language());
 	}
 
-	/////////////////////////
-	// Index
-	/////////////////////////
-
 	/** Specifies the contents of the default page. */
-	public function index($header = 1)
+	public function index($header = TRUE)
 	{
 		// Prepare the data
 		$data['page_title'] = lang('calendar');
@@ -28,7 +24,7 @@ class Appointment extends CI_Controller
 		if ($header) $this->load->view('templates/header', $data);
 		else $this->load->view('templates/simple_header', $data);
 		
-		$this->authenticate->authenticate_redirect('appointment_view.php');
+		$this->load->view('appointment_view');
 		$this->load->view('templates/footer');
 	}
 
@@ -101,7 +97,7 @@ class Appointment extends CI_Controller
 				$user = $this->userModel->get_user_by_id($u_id);
 
 				$event = array(
-					'title' 	=> lang('availability') . ' ' . $user->username,
+					'title' 	=> lang('availability') . ' ' . $user->firstname,
 					'start' 	=> $day,
 					'allDay'	=> true,
 					'tooltip'	=> $this->generate_label($user, $d)
@@ -280,17 +276,12 @@ class Appointment extends CI_Controller
 	/**
 	 * Generates the content of the legend tooltip
 	 */
-	private function generate_legend($exps = null, $title = null)
+	private function generate_legend($exps = NULL, $title = NULL)
 	{
-		
-		if(!isset($exps))
-			$exps = $this->experimentModel->get_all_experiments();
-
-		if(!isset($title))
-			$title = heading(lang('experiment_color'), 3);
+		if(!$exps) $exps = $this->experimentModel->get_all_experiments();
+		if(!$title) $title = heading(lang('experiment_color'), 3);
 
 		$colors = '';
-
 		foreach ($exps as $e)
 		{
 			$colors .= get_colored_label($e);
@@ -313,7 +304,7 @@ class Appointment extends CI_Controller
 	 */
 	private function generate_label($user, $d)
 	{
-		$html = heading(sprintf(lang('availability_for_user'), ucfirst($user->username)), 3);
+		$html = heading(sprintf(lang('availability_for_user'), $user->firstname), 3);
 
 		$experiments = $this->leaderModel->get_experiments_by_leader($user->id);
 
@@ -331,12 +322,12 @@ class Appointment extends CI_Controller
 
 		if(sizeof($experiments) > 0)
 		{
-			$title = heading(sprintf(lang('exp_for_leader'), ucfirst($user->username)),3);
+			$title = heading(sprintf(lang('exp_for_leader'), $user->firstname),3);
 			$html .= $this->generate_legend($experiments, $title);
 		} 
 		else 
 		{
-			$html .= sprintf(lang('has_no_experiments'), ucfirst($user->username));
+			$html .= sprintf(lang('has_no_experiments'), $user->firstname);
 		}
 		
 		return $html;

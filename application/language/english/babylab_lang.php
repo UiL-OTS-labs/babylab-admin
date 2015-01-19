@@ -440,7 +440,6 @@ $lang['send_anamnese'] 		= "Send the anamnese?";
 
 /* Availability view */
 $lang['availability']		= "Availability";
-$lang['your_availability']	= "Your availability";
 $lang['create_availability'] = "Add new availability information";
 $lang['availability_include_past'] = "Show old availability information";
 $lang['availability_not_include_past'] = "Do not show old availability information";

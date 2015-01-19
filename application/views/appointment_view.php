@@ -77,6 +77,6 @@ $(function(){
 		<input type="checkbox" name="include-availability" style="vertical-align: middle;" checked="checked" id="include-availability"/>
 		&nbsp;<?=lang('show_availability');?>
 	</label></div>
-	<input type="hidden" name="date_picker" id="date_picker" />
 </div>
+<input type="hidden" name="date_picker" id="date_picker" />
 <div id='calendar'></div>

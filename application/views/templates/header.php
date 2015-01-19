@@ -87,7 +87,7 @@ $(function() {
 				<li class='has-sub'><a href="javascript:void(0)"><?=lang('calendar'); ?></a>
 					<ul>
 						<li><?=anchor('appointment', lang('calendar')); ?></li>
-						<li><?=anchor('impediment', lang('impediments')); ?></li>
+						<li><?=anchor('availability', lang('availability')); ?></li>
 						<li class='last'><?=anchor('closing', lang('closings')); ?></li>
 					</ul>
 				</li>
@@ -148,6 +148,7 @@ $(function() {
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
 				<li><?=anchor('appointment', lang('calendar')); ?></li>
+				<li><?=anchor('availability', lang('availability')); ?></li>
 			</ul>
 		</div>
 		<?php } ?>

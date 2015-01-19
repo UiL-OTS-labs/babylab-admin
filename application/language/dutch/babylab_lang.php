@@ -441,7 +441,6 @@ $lang['send_anamnese'] 		= "Anamnese versturen?";
 
 /* Availability view */
 $lang['availability']		= "Beschikbaarheid";
-$lang['your_availability']	= "Uw beschikbaarheid";
 $lang['create_availability'] = "Nieuwe beschikbaarheidsinformatie toevoegen";
 $lang['availability_include_past'] = "Oude beschikbaarheidsinformatie tonen";
 $lang['availability_not_include_past'] = "Oude beschikbaarheidsinformatie verbergen";

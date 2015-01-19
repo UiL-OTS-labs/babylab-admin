@@ -20,7 +20,7 @@ class Availability extends CI_Controller
 
 		create_availability_table();
 		$data['ajax_source'] = 'availability/table/' . $include_past;
-		$data['page_title'] = lang('your_availability');
+		$data['page_title'] = lang('availability');
 		$data['action_urls'] = array($add_url, $past_url);
 
 		$this->load->view('templates/header', $data);
