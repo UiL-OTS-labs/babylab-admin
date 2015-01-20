@@ -99,6 +99,16 @@ class CallerModel extends CI_Model
 		return get_object_ids($callers, 'user_id_caller');
 	}
 
+	/** Returns all caller users for the given experiment */
+	public function get_caller_users_by_experiment($experiment_id)
+	{
+		$this->db->select('user.*');
+		$this->db->from('caller');
+		$this->db->join('user', 'user.id = caller.user_id_caller');
+		$this->db->where('experiment_id', $experiment_id);
+		return $this->db->get()->result(); 
+	}
+
 	/** Returns all experiments for a caller */
 	public function get_experiments_by_caller($user_id)
 	{

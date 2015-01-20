@@ -26,8 +26,8 @@ Het invullen van de vragenlijst duurt 5 tot 10 minuten.</p>
 <p>Het is belangrijk voor ons onderzoek dat er geen broertje of zusje meekomt tijdens het bezoek aan het lab. 
 Indien u hierover een afspraak heeft gemaakt met de medewerker van het BabyLab, dan geldt uiteraard de afspraak die jullie gemaakt hebben.</p>
 <p>Wanneer u verhinderd bent te komen of de afspraak graag wil verzetten, dan kunt u mailen naar: <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
-Mocht u verder nog vragen hebben dan kunt u contact opnemen met de testleider(s):</p>
-<?=ul($leader_contacts); ?> 
+Mocht u verder nog vragen hebben dan kunt u contact opnemen met:</p>
+<?=ul($caller_contacts); ?> 
 <?php if ($survey_link) { ?>
 <p>De link naar de vragenlijst (<em>Anamnese 1ste bezoek</em>) vindt u hier: <?=$survey_link; ?>.</p>
 <?php } ?>

@@ -72,13 +72,13 @@ if (!function_exists('email_replace'))
 			$message_data['description'] 	= $experiment->description;
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
 
-			$users = $CI->leaderModel->get_leader_users_by_experiment($experiment->id); 
+			$users = $CI->callerModel->get_caller_users_by_experiment($experiment->id); 
 			$contacts = array();
 			foreach ($users as $user)
 			{
 				array_push($contacts, sprintf('%s %s, %s', $user->firstname, $user->lastname, $user->phone ? $user->phone : $user->mobile)); 
 			}
-			$message_data['leader_contacts'] = $contacts;
+			$message_data['caller_contacts'] = $contacts;
 		}
 		
 		if ($comb_experiment) 
