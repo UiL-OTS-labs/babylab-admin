@@ -40,7 +40,9 @@ $(function() {
 
 <?=heading(lang('experiments'), 2); ?>
 
-<?=form_open($action, array('class' => 'pure-form pure-form-aligned')); ?>
+<?=$this->session->flashdata('message'); ?>
+
+<?=form_open_multipart($action, array('class' => 'pure-form pure-form-aligned')); ?>
 
 <?=form_fieldset($page_title); ?>
 <?=form_input_and_label('name', $name, 'required'); ?>
@@ -67,6 +69,20 @@ $(function() {
 <?=form_multiselect_and_label('prerequisite', $experiments, isset($current_prerequisite_ids) ? $current_prerequisite_ids: array()); ?>
 <?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
 <?=form_dropdown_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
+
+<?=form_fieldset(lang('attachment')); ?>
+<div class="pure-control-group">
+<?=form_label(lang('attachment'), 'userfile'); ?>
+<?php if ($attachment) { 
+    echo '<em>' . $attachment . '</em> ';
+    echo anchor('experiment/download_attachment/' . $id, lang('download'), 'download');
+    echo ' ';
+    echo anchor('experiment/remove_attachment/' . $id, lang('remove'), warning(lang('sure_remove_attachment')));
+} else { ?>
+    <input type="file" name="userfile" size="20" class="pure-input-rounded" />
+    <?=form_error('userfile'); ?>
+<?php } ?>
+</div>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>

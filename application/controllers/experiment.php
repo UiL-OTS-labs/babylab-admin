@@ -8,7 +8,12 @@ class Experiment extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');	
+        
+        // Uploading experiment attachments
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'pdf';
+		$this->load->library('upload', $config);
 	}
 
 	/////////////////////////
@@ -126,7 +131,9 @@ class Experiment extends CI_Controller
 
 	/** Adds an experiment to the database */
 	public function edit_submit($experiment_id)
-	{
+	{        
+        $e = $this->experimentModel->get_experiment_by_id($experiment_id);
+        
 		// Validate experiment
 		if (!$this->validate_experiment())
 		{
@@ -134,7 +141,7 @@ class Experiment extends CI_Controller
 			$this->edit($experiment_id);
 		}
 		else 
-		{
+		{            
 			// Update experiment in database
 			$experiment = $this->post_experiment();
 			$this->experimentModel->update_experiment($experiment_id, $experiment);
@@ -205,6 +212,30 @@ class Experiment extends CI_Controller
 		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
+    
+    /**
+     * Removes the attachment for an experiment and returns to the edit view.
+     * @param integer $experiment_id
+     */
+    public function remove_attachment($experiment_id) 
+    {
+        $this->experimentModel->update_experiment($experiment_id, array('attachment' => NULL));
+        redirect('experiment/edit/' . $experiment_id);
+    }
+    
+    /**
+     * Downloads the attachment for an experiment. 
+     * @param integer $experiment_id
+     */
+    public function download_attachment($experiment_id) 
+    {
+        $experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+        
+        $data = file_get_contents('uploads/' . $experiment->attachment); 
+        $name = $experiment->attachment;
+
+        force_download($name, $data);
+    }
 	
 	/**
 	 * Downloads all scores of participants of an experiment as a .csv-file.
@@ -288,7 +319,6 @@ class Experiment extends CI_Controller
 		$filename = $escaped . "_" . mdate("%Y%m%d_%H%i", time()) . ".csv";
 		
 		// Download the file
-		$this->load->helper('download');
 		force_download($filename, $csv); 		
 	}
 	
@@ -340,6 +370,7 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('agefromdays', lang('agefromdays'), 'trim|required|is_natural|less_than[32]');
 		$this->form_validation->set_rules('agetomonths', lang('agetomonths'), 'trim|required|is_natural');
 		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural|less_than[32]');
+		$this->form_validation->set_rules('userfile', lang('attachment'), 'callback_upload_attachment');
 
 		return $this->form_validation->run();
 	}
@@ -347,7 +378,7 @@ class Experiment extends CI_Controller
 	/** Posts the data for an experiment */
 	private function post_experiment()
 	{
-		return array(
+		$exp = array(
 				'location_id' 		=> $this->input->post('location'),
 				'name' 				=> $this->input->post('name'),
 				'type' 				=> $this->input->post('type'),
@@ -360,8 +391,17 @@ class Experiment extends CI_Controller
 				'agefrommonths' 	=> $this->input->post('agefrommonths'),
 				'agefromdays' 		=> $this->input->post('agefromdays'),
 				'agetomonths' 		=> $this->input->post('agetomonths'),
-				'agetodays' 		=> $this->input->post('agetodays'),
+				'agetodays' 		=> $this->input->post('agetodays')
 		);
+        
+        // If there is uploaded data, set this as the attachment on an experiment
+        $data = $this->upload->data();
+        if ($data['file_name']) 
+        {
+            $exp['attachment'] = $data['file_name'];
+        }
+        
+        return $exp;
 	}
 
 	private function update_references($experiment_id)
@@ -415,6 +455,16 @@ class Experiment extends CI_Controller
 		} 
 		return TRUE;
 	}
+    
+    public function upload_attachment()
+    {
+        if (!$this->upload->do_upload()) 
+        {
+            $this->form_validation->set_message('upload_attachment', $this->upload->display_errors());
+            return FAlSE; 
+        }
+        return TRUE;
+    }
 
 	/////////////////////////
 	// Table

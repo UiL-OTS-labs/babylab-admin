@@ -134,6 +134,10 @@ $lang['archived_exp']		= "Experiment succesvol gearchiveerd.";
 $lang['unarchived_exp']		= "Experiment succesvol uit het archief gehaald.";
 $lang['age_from_before_to'] = "De 'tot'-leeftijd ligt voor de 'vanaf'-leeftijd.";
 $lang['act_nr_part']		= "Huidig aantal proefpersonen";
+$lang['attachment']         = "Bijlage";
+$lang['download']           = "Download";
+$lang['remove']             = "Verwijder";
+$lang['sure_remove_attachment'] = "Weet u zeker dat u de bijlage wilt verwijderen? Andere wijzigingen aan het experiment worden dan niet opgeslagen.";
 
 /* Relations */
 $lang['relation']	 		= "Verband";

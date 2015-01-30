@@ -67,15 +67,18 @@ $autoload['libraries'] = array(
  */
 
 $autoload['helper'] = array(
-	'url', 'form', 'html', 'language', 'flashdata', 'date', 'email',    // CI
+    // CI
+	'url', 'form', 'html', 'language', 'flashdata', 'date', 'email', 'download',    
+    // Models
 	'experiment', 'relation', 'location', 
-    'participant', 'comment', 'impediment', 'language_c', 'dyslexia',   // Models
+    'participant', 'comment', 'impediment', 'language_c', 'dyslexia',   
     'participation', 'call', 'result',  
     'user', 'caller', 'leader', 
     'test', 'testcat', 'score', 'percentile', 
 	'testsurvey', 'testinvite', 'testtemplate', 
     'availability', 'closing',
-	'session', 'table', 'image');                              // Own
+    // Other
+	'session', 'table', 'image');                              
 
 
 /*

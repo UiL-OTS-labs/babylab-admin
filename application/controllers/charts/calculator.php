@@ -19,8 +19,6 @@ class Calculator extends CI_Controller
 		$config['max_size']	= '100';
 		$config['allowed_types'] = '*';
 		$this->load->library('upload', $config);
-
-		$this->load->helper('download');
 	}
 
 	/////////////////////////
