@@ -71,14 +71,7 @@ if (!function_exists('email_replace'))
 			$message_data['duration_total'] = $experiment->duration + INSTRUCTION_DURATION;
 			$message_data['description'] 	= $experiment->description;
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
-
-			$users = $CI->callerModel->get_caller_users_by_experiment($experiment->id); 
-			$contacts = array();
-			foreach ($users as $user)
-			{
-				array_push($contacts, sprintf('%s %s, %s', $user->firstname, $user->lastname, $user->phone ? $user->phone : $user->mobile)); 
-			}
-			$message_data['caller_contacts'] = $contacts;
+			$message_data['caller_contacts'] = extract_callers($experiment, $comb_experiment);
 		}
 		
 		if ($comb_experiment) 
@@ -115,4 +108,30 @@ if (!function_exists('email_replace'))
 		
 		return $CI->load->view($view, $message_data, TRUE);
 	}
+}
+
+if (!function_exists('extract_callers'))
+{
+    /**
+     * Returns the unique set of callers for an experiment and it's combination experiment.
+     */
+    function extract_callers($experiment, $comb_experiment)
+    {
+		$CI =& get_instance();
+        $experiment_ids = array($experiment->id);
+        if ($comb_experiment)
+        {
+            array_push($experiment_ids, $comb_experiment->id);
+        }
+        
+        $users = $CI->callerModel->get_caller_users_by_experiments($experiment_ids);
+        $contacts = array();
+        foreach ($users as $user)
+        {
+            array_push($contacts, sprintf('%s %s, %s', 
+                $user->firstname, $user->lastname, $user->phone ? $user->phone : $user->mobile)); 
+        }
+        
+        return $contacts;
+    }
 }

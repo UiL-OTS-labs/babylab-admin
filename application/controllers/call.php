@@ -152,7 +152,7 @@ class Call extends CI_Controller
 				$comb_participation_id = $this->participationModel->create_participation($comb_experiment, $participant);
 				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
 				$this->participationModel->confirm($comb_participation_id, $comb_appointment, $comb_leader);
-				$flashdata .= br() . $this->send_confirmation_email($comb_participation_id, $testinvite, $email, $comb_experiment);
+				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email, $comb_experiment);
 			}
 			// Else we can send a simple confirmation e-mail
 			else 

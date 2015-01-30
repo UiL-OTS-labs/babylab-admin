@@ -135,7 +135,7 @@ class Experiment extends CI_Controller
         $e = $this->experimentModel->get_experiment_by_id($experiment_id);
         
 		// Validate experiment
-		if (!$this->validate_experiment())
+		if (!$this->validate_experiment($e->attachment))
 		{
 			// Show form again with error messages
 			$this->edit($experiment_id);
@@ -356,7 +356,7 @@ class Experiment extends CI_Controller
 	// Form handling
 	/////////////////////////
 
-	private function validate_experiment()
+	private function validate_experiment($has_attachment = FALSE)
 	{
 		$this->form_validation->set_rules('location', lang('location'), 'required');
 		$this->form_validation->set_rules('name', lang('name'), 'trim|required');
@@ -370,7 +370,11 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('agefromdays', lang('agefromdays'), 'trim|required|is_natural|less_than[32]');
 		$this->form_validation->set_rules('agetomonths', lang('agetomonths'), 'trim|required|is_natural');
 		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural|less_than[32]');
-		$this->form_validation->set_rules('userfile', lang('attachment'), 'callback_upload_attachment');
+        
+        if (!$has_attachment)
+        {
+            $this->form_validation->set_rules('userfile', lang('attachment'), 'callback_upload_attachment');
+        }
 
 		return $this->form_validation->run();
 	}
