@@ -10,7 +10,7 @@ Mocht u verder nog vragen hebben dan kunt u contact opnemen met <?=BABYLAB_MANAG
 <p>Meer informatie over het BabyLab en bijvoorbeeld hoe er te komen is beschikbaar op <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
 <p>Wij zien ernaar uit u en <?=$name_first; ?> te zien op het BabyLab!</p>
 <p>Tot morgen,</p>
-<p><?=BABYLAB_MANAGER; ?> (lab manager)</p>
+<p><?=BABYLAB_TEAM; ?></p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>

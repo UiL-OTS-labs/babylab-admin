@@ -124,10 +124,11 @@ define('NCDI_MINIMUM_PERCENTILE', 10);
 /** NCDI language age difference: 4 months */
 define('NCDI_LANGUAGE_AGE_DIFF', 4);
 
-/** Babylab Manager */ 
+/** Babylab Manager / Team */ 
 define('BABYLAB_MANAGER', 'Maartje de Klerk');
 define('BABYLAB_MANAGER_EMAIL', 'babylabutrecht@uu.nl');
 define('BABYLAB_MANAGER_PHONE', '06-15084044');
+define('BABYLAB_TEAM', 'Het Babylab team van de Universiteit Utrecht');
 
 /** Availability */
 define('AVAILABILITY_DEFAULT_TIMES', '["08:30", "18:00"]');

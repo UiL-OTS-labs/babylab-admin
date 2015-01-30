@@ -16,7 +16,7 @@ Bovendien worden de antwoorden op een veilige manier bewaard: de informatie is a
 <p>De link naar de vragenlijst (<em><?=$survey_name; ?></em>) vindt u hier: <?=$survey_link; ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
-<p>BabyLab Universiteit Utrecht</p>
+<p><?=BABYLAB_TEAM; ?></p>
 <p>Indien u vragen of opmerkingen heeft n.a.v. deze e-mail of de vragenlijst, dan kunt u contact opnemen met:
 <?=BABYLAB_MANAGER; ?> via <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
 Meer informatie over het babylab vindt u op: <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>

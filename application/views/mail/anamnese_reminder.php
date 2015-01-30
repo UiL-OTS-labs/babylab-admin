@@ -6,7 +6,7 @@
 <p>Mocht u vragen hebben n.a.v. de vragenlijst of de interpretatie daarvan, dan kunt u contact opnemen met <?=BABYLAB_MANAGER; ?>: <?=BABYLAB_MANAGER_PHONE; ?> of mailen naar: <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
-<p><?=BABYLAB_MANAGER; ?> (lab manager)</p>
+<p><?=BABYLAB_TEAM; ?></p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>

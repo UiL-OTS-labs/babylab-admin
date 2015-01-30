@@ -11,8 +11,7 @@ In de bijlage vindt u een korte beschrijving van het onderzoek <em><?=$exp_name;
 Het onderzoek duurt, inclusief uitleg vooraf en ruimte voor vragen achteraf, ongeveer <?=$duration_total; ?> minuten.</p>
 <p>Wij horen graag van u en zien uit naar uw komst, hopelijk tot ziens op het Babylab!</p>
 <p>Hartelijke groet,</p>
-<p>BabyLab Universiteit Utrecht</p>
-<p><?=BABYLAB_MANAGER; ?> (lab manager)</p>
+<p><?=BABYLAB_TEAM; ?></p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>
