@@ -123,14 +123,22 @@ class SurveyModel extends CI_Model
 	// Tokens
 	/////////////////////////
 
-	/** Creates a token entry */
+    /**
+     * Creates a token entry. 
+     * We don't save the participant details in LimeSurvey (hence John Doe as participant name). 
+     * The participant details should be looked up in the administration system. 
+     * @param Participant $participant
+     * @param integer $survey_id
+     * @param string $token
+     * @return integer The ID of the created token
+     */
 	public function create_token($participant, $survey_id, $token)
 	{
 		$token_table = 'tokens_' . $survey_id;
 		$token_insert = array(
-			'firstname'		=> $participant->firstname,
-			'lastname'		=> $participant->lastname,
-			'email'			=> EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email, 
+			'firstname'		=> 'John',
+			'lastname'		=> 'Doe',
+			'email'			=> BABYLAB_MANAGER_EMAIL, 
 			'emailstatus'	=> 'OK',
 			'token'			=> $token,
 			'language'		=> 'nl',
