@@ -8,7 +8,7 @@ class Test extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////

@@ -11,4 +11,3 @@
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-<?=validation_errors(); ?>
