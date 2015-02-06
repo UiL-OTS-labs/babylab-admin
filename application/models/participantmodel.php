@@ -202,7 +202,7 @@ class ParticipantModel extends CI_Model
 			$this->db->where('TIMESTAMPDIFF(MONTH, dateofbirth, CURDATE()) >= ', $months - 1);
 			$this->db->where('TIMESTAMPDIFF(MONTH, dateofbirth, CURDATE()) <= ', $months);
 		}
-		else
+		else if ($testsurvey->whensent == TestWhenSent::Participation)
 		{
 			$count = $testsurvey->whennr;
 			$this->db->where('(SELECT COUNT(*)
