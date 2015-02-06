@@ -1,3 +1,14 @@
+<script>
+$(function() {
+	$("input[name='whensent']").change(function() {
+		var manual = $("input[name='whensent']:checked").val() === "manual";
+		$("#whennr").prop('disabled', manual);
+	});
+
+	$("input[name='whensent']").change();
+});
+</script>
+
 <?=heading(lang('tests'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
@@ -20,10 +31,10 @@ else
 <?=form_label(lang('whensent'), 'whensent'); ?>
 <?=form_radio_and_label('whensent', TestWhenSent::Participation, $whensent, lcfirst(lang(TestWhenSent::Participation))); ?>
 <?=form_radio_and_label('whensent', TestWhenSent::Months, $whensent, lang(TestWhenSent::Months)); ?>
+<?=form_radio_and_label('whensent', TestWhenSent::Manual, $whensent, lang(TestWhenSent::Manual)); ?>
 </div>
 <?=form_input_and_label('whennr', $whennr, 'required class="positive-integer"'); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-<?=validation_errors(); ?>

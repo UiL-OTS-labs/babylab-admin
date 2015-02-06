@@ -78,6 +78,10 @@ if (!function_exists('testsurvey_when'))
 	/** Returns an option list of testsurveys */
 	function testsurvey_when($whensent, $whennr)
 	{
+		if ($whensent === TestWhenSent::Manual) 
+		{
+			return lang($whensent);
+		}
 		return implode(' ', array(lang('after'), sprintf('%2d', $whennr), lcfirst(lang($whensent))));
 	}
 }

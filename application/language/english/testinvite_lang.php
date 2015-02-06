@@ -9,6 +9,7 @@ $lang['testinvite_deleted'] = "Uitnodiging succesvol verwijderd.";
 $lang['datesent']			= "Datum verstuurd";
 $lang['token']				= "LimeSurvey token";
 $lang['datecompleted']		= "Datum ingevuld";
+$lang['datereminder']		= "Datum herinnering";
 
 $lang['testinvite_already_exists']	= "An invitation for <em>%s</em> for survey <em>%s</em> already exists.";
 $lang['testinvite_not_exists'] 		= "No invitation for <em>%s</em> for survey <em>%s</em> exists yet.";

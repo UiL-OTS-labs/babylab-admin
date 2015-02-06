@@ -147,7 +147,7 @@ class TestInvite extends CI_Controller
 	public function table()
 	{
 		$this->datatables->select('test.name AS t, CONCAT(firstname, " ", lastname) AS p,
-			token, datesent, datecompleted, testinvite.id AS id, 
+			token, datesent, datecompleted, datereminder, testinvite.id AS id, 
 			testsurvey.id AS testsurvey_id, participant_id', FALSE);
 		$this->datatables->from('testinvite');
 		$this->datatables->join('participant', 'participant.id = testinvite.participant_id');
@@ -158,6 +158,7 @@ class TestInvite extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('datesent', '$1', 'output_date(datesent)');
 		$this->datatables->edit_column('datecompleted', '$1', 'output_date(datecompleted)');
+		$this->datatables->edit_column('datereminder', '$1', 'output_date(datereminder)');
 		$this->datatables->edit_column('id', '$1', 'testinvite_actions(id)');
 
 		$this->datatables->unset_column('testsurvey_id');

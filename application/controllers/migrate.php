@@ -17,7 +17,7 @@ class Migrate extends CI_Controller
 	{
 		if ( ! $this->migration->current())
 		{
-			show_error($this->migration->error);
+			show_error($this->migration->error_string());
 			exit;
 		}
 
@@ -32,7 +32,7 @@ class Migrate extends CI_Controller
 
 		if ( ! $this->migration->version($id))
 		{
-			show_error($this->migration->error);
+			show_error($this->migration->error_string());
 			exit;
 		}
 

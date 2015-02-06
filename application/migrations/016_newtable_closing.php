@@ -29,8 +29,6 @@ class Migration_Newtable_Closing extends CI_Migration {
             ON DELETE RESTRICT ON UPDATE RESTRICT');
     }
 
-    
-
     public function down()
     {
         $this->dbforge->drop_table('closing');

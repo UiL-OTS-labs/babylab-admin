@@ -83,6 +83,7 @@ class RelationType {
 class TestWhenSent {
 	const Participation	= 'participation';
 	const Months		= 'months';
+	const Manual		= 'manual';
 }
 
 /** Languages */

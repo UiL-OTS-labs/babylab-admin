@@ -8,7 +8,7 @@ class TestSurvey extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -160,10 +160,11 @@ class TestSurvey extends CI_Controller
 		{
 			$this->form_validation->set_rules('test', lang('test'), 'callback_not_zero');
 		}
+		$whennr_validation = $this->input->post('whensent') === TestWhenSent::Manual ? 'trim' : 'trim|required|is_natural_no_zero';
 
 		$this->form_validation->set_rules('limesurvey_id', lang('limesurvey_id'), 'trim|required|is_natural_no_zero|callback_survey_exists');
 		$this->form_validation->set_rules('whensent', lang('whensent'), 'trim|required');
-		$this->form_validation->set_rules('whennr', lang('whennr'), 'trim|required|is_natural_no_zero');
+		$this->form_validation->set_rules('whennr', lang('whennr'), $whennr_validation);
 
 		return $this->form_validation->run();
 	}
@@ -173,12 +174,13 @@ class TestSurvey extends CI_Controller
 	{
 		$surveyid = $this->input->post('limesurvey_id');
 		$surveyid = empty($surveyid) ? NULL : $surveyid;
+		$whennr = $this->input->post('whensent') === TestWhenSent::Manual ? NULL : $this->input->post('whennr');
 
 		$testsurvey = array(
 				'test_id'		=> $this->input->post('test'),
 				'limesurvey_id' => $surveyid,
 				'whensent' 		=> $this->input->post('whensent'),
-				'whennr' 		=> $this->input->post('whennr')
+				'whennr' 		=> $whennr
 		);
 
 		if (!$new_testsurvey) unset($testsurvey['test_id']);

@@ -13,6 +13,7 @@ $lang['limesurvey_id']		= "LimeSurvey ID";
 $lang['whensent']			= "Wanneer verzenden?";
 $lang['whennr']				= "Aantal deelnames/maanden";
 $lang['after']				= "after";
+$lang['manual']				= "manual";
 
 $lang['survey_does_not_exist']	= "Het aangegeven ID bestaat niet in LimeSurvey.";
 ?>
