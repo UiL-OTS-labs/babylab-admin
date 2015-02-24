@@ -111,6 +111,9 @@ class ExcludedReason {
 	const Other					= 'other';
 }
 
+/** Don't connect to LimeSurvey database when this is true */
+define('SURVEY_DEV_MODE', TRUE);
+
 /** Number of weeks to look ahead */
 define('WEEKS_AHEAD', 2);
 
@@ -119,6 +122,9 @@ define('INSTRUCTION_DURATION', 20);
 
 /** After how many calls to send a request for participation */
 define('SEND_REQUEST_AFTER_CALLS', 2);
+
+/** After how many days to send a reminder for a survey */
+define('SEND_REMINDER_AFTER_DAYS', 7);
 
 /** Minimum NCDI percentile: 10th percentile */
 define('NCDI_MINIMUM_PERCENTILE', 10);

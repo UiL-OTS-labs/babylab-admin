@@ -10,6 +10,7 @@ class SurveyInvite extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->library(array('input'));
+		$this->load->model('surveyModel');
 	}
 
 	/**
@@ -74,14 +75,24 @@ class SurveyInvite extends CI_Controller
 		reset_language(L::Dutch);
 
 		// Get all testinvites that have not yet been returned
-		$testinvites = $this->testInviteModel->get_uncompleted_testinvites(); 
+		$testinvites = $this->testInviteModel->get_not_reminded_testinvites(); 
 		foreach ($testinvites as $testinvite)
 		{
 			$date_sent = new DateTime($testinvite->datesent);
 			$diff_days = $date_sent->diff(new DateTime())->days;
 
-			// If no reminder has yet been sent and it's been 7 days, send a reminder e-mail
-			if (empty($testinvite->datereminder) && $diff_days >= 7)
+			// Check with LimeSurvey whether the survey has actually been completed
+			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
+			$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
+			if ($result) 
+			{
+				// If there is actually a result row, set the survey to completed
+				$this->testInviteModel->set_completed($testinvite->id, $result->submitdate);
+				continue; 
+			}
+
+			// If no reminder has yet been sent and it's been some days, send a reminder e-mail
+			if ($diff_days >= SEND_REMINDER_AFTER_DAYS)
 			{
 				$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
 				$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
