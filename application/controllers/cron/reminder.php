@@ -33,7 +33,8 @@ class Reminder extends CI_Controller
 				reset_language(L::Dutch);
 				
 				$participant = $this->participationModel->get_participant_by_participation($participation->id);
-				$message = email_replace('mail/reminder', $participant, $participation);
+				$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
+				$message = email_replace('mail/reminder', $participant, $participation, $experiment);
 		
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
