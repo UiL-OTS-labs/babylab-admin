@@ -111,9 +111,6 @@ class ExcludedReason {
 	const Other					= 'other';
 }
 
-/** Don't connect to LimeSurvey database when this is true */
-define('SURVEY_DEV_MODE', TRUE);
-
 /** Number of weeks to look ahead */
 define('WEEKS_AHEAD', 2);
 
