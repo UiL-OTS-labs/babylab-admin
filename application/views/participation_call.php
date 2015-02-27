@@ -9,9 +9,10 @@
 		});
 
 		// Show/hide actions
-		$( ".show" ).hide();
-		$( ".call_link" ).click(function() {
-			$( this ).next().toggle( "slow" );
+		$(".show").hide();
+		$(".call_link").click(function() {
+			$(".call_link").next().hide();
+			$(this).next().show("slow");
 		});
 
 		// Appointment(s) scheduling
