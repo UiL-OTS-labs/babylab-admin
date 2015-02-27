@@ -568,8 +568,8 @@ class Participation extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
-		$this->email->cc(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->cc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
 		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
 		$this->email->message($message);
 		$this->email->send();
@@ -589,7 +589,7 @@ class Participation extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
 		$this->email->subject('Babylab Utrecht: Afspraak verwijderd');
 		$this->email->message($message);
 		$this->email->send();
@@ -606,7 +606,7 @@ class Participation extends CI_Controller
 		
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : LAB_EMAIL);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : LAB_EMAIL);
 		$this->email->subject('Babylab Utrecht: Technisch probleem');
 		$this->email->message($message);
 		$this->email->send();

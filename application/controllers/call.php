@@ -303,7 +303,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $email);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		if ($experiment->attachment) $this->email->attach('uploads/' . $experiment->attachment);
@@ -329,7 +329,7 @@ class Call extends CI_Controller
 		$this->email->message($message);
 		$this->email->send();
 
-		return sprintf(lang('request_participation_sent'), $participant->email);
+		return sprintf(lang('request_participation_sent'), EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
 	}
 
 	/** Create test invitations (based on number of participations), 

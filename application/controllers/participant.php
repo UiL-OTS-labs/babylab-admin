@@ -223,7 +223,7 @@ class Participant extends CI_Controller
 
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $user->email);
+				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
 				$this->email->subject(lang('reg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
@@ -306,7 +306,7 @@ class Participant extends CI_Controller
 
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $user->email);
+				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
 				$this->email->subject(lang('dereg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
