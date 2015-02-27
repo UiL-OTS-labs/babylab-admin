@@ -179,7 +179,7 @@
 						<?=lang('message_left'); ?>
 						<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
 						<?=form_radio_and_label('message', 'voicemail'); ?>
-						<?=form_radio_and_label('message', 'email'); ?>
+						<?=form_radio_and_label('message', 'email', '', lang('email_sent')); ?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>

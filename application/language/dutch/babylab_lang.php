@@ -281,7 +281,8 @@ $lang['complete_part_info']	= "In dit scherm kunt u de deelname van <em>%s</em> 
 							   Vul alle verplichte velden in alvorens op bevestigen te klikken.";
 $lang['message_left']		= "Bericht achtergelaten?";
 $lang['none']				= "Geen";
-$lang['voicemail']			= "Voicemail";
+$lang['voicemail']			= "Voicemail ingesproken";
+$lang['email_sent']			= "Zelf e-mail gestuurd";
 $lang['sure_delete_part']	= "Weet u zeker dat u deze deelname wilt verwijderen?";
 $lang['part_cancel_call']	= "Bellen van <em>%s</em> voor experiment <em>%s</em> geannuleerd.";
 $lang['part_confirmed']		= "<em>%s</em> ingeschreven voor experiment <em>%s</em>.";

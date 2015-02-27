@@ -281,7 +281,8 @@ $lang['complete_part_info']	= "In this window you can complete the participation
 							   Please complete all required fields before confirming.";
 $lang['message_left']		= "Left a message?";
 $lang['none']				= "None";
-$lang['voicemail']			= "Voicemail";
+$lang['voicemail']			= "Left voicemail";
+$lang['email_sent']			= "Sent e-mail myself";
 $lang['sure_delete_part']	= "Are you sure you want to delete this participation?";
 $lang['part_cancel_call']	= "Calling <em>%s</em> for experiment <em>%s</em> cancelled.";
 $lang['part_confirmed']		= "Participation of <em>%s</em> in experiment <em>%s</em> confirmed.";
