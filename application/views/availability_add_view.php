@@ -22,13 +22,13 @@
 	<fieldset>
 		<legend><?=lang('availability_select'); ?></legend>
 			<div class="pure-g time-selector">
-				<div class="pure-u-6-24">
+				<div class="pure-u-6-24" width="300px" style="min-width: 320px">
 					
 					<div id="datum"></div>
 					<div id="datum-eind"></div>
 				</div>
 				
-				<div class="pure-u-6-24">
+				<div class="pure-u-6-24" style="min-width: 300px">
 					<div id="timeselector"></div>
 					
 				</div>
