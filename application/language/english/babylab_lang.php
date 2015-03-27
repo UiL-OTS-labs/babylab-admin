@@ -461,4 +461,16 @@ $lang['no_permission']			= "You have no permission for this action";
 $lang['exp_for_leader']		= "%s is leader for the following experiments:";
 $lang['availability_for_user'] = "%s is available at the following times:";
 
+/* Closing */
+$lang['closing']            = "Closing";
+$lang['closings']           = "Closings";
+$lang['add_closing']        = "Add closing";
+$lang['closing_added']      = "Closing added";
+$lang['delete_closing']     = "Delete closing";
+$lang['closing_deleted']    = "Closing deleted";
+$lang['sure_delete_closing']  = "Are you sure you want to delete this closing?";
+$lang['closing_include_past'] = "Show closings from the past";
+$lang['closing_exclude_past'] = "Don't show closings from the past";
+$lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
+
 ?>

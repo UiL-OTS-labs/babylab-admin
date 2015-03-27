@@ -26,11 +26,14 @@ class Welcome extends CI_Controller
 			case UserRole::Leader:
 				$this->leader_interface(current_user_id());
 				break;
+			case UserRole::Admin:
+				$this->admin_interface();
+				break;
 			case UserRole::System:
-				show_404();
+				redirect('appointment');
 				break;
 			default:
-				$this->admin_interface();
+				show_404();
 				break;
 		}
 	}
