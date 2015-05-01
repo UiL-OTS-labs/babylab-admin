@@ -81,10 +81,11 @@ class ParticipationModel extends CI_Model
 	/////////////////////////
 	
 	/** Retrieves all participations for multiple participants in an experiment */
-	public function filter_participations($experiment_ids, $participant_ids, $exclude_canceled = TRUE, $date_from = NULL)
+	public function filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled = TRUE, $date_from = NULL)
 	{
 		if ($experiment_ids) $this->db->where_in('experiment_id', $experiment_ids);
 		if ($participant_ids) $this->db->where_in('participant_id', $participant_ids);
+		if ($leader_ids) $this->db->where_in('user_id_leader', $leader_ids);
 		if ($exclude_canceled) $this->db->where('(appointment IS NOT NULL)');
 		else $this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
 		if ($date_from) $this->db->where('appointment >=', $date_from);
@@ -131,6 +132,24 @@ class ParticipationModel extends CI_Model
 		$participation = $this->get_participation_by_id($participation_id);
 		$p_id = $participation->participant_id;
 		return $this->db->get_where('participant', array('id' => $p_id))->row();
+	}
+	
+	/////////////////////////
+	// Leaders
+	/////////////////////////
+
+	/** Retrieves all participations for a leader */
+	public function get_participations_by_user($user_id)
+	{
+		$this->db->where('user_id_leader', $user_id);
+		return $this->db->get('participation')->result();
+	}
+
+	/** Retrieves a user by the participation id */
+	public function get_user_by_participation($participation_id)
+	{
+		$participation = $this->get_participation_by_id($participation_id);
+		return $this->db->get_where('user', array('id' => $participation->user_id_leader))->row();
 	}
 
 	

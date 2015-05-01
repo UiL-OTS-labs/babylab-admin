@@ -435,6 +435,7 @@ $lang['legend']				= "Legenda";
 $lang['filter_experiment']	= "Filter op experiment";
 $lang['filter_participant'] = "Filter op deelnemer";
 $lang['filter_location']	= "Filter op locatie";
+$lang['filter_leader']		= "Filter op leider";
 $lang['clear_filters']		= "Filters verwijderen";
 $lang['exclude_empty']		= "Verberg geannuleerde afspraken";
 $lang['date_text']			= "Ga naar datum";

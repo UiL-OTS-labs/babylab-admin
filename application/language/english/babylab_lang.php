@@ -435,6 +435,7 @@ $lang['legend']				= "Legend";
 $lang['filter_experiment']	= "Filter by experiment";
 $lang['filter_participant'] = "Filter by participant";
 $lang['filter_location']	= "Filter by location";
+$lang['filter_leader']		= "Filter by leader";
 $lang['clear_filters']		= "Clear filters";
 $lang['exclude_empty']		= "Exclude cancelled appointments";
 $lang['date_text']			= "Jump to date";

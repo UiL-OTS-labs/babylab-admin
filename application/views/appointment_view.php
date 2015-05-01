@@ -54,9 +54,20 @@ $(function(){
 		?>
 	</select>
 
+	<br>
+
 	<select class="chosen-select select-location" multiple data-placeholder="<?=lang('filter_location');?>">
 		<?php 
 		foreach (location_options($locations) as $id => $option)
+		{
+			echo '<option value="' . $id . '">' . $option . '</option>\n';
+		}
+		?>
+	</select>
+
+	<select class="chosen-select select-leader" multiple data-placeholder="<?=lang('filter_leader');?>">
+		<?php 
+		foreach (leader_options($leaders) as $id => $option)
 		{
 			echo '<option value="' . $id . '">' . $option . '</option>\n';
 		}

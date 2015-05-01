@@ -19,6 +19,7 @@ function initializeCalendar(lang) {
 		            	participant_ids: $('.select-participant').val(),
 		                experiment_ids: $('.select-experiment').val(),
 		                location_ids: $('.select-location').val(),
+		                leader_ids: $('.select-leader').val(),
 		                exclude_canceled: $('#exclude-canceled').is(':checked'),
 		            };
 				},

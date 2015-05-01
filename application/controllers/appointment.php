@@ -19,6 +19,7 @@ class Appointment extends CI_Controller
 		$data['experiments'] = $this->experimentModel->get_all_experiments();
 		$data['participants'] = $this->participantModel->get_all_participants();
 		$data['locations'] = $this->locationModel->get_all_locations();
+		$data['leaders'] = $this->userModel->get_all_leaders();
 
 		// Load the view
 		if ($header) $this->load->view('templates/header', $data);
@@ -41,10 +42,10 @@ class Appointment extends CI_Controller
 		$appointments = $this->filter_appointments();
 		foreach ($appointments as $appointment)
 		{
-			// Participant, Experiment and Location
+			// Participant, experiment and leader
 			$participant = $this->participationModel->get_participant_by_participation($appointment->id);
 			$experiment = $this->participationModel->get_experiment_by_participation($appointment->id);
-			$location_name = location_name($experiment->location_id);
+			$leader = $this->participationModel->get_user_by_participation($appointment->id);
 
 			// Begin and end datetime
 			$dateTime = new DateTime($appointment->appointment);
@@ -57,9 +58,14 @@ class Appointment extends CI_Controller
 			$bgcolor = $experiment->experiment_color;
 			$textcolor = isset($bgcolor) ? get_foreground_color($bgcolor) : '';
 
+			// Title
+			$title = "\n" . name($participant);
+			$title .= "\n" . location_name($experiment->location_id);
+			if ($leader) $title .= ' / ' . $leader->firstname;
+
 			// Generate array for event
 			$event = array(
-				'title' 	=> "\n" . name($participant) . "\n" . $location_name,
+				'title' 	=> $title,
 				'start' 	=> $startTime,
 				'end'		=> $end,
 				'color' 	=> $bgcolor,
@@ -150,6 +156,7 @@ class Appointment extends CI_Controller
 		$experiment_ids = $this->input->post('experiment_ids');
 		$participant_ids = $this->input->post('participant_ids');
 		$location_ids = $this->input->post('location_ids');
+		$leader_ids = $this->input->post('leader_ids');
 		$exclude_canceled = $this->input->post('exclude_canceled') == 'true';
 
 		// If there are locations selected... 
@@ -176,7 +183,7 @@ class Appointment extends CI_Controller
 
 		// Leaders can only see appointments starting from a month ago
 		$date_from = current_role() === UserRole::Leader ? input_date('-1 month') : NULL;
-		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $exclude_canceled, $date_from);
+		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled, $date_from);
 	}
 
 	/**
