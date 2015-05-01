@@ -44,12 +44,23 @@ class SelfService extends CI_Controller
             $update = array('selfservicecode' => $code, 'selfservicetime' => input_datetime('+1 day'));
 
             $participants = $this->participantModel->get_participants_by_email($email); 
+            // TODO: handle no participants found
             foreach ($participants as $p)
             {
                 $this->participantModel->update_participant($p->id, $update);
+                $parent_name = parent_name($p);
             }
 
-            // TODO: send e-mail
+            $message_data['name_parent'] = $parent_name;
+            $message_data['url'] = 'selfservice/auth/' . $code;
+            $message = $this->load->view('mail/selfservice', $message_data, TRUE);
+
+            $this->email->clear();
+            $this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+            $this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
+            $this->email->subject('Babylab Utrecht: Link voor selfservice');
+            $this->email->message($message);
+            $this->email->send();
 
             flashdata(sprintf('E-mail voor toegang selfservice verstuurd naar %s', $email));
             redirect('selfservice');
