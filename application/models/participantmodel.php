@@ -160,11 +160,11 @@ class ParticipantModel extends CI_Model
 		$result = array();
 		foreach ($participants as $participant)
 		{
-			$age_from = explode(';', age_in_months_and_days($participant, input_date('+' . $weeks_ahead . ' weeks')));
+			$age_from = explode(';', age_in_months_and_days($participant->dateofbirth, input_date('+' . $weeks_ahead . ' weeks')));
 			$months_from = $age_from[0];
 			$days_from = $age_from[1];
 			
-			$age_to = explode(';', age_in_months_and_days($participant, input_date('+ 1 week')));
+			$age_to = explode(';', age_in_months_and_days($participant->dateofbirth, input_date('+ 1 week')));
 			$months_to = $age_to[0];
 			$days_to = $age_to[1];
 

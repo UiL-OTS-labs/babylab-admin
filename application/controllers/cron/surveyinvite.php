@@ -123,7 +123,7 @@ class SurveyInvite extends CI_Controller
 	 */
 	private function probability($participant, $m)
 	{
-		$age = explode(';', age_in_months_and_days($participant));
+		$age = explode(';', age_in_months_and_days($participant->dateofbirth));
 		$month = $age[0];
 		$day = $age[1];
 

@@ -46,7 +46,7 @@
 		</tr>
 		<tr>
 			<th><?=lang('age'); ?></th>
-			<td><?=age_in_months_and_days($participant, $participation->appointment); ?>
+			<td><?=age_in_months_and_days($participant->dateofbirth, $participation->appointment); ?>
 			</td>
 		</tr>
 		<?php } ?>

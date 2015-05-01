@@ -440,7 +440,7 @@ class Chart extends CI_Controller
 				{
 					$testinvite = $this->testInviteModel->get_testinvite_by_id($score->testinvite_id);
 					$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-					$age = explode(';', age_in_months_and_days($participant, $testinvite->datecompleted));
+					$age = explode(';', age_in_months_and_days($participant->dateofbirth, $testinvite->datecompleted));
 					$age = $age[0] + $age[1] / 31; // to evenly divide over months.
 
 					if ($age >= 10 && $age <= 40)

@@ -11,7 +11,7 @@ if (!function_exists('create_participant_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('name'), lang('dob'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
+		$heading = array(lang('name'), lang('dob'), lang('age'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
 		if ($find)
 		{
 			array_splice($heading, -1, 1, array(lang('status'), lang('actions')));
@@ -155,7 +155,7 @@ if (!function_exists('age_in_months'))
 	/** Returns the age in months of the participant given an optional date
 	 *  Code copied from http://stackoverflow.com/questions/3324513/php-how-to-calculate-person-age-in-months
 	 *  Note that %r prints the signum */
-	function age_in_months($participant, $date = '')
+	function age_in_months($participant, $date = 'now')
 	{
 		$diff = date_diff(new DateTime($participant->dateofbirth), new DateTime($date));
 
@@ -166,14 +166,14 @@ if (!function_exists('age_in_months'))
 if (!function_exists('age_in_md_by_id'))
 {
 	/** Returns the age in months of the participant */
-	function age_in_md_by_id($participant_id, $date)
+	function age_in_md_by_id($participant_id, $date = 'now')
 	{
 		if (!$date) return '';
 
 		$CI =& get_instance();
 		$participant = $CI->participantModel->get_participant_by_id($participant_id);
 
-		return age_in_months_and_days($participant, $date);
+		return age_in_months_and_days($participant->dateofbirth, $date);
 	}
 }
 
@@ -182,9 +182,9 @@ if (!function_exists('age_in_months_and_days'))
 	/** Returns the age in months and days (m;d) of the participant given an optional date
 	 *  Code copied from http://stackoverflow.com/questions/3324513/php-how-to-calculate-person-age-in-months
 	 *  Note that %r prints the signum */
-	function age_in_months_and_days($participant, $date = '')
+	function age_in_months_and_days($dateofbirth, $date = 'now')
 	{
-		$diff = date_diff(new DateTime($participant->dateofbirth), new DateTime($date));
+		$diff = date_diff(new DateTime($dateofbirth), new DateTime($date));
 
 		return $diff->format('%r') . ($diff->format('%m') + 12 * $diff->format('%y')) . ';' . $diff->format('%d');
 	}
@@ -195,7 +195,7 @@ if (!function_exists('age_in_ymd'))
 	/** Returns the age in months and days (y;m;d) of the participant given an optional date
 	 *  Code copied from http://stackoverflow.com/questions/3324513/php-how-to-calculate-person-age-in-months
 	 *  Note that %r prints the signum */
-	function age_in_ymd($participant, $date = '')
+	function age_in_ymd($participant, $date = 'now')
 	{
 		$diff = date_diff(new DateTime($participant->dateofbirth), new DateTime($date));
 		$y = '%y ' . strtolower(lang('year')) . '; ';

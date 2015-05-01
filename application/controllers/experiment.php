@@ -276,7 +276,7 @@ class Experiment extends CI_Controller
 			
 			// Participant data
 			$age = age_in_months($participant, $testinvite->datecompleted);
-			$agemd = age_in_months_and_days($participant, $testinvite->datecompleted);
+			$agemd = age_in_months_and_days($participant->dateofbirth, $testinvite->datecompleted);
 			$csv_row = array(name($participant), $participant->gender, $age, $agemd);
 			
 			// Score data

@@ -755,7 +755,7 @@ class Participant extends CI_Controller
 			}
 		}
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
 		$this->datatables->from('participant');
 
 		if (!is_admin()) 
@@ -766,6 +766,7 @@ class Participant extends CI_Controller
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
+		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
@@ -793,7 +794,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants_by_testsurvey($testsurvey);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone, id', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id', FALSE);
 		$this->datatables->from('participant');
 
 		if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
@@ -801,6 +802,7 @@ class Participant extends CI_Controller
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
+		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('id', '$1', 'testsurvey_participant_actions(' . $testsurvey_id . ', id)');
@@ -814,7 +816,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dyslexicparent, multilingual, phone,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone,
 			lastcalled, participant.id AS id', FALSE);
 		$this->datatables->from('participant');
 		// Don't split this in two lines, see https://github.com/EllisLab/CodeIgniter/pull/759
@@ -825,6 +827,7 @@ class Participant extends CI_Controller
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
+		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('lastcalled', '$1', 'last_called(id, ' . $experiment_id . ')');
