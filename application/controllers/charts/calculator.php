@@ -75,7 +75,7 @@ class Calculator extends CI_Controller
 		ob_start();
 
 		fputcsv($out, array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)', 
-			'percentielscore begrip', 'percentielscore productie', 'taalleeftijd begrip', 'taalleeftijd productie'));
+			'percentielscore begrip', 'percentielscore productie', 'taalleeftijd begrip', 'taalleeftijd productie'), ';');
 		
 		$separator = $this->input->post('separator');
 
@@ -123,7 +123,7 @@ class Calculator extends CI_Controller
 					$age_p = $this->percentileModel->find_50percentile_age($testcat_p->id,
 					$ncdi_check['gender'], $ncdi_check['p_score']);
 
-					fputcsv($out, array($ncdi_check['p_number'], $ncdi_check['ageinmonths'], $ncdi_check['ageinmonthsdays'], $perc_b, $perc_p, $age_b, $age_p));
+					fputcsv($out, array($ncdi_check['p_number'], $ncdi_check['ageinmonths'], $ncdi_check['ageinmonthsdays'], $perc_b, $perc_p, $age_b, $age_p), ';');
 
 					//$this->NCDICheckModel->add_ncdi_check($ncdi_check);
 				}

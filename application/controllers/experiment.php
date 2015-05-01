@@ -303,7 +303,7 @@ class Experiment extends CI_Controller
 		// Create a new row in the CSV file for every in the array
 		foreach ($csv_array as $row)
 		{
-			fputcsv($fp, $row);
+			fputcsv($fp, $row, ';');
 		}
 		
 		// Capture the output as a string
@@ -316,7 +316,7 @@ class Experiment extends CI_Controller
 		// Generate filename
 		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
 		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
-		$filename = $escaped . "_" . mdate("%Y%m%d_%H%i", time()) . ".csv";
+		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
 		
 		// Download the file
 		force_download($filename, $csv); 		
