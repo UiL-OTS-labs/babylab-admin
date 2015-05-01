@@ -126,15 +126,19 @@ class LeaderModel extends CI_Model
 	}
 
 	/** Returns all experiments for a user */
-	public function get_experiments_by_leader($user_id)
+	public function get_experiments_by_leader($user_id, $include_archived = FALSE)
 	{
 		$this->db->where('user_id_leader', $user_id);
 		$leaders = $this->db->get('leader')->result();
 
 		$experiments = array();
-		foreach ($leaders as $c)
+		foreach ($leaders as $l)
 		{
-			array_push($experiments, $this->experimentModel->get_experiment_by_id($c->experiment_id));
+			$experiment = $this->experimentModel->get_experiment_by_id($l->experiment_id);
+			if ($include_archived || !$experiment->archived) 
+			{
+				array_push($experiments, $experiment);
+			}
 		}
 		return $experiments;
 	}

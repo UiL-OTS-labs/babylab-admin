@@ -111,14 +111,18 @@ class CallerModel extends CI_Model
 	}
 
 	/** Returns all experiments for a caller */
-	public function get_experiments_by_caller($user_id)
+	public function get_experiments_by_caller($user_id, $include_archived = FALSE)
 	{
 		$callers = $this->get_callers_by_user($user_id);
 
 		$experiments = array();
 		foreach ($callers as $c)
 		{
-			array_push($experiments, $this->experimentModel->get_experiment_by_id($c->experiment_id));
+			$experiment = $this->experimentModel->get_experiment_by_id($c->experiment_id);
+			if ($include_archived || !$experiment->archived) 
+			{
+				array_push($experiments, $experiment);
+			}
 		}
 		return $experiments;
 	}
