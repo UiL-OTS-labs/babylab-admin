@@ -284,9 +284,11 @@ class Participation extends CI_Controller
 		// Create call record
 		$call_id = $this->callModel->create_call($participation_id);
 
-		// Find possible combination experiment 
+		// Find possible combination experiment and check if participation exists
 		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
-		$combination = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
+		$comb_exp = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
+		$comb_part = $this->participationModel->get_participation($comb_exp->id, $participant_id);
+		if ($comb_part) $comb_exp = FALSE;
 
 		// Create page data
 		$data = get_min_max_days($participant, $experiment);
@@ -306,7 +308,7 @@ class Participation extends CI_Controller
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['first_visit'] = $first_visit;
-		$data['combination_exp'] = $combination;
+		$data['combination_exp'] = $comb_exp;
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);
