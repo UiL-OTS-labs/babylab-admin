@@ -59,7 +59,7 @@ if (!function_exists('form_dropdown_and_label'))
 		if ($add_select) $options = array($default_key => lang('select')) + $options;
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
-		$label = form_label(lang($name), $name);
+		$label = form_label(lang($name), $name) . (empty($div) ? ' ' : '');
 		$dropdown = form_dropdown($name, $options, set_value($name, $selected), 'id="' . $name . '"' . $extra);
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';

@@ -136,12 +136,12 @@
 						<?php } ?>
 						<?php if ($combination_exp) { ?>
 							<p>
-							<?=form_checkbox('send_combination', 1, TRUE); ?>
+							<?=form_checkbox('send_combination', 1, FALSE); ?>
 							<?=form_label(sprintf(lang('send_combination'), $combination_exp->name)); ?>
-							<span id="comb_appointment">
+							<span id="comb_appointment" style="display:none;">
 							<?=form_input('comb_appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
-                            <?=form_label(lang('leader')); ?>
-                            <?=form_dropdown('comb_leader', $leaders, array(), 'class="required"'); ?>
+							<?=form_label(lang('leader')); ?>
+                            <?=form_dropdown_and_label('comb_leader', $leaders, array(), '', FALSE, NULL); ?>
 							<?=form_hidden('comb_exp', $combination_exp->id); ?>
 							</span>
 							</p>
@@ -150,10 +150,7 @@
 						<?=form_label(lang('appointment')); ?>
 						<?=form_input('appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
                         <?=form_error('appointment'); ?>
-                        </p>
-                        <p>
-						<?=form_label(lang('leader')); ?>
-						<?=form_dropdown('leader', $leaders, array(), 'class="required"'); ?>
+						<?=form_dropdown_and_label('leader', $leaders, array(), '', FALSE, NULL); ?>
                         </p>
                         <p>
 						<?=form_submit_only(); ?>
