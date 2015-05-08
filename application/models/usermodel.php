@@ -11,8 +11,9 @@ class UserModel extends CI_Model
 	/////////////////////////
 
 	/** Returns all users as an array */
-	public function get_all_users()
+	public function get_all_users($include_inactive = FALSE)
 	{
+		if (!$include_inactive) $this->db->where('activated IS NOT NULL');
 		return $this->db->get('user')->result();
 	}
 
@@ -78,21 +79,24 @@ class UserModel extends CI_Model
 	// Other actions
 	/////////////////////////
 
-	/** Returns all the users of type caller */
+	/** Returns all the active users of type caller */
 	public function get_all_callers()
 	{
+		$this->db->where('activated IS NOT NULL');
 		return $this->db->get_where('user', array('role' => UserRole::Caller))->result();
 	}
 
-	/** Returns all the users of type leader */
+	/** Returns all the active users of type leader */
 	public function get_all_leaders()
 	{
+		$this->db->where('activated IS NOT NULL');
 		return $this->db->get_where('user', array('role' => UserRole::Leader))->result();
 	}
 
-	/** Returns all the users of type admin */
+	/** Returns all the active users of type admin */
 	public function get_all_admins()
 	{
+		$this->db->where('activated IS NOT NULL');
 		return $this->db->get_where('user', array('role' => UserRole::Admin))->result();
 	}
 
@@ -108,10 +112,12 @@ class UserModel extends CI_Model
 	public function set_activate($user_id, $activated)
 	{
 		$this->db->where('id', $user_id);
-		if ($activated) {
+		if ($activated) 
+		{
 			$this->db->update('user', array('activated' => input_date()));
 		}
-		else {
+		else 
+		{
 			$this->db->update('user', array('activated' => NULL));
 		}
 	}
