@@ -29,7 +29,7 @@ class Participant extends CI_Controller
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
 		$data['action_urls'] = array($add_url, $new_url, $overview_url, $graph_url);
-		$data['hide_columns'] = '6';
+		$data['hide_columns'] = '7';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -350,7 +350,7 @@ class Participant extends CI_Controller
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table_registered/';
 		$data['page_title'] = lang('participants');
-		$data['hide_columns'] = '6';
+		$data['hide_columns'] = '7';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -511,7 +511,7 @@ class Participant extends CI_Controller
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table_by_age/' . $date . '/' . $age_in_months;
 		$data['page_title'] = lang('participants');
-		$data['hide_columns'] = '6';
+		$data['hide_columns'] = '7';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
