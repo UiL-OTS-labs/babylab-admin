@@ -88,6 +88,49 @@ class TestInvite extends CI_Controller
 		redirect('/testinvite/', 'refresh');
 	}
 
+	/** Opens a view to send a manual reminder */
+	public function manual_reminder($testinvite_id)
+	{
+		$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
+		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
+		$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
+		
+		$data['testinvite'] = $testinvite;
+		$data['testsurvey'] = $testsurvey;
+		$data['participant'] = $participant;
+		$data['page_title'] = lang('manual_reminder');
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('testinvite_reminder_view', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/** Resend the reminder */
+	public function manual_reminder_submit($testinvite_id)
+	{
+		$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
+		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
+		$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
+		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
+
+		// Email to participant
+		$message = email_replace($template->template . '_reminder', $participant, NULL, NULL, $testinvite);
+
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->subject('Babylab Utrecht: Herinnering uitnodiging voor vragenlijst');
+		$this->email->message($message);
+		$this->email->send();
+
+		$this->testInviteModel->set_reminded($testinvite->id);
+
+		// Send reminder
+		flashdata(sprintf(lang('manual_reminder_sent'), testsurvey_name($testsurvey), $participant->email));
+		redirect('/testinvite/', 'refresh');
+	}
+
 	/** Deletes the specified testinvite, and returns to previous page */
 	public function delete($testinvite_id)
 	{

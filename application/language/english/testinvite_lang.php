@@ -5,6 +5,8 @@ $lang['add_testinvite'] 	= "Voeg uitnodiging toe";
 $lang['testinvite_added']	= "Nieuwe uitnodiging voor test <em>%s</em> succesvol toegevoegd.";
 $lang['sure_delete_testinvite']	= "Weet u zeker dat u deze uitnodiging wilt verwijderen?";
 $lang['testinvite_deleted'] = "Uitnodiging succesvol verwijderd.";
+$lang['manual_reminder']	= "Manual reminder";
+$lang['manual_reminder_sent']	= "Reminder for survey <em>%s</em> sent to <em>%s</em>.";
 
 $lang['datesent']			= "Datum verstuurd";
 $lang['token']				= "LimeSurvey token";

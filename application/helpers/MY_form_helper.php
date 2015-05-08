@@ -160,16 +160,18 @@ if (!function_exists('form_controls'))
 
 if (!function_exists('form_submit_only'))
 {
-	function form_submit_only($extra = '')
+	function form_submit_only($extra = '', $label = '')
 	{
-		return form_submit('submit', lang('submit'), 'class="pure-button pure-button-primary"' . $extra);
+		$label = $label ? $label : lang('submit');
+		return form_submit('submit', $label, 'class="pure-button pure-button-primary"' . $extra);
 	}
 }
 
 if (!function_exists('form_cancel'))
 {
-	function form_cancel($link)
+	function form_cancel($link, $label = '')
 	{
-		return anchor($link, lang('back'), 'class="pure-button pure-button-primary" style="background: rgb(202, 60, 60);"');
+		$label = $label ? $label : lang('back');
+		return anchor($link, $label, 'class="pure-button pure-button-primary" style="background: rgb(202, 60, 60);"');
 	}
 }

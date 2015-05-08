@@ -74,11 +74,17 @@ if (!function_exists('testinvite_actions'))
 		if (!is_admin()) return img_scores(TRUE); 
 
 		$CI =& get_instance();
+		$testinvite = $CI->testInviteModel->get_testinvite_by_id($testinvite_id);
 		$scores = $CI->scoreModel->get_scores_by_testinvite($testinvite_id);
+
+		$reminder_available = !$testinvite->datecompleted && $testinvite->datereminder;
+		$reminder_link = anchor('testinvite/manual_reminder/' . $testinvite_id, img_email(lang('manual_reminder'), FALSE));
+
 		$score_link = anchor('score/testinvite/' . $testinvite_id, img_scores(empty($scores)));
+		$reminder_link = $reminder_available ? $reminder_link : img_email('', TRUE);
 		$delete_link = anchor('testinvite/delete/' . $testinvite_id, img_delete(), warning(lang('sure_delete_testinvite')));
 			
-		return implode(' ', array($score_link, $delete_link));
+		return implode(' ', array($score_link, $reminder_link, $delete_link));
 	}
 }
 

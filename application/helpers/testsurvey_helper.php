@@ -50,7 +50,7 @@ if (!function_exists('testsurvey_actions'))
 	function testsurvey_actions($testsurvey_id)
 	{
 		$inspect_link = anchor('testsurvey/get/' . $testsurvey_id, img_zoom('testsurvey'));
-		$find_link = anchor('testsurvey/find/' . $testsurvey_id, img_email());
+		$find_link = anchor('testsurvey/find/' . $testsurvey_id, img_email(lang('testinvite')));
 		$edit_link = anchor('testsurvey/edit/' . $testsurvey_id, img_edit());
 		$delete_link = anchor('testsurvey/delete/' . $testsurvey_id, img_delete(), warning(lang('sure_delete_testsurvey')));
 			
@@ -63,7 +63,7 @@ if (!function_exists('testsurvey_participant_actions'))
 	/** Possible actions for a testsurvey/participant: invite */
 	function testsurvey_participant_actions($testsurvey_id, $participant_id)
 	{
-		$find_link = anchor('testinvite/invite/' . $testsurvey_id . '/' . $participant_id, img_email());
+		$find_link = anchor('testinvite/invite/' . $testsurvey_id . '/' . $participant_id, img_email(lang('testinvite')));
 
 		return implode(' ', array($find_link));
 	}

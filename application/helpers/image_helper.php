@@ -226,11 +226,12 @@ if (!function_exists('img_zoom'))
 if (!function_exists('img_email'))
 {
 	/** Returns the email image */
-	function img_email()
+	function img_email($title, $opaque = FALSE)
 	{
 		return img(array(
 				'src' => 'images/email.png',
-				'title' => lang('testinvite')
+				'title' => $title,
+				'style' => ($opaque ? 'opacity:0.3' : '')
 		));
 	}
 }
