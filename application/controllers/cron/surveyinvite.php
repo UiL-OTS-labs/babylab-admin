@@ -95,9 +95,10 @@ class SurveyInvite extends CI_Controller
 			if ($diff_days >= SEND_REMINDER_AFTER_DAYS)
 			{
 				$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+				$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
 				$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 
-				$message = email_replace('mail/' . $test->code . '_reminder', $participant, NULL, NULL, $testinvite);
+				$message = email_replace($template->template . '_reminder', $participant, NULL, NULL, $testinvite);
 
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
