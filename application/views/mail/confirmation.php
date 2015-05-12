@@ -2,7 +2,11 @@
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
 <p>U heeft zojuist een afspraak gepland met één van de medewerkers van het BabyLab.</p> 
-<p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>.</p>
+<p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>
+<?php if ($comb_appointment) { ?>
+ en op <strong><?=$comb_appointment; ?></strong>
+<?php } ?>
+.</p>
 <p>De locatie is Janskerkhof 13. Eventuele reis- en parkeerkosten worden vergoed.</p>
 <p>Het Janskerkhof 13 heeft helaas geen informatiebalie waar u zich kunt melden. 
 Daarom zal een van de onderzoeksmedewerkers u op het afgesproken tijdstip komen halen. 
@@ -11,7 +15,8 @@ Daar staan twee banken, waar u kunt wachten als u wat eerder bent gearriveerd da
 <?php if ($combination) { ?>
 Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
 Het tweede experiment is een <?=$comb_type; ?> en duurt maximaal <?=$comb_duration; ?> minuten. 
-Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$comb_duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab. 
+Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u voor de eerste sessie ongeveer <?=$duration_total; ?> minuten
+en voor de tweede sessie ongeveer <?=$comb_duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab. 
 In de bijlage van deze mail vindt u meer informatie over de experimenten en onze werkwijze.
 <?php } else { ?>
 <p>Het experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 

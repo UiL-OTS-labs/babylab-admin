@@ -306,8 +306,17 @@ class Call extends CI_Controller
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
-		if ($experiment->attachment) $this->email->attach('uploads/' . $experiment->attachment);
-		if ($comb_exp && $comb_exp->attachment) $this->email->attach('uploads/' . $comb_exp->attachment);
+
+		// Add attachments 
+		if ($experiment->attachment)
+		{
+			$this->email->attach('uploads/' . $experiment->attachment);
+		}
+		if ($comb_exp && $comb_exp->attachment && $comb_exp->attachment != $experiment->attachment) 
+		{
+			$this->email->attach('uploads/' . $comb_exp->attachment);
+		}
+
 		$this->email->send();
 
 		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $email);
