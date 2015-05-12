@@ -24,19 +24,19 @@ if (!function_exists('create_testinvite_participant_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('testsurvey'), lang('token'), lang('datesent'), lang('datecompleted'), lang('actions'));
+		$heading = array(lang('testsurvey'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('actions'));
 		$CI->table->set_heading($heading);
 	}
 }
 
 if (!function_exists('create_testinvite_experiment_table'))
 {
-	/** Creates the table with testinvite data for a participant */
+	/** Creates the table with testinvite data for an experiment */
 	function create_testinvite_experiment_table($id = NULL)
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('testsurvey'), lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('actions'));
+		$heading = array(lang('testsurvey'), lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('actions'));
 		$CI->table->set_heading($heading);
 	}
 }
