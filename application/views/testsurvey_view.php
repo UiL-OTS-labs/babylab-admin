@@ -23,6 +23,10 @@
 
 	<!-- Scores -->
 	<?=heading(lang('scores'), 3); ?>
+	<?php if ($test->code == 'ncdi_wz') {
+		echo anchor('testsurvey/download_scores/' . $testsurvey->id, 'Download alle scores');
+	}
+	?>
 	<div>
 		<?php
 			create_score_table('scores', 'testsurvey');

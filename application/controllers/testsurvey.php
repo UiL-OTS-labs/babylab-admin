@@ -149,6 +149,45 @@ class TestSurvey extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	/**
+	 * Downloads all scores of participants of a testsurvey as a .csv-file.
+	 * @param integer $testsurvey_id
+	 */
+	public function download_scores($testsurvey_id)
+	{
+		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
+		$test = $this->testSurveyModel->get_test_by_testsurvey($testsurvey);
+
+		// Retrieve the scores and convert to .csv
+		$table = $this->get_results_table($testsurvey_id);
+		$csv = ncdi_scores_to_csv($test->code, $table);
+		
+		// Generate filename
+		$testsurvey_name = testsurvey_name_by_id($testsurvey_id);
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $testsurvey_name);
+		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
+		
+		// Download the file
+		force_download($filename, $csv); 		
+	}
+
+	/**
+	 * Returns all scores of a testsurvey as an array.
+	 * @param integer $testsurvey_id
+	 */
+	private function get_results_table($testsurvey_id) 
+	{		
+		$scores = $this->scoreModel->get_scores_by_testsurvey($testsurvey_id);
+		
+		$result = array();
+		foreach ($scores as $score)
+		{
+			$result[$score->testinvite_id][$score->testcat_id] = $score->score;
+		}
+		
+		return $result;
+	}
+
 	/////////////////////////
 	// Form handling
 	/////////////////////////

@@ -125,6 +125,89 @@ if (!function_exists('create_ncdi_table'))
 	}
 }
 
+
+if (!function_exists('ncdi_scores_to_csv'))
+{
+	/** Creates a .csv-file from a table of scores (testinvite_id -> score) */
+	function ncdi_scores_to_csv($test_code, $score_table)
+	{
+		$CI =& get_instance();
+
+		// Retrieve the headers
+		$headers = array(lang('name'), lang('gender'), lang('age'), 
+			'Leeftijd (maanden;dagen)', lang('dyslexicparent'), lang('multilingual'));
+		
+		$test = $CI->testModel->get_test_by_code($test_code);
+		$testcats = $CI->testCatModel->get_testcats_by_test($test->id, FALSE, TRUE);
+		foreach ($testcats as $testcat)
+		{
+			$headers[] = $testcat->code . ' - ' . $testcat->name;
+		}
+		
+		$parent_testcats = $CI->testCatModel->get_testcats_by_test($test->id, TRUE);
+		foreach ($parent_testcats as $parent)
+		{
+			$headers[] = $parent->name . ' - ' . lang('raw_score');
+			$headers[] = $parent->name . ' - ' . lang('percentile');
+			$headers[] = $parent->name . ' - ' . lang('language_age');
+		}
+		
+		// Add headers to the csv array (later used in fputscsv)
+		$csv_array = array();
+		$csv_array[] = $headers;
+		
+		// Generate array for each row and put in total array
+		foreach ($score_table as $testinvite_id => $scores)
+		{			
+			$testinvite = $CI->testInviteModel->get_testinvite_by_id($testinvite_id);
+			$participant = $CI->testInviteModel->get_participant_by_testinvite($testinvite);
+			
+			// Participant data
+			$age = age_in_months($participant, $testinvite->datecompleted);
+			$agemd = age_in_months_and_days($participant->dateofbirth, $testinvite->datecompleted);
+			$d = $participant->dyslexicparent ? $participant->dyslexicparent : lang('no');
+			$m = $participant->multilingual ? lang('yes') : lang('no');
+			$csv_row = array(name($participant), $participant->gender, $age, 
+				$agemd, $d, $m);
+			
+			// Score data
+			foreach ($testcats as $testcat)
+			{
+				array_push($csv_row, $scores[$testcat->id]);
+			}
+			
+			// Total score data
+			$totals = create_ncdi_score_array($test, $testinvite);
+			foreach ($totals as $total)
+			{
+				array_push($csv_row, $total['score'], $total['percentile'], $total['age']);
+			}
+			
+			// Add row to csv array
+			$csv_array[] = $csv_row;
+		}
+		
+		// Create a new output stream and capture the result in a new object
+		$fp = fopen('php://output', 'w');
+		ob_start();
+		
+		// Create a new row in the CSV file for every in the array
+		foreach ($csv_array as $row)
+		{
+			fputcsv($fp, $row, ';');
+		}
+		
+		// Capture the output as a string
+		$csv = ob_get_contents();
+		
+		// Close the object and the stream
+		ob_end_clean();
+		fclose($fp);
+
+		return $csv;
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////
