@@ -165,6 +165,7 @@ class TestSurvey extends CI_Controller
 		$this->form_validation->set_rules('limesurvey_id', lang('limesurvey_id'), 'trim|required|is_natural_no_zero|callback_survey_exists');
 		$this->form_validation->set_rules('whensent', lang('whensent'), 'trim|required');
 		$this->form_validation->set_rules('whennr', lang('whennr'), $whennr_validation);
+		$this->form_validation->set_rules('description', lang('survey_description'), 'trim|max_length[200]');
 
 		return $this->form_validation->run();
 	}
@@ -180,7 +181,8 @@ class TestSurvey extends CI_Controller
 				'test_id'		=> $this->input->post('test'),
 				'limesurvey_id' => $surveyid,
 				'whensent' 		=> $this->input->post('whensent'),
-				'whennr' 		=> $whennr
+				'whennr' 		=> $whennr,
+				'description' 	=> $this->input->post('description'),
 		);
 
 		if (!$new_testsurvey) unset($testsurvey['test_id']);
@@ -224,13 +226,14 @@ class TestSurvey extends CI_Controller
 	public function table()
 	{
 		$this->datatables->select('test.name AS t, limesurvey_id, whensent, whennr,
-			testsurvey.id AS id, test_id', FALSE);
+			testsurvey.id AS name, testsurvey.id AS id, test_id', FALSE);
 		$this->datatables->from('testsurvey');
 		$this->datatables->join('test', 'test.id = testsurvey.test_id');
 
 		$this->datatables->edit_column('t', '$1', 'test_get_link_by_id(test_id)');
 		$this->datatables->edit_column('limesurvey_id', '$1', 'survey_by_id(limesurvey_id)');
 		$this->datatables->edit_column('whensent', '$1', 'testsurvey_when(whensent, whennr)');
+		$this->datatables->edit_column('name', '$1', 'testsurvey_name_by_id(id)');
 		$this->datatables->edit_column('id', '$1', 'testsurvey_actions(id)');
 
 		$this->datatables->unset_column('test_id');

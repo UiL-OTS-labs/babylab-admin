@@ -11,7 +11,7 @@ if (!function_exists('create_testsurvey_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('limesurvey_id'), lang('whensent'), lang('actions'));
+		$heading = array(lang('limesurvey_id'), lang('whensent'), lang('survey_description'), lang('actions'));
 		if (empty($id)) array_unshift($heading, lang('test'));
 		$CI->table->set_heading($heading);
 	}
@@ -86,14 +86,32 @@ if (!function_exists('testsurvey_when'))
 	}
 }
 
+if (!function_exists('testsurvey_name_by_id'))
+{
+	/** Return the name for a testsurvey */
+	function testsurvey_name_by_id($testsurvey_id)
+	{
+		$CI =& get_instance();
+		$testsurvey = $CI->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
+		return testsurvey_name($testsurvey);
+	}
+}
+
 if (!function_exists('testsurvey_name'))
 {
 	/** Return the name for a testsurvey */
 	function testsurvey_name($testsurvey)
 	{
-		$CI =& get_instance();
-		$test = $CI->testModel->get_test_by_id($testsurvey->test_id);
-		return implode(' ', array($test->name, testsurvey_when($testsurvey->whensent, $testsurvey->whennr)));
+		if ($testsurvey->description) 
+		{
+			return $testsurvey->description;
+		}
+		else 
+		{
+			$CI =& get_instance();
+			$test = $CI->testModel->get_test_by_id($testsurvey->test_id);
+			return implode(' ', array($test->name, testsurvey_when($testsurvey->whensent, $testsurvey->whennr)));
+		}
 	}
 }
 

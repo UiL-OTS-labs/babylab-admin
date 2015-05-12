@@ -9,7 +9,7 @@ $(function() {
 });
 </script>
 
-<?=heading(lang('tests'), 2); ?>
+<?=heading(lang('testsurveys'), 2); ?>
 
 <?=$this->session->flashdata('message'); ?>
 
@@ -34,6 +34,7 @@ else
 <?=form_radio_and_label('whensent', TestWhenSent::Manual, $whensent, lang(TestWhenSent::Manual)); ?>
 </div>
 <?=form_input_and_label('whennr', $whennr, 'required class="positive-integer"'); ?>
+<?=form_textarea_and_label('description', $description, lang('survey_description')); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
