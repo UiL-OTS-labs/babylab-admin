@@ -310,7 +310,7 @@ class Call extends CI_Controller
 		if ($comb_exp && $comb_exp->attachment) $this->email->attach('uploads/' . $comb_exp->attachment);
 		$this->email->send();
 
-		return sprintf(lang('confirmation_sent'), $email);
+		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $email);
 	}
 
 	/** Send request for participation e-mail */
@@ -324,12 +324,12 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
 		$this->email->send();
 
-		return sprintf(lang('request_participation_sent'), EMAIL_DEV_MODE ? TO_EMAIL_OVERRIDE : $participant->email);
+		return sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
 	}
 
 	/** Create test invitations (based on number of participations), 

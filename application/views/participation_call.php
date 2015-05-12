@@ -124,7 +124,7 @@
 					<div class="show">
 					<?=form_open('call/confirm/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
-						<?=form_checkbox('concept'); ?>
+						<?=form_checkbox('concept', 1, FALSE); ?>
 						<?=form_label(sprintf(lang('concept_mail_only'), TO_EMAIL_OVERRIDE)); ?>
 						</p>
 						<!-- Temporary addition (hopefully) to select whether or not to send an anamnese -->
