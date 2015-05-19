@@ -336,6 +336,10 @@ class Call extends CI_Controller
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
+		if ($experiment->attachment)
+		{
+			$this->email->attach('uploads/' . $experiment->attachment);
+		}
 		$this->email->send();
 
 		return sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
