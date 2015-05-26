@@ -64,12 +64,13 @@ class TestInvite extends CI_Controller
 			// If succeeded, insert data into database
 			$testsurvey_id = $this->input->post('testsurvey');
 			$participant_id = $this->input->post('participant');
-			$this->invite($testsurvey_id, $participant_id);
+			$concept = $this->input->post('concept');
+			$this->invite($testsurvey_id, $participant_id, $concept);
 		}
 	}
 
 	/** Finishes the invitation */
-	public function invite($testsurvey_id, $participant_id)
+	public function invite($testsurvey_id, $participant_id, $concept)
 	{
 		$testinvite = $this->testInviteModel->create_testinvite($testsurvey_id, $participant_id);
 		$testsurvey = $this->testSurveyModel->get_testsurvey_by_id($testsurvey_id);
@@ -83,7 +84,7 @@ class TestInvite extends CI_Controller
 		}
 
 		// Email to participant and return to overview
-		$flashdata = email_testinvite($participant, $testinvite);
+		$flashdata = email_testinvite($participant, $testinvite, FALSE, $concept);
 		flashdata($flashdata);
 		redirect('/testinvite/', 'refresh');
 	}

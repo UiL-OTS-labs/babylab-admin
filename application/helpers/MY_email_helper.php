@@ -2,11 +2,12 @@
 
 if (!function_exists('email_testinvite'))
 {
-	function email_testinvite($participant, $testinvite, $auto = FALSE)
+	function email_testinvite($participant, $testinvite, $auto = FALSE, $concept = FALSE)
 	{
 		$CI =& get_instance();
 		$test = $CI->testInviteModel->get_test_by_testinvite($testinvite);
 		$template = $CI->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch); // TODO: set to current language?
+		$email = $concept ? TO_EMAIL_OVERRIDE : $participant->email;
 
 		$message = email_replace($template->template, $participant, NULL, NULL, $testinvite, NULL, $auto);
 
@@ -17,7 +18,7 @@ if (!function_exists('email_testinvite'))
 		$CI->email->message($message);
 		$CI->email->send();
 		
-		return sprintf(lang('testinvite_added'), name($participant), $test->name);
+		return sprintf(lang('testinvite_added'), name($participant), $test->name, $email);
 	}
 }
 

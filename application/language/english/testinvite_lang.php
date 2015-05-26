@@ -2,7 +2,7 @@
 $lang['testinvite']			= "Uitnodiging";
 $lang['testinvites']		= "Uitnodigingen";
 $lang['add_testinvite'] 	= "Voeg uitnodiging toe";
-$lang['testinvite_added']	= "Nieuwe uitnodiging voor test <em>%s</em> succesvol toegevoegd.";
+$lang['testinvite_added']	= "Nieuwe uitnodiging voor test <em>%s</em> succesvol toegevoegd.<br>E-mail gestuurd naar <em>%s</em>.";
 $lang['sure_delete_testinvite']	= "Weet u zeker dat u deze uitnodiging wilt verwijderen?";
 $lang['testinvite_deleted'] = "Uitnodiging succesvol verwijderd.";
 $lang['manual_reminder']	= "Manual reminder";
