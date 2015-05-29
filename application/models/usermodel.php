@@ -65,12 +65,13 @@ class UserModel extends CI_Model
 	/** Deletes a user from the DB */
 	public function delete_user($user_id)
 	{
+		// TODO: don't delete references, but add warnings.
 		// Delete references to callers
-		$this->db->delete('caller', array('user_id_caller' => $user_id));
+		//$this->db->delete('caller', array('user_id_caller' => $user_id));
 		// Delete references to leaders
-		$this->db->delete('leader', array('user_id_leader' => $user_id));
+		//$this->db->delete('leader', array('user_id_leader' => $user_id));
 		// Delete references to comments
-		$this->db->delete('comment', array('user_id' => $user_id));
+		//$this->db->delete('comment', array('user_id' => $user_id));
 
 		$this->db->delete('user', array('id' => $user_id));
 	}
