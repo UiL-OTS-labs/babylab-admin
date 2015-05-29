@@ -298,12 +298,14 @@ class Call extends CI_Controller
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
 		
 		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite, $comb_exp);
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
+		$this->email->cc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 
