@@ -61,13 +61,3 @@ if (!function_exists('input_datetime'))
 		return date('Y-m-d H:i:s', strtotime($date));
 	}
 }
-
-if (!function_exists('output_datetime_email'))
-{
-	function output_datetime_email($date = 'now')
-	{
-		if ($date == NULL) return '';
-		
-		return strftime("%A %e %B %Y, om %R uur", strtotime($date));
-	}
-}

@@ -122,7 +122,7 @@ class LeaderModel extends CI_Model
 	/** Returns all leader mails for the given experiment */
 	public function get_leader_emails_by_experiment($experiment_id)
 	{
-		return get_object_ids($this->get_leaders_by_experiment($experiment_id), 'email');
+		return get_object_ids($this->get_leaders_users_by_experiment($experiment_id), 'email');
 	}
 
 	/** Returns all experiments for a user */

@@ -15,9 +15,11 @@
 <!-- Date / Timepicker -->
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
-<?php if ($current_language === L::Dutch) { ?>
-<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
-<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
+<?php if (current_language() === L::Dutch) { ?>
+	<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
+<?php } else { ?>
+	<script>$(function() { $.datepicker.setDefaults({dateFormat : 'dd-mm-yy'}); });</script>
 <?php } ?>
 <!-- Validate -->
 <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
