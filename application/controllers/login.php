@@ -81,12 +81,12 @@ class Login extends CI_Controller
 	/** Switches the role of the current user, if he has that privilege. Returns to the welcome page. */
 	public function switch_to($role)
 	{
-		if (is_admin() && in_array($role, array(UserRole::Caller, UserRole::Leader))) 
+		if (user_role() === UserRole::Admin && in_array($role, array(UserRole::Admin, UserRole::Leader, UserRole::Caller))) 
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
 		}
-		else if (is_leader() && $role == UserRole::Caller) 
+		else if (user_role() === UserRole::Leader && in_array($role, array(UserRole::Leader, UserRole::Caller))) 
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
@@ -152,8 +152,9 @@ class Login extends CI_Controller
 				$session_data = array(
 						'username' 	=> $username,
 						'user_id' 	=> $user->id,
+						'user_role' => $user->role, // Stays the same
+						'role' 		=> $user->role, // Might be changed when user switches role
 						'logged_in' => TRUE,
-						'role' 		=> $user->role,
 						'language' 	=> user_language($user)
 				);
 				$this->session->set_userdata($session_data);

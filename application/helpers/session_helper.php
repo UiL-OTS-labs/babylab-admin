@@ -78,11 +78,21 @@ if (!function_exists('current_email'))
 
 if (!function_exists('current_role'))
 {
-	/** Returns the role of the current user */
+	/** Returns the current role of the current user */
 	function current_role()
 	{
 		$CI =& get_instance();
 		return $CI->session->userdata('role');
+	}
+}
+
+if (!function_exists('user_role'))
+{
+	/** Returns the role of the current user */
+	function user_role()
+	{
+		$CI =& get_instance();
+		return $CI->session->userdata('user_role');
 	}
 }
 
@@ -101,6 +111,15 @@ if (!function_exists('is_leader'))
 	function is_leader()
 	{
 		return current_role() === UserRole::Leader;
+	}
+}
+
+if (!function_exists('is_caller'))
+{
+	/** Returns whether or not the current user is a caller */
+	function is_caller()
+	{
+		return current_role() === UserRole::Caller;
 	}
 }
 

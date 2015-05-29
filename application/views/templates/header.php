@@ -158,18 +158,23 @@ $(function() {
 		<?php if (current_user_id() > 0) { ?>
 		<div id="welcome">
 		<?php 
-			echo "<em>" . current_username() . "</em>";
+			echo "<em>" . current_username() . " (" . strtolower(lang(current_role())) . ")" . "</em>";
 			echo " | ";
 			echo anchor('user/edit/' . current_user_id(), lang('edit_user_profile'));
 			echo " | ";
 			echo anchor('user/change_password/' . current_user_id(), lang('change_password'));
 			echo " | ";
-			if (is_admin()) 
+			if (user_role() === UserRole::Admin && !is_admin()) 
+			{
+				echo anchor('login/switch_to/admin', 'Login als admin');
+				echo " | ";
+			}
+			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_leader()) 
 			{
 				echo anchor('login/switch_to/leader', 'Login als leider');
 				echo " | ";
 			}
-			if (is_admin() || is_leader()) 
+			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_caller())
 			{
 				echo anchor('login/switch_to/caller', 'Login als beller');
 				echo " | ";
