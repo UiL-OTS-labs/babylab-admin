@@ -23,6 +23,12 @@
 			<th><?=lang('experiment'); ?></th>
 			<td><?=experiment_get_link($experiment); ?></td>
 		</tr>
+		<?php if ($leader) { ?>
+		<tr>
+			<th><?=lang('leader'); ?></th>
+			<td><?=user_get_link($leader); ?></td>
+		</tr>
+		<?php } ?>
 		<tr>
 			<th><?=lang('risk_group'); ?></th>
 			<td><?=$participation->risk ? lang('yes') : lang('no'); ?></td>

@@ -64,10 +64,12 @@ class Participation extends CI_Controller
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$leader = $this->participationModel->get_user_by_participation($participation_id);
 
 		$data['participation'] = $participation;
 		$data['participant'] = $participant;
 		$data['experiment'] = $experiment;
+		$data['leader'] = $leader;
 		$data['page_title'] = lang('participation');
 
 		$this->load->view('templates/header', $data);
