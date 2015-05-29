@@ -21,12 +21,16 @@
 		</tr>
 	</table>
 
-	<!-- Scores -->
-	<?=heading(lang('scores'), 3); ?>
+	<!-- Download scores -->
 	<?php if ($test->code == 'ncdi_wz') {
-		echo anchor('testsurvey/download_scores/' . $testsurvey->id, 'Download alle scores');
+		echo '<p>';
+		echo anchor('testsurvey/download_scores/' . $testsurvey->id, lang('download_scores'));
+		echo '</p>';
 	}
 	?>
+
+	<!-- Scores -->
+	<?=heading(lang('scores'), 3); ?>
 	<div>
 		<?php
 			create_score_table('scores', 'testsurvey');

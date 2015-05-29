@@ -124,6 +124,43 @@ class Test extends CI_Controller
 	/////////////////////////
 
 	/**
+	 * Downloads all scores of participants of a test as a .csv-file.
+	 * @param integer $test_id
+	 */
+	public function download_scores($test_id)
+	{
+		$test = $this->testModel->get_test_by_id($test_id);
+
+		// Retrieve the scores and convert to .csv
+		$table = $this->get_results_table($test_id);
+		$csv = ncdi_scores_to_csv($test->code, $table);
+		
+		// Generate filename
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $test->name);
+		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
+		
+		// Download the file
+		force_download($filename, $csv); 		
+	}
+
+	/**
+	 * Returns all scores of a testsurvey as an array.
+	 * @param integer $test_id
+	 */
+	private function get_results_table($test_id) 
+	{
+		$scores = $this->scoreModel->get_scores_by_test($test_id);
+		
+		$result = array();
+		foreach ($scores as $score)
+		{
+			$result[$score->testinvite_id][$score->testcat_id] = $score->score;
+		}
+		
+		return $result;
+	}
+
+	/**
 	 *
 	 * Specifies the contents of the result page.
 	 * @deprecated

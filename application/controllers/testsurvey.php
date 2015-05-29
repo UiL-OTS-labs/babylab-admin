@@ -163,8 +163,7 @@ class TestSurvey extends CI_Controller
 		$csv = ncdi_scores_to_csv($test->code, $table);
 		
 		// Generate filename
-		$testsurvey_name = testsurvey_name_by_id($testsurvey_id);
-		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $testsurvey_name);
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', testsurvey_name($testsurvey));
 		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
 		
 		// Download the file
@@ -176,7 +175,7 @@ class TestSurvey extends CI_Controller
 	 * @param integer $testsurvey_id
 	 */
 	private function get_results_table($testsurvey_id) 
-	{		
+	{
 		$scores = $this->scoreModel->get_scores_by_testsurvey($testsurvey_id);
 		
 		$result = array();

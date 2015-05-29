@@ -18,6 +18,14 @@
 		</tr>
 	</table>
 
+	<!-- Download scores -->
+	<?php if ($test->code == 'ncdi_wz') {
+		echo '<p>';
+		echo anchor('test/download_scores/' . $test->id, lang('download_scores'));
+		echo '</p>';
+	}
+	?>
+
 	<!-- Testcats -->
 	<h3>
 	<?=lang('testcats'); ?>
