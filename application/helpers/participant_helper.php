@@ -271,13 +271,14 @@ if (!function_exists('participant_activate_link'))
 	{
 		if (!$participant->activated) 
 		{
+			$activate_link = anchor('participant/activate/' . $participant->id, $text ? $text : img_active(FALSE));
 			if ($participant->deactivated_reason == DeactivateReason::NewParticipant)
 			{
-				return anchor('participant/activate/' . $participant->id, $text ? $text : img_active(FALSE));
+				return $activate_link;
 			}
 			else 
 			{
-				return $text ? $text : img_active(FALSE);
+				return $text ? $text : $activate_link;
 			}
 		}
 		else 
@@ -317,7 +318,7 @@ if (!function_exists('participant_actions'))
 
 		return is_admin()
 		? implode(' ', array($edit_link, $act_link, $com_link, $score_link))
-		: implode(' ', array($edit_link, $act_link, $com_link));
+		: implode(' ', array($edit_link, $com_link));
 	}
 }
 
