@@ -3,7 +3,7 @@
 <p>Beste <?=$name_parent; ?>,</p>
 <p>U heeft zojuist een afspraak gepland met één van de medewerkers van het BabyLab.</p> 
 <p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>
-<?php if ($comb_appointment) { ?>
+<?php if ($combination) { ?>
  en op <strong><?=$comb_appointment; ?></strong>
 <?php } ?>
 .</p>
