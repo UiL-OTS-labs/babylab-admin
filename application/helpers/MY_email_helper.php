@@ -29,10 +29,12 @@ if (!function_exists('email_replace'))
 	 * TODO: refactor to use less parameters (all in one array)?
 	 */
 	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, 
-		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "")
+		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "", $language = L::Dutch)
 	{
 		$CI =& get_instance();
 		$user = $CI->userModel->get_user_by_id(current_user_id());
+
+		reset_language($language);
 		
 		$message_data = array();
 		$message_data['auto'] 				= $auto;

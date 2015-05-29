@@ -604,7 +604,8 @@ class Participation extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		
-		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, NULL, FALSE, $tech_comment);
+		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, 
+			NULL, NULL, FALSE, $tech_comment, L::English);
 		
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
