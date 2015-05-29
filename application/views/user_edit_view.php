@@ -13,7 +13,7 @@
 <?php } ?>
 <div class="pure-control-group">
     <?=form_label(lang('role'), 'role'); ?>
-    <?php if (current_role() == UserRole::Admin) { ?>
+    <?php if ($role == UserRole::Admin) { ?>
         <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
     <?php } ?>
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
