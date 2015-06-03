@@ -473,5 +473,5 @@ $lang['sure_delete_closing']  = "Weet u zeker dat u deze sluiting wilt verwijder
 $lang['closing_include_past'] = "Sluitingen uit verleden tonen";
 $lang['closing_exclude_past'] = "Sluitingen uit verleden niet tonen";
 $lang['closing_within_bounds']= "De '%s' valt binnen een bestaande sluiting voor deze locatie.";
-
+$lang['lockdown']			= "Hele gebouw gesloten";
 ?>

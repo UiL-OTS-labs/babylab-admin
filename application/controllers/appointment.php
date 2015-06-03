@@ -124,16 +124,26 @@ class Appointment extends CI_Controller
 		$closings = $this->closingModel->get_all_closings(); 
 		foreach ($closings as $closing) 
 		{
-			$location = location_name($closing->location_id);
+			
+			$lockdown = $closing->location_id < 0;
+			if($lockdown)
+			{
+				$title = lang('lockdown');
+			} else {
+				$location = location_name($closing->location_id);
+				$title = lang('closing') . ' ' . $location;
+			}
+
 			$from = new DateTime($closing->from);
 			$to = new DateTime($closing->to);
 
 			$event = array(
-				'title' 	=> lang('closing') . ' ' . $location,
+				'title' 	=> $title,
 				'allDay'	=> $from->diff($to)->format('%a') > 1,
 				'start' 	=> $from->format(DateTime::ISO8601),
 				'end'		=> $to->format(DateTime::ISO8601),
 				'tooltip'	=> $closing->comment,
+				'color'		=> ($lockdown) ? "#ff0000" : "",
 			);
 
 			// Add array to events

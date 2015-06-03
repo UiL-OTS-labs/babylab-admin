@@ -473,5 +473,5 @@ $lang['sure_delete_closing']  = "Are you sure you want to delete this closing?";
 $lang['closing_include_past'] = "Show closings from the past";
 $lang['closing_exclude_past'] = "Don't show closings from the past";
 $lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
-
+$lang['lockdown']			= "Building closed completely"
 ?>

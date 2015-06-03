@@ -13,7 +13,7 @@ class ClosingModel extends CI_Model
     /** Returns all closings as an array */
     public function get_all_closings()
     {
-        return $this->db->get('closing')->result();
+        return $this->db->get_where('closing')->result();
     }
 
     /** Adds an closing to the DB */

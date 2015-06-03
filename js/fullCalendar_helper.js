@@ -50,6 +50,7 @@ function initializeCalendar(lang) {
 		weekNumbers: {month: true, agendaWeek: true, 'default': false},
 		displayEventEnd: true,
 	    slotEventOverlap: false,
+	    weekMode : 'variable',
 	    
 	    // Go to the current day when day is clicked
 	    dayClick: function(date, jsEvent, view) {

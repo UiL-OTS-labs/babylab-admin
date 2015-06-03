@@ -31,7 +31,8 @@ class Closing extends CI_Controller
     {
         $data['page_title'] = lang('closings');
         $data['locations'] = location_options($this->locationModel->get_all_locations());
-
+        $data['lockdown_selected'] = ($this->input->post('lockdown')) ? true : false;
+        
         $this->load->view('templates/header', $data);
         $this->authenticate->authenticate_redirect('closing_add_view', $data, UserRole::Admin);
         $this->load->view('templates/footer');
@@ -50,7 +51,11 @@ class Closing extends CI_Controller
         {
             // If succeeded, insert data into database
             $closing = $this->post_closing();
-            $this->closingModel->add_closing($closing);
+
+            foreach($closing as $closed)
+            {
+                $this->closingModel->add_closing($closed);
+            }
 
             flashdata(lang('closing_added'));
             redirect('/closing', 'refresh');
@@ -83,12 +88,30 @@ class Closing extends CI_Controller
     /** Posts the data for an closing */
     private function post_closing()
     {
-        return array(
-            'location_id'       => $this->input->post('location'),
-            'from'              => input_datetime($this->input->post('from_date')),
-            'to'                => input_datetime($this->input->post('to_date')),
-            'comment'           => $this->input->post('comment'),
-            );
+        $postingdata = array();
+
+        $lockdown   = ($this->input->post('lockdown')) ? true : false;
+        $locations  = ($lockdown) ? array(-1) : $this->input->post('location');
+        $from       = input_datetime($this->input->post('from_date'));
+        $to         = input_datetime($this->input->post('to_date'));
+        $comment    = $this->input->post('comment');
+        
+
+        if($locations){
+            foreach($locations as $location)
+            {
+                array_push($postingdata, array(
+                        'location_id'   => $location,
+                        'from'          => $from,
+                        'to'            => $to,
+                        'comment'       => $comment,
+                        'lockdown'      => $lockdown
+                    ));
+            }    
+        }
+        
+        return $postingdata;
+            
     }
 
     /////////////////////////
@@ -98,19 +121,27 @@ class Closing extends CI_Controller
     /** Checks whether the given date is within bounds of an existing closing for this location */
     public function check_within_bounds($date)
     {
-        $location_id = $this->input->post('location');
-        if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
+        $locations = ($this->input->post('lockdown')) ? array(-1) : $this->input->post('location');
+        if($locations)
         {
-            $this->form_validation->set_message('check_within_bounds', lang('closing_within_bounds'));
-            return FALSE;
+            foreach($locations as $location_id)
+            {
+                // $location_id = $this->input->post('location');
+                if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
+                {
+                    $this->form_validation->set_message('check_within_bounds', lang('closing_within_bounds'));
+                    return FALSE;
+                }
+            }
         }
+        
         return TRUE;
     }
 
-    /** Checks whether the given parameter is higher than 0 */
-    public function not_zero($value)
+    /** Checks whether the given parameter is valid (if at least one location is set) */
+    public function not_zero($values)
     {
-        if (intval($value) <= 0)
+        if (!$values && !$this->input->post('lockdown'))
         {
             $this->form_validation->set_message('not_zero', lang('isset'));
             return FALSE;
