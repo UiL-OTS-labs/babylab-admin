@@ -764,7 +764,7 @@ class Participation extends CI_Controller
 		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
 
 		// Exclude empty participations
-		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
+		$this->datatables->where('appointment IS NOT NULL');
 
 		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
 		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
