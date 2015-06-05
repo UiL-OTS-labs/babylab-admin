@@ -82,6 +82,7 @@
 			$participations['ajax_source'] = is_leader() ? 'participation/table_by_leader/' . $experiment->id : 'participation/table/0/' . $experiment->id;
 			$this->load->view('templates/list_view', $participations);
 		?>
+		<?=anchor('participation/download/' . $experiment->id, 'Download deelnames'); ?>
 	</div>
 
 	<!-- Relations -->

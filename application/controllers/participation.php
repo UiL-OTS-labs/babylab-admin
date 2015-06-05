@@ -32,26 +32,30 @@ class Participation extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
+		$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
+
 		switch (current_role())
 		{
 			case UserRole::Admin: 
 				create_participation_table();
-				$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
 				$source = 'participation/table/'; 
-				$data['action_urls'] = array($add_url); 
+				$actions = array($add_url); 
 				break;
 			case UserRole::Leader: 
 				create_participation_leader_table();
 				$source = 'participation/table_by_leader/'; 
+				$actions = array(); 
 				break;
 			default: 
 				create_participation_table();
 				$source = 'participation/table_by_caller/'; 
+				$actions = array(); 
 				break;
 		}
 
 		$data['ajax_source'] = $source;
 		$data['page_title'] = lang('participations');
+		$data['action_urls'] = $actions;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -220,6 +224,68 @@ class Participation extends CI_Controller
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
+	}
+
+	/** Downloads all completed participations for a specific experiment */
+	public function download($experiment_id)
+	{
+		// Retrieve the participations and convert to .csv
+		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
+
+		// Add headers to the csv array (later used in fputscsv)
+		$csv_array = array();
+		$csv_array[] = array(
+			lang('part_number'), 
+			lang('gender'), 
+			lang('age'), 
+			lang('risk'), 
+			lang('interrupted'), 
+			lang('excluded'), 
+			lang('comment'));
+		
+		// Generate array for each row and put in total array
+		foreach ($participations as $participation)
+		{
+			if (!$participation->completed) continue;
+
+			$participant = $this->participationModel->get_participant_by_participation($participation->id);
+			$csv_row = array(
+				$participation->part_number, 
+				$participant->gender, 
+				age_in_months_and_days($participant->dateofbirth, $participation->appointment),
+				$participation->risk ? lang('yes') : lang('no'),
+				$participation->interrupted ? lang('yes') : lang('no'),
+				$participation->excluded ? lang('yes') : lang('no'),
+				$participation->comment);
+			
+			// Add row to csv array
+			$csv_array[] = $csv_row;
+		}
+		
+		// Create a new output stream and capture the result in a new object
+		$fp = fopen('php://output', 'w');
+		ob_start();
+		
+		// Create a new row in the CSV file for every in the array
+		foreach ($csv_array as $row)
+		{
+			fputcsv($fp, $row, ';');
+		}
+		
+		// Capture the output as a string
+		$csv = ob_get_contents();
+		
+		// Close the object and the stream
+		ob_end_clean();
+		fclose($fp);
+		
+		// Generate filename
+		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
+		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
+		
+		// Download the file
+		force_download($filename, $csv);
 	}
 
 	/**

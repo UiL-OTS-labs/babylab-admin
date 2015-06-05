@@ -254,7 +254,7 @@ class Experiment extends CI_Controller
 		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
 		
 		// Download the file
-		force_download($filename, $csv); 		
+		force_download($filename, $csv);
 	}
 	
 	/**
