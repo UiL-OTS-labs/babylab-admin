@@ -74,7 +74,12 @@ $lang['unknown_email']		= "Onbekend e-mailadres. Probeer opnieuw.";
 $lang['reg_user'] 			= "Aanmelden als gebruiker";
 $lang['reg_pp'] 			= "Aanmelden als proefpersoon";
 $lang['dereg_pp'] 			= "Uitschrijven als proefpersoon";
-$lang['reason']				= "Reden afmelding";
+$lang['reason']				= "Reden deactivatie: ";
+$lang['reason_new']			= "nieuwe proefpersoon";
+$lang['reason_call']		= "afgemeld tijdens bellen voor nieuwe afspraak";
+$lang['reason_exp']			= "afgemeld na afloop experiment";
+$lang['reason_manual']		= "handmatig afgemeld";
+$lang['reason_selfservice']	= "afgemeld via selfservice";
 
 /* Mails */
 $lang['mail_heading']		= "Beste %s,";

@@ -74,7 +74,12 @@ $lang['unknown_email']		= "Unknown e-mail address. Please try again.";
 $lang['reg_user'] 			= "User registration";
 $lang['reg_pp'] 			= "Participant registration";
 $lang['dereg_pp'] 			= "Unregister as participant.";
-$lang['reason']				= "Reason for unregistration";
+$lang['reason']				= "Reason for deactivation: ";
+$lang['reason_new']			= "new participant";
+$lang['reason_call']		= "deregistered during call for new appointment";
+$lang['reason_exp']			= "deregistered after experiment";
+$lang['reason_manual']		= "deregistered manually";
+$lang['reason_selfservice']	= "deregistered in selfservice";
 
 /* Mails */
 $lang['mail_heading']		= "Dear %s,";

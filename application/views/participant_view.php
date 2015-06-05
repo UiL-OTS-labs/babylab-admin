@@ -71,10 +71,13 @@
 			<?php
 				if (!$participant->activated)
 				{
-					$new = $participant->deactivated_reason == DeactivateReason::NewParticipant;
+					$reason = $participant->deactivated_reason;
+					$new = $reason == DeactivateReason::NewParticipant;
 					$class = $new ? 'warning' : 'info';
 					echo '<div class="' . $class . '"';
 					echo "<p>" . lang('p_not_yet_active') . "</p>";
+					echo "<p>" . lang('reason') . br(); 
+					echo lang('reason_' . $reason) . ' (' . output_datetime($participant->deactivated) . ")</p>";
 					if ($new) echo participant_activate_link($participant, lang('activate'));
 					echo "</div>";
 				}
