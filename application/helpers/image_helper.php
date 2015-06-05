@@ -13,6 +13,18 @@ if (!function_exists('img_delete'))
 	}
 }
 
+if (!function_exists('img_p_delete'))
+{
+	/** Returns the delete image for participations */
+	function img_p_delete()
+	{
+		return img(array(
+			'src' => 'images/delete.png', 
+			'title' => lang('delete_participation'),
+		));
+	}
+}
+
 if (!function_exists('img_edit'))
 {
 	/** Returns the edit image */

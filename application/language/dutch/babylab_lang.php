@@ -283,6 +283,7 @@ $lang['message_left']		= "Bericht achtergelaten?";
 $lang['none']				= "Geen";
 $lang['voicemail']			= "Voicemail ingesproken";
 $lang['email_sent']			= "Zelf e-mail gestuurd";
+$lang['delete_participation'] = "Verwijderen om weer gebeld te kunnen worden";
 $lang['sure_delete_part']	= "Weet u zeker dat u deze deelname wilt verwijderen?";
 $lang['part_cancel_call']	= "Bellen van <em>%s</em> voor experiment <em>%s</em> geannuleerd.";
 $lang['part_confirmed']		= "<em>%s</em> ingeschreven voor experiment <em>%s</em>.";
