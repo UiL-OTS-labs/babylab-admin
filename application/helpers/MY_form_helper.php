@@ -73,25 +73,12 @@ if (!function_exists('form_multiselect_and_label'))
 	function form_multiselect_and_label($name, $options, $selected = array(), $extra = '', $div = 'pure-control-group')
 	{
 		$label_name = lang($name);
-		$groupname = $name . '[]'; // CodeIgniter POST array syntax
-
-		/* If selected is empty, try to see if the form was submitted earlier */
-		if(empty($selected))
-		{
-			
-			if(isset($_POST[$name]))
-			{
-				$selected = array();
-				foreach($_POST[$name] as $preSel)
-				{
-					array_push($selected, $preSel);
-				}
-			}
-		}
-
+		$name .= '[]'; // CodeIgniter POST array syntax
+		$extra .= ' class="chosen-select" data-placeholder="' . $label_name . '"';
+		
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
-		$label = form_label($label_name, $name) . (empty($div) ? ' ' : '');
-		$dropdown = form_multiselect($groupname, $options, $selected, 'id="' . $name . '"' . $extra);
+		$label = form_label($label_name, $name);
+		$dropdown = form_multiselect($name, $options, set_value($name, $selected), 'id="' . $name . '"' . $extra);
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
 		
@@ -137,14 +124,13 @@ if (!function_exists('form_single_checkbox_and_label'))
 {
 	function form_single_checkbox_and_label($name, $value = NULL, $checked = FALSE, $label = '', $div = 'pure-control-group')
 	{
-		var_dump($checked);
 		$id = $name;
 		$text = empty($label) ? lang($name) : $label;
 		$name = $name . '[]';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label_start = '<label for=' . $id .' class="pure-checkbox">';
-		$input = form_checkbox($name, $value, $checked, 'id="' . $id . '"');
+		$input = form_checkbox($name, $value, set_checkbox($id, $value, $checked), 'id="' . $id . '"');
 		$label_end = '</label>';
 		$div_end = empty($div) ? '' : '</div>';
 

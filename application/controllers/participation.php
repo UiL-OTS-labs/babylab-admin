@@ -110,7 +110,7 @@ class Participation extends CI_Controller
 
 		$participants = $this->participantModel->get_all_participants();
 		$experiments = $this->experimentModel->get_all_experiments();
-		$leaders = $this->userModel->get_all_leaders() + $this->userModel->get_all_admins();
+		$leaders = array_merge($this->userModel->get_all_leaders(), $this->userModel->get_all_admins());
 
 		$data['page_title'] = lang('ad_hoc_participation');
 		$data['action'] = 'participation/add_submit';
