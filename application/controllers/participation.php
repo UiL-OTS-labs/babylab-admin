@@ -238,9 +238,12 @@ class Participation extends CI_Controller
 			lang('part_number'), 
 			lang('gender'), 
 			lang('age'), 
+			lang('appointment'), 
 			lang('risk'), 
 			lang('interrupted'), 
 			lang('excluded'), 
+			lang('completed'), 
+			lang('no_show'), 
 			lang('comment'));
 		
 		// Generate array for each row and put in total array
@@ -253,9 +256,12 @@ class Participation extends CI_Controller
 				$participation->part_number, 
 				$participant->gender, 
 				age_in_months_and_days($participant->dateofbirth, $participation->appointment),
+				output_datetime($participation->appointment, TRUE),
 				$participation->risk ? lang('yes') : lang('no'),
 				$participation->interrupted ? lang('yes') : lang('no'),
 				$participation->excluded ? lang('yes') : lang('no'),
+				$participation->completed ? lang('yes') : lang('no'),
+				$participation->noshow ? lang('yes') : lang('no'),
 				$participation->comment);
 			
 			// Add row to csv array
