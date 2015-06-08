@@ -8,7 +8,7 @@
  * as the controller
  * http://fullcalendar.io/docs/event_data/events_json_feed/
  */
-function initializeCalendar(lang) {
+function initializeCalendar(lang, errMsg) {
 	$('#calendar').fullCalendar({
 		eventSources: [
 			{
@@ -23,6 +23,9 @@ function initializeCalendar(lang) {
 		                exclude_canceled: $('#exclude-canceled').is(':checked'),
 		            };
 				},
+				error: function(){
+					alert(errMsg);
+				}
 			},
 			{
 				url: 'appointment/availabilities/',
@@ -51,10 +54,10 @@ function initializeCalendar(lang) {
 		displayEventEnd: true,
 	    slotEventOverlap: false,
 	    weekMode : 'variable',
+
 	    
 	    // Go to the current day when day is clicked
 	    dayClick: function(date, jsEvent, view) {
-	    	
 	    	$('#calendar').fullCalendar('changeView', 'agendaDay');
 	    	$('#calendar').fullCalendar('gotoDate', date);
 	    	

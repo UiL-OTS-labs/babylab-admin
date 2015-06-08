@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/fullCalendar_helper.js"></script>
 <script>
 $(function(){
-	initializeCalendar("<?=$lang;?>");
+	initializeCalendar("<?=$lang;?>", "<?=lang('not_loggedin_error');?>");
 	addDateSelectTool("<?=lang('date_text'); ?>");
 	addLegendButton("<?=$legend;?>", "<?=lang('legend');?>");
 	addFilters();
