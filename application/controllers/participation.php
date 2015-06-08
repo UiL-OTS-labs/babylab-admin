@@ -307,6 +307,8 @@ class Participation extends CI_Controller
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 
+		echo $experiment_id;
+
 		// Check current user is caller for experiment
 		if (!$this->callerModel->is_caller_for_experiment(current_user_id(), $experiment_id))
 		{
@@ -361,7 +363,7 @@ class Participation extends CI_Controller
 		// Find possible combination experiment and check if participation exists
 		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
 		$comb_exp = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
-		$comb_part = $this->participationModel->get_participation($comb_exp->id, $participant_id);
+		$comb_part = ($comb_exp) ? $this->participationModel->get_participation($comb_exp->id, $participant_id) :  FALSE;
 		if ($comb_part) $comb_exp = FALSE;
 
 		// Create page data
@@ -389,6 +391,39 @@ class Participation extends CI_Controller
 		$this->load->view('participation_call', $data);
 		$this->load->view('templates/footer');
 	}
+
+	public function check_moment($datetime, $experiment_id, $leader_id)
+	{
+		$datetime = input_date($datetime);
+		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
+		$location = $this->locationModel->get_location_by_id($experiment->location_id);
+		$leader = $this->userModel->get_user_by_id($leader_id);
+		$closings = $this->closingModel->get_closing_by_location_for_time($location->id, $datetime);
+		$lockdowns = $this->closingModel->get_closing_by_location_for_time(NULL, $datetime);
+		$user_availability = $this->availabilityModel->get_availability_by_user_and_day($leader_id, $datetime);
+
+		$results = array();
+		foreach($lockdowns as $lockdown)
+		{
+			array_push($results, sprintf(lang('lockdown_timeframe'), format_date($lockdown->from), strftime("%R", strtotime($lockdown->from)), strftime("%R", strtotime($lockdown->to))));
+		}
+		foreach($closings as $closing)
+		{
+			array_push($results, sprintf(lang('lab_closed_timeframe'), format_date($closing->from), $location->name, strftime("%R", strtotime($closing->from)), strftime("%R", strtotime($closing->to))));
+		}
+		if(isset($user_availability))
+		{
+			foreach($user_availability as $av)
+			{
+				array_push($results, sprintf(lang('is_available_for'), $leader->username, strftime("%R", strtotime($av->from)), strftime("%R", strtotime($av->to)), format_date($av->from)));
+			}
+		} else {
+			array_push($results, sprintf(lang('is_not_available'), $leader->username));
+		}
+
+		echo json_encode($results);
+	}
+
 	
 	/**
 	 * Shows the calendar in a new popup window

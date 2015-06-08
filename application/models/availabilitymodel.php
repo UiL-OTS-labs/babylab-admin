@@ -85,6 +85,14 @@ class AvailabilityModel extends CI_Model
 		return $this->db->get_where('user', array('id' => $availability->user_id))->row();
 	}
 
+	public function get_availability_by_user_and_day($user_id, $date)
+	{
+		$this->db->where('user_id', $user_id);
+		$this->db->where('from <=', $date);
+		$this->db->where('to >=', $date);
+		$this->db->get('availability')->result();
+	}
+
 	/////////////////////////
 	// Helpers
 	/////////////////////////

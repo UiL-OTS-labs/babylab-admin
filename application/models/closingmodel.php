@@ -35,6 +35,21 @@ class ClosingModel extends CI_Model
         return $this->db->get_where('closing', array('id' => $closing_id))->row();
     }
 
+    public function get_availabilities_by_user($user_id)
+    {
+        $this->db->where('user_id', $user_id);
+        return $this->db->get('availability')->result();
+    }
+
+    /* Get closings for a lab or for the entire building if $location_id == NULL */
+    public function get_closing_by_location_for_time($location_id=NULL, $date)
+    {
+        $this->db->where('location_id', $location_id);
+        $this->db->where('from <=', $date);
+        $this->db->where('to >=', $date);
+        return $this->db->get('closing')->result();
+    }
+
     /////////////////////////
     // Helpers
     /////////////////////////

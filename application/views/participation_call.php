@@ -57,6 +57,42 @@
 				return null;
 			}
 		}
+
+		function checkChosenTime()
+		{
+			var time = $('[name="appointment"]')[0].value;
+			var date = time.split(" ")[0].split("-");
+			var date = date[2] + "-" + date[1] + "-" + date[0];
+			var leader_id = $("#leader").val();
+			var url = "participation/check_moment/" + date + "/" + <?=$experiment->id;?> + "/" + leader_id;
+
+			var alertbox = $('#alertboxChosenTime');
+			
+
+			$.ajax({
+				dataType: "json",
+				url: url,
+				success: function(data){
+					alertbox.html("<ul>")
+					for(var i = 0; i < data.length; i++)
+					{
+						alertbox.css('display', 'block');
+						alertbox.append("<li>" + data[i] + "</li>");
+					}
+					alertbox.append("</ul>");
+				},
+				error : function(){console.log("error");}
+			});
+		}
+
+		$('.appointment').change(function(){
+			checkChosenTime();
+		});
+
+		$('#leader').change(function(){
+			checkChosenTime();
+		});
+
 	});
 </script>
 
@@ -152,6 +188,9 @@
                         <?=form_error('appointment'); ?>
 						<?=form_dropdown_and_label('leader', $leaders, array(), '', FALSE, NULL); ?>
                         </p>
+                        <div id="alertboxChosenTime" class="warning" style="text-align: left; display: none; padding-left: 40px;">
+                        	
+                        </div>
                         <p>
 						<?=form_submit_only(); ?>
 						</p>

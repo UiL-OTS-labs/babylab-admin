@@ -484,5 +484,9 @@ $lang['sure_delete_closing']  = "Are you sure you want to delete this closing?";
 $lang['closing_include_past'] = "Show closings from the past";
 $lang['closing_exclude_past'] = "Don't show closings from the past";
 $lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
-$lang['lockdown']			= "Building closed completely"
+$lang['lockdown']			= "Building closed completely";
+$lang['lockdown_timeframe'] = "On %s the entire building is closed from %s to %s";
+$lang['lab_closed_timeframe'] = "On %s is %s closed from %s to %s";
+$lang['is_available_for'] = "%s is available from %s to %s on %s";
+$lang['is_not_available'] = "%s is op deze dag niet beschikbaar, of heeft nog geen beschikbaarheid opgegeven.";
 ?>
