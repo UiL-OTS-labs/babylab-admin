@@ -125,7 +125,7 @@ class Appointment extends CI_Controller
 		foreach ($closings as $closing) 
 		{
 			
-			$lockdown = $closing->location_id < 0;
+			$lockdown = !(isset($closing->location_id));
 			if($lockdown)
 			{
 				$title = lang('lockdown');

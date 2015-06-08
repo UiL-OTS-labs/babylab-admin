@@ -91,7 +91,7 @@ class Closing extends CI_Controller
         $postingdata = array();
 
         $lockdown   = ($this->input->post('lockdown')) ? true : false;
-        $locations  = ($lockdown) ? array(-1) : $this->input->post('location');
+        $locations  = ($lockdown) ? array(null) : $this->input->post('location');
         $from       = input_datetime($this->input->post('from_date'));
         $to         = input_datetime($this->input->post('to_date'));
         $comment    = $this->input->post('comment');
@@ -105,7 +105,6 @@ class Closing extends CI_Controller
                         'from'          => $from,
                         'to'            => $to,
                         'comment'       => $comment,
-                        'lockdown'      => $lockdown
                     ));
             }    
         }
@@ -153,15 +152,26 @@ class Closing extends CI_Controller
     // Table
     /////////////////////////
 
+   
+    function get_location_link($id)
+    {
+        if(isset($id)){
+            return "ID is set";
+        } else {
+            return "ID is not set!";
+        }
+    }
+    
+
     public function table($include_past = FALSE)
     {
         $this->datatables->select('name, from, comment, closing.id AS id, location_id');
         $this->datatables->from('closing');
-        $this->datatables->join('location', 'location.id = closing.location_id');
+        $this->datatables->join('location', 'location.id = closing.location_id', 'LEFT');
 
         if (!$include_past) $this->db->where('to >=', input_date());
 
-        $this->datatables->edit_column('name', '$1', 'location_get_link_by_id(location_id)');
+        $this->datatables->edit_column('name', '$1', 'closing_location_link_by_id(location_id)');
         $this->datatables->edit_column('from', '$1', 'closing_dates_by_id(id)');
         $this->datatables->edit_column('comment', '$1', 'comment_body(comment, 30)');
         $this->datatables->edit_column('id', '$1', 'closing_actions(id)');
@@ -170,4 +180,6 @@ class Closing extends CI_Controller
 
         echo $this->datatables->generate();
     }
+
+    
 }

@@ -56,3 +56,15 @@ if (!function_exists('closing_past_url'))
         return $include_past ? $dont_include_past_url : $include_past_url;
     }
 }
+
+if (!function_exists('closing_location_link_by_id'))
+{
+    function closing_location_link_by_id($location_id)
+    {
+         if(isset($location_id)){
+            return location_get_link_by_id($location_id);
+        } else {
+            return lang('lockdown');
+        }
+    }
+}
