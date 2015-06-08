@@ -73,12 +73,17 @@ if (!function_exists('form_multiselect_and_label'))
 	function form_multiselect_and_label($name, $options, $selected = array(), $extra = '', $div = 'pure-control-group')
 	{
 		$label_name = lang($name);
+
+		if (empty($selected) && isset($_POST[$name])){
+			$selected = $_POST[$name];
+		}
+
 		$name .= '[]'; // CodeIgniter POST array syntax
 		$extra .= ' class="chosen-select" data-placeholder="' . $label_name . '"';
 		
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label_name, $name);
-		$dropdown = form_multiselect($name, $options, set_value($name, $selected), 'id="' . $name . '"' . $extra);
+		$dropdown = form_multiselect($name, $options, $selected, 'id="' . $name . '"' . $extra);
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
 		
