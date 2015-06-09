@@ -426,6 +426,8 @@ $lang['u_deactivated'] 		= "User %s deactivated.";
 $lang['u_deactivated_self'] = "You can not deactivate yourself.";
 $lang['sure_delete_user']	= "Are you sure you want to delete this user? This will also delete any comments made by this user.";
 $lang['deleted_user']		= "User %s successfully deleted.";
+$lang['show_active_users']	= "Only show activated users";
+$lang['show_inactive_users']= "Also show deactivated users";
 
 /* Test Categories */
 $lang['testcat']			= "Test category";

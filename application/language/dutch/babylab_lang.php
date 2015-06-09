@@ -425,6 +425,8 @@ $lang['u_deactivated'] 		= "Gebruiker %s gedeactiveerd.";
 $lang['u_deactivated_self'] = "U kan niet uzelf deactiveren.";
 $lang['sure_delete_user']	= "Weet u zeker dat u deze gebruiker wilt verwijderen? Dit verwijdert ook opmerkingen gemaakt door deze gebruiker.";
 $lang['deleted_user']		= "Gebruiker %s succesvol verwijderd.";
+$lang['show_active_users']	= "Toon enkel geactiveerde gebruikers";
+$lang['show_inactive_users']= "Toon ook gedeactiveerde gebruikers";
 
 /* Test Categories */
 $lang['testcat']			= "Testcategorie";

@@ -24,14 +24,17 @@ class User extends CI_Controller
 	 *
 	 * Specifies the contents of the default page.
 	 */
-	public function index()
+	public function index($show_inactive = FALSE)
 	{
 		$add_url = array('url' => 'user/add', 'title' => lang('add_user'));
+		$active_url = $show_inactive 
+			? array('url' => 'user/index', 'title' => lang('show_active_users')) 
+			: array('url' => 'user/index/1', 'title' => lang('show_inactive_users'));
 
 		create_user_table();
-		$data['ajax_source'] = 'user/table/';
+		$data['ajax_source'] = 'user/table/' . $show_inactive;
 		$data['page_title'] = lang('users');
-		$data['action_urls'] = array($add_url);
+		$data['action_urls'] = array($add_url, $active_url);
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
@@ -622,10 +625,11 @@ class User extends CI_Controller
 	 *
 	 * Specifies the user table
 	 */
-	public function table()
+	public function table($show_inactive = FALSE)
 	{
 		$this->datatables->select('username, role, email, phone, mobile, id');
 		$this->datatables->from('user');
+		if (!$show_inactive) $this->datatables->where('activated IS NOT NULL');
 
 		$this->datatables->edit_column('username', '$1', 'user_get_link_by_id(id)');
 		$this->datatables->edit_column('role', '$1', 'lang(role)');
