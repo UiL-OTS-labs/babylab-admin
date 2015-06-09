@@ -110,26 +110,26 @@ if (!function_exists('create_ncdi_table'))
 
 		$tmpl = array (
 				'table_open'	=> '<table class="pure-table">'
-				);
+		);
 
-				$CI->table->set_template($tmpl);
-				$CI->table->set_empty("&nbsp;");
-				$CI->table->set_heading(lang('testcat'), lang('raw_score'), lang('percentile'), lang('language_age'));
+		$CI->table->set_template($tmpl);
+		$CI->table->set_empty("&nbsp;");
+		$CI->table->set_heading(lang('testcat'), lang('raw_score'), lang('percentile'), lang('language_age'));
 
-				foreach ($scores as $score)
-				{
-					$CI->table->add_row($score['name'], $score['score'], $score['percentile'], $score['age'] . ' ' . lang('months'));
-				}
+		foreach ($scores as $score)
+		{
+			$CI->table->add_row($score['name'], $score['score'], $score['percentile'], $score['age'] . ' ' . lang('months'));
+		}
 
-				return $CI->table->generate();
+		return $CI->table->generate();
 	}
 }
 
 
-if (!function_exists('ncdi_scores_to_csv'))
+if (!function_exists('scores_to_csv'))
 {
 	/** Creates a .csv-file from a table of scores (testinvite_id -> score) */
-	function ncdi_scores_to_csv($test_code, $score_table, $experiment_id = NULL)
+	function scores_to_csv($test_code, $score_table, $experiment_id = NULL)
 	{
 		$CI =& get_instance();
 

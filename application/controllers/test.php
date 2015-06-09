@@ -133,7 +133,7 @@ class Test extends CI_Controller
 
 		// Retrieve the scores and convert to .csv
 		$table = $this->get_results_table($test_id);
-		$csv = ncdi_scores_to_csv($test->code, $table);
+		$csv = scores_to_csv($test->code, $table);
 		
 		// Generate filename
 		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $test->name);
