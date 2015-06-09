@@ -158,7 +158,7 @@ class LeaderModel extends CI_Model
 		$result = array();
 		foreach ($experiments as $experiment)
 		{
-			if ($this->count_leaders($experiment->id) == 0)
+			if (!$experiment->archived && $this->count_leaders($experiment->id) == 0)
 			{
 				array_push($result, $experiment);
 			}

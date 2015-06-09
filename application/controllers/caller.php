@@ -52,7 +52,7 @@ class Caller extends CI_Controller
 		create_caller_table();
 		$data['ajax_source'] = 'caller/table_by_experiment/' . $experiment_id;
 		$data['page_title'] = sprintf(lang('callers_for_exp'), $experiment->name);
-		$data['page_info'] = sprintf(lang('add_callers_exp'), '../../experiment/edit/' . $experiment->id);
+		$data['page_info'] = sprintf(lang('add_callers_exp'), $experiment->id);
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);

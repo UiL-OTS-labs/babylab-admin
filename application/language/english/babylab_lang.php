@@ -185,7 +185,7 @@ $lang['call_info'] 			= "You are now calling for experiment %s.
 								Choose one of the participants below and click on the phone icon to proceed.";
 $lang['call_participants']	= "Call participants";
 $lang['exp_without_call']	= "Currently there are no callers for %s experiment(s). You can add them in the <a href='experiment'>experiment overview</a>.";
-$lang['add_callers_exp']	= "By <a href='%s'>modifying this experiment</a>, you're able to add (or delete) callers.";
+$lang['add_callers_exp']	= "By " . anchor('experiment/edit/%s', 'modifying this experiment') . ", you're able to add (or delete) callers.";
 $lang['sure_delete_caller']	= "Are you sure you want to delete this caller for this experiment?";
 $lang['deleted_caller']		= "Deleted caller successfully.";
 $lang['caller_action']		= "Adding callers to experiments (now: %s experiment(s) without callers)";
@@ -197,7 +197,7 @@ $lang['leader'] 			= "Leader";
 $lang['leaders']	 		= "Leaders";
 $lang['leaders_for_exp']	= "Leaders voor experiment %s";
 $lang['exp_without_leader']	= "Currently there are no leaders for %s experiment(s). You can add them in the " . anchor('experiment', 'experiment overview') . ".";
-$lang['add_leaders_exp']	= "By <a href='%s'>modifying this experiment</a>, you're able to add (or delete) leaders.";
+$lang['add_leaders_exp']	= "By " . anchor('experiment/edit/%s', 'modifying this experiment') . ", you're able to add (or delete) leaders.";
 $lang['sure_delete_leader']	= "Are you sure you want to delete this leader for this experiment?";
 $lang['deleted_leader']		= "Deleted leader successfully.";
 $lang['leader_action']		= "Adding leaders to experiments (now: %s experiment(s) without leaders)";

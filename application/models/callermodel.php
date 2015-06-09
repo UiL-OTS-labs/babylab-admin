@@ -142,7 +142,7 @@ class CallerModel extends CI_Model
 		$result = array();
 		foreach ($experiments as $experiment)
 		{
-			if ($this->count_callers($experiment->id) == 0)
+			if (!$experiment->archived && $this->count_callers($experiment->id) == 0)
 			{
 				array_push($result, $experiment);
 			}

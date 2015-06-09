@@ -184,7 +184,7 @@ $lang['call_info'] 			= "U belt nu voor het experiment <em>%s</em>.
 								Kies een van de proefpersonen en klik op het bel-icoon om verder te gaan.";
 $lang['call_participants']	= "Bel proefpersonen";
 $lang['exp_without_call']	= "Momenteel zijn er geen bellers voor %s experiment(en). U kunt deze toevoegen in het <a href='experiment'>overzicht van experimenten</a>.";
-$lang['add_callers_exp']	= "U kunt door het <a href='%s'>bewerken van dit experiment</a> bellers toevoegen (of verwijderen).";
+$lang['add_callers_exp']	= "U kunt door het " . anchor('experiment/edit/%s', 'bewerken van dit experiment') . " bellers toevoegen (of verwijderen).";
 $lang['sure_delete_caller']	= "Weet u zeker dat u deze beller voor dit experiment wilt verwijderen?";
 $lang['deleted_caller']		= "Beller succesvol verwijderd.";
 $lang['caller_action']		= "Bellers toevoegen aan experimenten (nu: %s experiment(en) zonder bellers)";
@@ -196,7 +196,7 @@ $lang['leader'] 			= "Leider";
 $lang['leaders']	 		= "Leiders";
 $lang['leaders_for_exp']	= "Leiders voor experiment %s";
 $lang['exp_without_leader']	= "Momenteel zijn er geen leiders voor %s experiment(en). U kunt deze toevoegen in het <a href='experiment'>overzicht van experimenten</a>.";
-$lang['add_leaders_exp']	= "U kunt door het <a href='%s'>bewerken van dit experiment</a> leiders toevoegen (of verwijderen).";
+$lang['add_leaders_exp']	= "U kunt door het " . anchor('experiment/edit/%s', 'bewerken van dit experiment') . " leiders toevoegen (of verwijderen).";
 $lang['sure_delete_leader']	= "Weet u zeker dat u deze leider voor dit experiment wilt verwijderen?";
 $lang['deleted_leader']		= "Leider succesvol verwijderd.";
 $lang['leader_action']		= "Leiders toevoegen aan experimenten (nu: %s experiment(en) zonder leiders)";

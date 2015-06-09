@@ -212,8 +212,36 @@ class Experiment extends CI_Controller
 		$this->load->view('templates/list_view', $data);
 		$this->load->view('templates/footer');
 	}
-    
-    /**
+
+	/**
+	 * Shows non-archived experiments without a caller.
+	 */
+	public function without_caller()
+	{
+		create_experiment_table();
+		$data['ajax_source'] = 'experiment/table_without_caller/';
+		$data['page_title'] = lang('experiments');
+
+		$this->load->view('templates/header', $data);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->load->view('templates/footer');
+	}
+
+	/**
+	 * Shows non-archived experiments without a leader.
+	 */
+	public function without_leader()
+	{
+		create_experiment_table();
+		$data['ajax_source'] = 'experiment/table_without_leader/';
+		$data['page_title'] = lang('experiments');
+
+		$this->load->view('templates/header', $data);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->load->view('templates/footer');
+	}
+
+	/**
      * Removes the attachment for an experiment and returns to the edit view.
      * @param integer $experiment_id
      */
@@ -422,7 +450,7 @@ class Experiment extends CI_Controller
 		$this->datatables->from('experiment');
 
 		if (!$archived) $this->datatables->where('archived', $archived);
-		if ($caller_id || $leader_id) $this->datatables->where('id IN ('. implode(',', $experiment_ids) . ')');
+		if ($caller_id || $leader_id) $this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
 
 		$this->datatables->edit_column('name', '$1', 'experiment_get_link_by_id(id)');
 		$this->datatables->edit_column('agefrommonths', '$1', 'age_range_by_id(id)');
@@ -438,5 +466,19 @@ class Experiment extends CI_Controller
 	public function table_by_user($user_id)
 	{
 		$this->table(FALSE, $user_id, $user_id);
+	}
+
+	public function table_without_caller()
+	{
+		$experiment_ids = get_object_ids($this->callerModel->get_experiments_without_callers());
+		$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		$this->table();
+	}
+
+	public function table_without_leader()
+	{
+		$experiment_ids = get_object_ids($this->leaderModel->get_experiments_without_leaders());
+		$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		$this->table();
 	}
 }
