@@ -373,6 +373,9 @@ $lang['comment_prio_down']	= "Downgraded the priority.";
 $lang['comment_action']		= "Checking any comments with priority (now: %s comments)";
 $lang['view_high_priority']	= "Show only high priority comments";
 $lang['view_low_priority']	= "Also show normal priority comments";
+$lang['mark_handled']		= "Mark handled";
+$lang['view_handled']		= "Also show handled comments";
+$lang['view_unsettled']		= "Don't show handled comments";
 
 /* Impediments */
 $lang['impediment']	 		= "Impediment";

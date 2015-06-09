@@ -56,6 +56,13 @@ class CommentModel extends CI_Model
 		$this->db->update('comment', array('priority' => $up));
 	}
 
+	/** Mark a comment as handled (or not) */
+	public function mark_handled($comment_id, $handled)
+	{
+		$this->db->where('id', $comment_id);
+		$this->db->update('comment', array('handled' => $handled));
+	}
+
 	/////////////////////////
 	// Participants
 	/////////////////////////

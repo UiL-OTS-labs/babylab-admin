@@ -145,7 +145,7 @@
 	<?php
 	create_comment_table('comments');
 	$comments['id'] = 'comments';
-	$comments['ajax_source'] = 'comment/table/0/' . $participant->id;
+	$comments['ajax_source'] = 'comment/table/0/1/' . $participant->id;
 	echo $this->load->view('templates/list_view', $comments);
 	echo $this->load->view('comment_add_view');
 	?>

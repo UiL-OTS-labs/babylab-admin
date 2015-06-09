@@ -44,10 +44,11 @@ if (!function_exists('comment_actions'))
 		$p = $CI->participantModel->get_participant_by_id($c->participant_id);
 
 		$prio_link = anchor('comment/prioritize/' . $comment_id . ($c->priority ? '/0' : ''), img_star(!$c->priority));
+		$handled_link = anchor('comment/mark_handled/' . $comment_id . ($c->handled ? '/0' : ''), img_accept(lang('mark_handled'), !$c->handled));
 		$edit_link = anchor('comment/edit/' . $comment_id, img_edit());
 		$p_link = anchor('participant/edit/' . $c->participant_id, img_edit_participant($p));
 		$d_link = anchor('comment/delete/' . $comment_id, img_delete(), warning(lang('sure_delete_comment')));
 
-		return implode(' ', array($prio_link, $edit_link, $p_link, $d_link));
+		return implode(' ', array($prio_link, $handled_link, $edit_link, $p_link, $d_link));
 	}
 }
