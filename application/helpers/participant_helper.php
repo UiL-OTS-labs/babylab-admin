@@ -230,6 +230,24 @@ if (!function_exists('last_called'))
 	}
 }
 
+if (!function_exists('reference_number'))
+{
+	/** Returns a reference number for a participant; defined as: 
+	*	- first three characters of first name 
+	* 	- first three characters of last name 
+	*	- a dot 
+	* 	- date of birth (dmY) 
+	*/
+	function reference_number($participant)
+	{
+		$first = strtolower(substr(str_replace(' ', '', $participant->firstname), 0, 3));
+		$last = strtolower(substr(str_replace(' ', '', $participant->lastname), 0, 3));
+		$dob = strftime('%d%m%Y', strtotime($participant->dateofbirth));
+
+		return $first . $last . '.' . $dob;
+	}
+}
+
 /////////////////////////
 // Links
 /////////////////////////

@@ -129,13 +129,18 @@ if (!function_exists('create_ncdi_table'))
 if (!function_exists('ncdi_scores_to_csv'))
 {
 	/** Creates a .csv-file from a table of scores (testinvite_id -> score) */
-	function ncdi_scores_to_csv($test_code, $score_table)
+	function ncdi_scores_to_csv($test_code, $score_table, $experiment_id = NULL)
 	{
 		$CI =& get_instance();
 
 		// Retrieve the headers
-		$headers = array(lang('name'), lang('gender'), lang('age'), 
-			'Leeftijd (maanden;dagen)', lang('dyslexicparent'), lang('multilingual'));
+		$headers = array(lang('reference_number'), lang('gender'), lang('age'), 
+			lang('age_md'), lang('dyslexicparent'), lang('multilingual'));
+
+		if ($experiment_id)
+		{
+			array_unshift($headers, lang('part_number'));
+		}
 		
 		$test = $CI->testModel->get_test_by_code($test_code);
 		$testcats = $CI->testCatModel->get_testcats_by_test($test->id, FALSE, TRUE);
@@ -163,12 +168,19 @@ if (!function_exists('ncdi_scores_to_csv'))
 			$participant = $CI->testInviteModel->get_participant_by_testinvite($testinvite);
 			
 			// Participant data
+			$refnr = reference_number($participant);
+			$g = $participant->gender;
 			$age = age_in_months($participant, $testinvite->datecompleted);
 			$agemd = age_in_months_and_days($participant->dateofbirth, $testinvite->datecompleted);
 			$d = $participant->dyslexicparent ? $participant->dyslexicparent : lang('no');
 			$m = $participant->multilingual ? lang('yes') : lang('no');
-			$csv_row = array(name($participant), $participant->gender, $age, 
-				$agemd, $d, $m);
+
+			$csv_row = array($refnr, $g, $age, $agemd, $d, $m);
+			if ($experiment_id) 
+			{
+				$participation = $CI->participationModel->get_participation($experiment_id, $participant->id);
+				array_unshift($csv_row, $participation->part_number);
+			}
 			
 			// Score data
 			foreach ($testcats as $testcat)

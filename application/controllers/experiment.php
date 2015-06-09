@@ -246,7 +246,7 @@ class Experiment extends CI_Controller
 	{
 		// Retrieve the scores and convert to .csv
 		$table = $this->get_results_table($experiment_id, $test_code);
-		$csv = ncdi_scores_to_csv($test_code, $table);
+		$csv = ncdi_scores_to_csv($test_code, $table, $experiment_id);
 		
 		// Generate filename
 		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
