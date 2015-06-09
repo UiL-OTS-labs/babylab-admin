@@ -114,7 +114,7 @@ class TestCatModel extends CI_Model
 	// Tests
 	/////////////////////////
 
-	/** Returns the test categories for a test */
+	/** Returns the test categories for a test, ordered by code */
 	public function get_testcats_by_test($test_id, $select_roots = FALSE, $select_children = FALSE)
 	{
 		$this->db->where('test_id', $test_id);

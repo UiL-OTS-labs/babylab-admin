@@ -22,7 +22,7 @@
 	</table>
 
 	<!-- Download scores -->
-	<?php if ($test->code == 'ncdi_wz') {
+	<?php if (in_array($test->code, array('ncdi_wz', 'anamnese'))) {
 		echo '<p>';
 		echo anchor('testsurvey/download_scores/' . $testsurvey->id, lang('download_scores'));
 		echo '</p>';

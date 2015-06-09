@@ -142,6 +142,7 @@ if (!function_exists('ncdi_scores_to_csv'))
 			array_unshift($headers, lang('part_number'));
 		}
 		
+		// Add test categories
 		$test = $CI->testModel->get_test_by_code($test_code);
 		$testcats = $CI->testCatModel->get_testcats_by_test($test->id, FALSE, TRUE);
 		foreach ($testcats as $testcat)
@@ -149,12 +150,16 @@ if (!function_exists('ncdi_scores_to_csv'))
 			$headers[] = $testcat->code . ' - ' . $testcat->name;
 		}
 		
-		$parent_testcats = $CI->testCatModel->get_testcats_by_test($test->id, TRUE);
-		foreach ($parent_testcats as $parent)
+		// For N-CDI: add parent test categories
+		if ($test_code == 'ncdi_wz') 
 		{
-			$headers[] = $parent->name . ' - ' . lang('raw_score');
-			$headers[] = $parent->name . ' - ' . lang('percentile');
-			$headers[] = $parent->name . ' - ' . lang('language_age');
+			$parent_testcats = $CI->testCatModel->get_testcats_by_test($test->id, TRUE);
+			foreach ($parent_testcats as $parent)
+			{
+				$headers[] = $parent->name . ' - ' . lang('raw_score');
+				$headers[] = $parent->name . ' - ' . lang('percentile');
+				$headers[] = $parent->name . ' - ' . lang('language_age');
+			}
 		}
 		
 		// Add headers to the csv array (later used in fputscsv)
@@ -188,11 +193,14 @@ if (!function_exists('ncdi_scores_to_csv'))
 				array_push($csv_row, $scores[$testcat->id]);
 			}
 			
-			// Total score data
-			$totals = create_ncdi_score_array($test, $testinvite);
-			foreach ($totals as $total)
+			// For N-CDI: total score data
+			if ($test_code == 'ncdi_wz') 
 			{
-				array_push($csv_row, $total['score'], $total['percentile'], $total['age']);
+				$totals = create_ncdi_score_array($test, $testinvite);
+				foreach ($totals as $total)
+				{
+					array_push($csv_row, $total['score'], $total['percentile'], $total['age']);
+				}
 			}
 			
 			// Add row to csv array

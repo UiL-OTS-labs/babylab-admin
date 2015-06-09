@@ -105,6 +105,9 @@
 			$testinvites['ajax_source'] = 'testinvite/table_by_experiment/' . $experiment->id;
 			$this->load->view('templates/list_view', $testinvites);
 		?>
-		<?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download NCDI scores'); ?>
+		<ul>
+			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/anamnese', 'Download resultaten Anamnese'); ?></li>
+			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download resultaten N-CDI'); ?></li>
+		</ul>
 	</div>
 </div>
