@@ -52,6 +52,13 @@ class ParticipationModel extends CI_Model
 		return $this->db->insert_id();
 	}
 
+	/** Updates the participation specified by the id with the details of the participation */
+	public function update_participation($participation_id, $participation)
+	{
+		$this->db->where('id', $participation_id);
+		$this->db->update('participation', $participation);
+	}
+
 	/** Deletes a participation from the DB */
 	public function delete_participation($participation_id)
 	{

@@ -340,6 +340,8 @@ $lang['ad_hoc_participation'] = "Add ad hoc participation";
 $lang['participation_no_restrictions'] = "<b>Warning!</b><br/>This page is intended as a <i>last resort</i> and does not contain any safeguards whatsoever.<br/>
 Please make sure the participant can and wants to participate in the experiment and is available at the specified time!";
 $lang['participation_exists'] = "A participation for <em>%s</em> to <em>%s</em> already exists. Please delete this participation, before you try to make a new one.";
+$lang['participation_edit_leader'] 		= "Edit leader of participation";
+$lang['participation_leader_edited'] 	= "Leader of participation successfully edited.";
 
 /* Calls */
 $lang['call']	 			= "Call";

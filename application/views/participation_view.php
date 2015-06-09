@@ -26,7 +26,13 @@
 		<?php if ($leader) { ?>
 		<tr>
 			<th><?=lang('leader'); ?></th>
-			<td><?=user_get_link($leader); ?></td>
+			<td><?=user_get_link($leader); ?> 
+				<?php 
+				if (is_admin()) {
+					echo ' (' . anchor('participation/edit_leader/' . $participation->id, strtolower(lang('edit'))) . ')';
+				}
+				?>
+			</td>
 		</tr>
 		<?php } ?>
 		<tr>

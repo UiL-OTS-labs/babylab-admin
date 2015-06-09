@@ -339,6 +339,8 @@ $lang['ad_hoc_participation'] = "Ad hoc deelname toevoegen";
 $lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>
 Zorg dat u zeker weet dat de participant wil meedoen aan het experiment en kan op de opgegeven tijd!";
 $lang['participation_exists'] = "Er bestaat al een deelname van <em>%s</em> aan <em>%s</em>. Verwijder deze deelname, voordat u een nieuwe deelname maakt.";
+$lang['participation_edit_leader'] 		= "Leider deelname bewerken";
+$lang['participation_leader_edited'] 	= "Leider deelname succesvol bewerkt.";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";

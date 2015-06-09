@@ -172,6 +172,47 @@ class Participation extends CI_Controller
 		}
 	}
 
+	/** Allows admins to change the leader of a participation. */
+	public function edit_leader($participation_id)
+	{
+		$this->admin_only();
+
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$leaders = $this->leaderModel->get_leader_users_by_experiments($experiment->id);
+
+		$data['page_title'] = lang('participation_edit_leader');
+		$data['action'] = 'participation/edit_leader_submit/' . $participation_id;
+
+		$data['participation'] = $participation;
+		$data['leader'] = $participation->user_id_leader;
+		$data['leaders'] = leader_options($leaders);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('participation_edit_leader', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/** Handles the submit of a change the leader of a participation. */
+	public function edit_leader_submit($participation_id)
+	{
+		$this->form_validation->set_rules('leader', lang('leader'), 'callback_not_default');
+		if (!$this->form_validation->run()) 
+		{
+			$this->edit_leader($participation_id);
+		}
+		else
+		{
+			$participation = array(
+				'user_id_leader' => $this->input->post('leader')
+			);
+			$this->participationModel->update_participation($participation_id, $participation);
+			
+			flashdata(lang('participation_leader_edited'));
+			redirect('participation/get/' . $participation_id, 'refresh');
+		}
+	}
+
 	private function validate_experiment()
 	{
 		// Require experiment and participant to be selected
