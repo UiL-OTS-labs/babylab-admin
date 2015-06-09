@@ -305,7 +305,7 @@ class Call extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
-		$this->email->cc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
+		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 

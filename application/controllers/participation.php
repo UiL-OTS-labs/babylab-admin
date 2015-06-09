@@ -721,7 +721,7 @@ class Participation extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-		$this->email->cc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
 		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
 		$this->email->message($message);
 		$this->email->send();
