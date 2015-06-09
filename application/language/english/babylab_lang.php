@@ -87,20 +87,23 @@ $lang['mail_heading']		= "Dear %s,";
 $lang['mail_ending']		= "Thanks, Babylab Utrecht";
 $lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
 /* Reminders */
-$lang['rem_subject'] 		= "Babylab call center reminder";
+$lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";
 $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:";
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
-$lang['reg_pp_subject'] 	= "Babylab: participant registration";
+$lang['reg_pp_subject'] 	= "Babylab Utrecht: Participant registration";
 $lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
 $lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
 /* Registration of users */
-$lang['reg_user_subject'] 	= "Babylab: user registration";
+$lang['reg_user_subject'] 	= "Babylab Utrecht: User registration";
 $lang['reg_user_body'] 		= "A new user has been registered: %s (e-mail.: %s). You're able to activate or delete this participant in the administration interface.";
+/* Activating of a user */
+$lang['activate_subject'] 	= "Babylab Utrecht: User activated";
+$lang['activate_body'] 		= "Your user account has been activated. You can login via " . anchor(base_url()) . ".";
 /* Reset password */
-$lang['resetpw_subject'] 	= "Reset password request";
+$lang['resetpw_subject'] 	= "Babylab Utrecht: Reset password request";
 $lang['resetpw_body'] 		= "You send a reset password request. You can change your password at %s.";
 $lang['reset_request_sent'] = "Already sent a reset request for this e-mail. Please check or your inbox. If you didn't receive a mail, contact an administator.";
 /* Confirmation */

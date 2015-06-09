@@ -99,8 +99,11 @@ $lang['dereg_pp_body'] 		= "Er is afmelding binnengekomen voor %s (geboortedatum
 /* Registration of users */
 $lang['reg_user_subject'] 	= "Babylab Utrecht: Aanmelding gebruiker";
 $lang['reg_user_body'] 		= "Er is een nieuwe gebruiker aangemeld: %s (e-mail: %s). U kunt deze gebruiker activeren of verwijderen in de administratieve interface.";
+/* Activating of a user */
+$lang['activate_subject'] 	= "Babylab Utrecht: Gebruiker geactiveerd";
+$lang['activate_body'] 		= "Uw gebruikersaccount is geactiveerd. U kunt inloggen via " . anchor(base_url()) . ".";
 /* Reset password */
-$lang['resetpw_subject'] 	= "Verzoek tot wachtwoordherstel";
+$lang['resetpw_subject'] 	= "Babylab Utrecht: Verzoek tot wachtwoordherstel";
 $lang['resetpw_body'] 		= "U heeft een verzoek tot wachtwoordherstel verzonden. U kunt uw wachtwoord veranderen via %s.";
 $lang['reset_request_sent'] = "Er is al een verzoek tot wachtwoordherstel voor dit e-mailadres verzonden. Check uw inbox. Als uw geen e-mail hebt ontvangen, contacteer dan een administrator.";
 /* Confirmation */

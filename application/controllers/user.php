@@ -294,6 +294,26 @@ class User extends CI_Controller
 	{
 		$this->userModel->set_activate($user_id, TRUE);
 		$user = $this->userModel->get_user_by_id($user_id);
+
+		// Send activation e-mail to user
+		reset_language(user_language($user));
+			
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
+		$this->email->subject(lang('activate_subject'));
+			
+		$message = sprintf(lang('mail_heading'), $user->username);
+		$message .= br(2);
+		$message .= sprintf(lang('activate_body'));
+		$message .= br(2);
+		$message .= lang('mail_ending');
+		$message .= br(2);
+		$message .= lang('mail_disclaimer');
+			
+		$this->email->message($message);
+		$this->email->send();
+
 		flashdata(sprintf(lang('u_activated'), $user->username));
 		redirect('/user/', 'refresh');
 	}
