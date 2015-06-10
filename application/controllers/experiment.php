@@ -444,7 +444,7 @@ class Experiment extends CI_Controller
 		if ($caller_id) $experiment_ids += $this->callerModel->get_experiment_ids_by_caller($caller_id);
 		if ($leader_id) $experiment_ids += $this->leaderModel->get_experiment_ids_by_leader($leader_id);
 
-		if (empty($experiment_ids)) array_push($experiment_ids, 0);
+		// if (empty($experiment_ids)) array_push($experiment_ids, 0);
 
 		$this->datatables->select('name, agefrommonths, dyslexic, multilingual, id AS callers, id AS leaders, id');
 		$this->datatables->from('experiment');
@@ -471,14 +471,25 @@ class Experiment extends CI_Controller
 	public function table_without_caller()
 	{
 		$experiment_ids = get_object_ids($this->callerModel->get_experiments_without_callers());
-		$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		if($experiment_ids) 
+		{
+			$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		} else {
+			$this->datatables->where('id IN (NULL)');
+		}
 		$this->table();
+		
 	}
 
 	public function table_without_leader()
 	{
 		$experiment_ids = get_object_ids($this->leaderModel->get_experiments_without_leaders());
-		$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		if($experiment_ids) 
+		{
+			$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		} else {
+			$this->datatables->where('id IN (NULL)');
+		}
 		$this->table();
 	}
 }
