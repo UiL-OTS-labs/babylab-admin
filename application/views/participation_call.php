@@ -79,11 +79,11 @@
 					if (data["locks"]["status"])
 					{
 						alertbox.css('display', 'block');
-						alertbox.append("<p><b>" + data["locks"]["string"] + "<b><br/>");
+						alertbox.append("<p><b>" + data["locks"]["string"] + "<b>");
 						alertbox.append("<?=lang('lockdown_at_times');?><ul>");
 						for(var i = 0; i < data["locks"]["times"].length; i++)
 						{
-							alertbox.append("<li>" + data["locks"]["times"][i] + "</li>");
+							alertbox.append("<li style='margin-left: 30px;'>" + data["locks"]["times"][i] + "</li>");
 						}
 						alertbox.append("</ul></p>");
 					}
@@ -91,11 +91,11 @@
 					if(data["closings"]["status"])
 					{
 						alertbox.css('display', 'block');
-						alertbox.append("<p><b>" + data["closings"]["string"] + "<b><br/>");
+						alertbox.append("<p><b>" + data["closings"]["string"] + "<b>");
 						alertbox.append("<?=lang('lab_closed_at_times');?><ul>");
 						for(var i = 0; i < data["locks"]["times"].length; i++)
 						{
-							alertbox.append("<li>" + data["closings"]["times"][i] + "</li>");
+							alertbox.append("<li style='margin-left: 30px;'>" + data["closings"]["times"][i] + "</li>");
 						}
 						alertbox.append("</ul></p>");
 					}
@@ -103,11 +103,11 @@
 					if(data["availability"]["status"])
 					{
 						alertbox.css('display', 'block');
-						alertbox.append("<p><b>" + data["availability"]["string"] + "<b><br/>");
+						alertbox.append("<p><b>" + data["availability"]["string"] + "<b>");
 						alertbox.append("<?=lang('is_available_at_times');?><ul>");
 						for(var i = 0; i < data["availability"]["times"].length; i++)
 						{
-							alertbox.append("<li>" + data["availability"]["times"][i] + "</li>");
+							alertbox.append("<li style='margin-left: 30px;'>" + data["availability"]["times"][i] + "</li>");
 						}
 						alertbox.append("</ul></p>");
 					}
