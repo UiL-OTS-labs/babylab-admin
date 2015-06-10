@@ -190,7 +190,10 @@ if (!function_exists('scores_to_csv'))
 			// Score data
 			foreach ($testcats as $testcat)
 			{
-				array_push($csv_row, $scores[$testcat->id]);
+				if(isset($scores[$testcat->id]))
+				{
+					array_push($csv_row, $scores[$testcat->id]);
+				}
 			}
 			
 			// For N-CDI: total score data

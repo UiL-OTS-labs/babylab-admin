@@ -59,6 +59,7 @@ $lang['register_info']		= "Uw aanmelding is verwerkt. Wanneer uw kind in aanmerk
 $lang['deregister']			= "Afmelden";
 $lang['deregister_finish']	= "Bedankt voor uw afmelding";
 $lang['deregister_info']	= "Uw afmelding wordt verwerkt. Mochten we naar aanleiding van uw afmelding nog vragen hebben, dan nemen we contact met u op.";
+$lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.";
 
 $lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
 

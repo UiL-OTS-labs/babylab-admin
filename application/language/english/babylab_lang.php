@@ -59,8 +59,9 @@ $lang['register_info']		= "Your registration has been processed.
 $lang['deregister']			= "Deregister";
 $lang['deregister_finish']	= "Thank you for your deregistration!";
 $lang['deregister_info']	= "Your request for deregistering will be processed. In case we have some questions for you regarding your deregistration, we may contact you.";
+$lang['deregister_pageintro'] = "You can use this form to deregister your child as participant of experiments of the Babylab Utrecht";
 
-$lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "Click " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . "  to return to the Babylab Utrecht website.</p>";
 
 /* Login page */
 $lang['login'] 				= "Log in";
