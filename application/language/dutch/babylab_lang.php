@@ -496,8 +496,11 @@ $lang['closing_include_past'] = "Sluitingen uit verleden tonen";
 $lang['closing_exclude_past'] = "Sluitingen uit verleden niet tonen";
 $lang['closing_within_bounds']= "De '%s' valt binnen een bestaande sluiting voor deze locatie.";
 $lang['lockdown']			= "Hele gebouw gesloten";
-$lang['lockdown_timeframe'] = "Op %s is het hele gebouw gesloten van %s tot %s";
-$lang['lab_closed_timeframe'] = "Op %s is %s gesloten van %s tot %s";
-$lang['is_available_for'] = "%s is beschikbaar van %s tot %s op %s";
-$lang['is_not_available'] = "%s is op deze dag niet beschikbaar, of heeft nog geen beschikbaarheid opgegeven.";
+$lang['lockdown_timeframe'] = "Het hele gebouw is gesloten op het gekozen tijdstip";
+$lang['lockdown_at_times'] = "Het hele gebouw is gesloten op de volgende tijdstippen op de gekozen dag:";
+$lang['lab_closed'] = "Het lab voor dit experiment is gesloten op het gekozen tijdstip";
+$lang['lab_closed_at_times'] = "Het lab voor dit experiment is gesloten op de volgende tijdstippen op de gekozen dag:";
+$lang['is_not_available'] = "%s is niet beschikbaar op het gekozen tijdstip, of heeft nog geen beschikbaarheid ingevuld";
+$lang['is_available_at_times'] = "De geselecteerde experimentleider is beschikbaar op de volgende tijdstippen op de gekozen dag:";
+$lang['timeframe']	= "%s tot %s"
 ?>

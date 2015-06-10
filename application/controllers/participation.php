@@ -348,8 +348,6 @@ class Participation extends CI_Controller
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 
-		echo $experiment_id;
-
 		// Check current user is caller for experiment
 		if (!$this->callerModel->is_caller_for_experiment(current_user_id(), $experiment_id))
 		{
@@ -435,34 +433,51 @@ class Participation extends CI_Controller
 
 	public function check_moment($datetime, $experiment_id, $leader_id)
 	{
-		$datetime = input_date($datetime);
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
 		$location = $this->locationModel->get_location_by_id($experiment->location_id);
 		$leader = $this->userModel->get_user_by_id($leader_id);
-		$closings = $this->closingModel->get_closing_by_location_for_time($location->id, $datetime);
-		$lockdowns = $this->closingModel->get_closing_by_location_for_time(NULL, $datetime);
-		$user_availability = $this->availabilityModel->get_availability_by_user_and_day($leader_id, $datetime);
 
-		$results = array();
+		$starttime = input_datetime($datetime);
+		$date = input_date($datetime);
+		$endtime = new DateTime($datetime);
+		$endtime->add(new DateInterval('PT' . $experiment->duration . "M"));
+		$endtime = input_datetime($endtime->format('Y-m-d H:i'));
+		
+		$lab_closed = $this->closingModel->within_bounds($starttime, $location->id) || $this->closingModel->within_bounds($endtime, $location->id);
+		$closings = $this->closingModel->get_closing_by_location_for_time($location->id, $date);
+		
+		$locked_down = $this->closingModel->within_bounds($starttime, NULL) || $this->closingModel->within_bounds($endtime, NULL);
+		$lockdowns = $this->closingModel->get_closing_by_location_for_time(NULL, $date);
+		
+		$user_available = !($this->availabilityModel->within_bounds($starttime, $leader_id) || $this->availabilityModel->within_bounds($starttime, $leader_id)); 
+		$user_availability = $this->availabilityModel->get_availability_by_user_and_day($leader_id, $date);
+
+		$locks = array();
 		foreach($lockdowns as $lockdown)
 		{
-			array_push($results, sprintf(lang('lockdown_timeframe'), format_date($lockdown->from), strftime("%R", strtotime($lockdown->from)), strftime("%R", strtotime($lockdown->to))));
+			array_push($locks, sprintf(lang('timeframe'), format_datetime($lockdown->from), format_datetime($lockdown->to)));
 		}
+		$locked = array("status" => $locked_down, "string" => lang('lockdown_timeframe'), "times" => $locks);
+
+		$closings = array();
 		foreach($closings as $closing)
 		{
-			array_push($results, sprintf(lang('lab_closed_timeframe'), format_date($closing->from), $location->name, strftime("%R", strtotime($closing->from)), strftime("%R", strtotime($closing->to))));
+			array_push($closings, sprintf(lang('timeframe'), format_datetime($closing->from), format_datetime($closing->to)));
 		}
+		$closed = array("status" => $lab_closed, "string" => lang('lab_closed') ,"times" => $closings);
+
+		$availabilities = array();
 		if(isset($user_availability))
 		{
 			foreach($user_availability as $av)
 			{
-				array_push($results, sprintf(lang('is_available_for'), $leader->username, strftime("%R", strtotime($av->from)), strftime("%R", strtotime($av->to)), format_date($av->from)));
+				array_push($availabilities, sprintf(lang('timeframe'), format_datetime($av->from), format_datetime($av->to)));
 			}
-		} else {
-			array_push($results, sprintf(lang('is_not_available'), $leader->username));
 		}
+		
+		$availability = array("status" => $user_available, "string" => sprintf(lang('is_not_available'), $leader->username), "times" => $availabilities);
 
-		echo json_encode($results);
+		echo json_encode(array("locks" => $locked, "closings" => $closed, "availability" => $availability));
 	}
 
 	

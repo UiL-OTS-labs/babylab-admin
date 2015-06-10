@@ -497,8 +497,11 @@ $lang['closing_include_past'] = "Show closings from the past";
 $lang['closing_exclude_past'] = "Don't show closings from the past";
 $lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
 $lang['lockdown']			= "Building closed completely";
-$lang['lockdown_timeframe'] = "On %s the entire building is closed from %s to %s";
-$lang['lab_closed_timeframe'] = "On %s is %s closed from %s to %s";
-$lang['is_available_for'] = "%s is available from %s to %s on %s";
-$lang['is_not_available'] = "%s is op deze dag niet beschikbaar, of heeft nog geen beschikbaarheid opgegeven.";
+$lang['lockdown_timeframe'] = "The entire building is closed at the chosen time";
+$lang['lockdown_at_times'] = "The entire building is closed at the following times at the chosen day:";
+$lang['lab_closed'] = "The lab for this experiment is closed at the chosen time";
+$lang['lab_closed_at_times'] = "The lab for this experiment is closed the following times at the chosen day:";
+$lang['is_not_available'] = "%s is not available at the chosen time, or has not yet entered their preferences";
+$lang['is_available_at_times'] = "The selected experiment leader is available at the following times at the chosen day:";
+$lang['timeframe']	= "%s to %s"
 ?>
