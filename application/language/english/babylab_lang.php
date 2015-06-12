@@ -346,6 +346,7 @@ Please make sure the participant can and wants to participate in the experiment 
 $lang['participation_exists'] = "A participation for <em>%s</em> to <em>%s</em> already exists. Please delete this participation, before you try to make a new one.";
 $lang['participation_edit_leader'] 		= "Edit leader of participation";
 $lang['participation_leader_edited'] 	= "Leader of participation successfully edited.";
+$lang['age_at_participation'] 	= "Age at participation";
 
 /* Calls */
 $lang['call']	 			= "Call";

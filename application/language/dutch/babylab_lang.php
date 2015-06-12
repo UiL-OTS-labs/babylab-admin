@@ -345,6 +345,7 @@ Zorg dat u zeker weet dat de participant wil meedoen aan het experiment en kan o
 $lang['participation_exists'] = "Er bestaat al een deelname van <em>%s</em> aan <em>%s</em>. Verwijder deze deelname, voordat u een nieuwe deelname maakt.";
 $lang['participation_edit_leader'] 		= "Leider deelname bewerken";
 $lang['participation_leader_edited'] 	= "Leider deelname succesvol bewerkt.";
+$lang['age_at_participation'] 	= "Leeftijd op testmoment";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";
