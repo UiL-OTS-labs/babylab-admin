@@ -69,6 +69,7 @@ class User extends CI_Controller
 		$data['page_title'] = lang('add_user');
 		$data['action'] = 'user/add_submit';
 		$data['new_user'] = TRUE;
+		$data['referrer'] = $this->agent->referrer();
 		$data = add_fields($data, 'user');
 
 		$this->load->view('templates/header', $data);
@@ -105,7 +106,7 @@ class User extends CI_Controller
 			$this->userModel->add_user($user);
 
 			flashdata(lang('user_added'));
-			redirect('/user/', 'refresh');
+			redirect($this->input->post('referrer'), 'refresh');
 		}
 	}
 
@@ -123,6 +124,7 @@ class User extends CI_Controller
 		$data['page_title'] = sprintf(lang('edit_user'), $user->username);
 		$data['action'] = 'user/edit_submit/' . $user_id;
 		$data['new_user'] = FALSE;
+		$data['referrer'] = $this->agent->referrer();
 		$data = add_fields($data, 'user', $user);
 
 		$this->load->view('templates/header', $data);
@@ -163,7 +165,7 @@ class User extends CI_Controller
 			}
 
 			flashdata(lang('user_edited'));
-			redirect('welcome', 'refresh');
+			redirect($this->input->post('referrer'), 'refresh');
 		}
 	}
 

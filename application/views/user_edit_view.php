@@ -13,7 +13,7 @@
 <?php } ?>
 <div class="pure-control-group">
     <?=form_label(lang('role'), 'role'); ?>
-    <?php if ($role == UserRole::Admin) { ?>
+    <?php if ($role == UserRole::Admin || is_admin()) { ?>
         <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
     <?php } ?>
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
@@ -29,6 +29,7 @@
     <?=form_radio_and_label('preferredlanguage', 'en', $preferredlanguage, lang(L::English)); ?>
     <?=form_radio_and_label('preferredlanguage', 'nl', $preferredlanguage, lang(L::Dutch)); ?>
 </div>
+<?=form_hidden('referrer', $referrer); ?>
 
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
