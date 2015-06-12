@@ -116,7 +116,7 @@ if (!function_exists('form_checkbox_and_label'))
 		$name = $name . '[]';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
-		$label_start = '<label for=' . $id .' class="pure-checkbox">';
+		$label_start = '<label for=' . $id . '>';
 		$input = form_checkbox($name, $value, set_checkbox($id, $value, $checked), 'id="' . $id . '"');
 		$label_end = '</label>';
 		$div_end = empty($div) ? '' : '</div>';
@@ -127,19 +127,21 @@ if (!function_exists('form_checkbox_and_label'))
 
 if (!function_exists('form_single_checkbox_and_label'))
 {
-	function form_single_checkbox_and_label($name, $value = NULL, $checked = FALSE, $label = '', $div = 'pure-control-group')
+	function form_single_checkbox_and_label($name, $value = NULL, $checked = FALSE, $label = '', $div = 'pure-control-group', $switch = FALSE)
 	{
 		$id = $name;
 		$text = empty($label) ? lang($name) : $label;
 		$name = $name . '[]';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
-		$label_start = '<label for=' . $id .' class="pure-checkbox">';
+		$label_start = '<label for=' . $id . '>';
 		$input = form_checkbox($name, $value, set_checkbox($id, $value, $checked), 'id="' . $id . '"');
 		$label_end = '</label>';
 		$div_end = empty($div) ? '' : '</div>';
 
-		return $div_start . $label_start . $text . $label_end . $input . $div_end;
+		$checkbox = $switch ? ($input . $label_start . $text . $label_end) : ($label_start . $text . $label_end . $input);
+
+		return $div_start . $checkbox . $div_end;
 	}
 }
 

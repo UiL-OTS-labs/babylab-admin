@@ -7,6 +7,7 @@ $lang['home'] 				= "Home";
 $lang['babylab'] 			= "Babylab Utrecht";
 $lang['action']				= "Action";
 $lang['actions']			= "Actions";
+$lang['filters']			= "Filters";
 $lang['delete']				= "Delete";
 $lang['cancel']				= "Cancel";
 $lang['back']				= "Back";
@@ -376,7 +377,7 @@ $lang['comment_action']		= "Checking any comments with priority (now: %s comment
 $lang['view_high_priority']	= "Show only high priority comments";
 $lang['view_low_priority']	= "Also show normal priority comments";
 $lang['mark_handled']		= "Mark handled";
-$lang['view_handled']		= "Also show handled comments";
+$lang['view_handled']		= "Show only handled comments";
 $lang['view_unsettled']		= "Don't show handled comments";
 
 /* Impediments */

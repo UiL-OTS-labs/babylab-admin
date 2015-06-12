@@ -7,6 +7,7 @@ $lang['home'] 				= "Home";
 $lang['babylab'] 			= "Babylab Utrecht";
 $lang['action']				= "Actie";
 $lang['actions']			= "Acties";
+$lang['filters']			= "Filters";
 $lang['delete']				= "Verwijderen";
 $lang['cancel']				= "Annuleren";
 $lang['back']				= "Terug";
@@ -375,7 +376,7 @@ $lang['comment_action']		= "Opmerkingen met prioriteit checken (nu: %s opmerking
 $lang['view_high_priority']	= "Laat alleen opmerkingen met hoge prioriteit zien";
 $lang['view_low_priority']	= "Laat ook opmerkingen met normale prioriteit zien";
 $lang['mark_handled']		= "Markeren als afgehandeld";
-$lang['view_handled']		= "Laat afgehandelde opmerkingen ook zien";
+$lang['view_handled']		= "Laat alleen afgehandelde opmerkingen zien";
 $lang['view_unsettled']		= "Verberg afgehandelde opmerkingen";
 
 /* Impediments */

@@ -14,20 +14,18 @@ class Comment extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the default page. */
-	public function index($priority_only = FALSE, $show_handled = FALSE)
+	public function index()
 	{
-		$prio_url = array('url' => 'comment/priority', 'title' => lang('view_high_priority'));
-		$no_prio_url = array('url' => 'comment', 'title' => lang('view_low_priority'));
-		$p_url = $priority_only ? $no_prio_url : $prio_url;
-
-		$handled_url = array('url' => 'comment/index/0/1', 'title' => lang('view_handled'));
-		$unsettled_url = array('url' => 'comment', 'title' => lang('view_unsettled'));
-		$h_url = $show_handled ? $unsettled_url : $handled_url;
+		$priority_only = is_array($this->input->post('view_high_priority'));
+		$handled_only = is_array($this->input->post('view_handled'));
 
 		create_comment_table();
-		$data['ajax_source'] = 'comment/table/' . $priority_only . '/' . $show_handled;
+		$data['ajax_source'] = site_url(array('comment', 'table', intval($priority_only), intval($handled_only)));
 		$data['page_title'] = lang('comments');
-		$data['action_urls'] = array($p_url, $h_url);
+		$data['filter_options'] = array(
+			array('name' => 'view_high_priority', 'value' => 1, 'checked' => $priority_only), 
+			array('name' => 'view_handled', 'value' => 1, 'checked' => $handled_only)
+			);
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
@@ -171,7 +169,7 @@ class Comment extends CI_Controller
 	// Table
 	/////////////////////////
 
-	public function table($priority_only = FALSE, $show_handled = FALSE, $participant_id = NULL)
+	public function table($priority_only = FALSE, $handled_only = FALSE, $participant_id = NULL)
 	{
 		$this->datatables->select('CONCAT(participant.firstname, " ", participant.lastname) AS p, 
 			body, timecreated, username,
@@ -181,7 +179,7 @@ class Comment extends CI_Controller
 		$this->datatables->join('user', 'user.id = comment.user_id');
 
 		if ($priority_only) $this->datatables->where('priority', TRUE);
-		if (!$show_handled) $this->datatables->where('handled IS NULL');
+		if ($handled_only) $this->datatables->where('handled IS NOT NULL');
 		if ($participant_id) $this->datatables->where('participant_id', $participant_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
