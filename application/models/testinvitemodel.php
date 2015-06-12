@@ -23,14 +23,6 @@ class TestInviteModel extends CI_Model
 		return $this->db->get('testinvite')->result();
 	}
 
-	/** Returns all not-reminded testinvites as an array */
-	public function get_not_reminded_testinvites()
-	{
-		$this->db->where('datecompleted', NULL);
-		$this->db->where('datereminder', NULL);
-		return $this->db->get('testinvite')->result();
-	}
-
 	/** Adds a testinvite to the DB */
 	public function add_testinvite($testinvite)
 	{
@@ -96,6 +88,22 @@ class TestInviteModel extends CI_Model
 		$this->db->set('datereminder', input_datetime());
 		$this->db->where('id', $testinvite_id);
 		$this->db->update('testinvite');
+	}
+
+	/** Returns all not-reminded testinvites as an array */
+	public function get_not_reminded_testinvites()
+	{
+		$this->db->where('datecompleted', NULL);
+		$this->db->where('datereminder', NULL);
+		return $this->db->get('testinvite')->result();
+	}
+
+	/** Count testinvites that need to be manually reminded */
+	public function count_to_be_reminded_testinvites()
+	{
+		$this->db->where('datecompleted', NULL);
+		$this->db->where('datereminder < ', input_datetime('-1 week'));
+		return $this->db->count_all_results('testinvite');
 	}
 
 	/////////////////////////

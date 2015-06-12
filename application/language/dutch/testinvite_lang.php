@@ -15,4 +15,7 @@ $lang['datereminder']		= "Datum herinnering";
 
 $lang['testinvite_already_exists']	= "Uitnodiging voor <em>%s</em> voor vragenlijst <em>%s</em> bestaat al.";
 $lang['testinvite_not_exists'] 		= "Er is nog geen uitnodiging voor <em>%s</em> voor vragenlijst <em>%s</em>.";
+$lang['testinvite_action'] 			= "Herinneringen versturen voor niet ingevulde vragenlijsten (nu: %s vragenlijsten te laat ingevuld).";
+$lang['show_all_testinvites'] 		= "Toon alle uitnodigingen";
+$lang['needs_manual_reminder'] 		= "Toon uitnodigingen die handmatig herinnerd moeten worden";
 ?>

@@ -83,12 +83,17 @@ class Welcome extends CI_Controller
 			}
 		}
 
+		// Count testinvites that need to be reminded manually
+		$testinvite_count = $this->testInviteModel->count_to_be_reminded_testinvites();
+		$testinvite_url = array('url' => 'testinvite/index/1', 'title' => sprintf(lang('testinvite_action'), $testinvite_count));
+
 		create_experiment_table();
 		$data['ajax_source'] = 'experiment/table/0/' . $user_id;
 		$data['page_title'] = sprintf(lang('welcome'), $user->username);
 		$data['page_info'] = 
 			sprintf(lang('info_caller'), $nr_experiments, $nr_participants) . 
-			$this->constuct_longitudinal_message($longitudinal);
+			$this->construct_longitudinal_message($longitudinal);
+		$data['action_urls'] = array($testinvite_url);
 
 		$this->load->view('templates/header', $data);
 		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Caller);
@@ -98,7 +103,7 @@ class Welcome extends CI_Controller
 	/**
 	 * Constructs a warning message for all longitudinal experiments
 	 */
-	private function constuct_longitudinal_message($longitudinal)
+	private function construct_longitudinal_message($longitudinal)
 	{
 		$messages = array();
 		if ($longitudinal)

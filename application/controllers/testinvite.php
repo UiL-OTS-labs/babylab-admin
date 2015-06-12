@@ -16,14 +16,17 @@ class TestInvite extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the default page. */
-	public function index()
+	public function index($needs_manual_reminder = FALSE)
 	{
 		$add_url = array('url' => 'testinvite/add', 'title' => lang('add_testinvite'));
+		$manual_reminder_url = array('url' => 'testinvite/index/1', 'title' => lang('needs_manual_reminder'));
+		$show_all_url = array('url' => 'testinvite/index', 'title' => lang('show_all_testinvites'));
+		$filter_url = $needs_manual_reminder ? $show_all_url : $manual_reminder_url;
 
 		create_testinvite_table();
-		$data['ajax_source'] = 'testinvite/table/';
+		$data['ajax_source'] = 'testinvite/table/' . $needs_manual_reminder;
 		$data['page_title'] = lang('testinvites');
-		$data['action_urls'] = array($add_url);
+		$data['action_urls'] = array($add_url, $filter_url);
 		$data['sort_column'] = 3; // Sort on date sent, descending
 		$data['sort_order'] = 'desc'; 
 
@@ -188,7 +191,7 @@ class TestInvite extends CI_Controller
 	// Table
 	/////////////////////////
 
-	public function table()
+	public function table($needs_manual_reminder = FALSE)
 	{
 		$this->datatables->select('test.name AS t, CONCAT(firstname, " ", lastname) AS p,
 			token, datesent, datecompleted, datereminder, testinvite.id AS id, 
@@ -204,6 +207,12 @@ class TestInvite extends CI_Controller
 		$this->datatables->edit_column('datecompleted', '$1', 'output_date(datecompleted)');
 		$this->datatables->edit_column('datereminder', '$1', 'output_date(datereminder)');
 		$this->datatables->edit_column('id', '$1', 'testinvite_actions(id)');
+
+		if ($needs_manual_reminder)
+		{
+			$this->datatables->where('datecompleted', NULL);
+			$this->datatables->where('datereminder < ', input_datetime('-1 week'));
+		}
 
 		$this->datatables->unset_column('testsurvey_id');
 		$this->datatables->unset_column('participant_id');
