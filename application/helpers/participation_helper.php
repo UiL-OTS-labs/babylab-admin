@@ -47,7 +47,7 @@ if (!function_exists('create_participation_counter_table'))
 			$p_link = participant_get_link($participant);
 			$act_link = participant_activate_link($participant);
 
-			$CI->table->add_row($p_link, $pp->count, $pp->count_column, round($pp->count_column / ($pp->count + $pp->count_column) * 100, 2) . "%", $act_link);
+			$CI->table->add_row($p_link, $pp->count, $pp->count_column, round($pp->count_column / $pp->count * 100, 2) . '%', $act_link);
 		}
 
 		return $CI->table->generate();
