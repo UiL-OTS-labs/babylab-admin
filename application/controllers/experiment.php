@@ -429,7 +429,7 @@ class Experiment extends CI_Controller
         if (!$this->upload->do_upload()) 
         {
             $this->form_validation->set_message('upload_attachment', $this->upload->display_errors());
-            return FAlSE; 
+            return FALSE; 
         }
         return TRUE;
     }
