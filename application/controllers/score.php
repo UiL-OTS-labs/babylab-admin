@@ -395,8 +395,8 @@ class Score extends CI_Controller
 	/** Shows all testcats and scores by test on the add (all) page. */
 	public function show_all_testcats()
 	{
-		$participant_id = $this->input->post('participant') || 541;
-		$test_id = $this->input->post('test') || 27;
+		$participant_id = $this->input->post('participant');
+		$test_id = $this->input->post('test');
 
 		if (empty($participant_id) || empty($test_id))
 		{
