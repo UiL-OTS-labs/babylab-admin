@@ -30,7 +30,7 @@ class SelfService extends CI_Controller
     /** Submits the e-mail and redirects based on validation. */
     public function submit($language = L::Dutch)
     {
-        // E-mail = NOT OK -> return to index
+        // E-mail = NOT OK -> return to index with error message
         if (!$this->validate_email($language))
         {
             $this->index($language);
@@ -43,14 +43,15 @@ class SelfService extends CI_Controller
             $code = $language . '/' . bin2hex(openssl_random_pseudo_bytes(8));
             $update = array('selfservicecode' => $code, 'selfservicetime' => input_datetime('+1 day'));
 
+            // TODO: does this work for lowercase/uppercase mistakes?!
             $participants = $this->participantModel->get_participants_by_email($email); 
-            // TODO: handle no participants found
             foreach ($participants as $p)
             {
                 $this->participantModel->update_participant($p->id, $update);
                 $parent_name = parent_name($p);
             }
 
+            // TODO: language-dependent messages
             $message_data['name_parent'] = $parent_name;
             $message_data['url'] = 'selfservice/auth/' . $code;
             $message = $this->load->view('mail/selfservice', $message_data, TRUE);
@@ -96,6 +97,9 @@ class SelfService extends CI_Controller
         }
     }
 
+    /** Shows the welcome page with actions to change participants. 
+     *  TODO: add link to participant registration
+     */
     public function welcome() 
     {
         $participants = $this->participantModel->get_participants_by_email(current_email());
@@ -144,6 +148,7 @@ class SelfService extends CI_Controller
             }
 
             // Display success
+            // TODO: language!
             flashdata('Gegevens succesvol bewerkt.');
             redirect('selfservice/welcome', 'refresh');
         }
@@ -167,6 +172,7 @@ class SelfService extends CI_Controller
         reset_language($language);
 
         // Set validation rules
+        // TODO: add callback participant_exists below
         $this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
 
         return $this->form_validation->run();
@@ -202,6 +208,7 @@ class SelfService extends CI_Controller
     // Callbacks
     /////////////////////////
 
+    /** Checks whether participants exists for a given e-mail address. */
     public function participant_exists($email)
     {
         $participants = $this->participantModel->get_participants_by_email($email);
