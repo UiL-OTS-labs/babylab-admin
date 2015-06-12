@@ -172,7 +172,7 @@ if (!function_exists('scores_to_csv'))
 			$testinvite = $CI->testInviteModel->get_testinvite_by_id($testinvite_id);
 			$participant = $CI->testInviteModel->get_participant_by_testinvite($testinvite);
 			
-			// Participant data
+			// Add participant data
 			$refnr = reference_number($participant);
 			$g = $participant->gender;
 			$age = age_in_months($participant, $testinvite->datecompleted);
@@ -187,13 +187,11 @@ if (!function_exists('scores_to_csv'))
 				array_unshift($csv_row, $participation->part_number);
 			}
 			
-			// Score data
+			// Add score data
 			foreach ($testcats as $testcat)
 			{
-				if(isset($scores[$testcat->id]))
-				{
-					array_push($csv_row, $scores[$testcat->id]);
-				}
+				$score = isset($scores[$testcat->id]) ? $scores[$testcat->id] : '';
+				array_push($csv_row, $score);
 			}
 			
 			// For N-CDI: total score data
