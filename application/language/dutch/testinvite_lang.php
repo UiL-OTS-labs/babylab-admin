@@ -11,7 +11,8 @@ $lang['manual_reminder_sent']	= "Herinnering voor vragenlijst <em>%s</em> verstu
 $lang['datesent']			= "Datum verstuurd";
 $lang['token']				= "LimeSurvey token";
 $lang['datecompleted']		= "Datum ingevuld";
-$lang['datereminder']		= "Datum herinnering";
+$lang['datereminder']		= "Aut. herinnering";
+$lang['datemanualreminder']	= "Handm. herinnering";
 
 $lang['testinvite_already_exists']	= "Uitnodiging voor <em>%s</em> voor vragenlijst <em>%s</em> bestaat al.";
 $lang['testinvite_not_exists'] 		= "Er is nog geen uitnodiging voor <em>%s</em> voor vragenlijst <em>%s</em>.";

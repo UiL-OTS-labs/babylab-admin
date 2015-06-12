@@ -11,7 +11,7 @@ if (!function_exists('create_testinvite_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('actions'));
+		$heading = array(lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('datemanualreminder'), lang('actions'));
 		if (empty($id)) array_unshift($heading, lang('testsurvey'));
 		$CI->table->set_heading($heading);
 	}
@@ -24,7 +24,7 @@ if (!function_exists('create_testinvite_participant_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('testsurvey'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('actions'));
+		$heading = array(lang('testsurvey'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('datemanualreminder'), lang('actions'));
 		$CI->table->set_heading($heading);
 	}
 }
@@ -36,7 +36,7 @@ if (!function_exists('create_testinvite_experiment_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('testsurvey'), lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('actions'));
+		$heading = array(lang('testsurvey'), lang('participant'), lang('token'), lang('datesent'), lang('datecompleted'), lang('datereminder'), lang('datemanualreminder'), lang('actions'));
 		$CI->table->set_heading($heading);
 	}
 }

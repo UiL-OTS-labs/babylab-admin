@@ -11,7 +11,8 @@ $lang['manual_reminder_sent']	= "Reminder for survey <em>%s</em> sent to <em>%s<
 $lang['datesent']			= "Date sent";
 $lang['token']				= "LimeSurvey token";
 $lang['datecompleted']		= "Date completed";
-$lang['datereminder']		= "Date reminded";
+$lang['datereminder']		= "Aut. reminder";
+$lang['datemanualreminder']	= "Man. reminder";
 
 $lang['testinvite_already_exists']	= "An invitation for <em>%s</em> for survey <em>%s</em> already exists.";
 $lang['testinvite_not_exists'] 		= "No invitation for <em>%s</em> for survey <em>%s</em> exists yet.";

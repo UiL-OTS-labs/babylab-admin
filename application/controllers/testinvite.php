@@ -128,7 +128,7 @@ class TestInvite extends CI_Controller
 		$this->email->message($message);
 		$this->email->send();
 
-		$this->testInviteModel->set_reminded($testinvite->id);
+		$this->testInviteModel->set_manually_reminded($testinvite->id);
 
 		// Send reminder
 		flashdata(sprintf(lang('manual_reminder_sent'), testsurvey_name($testsurvey), $participant->email));
@@ -194,7 +194,7 @@ class TestInvite extends CI_Controller
 	public function table($needs_manual_reminder = FALSE)
 	{
 		$this->datatables->select('test.name AS t, CONCAT(firstname, " ", lastname) AS p,
-			token, datesent, datecompleted, datereminder, testinvite.id AS id, 
+			token, datesent, datecompleted, datereminder, datemanualreminder, testinvite.id AS id, 
 			testsurvey.id AS testsurvey_id, participant_id', FALSE);
 		$this->datatables->from('testinvite');
 		$this->datatables->join('participant', 'participant.id = testinvite.participant_id');
@@ -206,12 +206,14 @@ class TestInvite extends CI_Controller
 		$this->datatables->edit_column('datesent', '$1', 'output_date(datesent)');
 		$this->datatables->edit_column('datecompleted', '$1', 'output_date(datecompleted)');
 		$this->datatables->edit_column('datereminder', '$1', 'output_date(datereminder)');
+		$this->datatables->edit_column('datemanualreminder', '$1', 'output_date(datemanualreminder)');
 		$this->datatables->edit_column('id', '$1', 'testinvite_actions(id)');
 
 		if ($needs_manual_reminder)
 		{
 			$this->datatables->where('datecompleted', NULL);
 			$this->datatables->where('datereminder < ', input_datetime('-1 week'));
+			$this->datatables->where('datemanualreminder', NULL);
 		}
 
 		$this->datatables->unset_column('testsurvey_id');
