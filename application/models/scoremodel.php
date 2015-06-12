@@ -156,6 +156,18 @@ class ScoreModel extends CI_Model
 		return $this->db->get_where('testcat', array('id' => $score->testcat_id))->row();
 	}
 
+	/** Returns the score for a test category and an array fo testinvite ids */
+	public function get_score($testcat_id, $testinvite_ids)
+	{
+		# assume no testinvite ids that appear in an emtpy array can be found
+		if(empty($testinvite_ids)) return NULL;
+
+		$this->db->select('score');
+		$this->db->where('testcat_id', $testcat_id);
+		$this->db->where_in('testinvite_id', $testinvite_ids);
+		return $this->db->get()->row();
+	}
+
 	/////////////////////////
 	// Tests
 	/////////////////////////

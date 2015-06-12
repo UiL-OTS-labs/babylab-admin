@@ -395,8 +395,8 @@ class Score extends CI_Controller
 	/** Shows all testcats and scores by test on the add (all) page. */
 	public function show_all_testcats()
 	{
-		$participant_id = $this->input->post('participant');
-		$test_id = $this->input->post('test');
+		$participant_id = $this->input->post('participant') || 541;
+		$test_id = $this->input->post('test') || 27;
 
 		if (empty($participant_id) || empty($test_id))
 		{
@@ -411,12 +411,23 @@ class Score extends CI_Controller
 			echo lang('no_results_found');
 			return;
 		}
+		
+		// Prepare test invites
+		$testinvites = $this->testInviteModel->get_testinvites_by_participant($participant_id);
+		$testinvite_ids = array();
+		if($testinvites)
+		{
+			foreach($testinvites as $key => $tiv)
+			{
+				array_push($testinvite_ids, $key);
+			}
+		}
 
 		echo '<div class="pure-g-r">';
 
 		foreach ($testcats as $tc)
 		{
-			$score = $this->scoreModel->get_score($tc->id, $participant_id);
+			$score = $this->scoreModel->get_score($tc->id, $testinvite_ids);
 			$value = $score ? $score->score : '';
 
 			echo '<div class="pure-u-1-3">';

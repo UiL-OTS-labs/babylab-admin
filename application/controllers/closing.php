@@ -120,7 +120,7 @@ class Closing extends CI_Controller
     /** Checks whether the given date is within bounds of an existing closing for this location */
     public function check_within_bounds($date)
     {
-        $locations = ($this->input->post('lockdown')) ? array(-1) : $this->input->post('location');
+        $locations = ($this->input->post('lockdown')) ? array(null) : $this->input->post('location');
         if($locations)
         {
             foreach($locations as $location_id)

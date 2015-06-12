@@ -59,8 +59,9 @@ $lang['register_info']		= "Your registration has been processed.
 $lang['deregister']			= "Deregister";
 $lang['deregister_finish']	= "Thank you for your deregistration!";
 $lang['deregister_info']	= "Your request for deregistering will be processed. In case we have some questions for you regarding your deregistration, we may contact you.";
+$lang['deregister_pageintro'] = "You can use this form to deregister your child as participant of experiments of the Babylab Utrecht";
 
-$lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "Click " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . "  to return to the Babylab Utrecht website.</p>";
 
 /* Login page */
 $lang['login'] 				= "Log in";
@@ -497,8 +498,11 @@ $lang['closing_include_past'] = "Show closings from the past";
 $lang['closing_exclude_past'] = "Don't show closings from the past";
 $lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
 $lang['lockdown']			= "Building closed completely";
-$lang['lockdown_timeframe'] = "On %s the entire building is closed from %s to %s";
-$lang['lab_closed_timeframe'] = "On %s is %s closed from %s to %s";
-$lang['is_available_for'] = "%s is available from %s to %s on %s";
-$lang['is_not_available'] = "%s is op deze dag niet beschikbaar, of heeft nog geen beschikbaarheid opgegeven.";
+$lang['lockdown_timeframe'] = "The entire building is closed at the chosen time";
+$lang['lockdown_at_times'] = "The entire building is closed at the following times at the chosen day:";
+$lang['lab_closed'] = "The lab for this experiment is closed at the chosen time";
+$lang['lab_closed_at_times'] = "The lab for this experiment is closed the following times at the chosen day:";
+$lang['is_not_available'] = "%s is not available at the chosen time, or has not yet entered their preferences";
+$lang['is_available_at_times'] = "The selected experiment leader is available at the following times at the chosen day:";
+$lang['timeframe']	= "%s to %s"
 ?>

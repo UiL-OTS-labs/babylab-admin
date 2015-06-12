@@ -62,26 +62,57 @@
 		{
 			var time = $('[name="appointment"]')[0].value;
 			var date = time.split(" ")[0].split("-");
-			var date = date[2] + "-" + date[1] + "-" + date[0];
+			var date = date[2] + "-" + date[1] + "-" + date[0] + "T" + time.split(" ")[1] + ":00";
+
 			var leader_id = $("#leader").val();
 			var url = "participation/check_moment/" + date + "/" + <?=$experiment->id;?> + "/" + leader_id;
-
 			var alertbox = $('#alertboxChosenTime');
-			
 
 			$.ajax({
 				dataType: "json",
 				url: url,
 				success: function(data){
+					// console.log("hmm");
 					alertbox.html("<ul>")
-					for(var i = 0; i < data.length; i++)
+					alertbox.css('display', 'none');
+
+					if (data["locks"]["status"])
 					{
 						alertbox.css('display', 'block');
-						alertbox.append("<li>" + data[i] + "</li>");
+						alertbox.append("<p><b>" + data["locks"]["string"] + "<b>");
+						alertbox.append("<?=lang('lockdown_at_times');?><ul>");
+						for(var i = 0; i < data["locks"]["times"].length; i++)
+						{
+							alertbox.append("<li style='margin-left: 30px;'>" + data["locks"]["times"][i] + "</li>");
+						}
+						alertbox.append("</ul></p>");
 					}
-					alertbox.append("</ul>");
+
+					if(data["closings"]["status"])
+					{
+						alertbox.css('display', 'block');
+						alertbox.append("<p><b>" + data["closings"]["string"] + "<b>");
+						alertbox.append("<?=lang('lab_closed_at_times');?><ul>");
+						for(var i = 0; i < data["locks"]["times"].length; i++)
+						{
+							alertbox.append("<li style='margin-left: 30px;'>" + data["closings"]["times"][i] + "</li>");
+						}
+						alertbox.append("</ul></p>");
+					}
+
+					if(data["availability"]["status"])
+					{
+						alertbox.css('display', 'block');
+						alertbox.append("<p><b>" + data["availability"]["string"] + "<b>");
+						alertbox.append("<?=lang('is_available_at_times');?><ul>");
+						for(var i = 0; i < data["availability"]["times"].length; i++)
+						{
+							alertbox.append("<li style='margin-left: 30px;'>" + data["availability"]["times"][i] + "</li>");
+						}
+						alertbox.append("</ul></p>");
+					}
 				},
-				error : function(){console.log("error");}
+				error : function(error){console.log(error);}
 			});
 		}
 
