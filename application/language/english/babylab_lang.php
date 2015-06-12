@@ -113,7 +113,7 @@ $lang['reschedule_sent']	= "A confirmation e-mail of the rescheduling was sent t
 $lang['request_participation_sent']	= "A participation request was sent to <em>%s</em>.";
 /* Manual deactivation of participant */
 $lang['deac_pp_subject'] = "Babylab Utrecht: Participant deactivated";
-$lang['deac_pp_body'] = "A participant was deactivated: %s (tel.: %s) by %s. You can undo this deactivation in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
+$lang['deac_pp_body'] = "A participant was deactivated: %s (tel.: %s) by %s. You can undo this action in the administration interface, <a href=\"%s\">click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 
 
 /* Experiments */

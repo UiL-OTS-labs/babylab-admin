@@ -113,7 +113,7 @@ $lang['reschedule_sent']	= "Bevestigingsmail van verzetten verstuurd naar <em>%s
 $lang['request_participation_sent']	= "Verzoek tot deelname verstuurd naar <em>%s</em>.";
 /* Manual deactivation of participant */
 $lang['deac_pp_subject'] = "Babylab Utrecht: Proefpersoon gedeactiveerd";
-$lang['deac_pp_body'] = "Er is een proefpersoon gedeactiveerd: %s (tel.: %s) door %s. U kunt deze activatie ongedaan maken via de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
+$lang['deac_pp_body'] = "Er is een proefpersoon gedeactiveerd: %s (tel.: %s) door %s. U kunt deze actie ongedaan maken via de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 
 /* Experiments */
 $lang['experiment'] 		= "Experiment";

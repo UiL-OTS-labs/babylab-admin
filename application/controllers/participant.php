@@ -215,7 +215,7 @@ class Participant extends CI_Controller
 			// Don't activate, but send an e-mail to all admins to activate
 			$this->participantModel->deactivate($participant_id, DeactivateReason::NewParticipant);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
-			$url = $this->config->site_url() . "participant/get/" . $participant_id;
+			$url = $this->config->site_url() . 'participant/get/' . $participant_id;
 			$users = $this->userModel->get_all_admins();
 			foreach ($users as $user)
 			{
@@ -534,11 +534,11 @@ class Participant extends CI_Controller
 	/** Deactivates the specified participant */
 	public function deactivate($participant_id)
 	{
-		$cur_user = $this->userModel->get_user_by_id($this->session->userdata('user_id'));
+		$this->participantModel->deactivate($participant_id, DeactivateReason::Manual);
 		$p = $this->participantModel->get_participant_by_id($participant_id);
 
 		// Inform all admins of this deactivation
-		$url = $this->config->site_url() . "participant/get/" . $participant_id;
+		$url = $this->config->site_url() . 'participant/get/' . $participant_id;
 		$users = $this->userModel->get_all_admins();
 		foreach ($users as $user)
 		{
@@ -547,11 +547,11 @@ class Participant extends CI_Controller
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-			$this->email->subject(lang('reg_pp_subject'));
+			$this->email->subject(lang('dereg_pp_subject'));
 
 			$message = sprintf(lang('mail_heading'), $user->username);
 			$message .= br(2);
-			$message .= sprintf(lang('deac_pp_body'), name($p), $p->phone, $cur_user->username, $url, $url);
+			$message .= sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url);
 			$message .= br(2);
 			$message .= lang('mail_ending');
 			$message .= br(2);
