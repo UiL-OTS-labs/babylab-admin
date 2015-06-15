@@ -68,7 +68,7 @@ if (!function_exists('current_language'))
 
 if (!function_exists('current_email'))
 {
-	/** Returns the preferred language of the current user */
+	/** Returns the current users email*/
 	function current_email()
 	{
 		$CI =& get_instance();

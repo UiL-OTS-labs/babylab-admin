@@ -88,6 +88,29 @@ $lang['not_loggedin_error'] = "Your session has ended. Please login again";
 $lang['mail_heading']		= "Dear %s,";
 $lang['mail_ending']		= "Thanks, Babylab Utrecht";
 $lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
+
+/* Selfservice Mails */
+$lang['selfservice_mail_subject'] = "Babylab Utrecht: Link for selfservice";
+$lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab Utrecht een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kinderen aan- en afmelden voor het Babylab Utrecht en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
+$lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
+$lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor een dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s of mailen naar: %s.";
+$lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
+$lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
+
+/* Other Selfservice */
+$lang['selfservice_edit_success'] = "The changes were saved successfully";
+$lang['selfservice_incorrect_url'] = "Incorrect URL or request timed out. Please send a new request.";
+$lang['selfservice_mail_sent'] = "An email with access instructions for the self service portal was sent to %s";
+$lang['selfservice_welcome'] = "Selfservice Babylab Utrecht";
+
+$lang['selfservice_explanation'] = "On this page, you can change your personal contact information and (when necessary) unsubscribe your children from experiments of Babylab Utrecht or other babylabs";
+$lang['selfservice_contact_heading'] = "Your contact information";
+$lang['selfservice_pps_heading'] = "Participating children";
+$lang['child'] = "child";
+$lang['other_babylabs'] = "Other Babylabs";
+$lang['save_changes'] = "Save changes";
+$lang['selfservice_mail_comments_to'] = "If you have other comments, remarks or alterations, you can also email %s.";
+
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";
 $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:";

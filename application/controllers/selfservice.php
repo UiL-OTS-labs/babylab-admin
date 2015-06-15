@@ -44,6 +44,7 @@ class SelfService extends CI_Controller
             $update = array('selfservicecode' => $code, 'selfservicetime' => input_datetime('+1 day'));
 
             // TODO: does this work for lowercase/uppercase mistakes?!
+            // Ans: Depends on the SQL settings. On my machine it does
             $participants = $this->participantModel->get_participants_by_email($email); 
             foreach ($participants as $p)
             {
@@ -52,6 +53,8 @@ class SelfService extends CI_Controller
             }
 
             // TODO: language-dependent messages
+            // Fix: using lang(). Also. BABYLAB_TEAM constant is all Dutch. Made it lang('babylab_team') as well
+            //  Nothing's been translated yet, though. As Maartje is going to do the text, both languages show Dutch now
             $message_data['name_parent'] = $parent_name;
             $message_data['url'] = 'selfservice/auth/' . $code;
             $message = $this->load->view('mail/selfservice', $message_data, TRUE);
@@ -59,11 +62,11 @@ class SelfService extends CI_Controller
             $this->email->clear();
             $this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
             $this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
-            $this->email->subject('Babylab Utrecht: Link voor selfservice');
+            $this->email->subject(lang('selfservice_mail_subject'));
             $this->email->message($message);
             $this->email->send();
 
-            flashdata(sprintf('E-mail voor toegang selfservice verstuurd naar %s', $email));
+            flashdata(sprintf(lang('selfservice_mail_sent'), $email));
             redirect('selfservice');
         }
     }
@@ -92,23 +95,35 @@ class SelfService extends CI_Controller
         // If there is no database result found, destroy the session
         else
         {
-            flashdata('Incorrect URL or request timed out. Please send a new request.', FALSE);
+            flashdata(lang('selfservice_incorrect_url'), FALSE);
             redirect('selfservice');
         }
     }
 
     /** Shows the welcome page with actions to change participants. 
      *  TODO: add link to participant registration
+     *    Done
      */
     public function welcome() 
     {
+        if(!current_email())
+        {
+            flashdata(lang('selfservice_incorrect_url'), FALSE);
+            redirect('selfservice');
+        }
+
         $participants = $this->participantModel->get_participants_by_email(current_email());
         $first = $participants[0];
 
+        $url = (current_language() == L::Dutch) ? 'aanmelden' : 'signup';
+
+        $register_url = array('url' => $url, 'title' => lang('reg_pp'));
         $data['page_title'] = lang('login');
         $data['current_language'] = current_language();
         $data['participants'] = $participants;
         $data['participant'] = $first;
+        $data['action_urls'] = array($register_url);
+        
         $data = add_fields($data, 'participant', $first);
         
         $this->load->view('templates/register_header', $data);
@@ -149,7 +164,7 @@ class SelfService extends CI_Controller
 
             // Display success
             // TODO: language!
-            flashdata('Gegevens succesvol bewerkt.');
+            flashdata(lang('selfservice_edit_success'));
             redirect('selfservice/welcome', 'refresh');
         }
     }
@@ -172,8 +187,7 @@ class SelfService extends CI_Controller
         reset_language($language);
 
         // Set validation rules
-        // TODO: add callback participant_exists below
-        $this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email|callback_participant_exists');
 
         return $this->form_validation->run();
     }
