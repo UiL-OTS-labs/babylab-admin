@@ -110,6 +110,7 @@ $lang['child'] = "child";
 $lang['other_babylabs'] = "Other Babylabs";
 $lang['save_changes'] = "Save changes";
 $lang['selfservice_mail_comments_to'] = "If you have other comments, remarks or alterations, you can also email %s.";
+$lang['selfservice_reg_pp'] = "Register a new child";
 
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";

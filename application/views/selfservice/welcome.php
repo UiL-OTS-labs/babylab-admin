@@ -44,23 +44,10 @@ $(function() {
 ?>
 
 <div class="pure-controls">
-<?=form_submit('submit', lang('save_changes'), 'class="pure-button pure-button-primary"'); ?>
+<?=form_submit('submit', lang('save_changes'), 'class="pure-button pure-button-primary"'); ?> 
+<?=form_submit('register', lang('selfservice_reg_pp'), 'class="pure-button pure-button-primary"'); ?>
 </div>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
 
-<div id="actions">
-    <?php
-    if (isset($action_urls)) 
-    {
-        echo heading(lang('actions'), 3);
-        $actions = array();
-        foreach ($action_urls as $action_url) 
-        {
-            array_push($actions, anchor($action_url['url'], $action_url['title'], array('title' => $action_url['title'])));
-        }
-        echo ul($actions);
-    }
-    ?>
-</div>
-<p><?=sprintf(lang('selfservice_mail_comments_to'), mailto(BABYLAB_MANAGER_EMAIL));?>
+<p><?=sprintf(lang('selfservice_mail_comments_to'), mailto(BABYLAB_MANAGER_EMAIL)); ?></p>

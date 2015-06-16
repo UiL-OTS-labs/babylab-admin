@@ -175,12 +175,27 @@ class Participant extends CI_Controller
 	{
 		reset_language($language);
 
+		$participant_id = $this->session->userdata('participant_id');
+		$participant = $participant_id ? $this->participantModel->get_participant_by_id($participant_id) : NULL;
+
 		$data['page_title'] = lang('reg_pp');
 		$data['action'] = $language === L::English ? '/signup_submit/' : '/aanmelden_versturen/';
 		$data['current_language'] = $language;
-		$data = add_fields($data, 'participant');
+		$data = add_fields($data, 'participant', $participant);
 
-		// dob is a bit of a nasty one
+		// Empty fields related to participant if $participant_id is set
+		if ($participant_id) 
+		{
+			$data['firstname'] = '';
+			$data['lastname'] = '';
+			$data['gender'] = '';
+			$data['dob'] = '';
+			$data['birthweight'] = '';
+			$data['pregnancyweeks'] = '';
+			$data['pregnancydays'] = '';
+		}
+
+		// Set standard fields
 		$data['dob'] = '';
 		$data['comment'] = $this->input->post('comment');
 		$data['is_registration'] = TRUE;

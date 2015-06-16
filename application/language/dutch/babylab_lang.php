@@ -99,7 +99,7 @@ $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 
 /* Other Selfservice */
 $lang['selfservice_edit_success'] = "De gegevens zijn opgeslagen";
-$lang['selfservice_incorrect_url'] = "Incorrecte URL of niet langer geldig. Vraag opnieuw toegang aan door uw e-mailadres in te voeren";
+$lang['selfservice_incorrect_url'] = "Incorrecte URL of niet langer geldig. Vraag opnieuw toegang aan door uw e-mailadres in te voeren.";
 $lang['selfservice_mail_sent'] = "Een e-mail met toegangscode en instructies is verstuurd naar %s";
 $lang['selfservice_welcome'] = "Selfservice Babylab Utrecht";
 $lang['selfservice_explanation'] = "Op deze pagina kunt u uw gegevens wijzigen en (indien gewenst) uw kinderen uitschrijven voor onderzoek van het BabyLab Utrecht en andere Babylabs.";
@@ -109,6 +109,7 @@ $lang['child'] = "kind";
 $lang['other_babylabs'] = "Andere Babylabs";
 $lang['save_changes'] = "Wijzigingen opslaan";
 $lang['selfservice_mail_comments_to'] = "Als u andere opmerkingen of wijzigingen door wilt geven, kunt u ook e-mailen naar %s.";
+$lang['selfservice_reg_pp'] = "Nieuw kind aanmelden";
 
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
