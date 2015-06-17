@@ -43,8 +43,6 @@ class SelfService extends CI_Controller
             $code = $language . '/' . bin2hex(openssl_random_pseudo_bytes(8));
             $update = array('selfservicecode' => $code, 'selfservicetime' => input_datetime('+1 day'));
 
-            // TODO: does this work for lowercase/uppercase mistakes?!
-            // Ans: Depends on the SQL settings. On my machine it does
             $participants = $this->participantModel->get_participants_by_email($email); 
             foreach ($participants as $p)
             {
@@ -52,9 +50,6 @@ class SelfService extends CI_Controller
                 $parent_name = parent_name($p);
             }
 
-            // TODO: language-dependent messages
-            // Fix: using lang(). Also. BABYLAB_TEAM constant is all Dutch. Made it lang('babylab_team') as well
-            //  Nothing's been translated yet, though. As Maartje is going to do the text, both languages show Dutch now
             $message_data['name_parent'] = $parent_name;
             $message_data['url'] = 'selfservice/auth/' . $code;
             $message = $this->load->view('mail/selfservice', $message_data, TRUE);
@@ -84,8 +79,10 @@ class SelfService extends CI_Controller
 
             // Set session data
             $session_data = array(
-                    'email'     => $participants[0]->email,
-                    'language'  => $language,
+                    'email'             => $participants[0]->email,
+                    'participant_id'    => $participants[0]->id,
+                    'language'          => $language,
+                    'selfservice'       => TRUE,
             );
             $this->session->set_userdata($session_data);
 
@@ -100,13 +97,10 @@ class SelfService extends CI_Controller
         }
     }
 
-    /** Shows the welcome page with actions to change participants. 
-     *  TODO: add link to participant registration
-     *    Done
-     */
+    /** Shows the welcome page with actions to change participants. */
     public function welcome() 
     {
-        if(!current_email())
+        if (!$this->session->userdata('selfservice'))
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
             redirect('selfservice');
@@ -115,14 +109,10 @@ class SelfService extends CI_Controller
         $participants = $this->participantModel->get_participants_by_email(current_email());
         $first = $participants[0];
 
-        $url = (current_language() == L::Dutch) ? 'aanmelden' : 'signup';
-
-        $register_url = array('url' => $url, 'title' => lang('reg_pp'));
         $data['page_title'] = lang('login');
         $data['current_language'] = current_language();
         $data['participants'] = $participants;
         $data['participant'] = $first;
-        $data['action_urls'] = array($register_url);
         
         $data = add_fields($data, 'participant', $first);
         
@@ -134,38 +124,45 @@ class SelfService extends CI_Controller
     /** Submits the username and password and redirects based on validation. */
     public function welcome_submit()
     {
-        // Run validation
-        if (!$this->validate_participant())
+        // If register button is clicked, go to registration
+        if ($this->input->post('register'))
         {
-            // If not succeeded, show form again with error messages
-            $this->welcome();
+            redirect(current_language() == L::Dutch ? 'aanmelden' : 'signup', 'refresh');
         }
-        else
+        // Else, run validation
+        else 
         {
-            // If succeeded, update the participants
-            $participant = $this->post_participant();
-
-            $participants = $this->participantModel->get_participants_by_email(current_email()); 
-            foreach ($participants as $p)
+            if (!$this->validate_participant())
             {
-                $activate = $this->input->post('active_' . $p->id); 
-                if ($p->activated && !$activate)
-                {
-                    $this->participantModel->deactivate($p->id, DeactivateReason::SelfService);
-                }
-                else if (!$p->activated && $activate)
-                {
-                    $this->participantModel->activate($p->id);
-                }
-
-                $participant['otherbabylabs'] = $this->input->post('other_' . $p->id); 
-                $this->participantModel->update_participant($p->id, $participant);
+                // If not succeeded, show form again with error messages
+                $this->welcome();
             }
+            else
+            {
+                // If succeeded, update the participants
+                $participant = $this->post_participant();
 
-            // Display success
-            // TODO: language!
-            flashdata(lang('selfservice_edit_success'));
-            redirect('selfservice/welcome', 'refresh');
+                $participants = $this->participantModel->get_participants_by_email(current_email()); 
+                foreach ($participants as $p)
+                {
+                    $activate = $this->input->post('active_' . $p->id); 
+                    if ($p->activated && !$activate)
+                    {
+                        $this->participantModel->deactivate($p->id, DeactivateReason::SelfService);
+                    }
+                    else if (!$p->activated && $activate)
+                    {
+                        $this->participantModel->activate($p->id);
+                    }
+
+                    $participant['otherbabylabs'] = $this->input->post('other_' . $p->id); 
+                    $this->participantModel->update_participant($p->id, $participant);
+                }
+
+                // Display success
+                flashdata(lang('selfservice_edit_success'));
+                redirect('selfservice/welcome', 'refresh');
+            }
         }
     }
 
