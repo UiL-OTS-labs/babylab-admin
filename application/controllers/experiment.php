@@ -450,7 +450,14 @@ class Experiment extends CI_Controller
 		$this->datatables->from('experiment');
 
 		if (!$archived) $this->datatables->where('archived', $archived);
-		if ($caller_id || $leader_id) $this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+		if ($caller_id || $leader_id) {
+			if($experiment_ids)
+			{
+				$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
+			} else {
+				$this->datatables->where('id is NULL');
+			}
+		}
 
 		$this->datatables->edit_column('name', '$1', 'experiment_get_link_by_id(id)');
 		$this->datatables->edit_column('agefrommonths', '$1', 'age_range_by_id(id)');
