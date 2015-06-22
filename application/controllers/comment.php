@@ -135,7 +135,7 @@ class Comment extends CI_Controller
 		$participant = $this->participantModel->get_participant_by_id($participant_id);
 
 		create_comment_table();
-		$data['ajax_source'] = 'comment/table/0/1/' . $participant->id;
+		$data['ajax_source'] = 'comment/table/0/0/' . $participant->id;
 		$data['page_title'] = sprintf(lang('comments_for'), name($participant));
 
 		$this->load->view('templates/header', $data);
