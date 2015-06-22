@@ -8,7 +8,7 @@ class TestCat extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
 	}
 
 	/////////////////////////
@@ -170,7 +170,7 @@ class TestCat extends CI_Controller
 				
 			return array(
 				'test_id'	=> $this->input->post('test'),
-				'parent_id'	=> $parent == 'null' ? NULL : $parent,
+				'parent_id'	=> $parent == '0' ? NULL : $parent,
 				'name'		=> $this->input->post('name'),
 				'code' 		=> $this->input->post('code')
 			);
@@ -188,10 +188,10 @@ class TestCat extends CI_Controller
 	// Callbacks
 	/////////////////////////
 
-	/** Checks whether the given parameter is higher than 0 */
+	/** Checks whether the given parameter is higher or equal to 0 */
 	public function not_zero($value)
 	{
-		if (intval($value) <= 0)
+		if (intval($value) < 0)
 		{
 			$this->form_validation->set_message('not_zero', lang('isset'));
 			return FALSE;

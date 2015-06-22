@@ -1,6 +1,6 @@
 $(function() {
 	$('#test').change(function() {
-		var id = $(this).val();
+		var id = parseInt($(this).val());
 		
 		$.post('testcat/filter_testcats', {test_id: id}, function(data) {
 			$('#testcat').html(data); 
@@ -9,4 +9,6 @@ $(function() {
 			$('#parent_testcat').prop('disabled', false); 
 		});
 	});
+
+	$('#test').change();
 });

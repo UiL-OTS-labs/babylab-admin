@@ -34,7 +34,7 @@ if (!function_exists('testcat_options'))
 			$t_options[$t->id] = testcat_code_name($t);
 		}
 		asort($t_options);
-		return $empty ? array('null' => lang('none')) + $t_options : $t_options;
+		return $empty ? array('0' => lang('none')) + $t_options : $t_options;
 	}
 }
 
