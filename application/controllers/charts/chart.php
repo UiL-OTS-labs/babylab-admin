@@ -26,8 +26,8 @@ class Chart extends CI_Controller
 		$data = $this->set_test_data($data, $test);
 		$data = $this->set_token_data($data, $token);
 
-		$this->load->view($test->code . '/header', $data);
-		$this->load->view($test->code . '/home', $data);
+		$this->load->view($this->view_code($test, 'header'), $data);
+		$this->load->view($this->view_code($test, 'home'), $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -73,8 +73,8 @@ class Chart extends CI_Controller
 			$data['ncdi_prev_descs'] = $prev_descs;
 		}
 
-		$this->load->view($test->code . '/header', $data);
-		$this->load->view($test->code . '/scores', $data);
+		$this->load->view($this->view_code($test, 'header'), $data);
+		$this->load->view($this->view_code($test, 'scores'), $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -86,8 +86,8 @@ class Chart extends CI_Controller
 		$data = $this->set_test_data($data, $test);
 		$data = $this->set_token_data($data, $token);
 
-		$this->load->view($test->code . '/header', $data);
-		$this->load->view($test->code . '/compare_percentiles', $data);
+		$this->load->view($this->view_code($test, 'header'), $data);
+		$this->load->view($this->view_code($test, 'compare_percentiles'), $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -99,8 +99,8 @@ class Chart extends CI_Controller
 		$data = $this->set_test_data($data, $test);
 		$data = $this->set_token_data($data, $token);
 
-		$this->load->view($test->code . '/header', $data);
-		$this->load->view($test->code . '/vs_scores', $data);
+		$this->load->view($this->view_code($test, 'header'), $data);
+		$this->load->view($this->view_code($test, 'vs_scores'), $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -112,8 +112,8 @@ class Chart extends CI_Controller
 		$data = $this->set_test_data($data, $test);
 		$data = $this->set_token_data($data, $token);
 
-		$this->load->view($test->code . '/header', $data);
-		$this->load->view($test->code . '/more', $data);
+		$this->load->view($this->view_code($test, 'header'), $data);
+		$this->load->view($this->view_code($test, 'more'), $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -176,6 +176,11 @@ class Chart extends CI_Controller
 	/////////////////////////
 	// Helpers
 	/////////////////////////
+
+	private function view_code($test, $page)
+	{
+		return substr($test->code, 0, 4) . '/' . $page;
+	}
 
 	private function add_comments_to_score($scores, $participant)
 	{
