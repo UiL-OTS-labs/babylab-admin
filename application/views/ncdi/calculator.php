@@ -28,12 +28,16 @@
 		<li>De applicatie verwacht als input een <em>.csv</em>-bestand, gescheiden door ofwel komma's (,) of puntkomma's (;).</li>
 		<li>Zo'n bestand kun je laten uitvoeren door een spreadsheetprogramma als Microsoft Excel of LibreOffice (kies <em>Opslaan als...</em>).</li>
 		<li>De applicatie verwacht de volgende kolommen als invoer:
-		<?=ol(array('proefpersoon', 'geboortedatum', 'datum invullen', 'geslacht (M/F)', 'totaalscore begrip', 'totaalscore productie'))?>
+		<?=ol(array('proefpersoon', 'geboortedatum', 'datum invullen', 'geslacht (M/F)',
+			'totaalscore begrip', 'totaalscore productie', 'totaalscore woordvormen', 'totaalscore zinnen'))?>
 		</li>
 		<li>De uitvoer van deze applicatie is een <em>.csv</em>-bestand, dat je weer kunt inlezen met een spreadsheetprogramma.</li>
 		<li>De applicatie geeft de volgende kolommen als uitvoer:		
-		<?=ol(array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)', 
-			'percentielscore begrip', 'percentielscore productie', 'taalleeftijd begrip', 'taalleeftijd productie'))?>
+		<?=ol(array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)',
+			'percentielscore begrip', 'taalleeftijd begrip',
+			'percentielscore productie', 'taalleeftijd productie',
+			'percentielscore woordvormen', 'taalleeftijd woordvormen',
+			'percentielscore zinnen', 'taalleeftijd zinnen'))?>
 		</li>
 		</ul>
 		

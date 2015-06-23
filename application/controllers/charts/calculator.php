@@ -31,7 +31,7 @@ class Calculator extends CI_Controller
 		$data['page_title'] = 'Upload je bestand hier';
 		$data['action'] = 'charts/calculator/submit/';
 
-		$this->load->view('ncdi_wz/calculator', $data);
+		$this->load->view('ncdi/calculator', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -60,7 +60,8 @@ class Calculator extends CI_Controller
 		else
 		{
 			$data = $this->upload->data();
-			$this->import_csv($data['full_path']);
+			$csv = $this->import_csv($data['full_path']);		
+			force_download('ncdi_calculator_output.csv', $csv);
 		}
 	}
 
@@ -74,8 +75,11 @@ class Calculator extends CI_Controller
 		$out = fopen('php://output', 'w');
 		ob_start();
 
-		fputcsv($out, array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)', 
-			'percentielscore begrip', 'percentielscore productie', 'taalleeftijd begrip', 'taalleeftijd productie'), ';');
+		fputcsv($out, array('proefpersoon', 'leeftijd in maanden', 'leeftijd in maanden en dagen (m;d)',
+			'percentielscore begrip', 'taalleeftijd begrip',
+			'percentielscore productie', 'taalleeftijd productie',
+			'percentielscore woordvormen', 'taalleeftijd woordvormen',
+			'percentielscore zinnen', 'taalleeftijd zinnen'), ';');
 		
 		$separator = $this->input->post('separator');
 
@@ -86,7 +90,7 @@ class Calculator extends CI_Controller
 				$row++;
 				if ($row != 1 && $data !== array(NULL)) // skip header and empties
 				{
-					if (count($data) == 6)
+					if (count($data) == 8)
 					{
 						// TODO: remove duplicate code below (refer to functions age_in_months)
 						$diff = date_diff(new DateTime($data[1]), new DateTime($data[2]));
@@ -100,7 +104,9 @@ class Calculator extends CI_Controller
 							'ageinmonthsdays' 	=> $ageinmonthsdays,
 							'gender'		=> $data[3] === 'M' ? Gender::Male : Gender::Female,
 							'b_score'		=> intval($data[4]),
-							'p_score'		=> intval($data[5]),				
+							'p_score'		=> intval($data[5]),
+							'w_score'		=> intval($data[6]),
+							'z_score'		=> intval($data[7]),
 						);
 					}
 					else 
@@ -111,19 +117,29 @@ class Calculator extends CI_Controller
 
 					// TODO: deal with constants here
 					$test = $this->testModel->get_test_by_code('ncdi_wz');
-					$testcat_b = $this->testCatModel->get_testcat_by_code($test, 'b');
-					$testcat_p = $this->testCatModel->get_testcat_by_code($test, 'p');
+					$testcat_codes = array('b', 'p', 'w', 'z');
+					$row = array($ncdi_check['p_number'], $ncdi_check['ageinmonths'], $ncdi_check['ageinmonthsdays']);
+					foreach ($testcat_codes AS $testcat_code) 
+					{
+						$testcat = $this->testCatModel->get_testcat_by_code($test, $testcat_code);
+						$raw_score = $ncdi_check[$testcat_code . '_score'];
+						if ($raw_score) 
+						{
+							$perc = $this->percentileModel->find_percentile($testcat->id,
+								$ncdi_check['gender'], $ncdi_check['ageinmonths'], $raw_score);
+							$age = $this->percentileModel->find_50percentile_age($testcat->id,
+								$ncdi_check['gender'], $raw_score);
+							array_push($row, $perc);
+							array_push($row, $age);
+						}
+						else 
+						{
+							array_push($row, '-');
+							array_push($row, '-');
+						}
+					}
 
-					$perc_b = $this->percentileModel->find_percentile($testcat_b->id,
-					$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['b_score']);
-					$perc_p = $this->percentileModel->find_percentile($testcat_p->id,
-					$ncdi_check['gender'], $ncdi_check['ageinmonths'], $ncdi_check['p_score']);
-					$age_b = $this->percentileModel->find_50percentile_age($testcat_b->id,
-					$ncdi_check['gender'], $ncdi_check['b_score']);
-					$age_p = $this->percentileModel->find_50percentile_age($testcat_p->id,
-					$ncdi_check['gender'], $ncdi_check['p_score']);
-
-					fputcsv($out, array($ncdi_check['p_number'], $ncdi_check['ageinmonths'], $ncdi_check['ageinmonthsdays'], $perc_b, $perc_p, $age_b, $age_p), ';');
+					fputcsv($out, $row, ';');
 
 					//$this->NCDICheckModel->add_ncdi_check($ncdi_check);
 				}
@@ -133,6 +149,8 @@ class Calculator extends CI_Controller
 
 		$csv = ob_get_contents();
 		ob_end_clean();
-		force_download('ncdi_calculator_output.csv', $csv);
+		fclose($out);
+
+		return $csv;
 	}
 }
