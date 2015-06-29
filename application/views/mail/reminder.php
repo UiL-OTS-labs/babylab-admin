@@ -1,6 +1,3 @@
-<html>
-<body>
-<p>Beste <?=$name_parent; ?>,</p>
 <p>Enige tijd geleden heeft u een afspraak gemaakt om met <?=$name_first; ?> naar het BabyLab te komen voor een experiment.
 Wij willen u eraan herinneren dat dit experiment morgen plaatsvindt: <strong><?=$appointment; ?></strong> op het <strong>Janskerkof 13</strong>.</p>
 <p>Informatie over het onderzoek kunt u terugvinden in de e-mail die wij ter bevestiging hebben gestuurd na het maken van de afspraak.</p>
@@ -10,8 +7,3 @@ Mocht u verder nog vragen hebben dan kunt u contact opnemen met:</p>
 <?=ul($caller_contacts); ?> 
 <p>Meer informatie over het BabyLab en bijvoorbeeld hoe er te komen is beschikbaar op <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
 <p>Wij zien ernaar uit u en <?=$name_first; ?> te zien op het BabyLab!</p>
-<p>Tot morgen,</p>
-<p><?=BABYLAB_TEAM; ?></p>
-<p><em>Deze e-mail is automatisch gegenereerd.</em></p>
-</body>
-</html>

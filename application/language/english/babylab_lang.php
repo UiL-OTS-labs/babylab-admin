@@ -1,5 +1,6 @@
 <?php
-
+$lang['babylab_subtitle'] = "Research after language acquisition and processing";
+$lang['administration_interface'] = "administration interface";
 $lang['table_language'] 	= "js/datatables/language/english.txt";
 
 $lang['not_authorized'] 	= "You are not authorized to view this page";
@@ -86,15 +87,17 @@ $lang['not_loggedin_error'] = "Your session has ended. Please login again";
 
 /* Mails */
 $lang['mail_heading']		= "Dear %s,";
-$lang['mail_ending']		= "Thanks, Babylab Utrecht";
+$lang['mail_default_ending'] = "Regards";
+$lang['mail_thanks_ending']		= "Thank you";
 $lang['mail_disclaimer']	= "<em>This e-mail was generated automatically.</em>";
+$lang['mail_unsubscribe'] 	= "Unsubscribe from newsletter";
 
 /* Selfservice Mails */
-$lang['selfservice_mail_subject'] = "Babylab Utrecht: Link for selfservice";
+$lang['selfservice_mail_subject'] = "Link for selfservice";
 $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab Utrecht een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kinderen aan- en afmelden voor het Babylab Utrecht en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor een dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s of mailen naar: %s.";
-$lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
+
 $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 
 /* Other Selfservice */
@@ -113,31 +116,33 @@ $lang['selfservice_mail_comments_to'] = "If you have other comments, remarks or 
 $lang['selfservice_reg_pp'] = "Register a new child";
 
 /* Reminders */
-$lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";
+$lang['rem_subject'] 		= "Call reminder";
 $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:";
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
-$lang['reg_pp_subject'] 	= "Babylab Utrecht: Participant registration";
+$lang['reg_pp_subject'] 	= "Participant registration";
 $lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 /* Deregistration of participants */
-$lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
+$lang['dereg_pp_subject'] 	= "Participant deregistration.";
 $lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
 /* Registration of users */
-$lang['reg_user_subject'] 	= "Babylab Utrecht: User registration";
+$lang['reg_user_subject'] 	= "User registration";
 $lang['reg_user_body'] 		= "A new user has been registered: %s (e-mail.: %s). You're able to activate or delete this participant in the administration interface.";
 /* Activating of a user */
-$lang['activate_subject'] 	= "Babylab Utrecht: User activated";
+$lang['activate_subject'] 	= "User activated";
 $lang['activate_body'] 		= "Your user account has been activated. You can login via " . anchor(base_url()) . ".";
 /* Reset password */
-$lang['resetpw_subject'] 	= "Babylab Utrecht: Reset password request";
+$lang['resetpw_subject'] 	= "Reset password request";
 $lang['resetpw_body'] 		= "You send a reset password request. You can change your password at %s.";
 $lang['reset_request_sent'] = "Already sent a reset request for this e-mail. Please check or your inbox. If you didn't receive a mail, contact an administator.";
 /* Confirmation */
 $lang['confirmation_sent']	= "A confirmation e-mail was sent to <em>%s</em>.";
+$lang['appintment_confirmation'] = "appointment confirmation";
 $lang['reschedule_sent']	= "A confirmation e-mail of the rescheduling was sent to <em>%s</em>.";
 $lang['request_participation_sent']	= "A participation request was sent to <em>%s</em>.";
+$lang['participation_request'] = "participation request";
 /* Manual deactivation of participant */
-$lang['deac_pp_subject'] = "Babylab Utrecht: Participant deactivated";
+$lang['deac_pp_subject'] = "Participant deactivated";
 $lang['deac_pp_body'] = "A participant was deactivated: %s (tel.: %s) by %s. You can undo this action in the administration interface, <a href=\"%s\">click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 
 
@@ -178,6 +183,7 @@ $lang['attachment']         = "Attachment";
 $lang['download']           = "Download";
 $lang['remove']             = "Remove";
 $lang['sure_remove_attachment'] = "Are you sure you want to remove the attachment? Other edits to the experiment will not be saved.";
+$lang['attachment_not_found_appointment_confirm'] = 'Attachment "%s" for experiment %s was not found on the server while sending a %s to %s. This person has therefor not received the attachment. Please re-upload the attachment to the server, or remove it altogether from the experiment.';
 
 
 /* Relations */
@@ -381,6 +387,7 @@ $lang['sure_delete_call']	= "Are you sure you want to delete this call?";
 $lang['order']				= "Order";
 $lang['start_call']			= "Start call";
 $lang['end_call']			= "End call";
+$lang['testinvite_added']	= "The testinvite for %s for %s has been added";
 
 /* Comments */
 $lang['comment']	 		= "Comment";

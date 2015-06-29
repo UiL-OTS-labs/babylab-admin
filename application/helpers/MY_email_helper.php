@@ -9,14 +9,18 @@ if (!function_exists('email_testinvite'))
 		$template = $CI->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch); // TODO: set to current language?
 		$email = $concept ? TO_EMAIL_OVERRIDE : $participant->email;
 
-		$message = email_replace($template->template, $participant, NULL, NULL, $testinvite, NULL, $auto);
+		$message_args = array(
+				"participant" => $participant,
+				"testinvite" => $testinvite,
+				"auto" => $auto
+			);
+		$message = email_replace($template->template, $message_args);
 
-		$CI->email->clear();
-		$CI->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$CI->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-		$CI->email->subject('Babylab Utrecht: Uitnoding voor vragenlijst');
-		$CI->email->message($message);
-		$CI->email->send();
+		$CI->mail->prepare();
+		$CI->mail->to($participant->email);
+		$CI->mail->subject('Uitnoding voor vragenlijst');
+		$CI->mail->message($message);
+		$CI->mail->send();
 		
 		return sprintf(lang('testinvite_added'), name($participant), $test->name, $email);
 	}
@@ -26,30 +30,39 @@ if (!function_exists('email_replace'))
 {
 	/**
 	 * This method creates an e-mail by referring to a view and replacing the variables. 
-	 * TODO: refactor to use less parameters (all in one array)?
+	 * @param String view 		The view to use
+	 * @param Language language
+	 * @param array 	all optional fields.
+	 * participant, participation, experiment, 
+	 * testinvite, comb_experiment, 
+	 * auto, message, language
 	 */
-	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, 
-		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "", $language = L::Dutch)
+	function email_replace($view, $a)
 	{
+		// $view, 
 		$CI =& get_instance();
 		$user = $CI->userModel->get_user_by_id(current_user_id());
 
+		$language = array_key_exists('language', $a) ? $a['language'] : L::Dutch;
 		reset_language($language);
+
+		$comb_experiment = array_key_exists('comb_experiment', $a) ? $a['comb_experiment'] : False;
 		
 		$message_data = array();
-		$message_data['auto'] 				= $auto;
-		$message_data['message'] 			= $message;
+		$message_data['auto'] 				= array_key_exists('auto', $a) ? $a['auto'] : False;
+		$message_data['message'] 			= array_key_exists('message', $a) ? $a['message'] : "";
 		$message_data['combination']		= FALSE;
 		$message_data['survey_link']		= FALSE;
 
-		if ($user)
+		if($user)
 		{
 			$message_data['user_username'] 	= $user->username;
 			$message_data['user_email'] 	= $user->email;
 		}
 		
-		if ($participant) 
+		if (array_key_exists('participant', $a)) 
 		{
+			$participant = $a['participant'];
 			$message_data['name']			= name($participant);
 			$message_data['name_first']		= $participant->firstname;
 			$message_data['name_parent']	= parent_name($participant);
@@ -59,13 +72,15 @@ if (!function_exists('email_replace'))
 			$message_data['phone']			= $participant->phone;
 		}
 
-		if ($participation) 
+		if (array_key_exists('participation', $a)) 
 		{
+			$participation = $a['participation'];
 			$message_data['appointment']	= format_datetime($participation->appointment);
 		}
 		
-		if ($experiment) 
+		if (array_key_exists('experiment', $a)) 
 		{
+			$experiment = $a['experiment'];
 			$location = $CI->locationModel->get_location_by_experiment($experiment);
 			
 			$message_data['exp_name']		= $experiment->name;
@@ -92,7 +107,7 @@ if (!function_exists('email_replace'))
 			$message_data['comb_appointment']	= format_datetime($comb_participation->appointment);
 		}
 		
-		if ($participant && $experiment) 
+		if (array_key_exists('participant', $a) && array_key_exists('experiment', $a)) 
 		{
 			$data = get_min_max_days($participant, $experiment);
 			
@@ -100,8 +115,9 @@ if (!function_exists('email_replace'))
 			$message_data['max_date'] 		= format_date($data['max_date_js']);
 		}
 		
-		if ($testinvite) 
+		if (array_key_exists('testinvite', $a) && $a['testinvite']) 
 		{
+			$testinvite = $a['testinvite'];
 			$testsurvey = $CI->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 			
 			$message_data['survey_name']	= testsurvey_name($testsurvey);

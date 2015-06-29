@@ -199,6 +199,7 @@ class User extends CI_Controller
 		$data['page_title'] = lang('reg_user');
 		$data['language'] = $language;
 		$data['action'] = 'user/register_submit/' . $language;
+		$data['referrer'] = $this->agent->referrer();
 		$data['new_user'] = TRUE;
 		$data = add_fields($data, 'user');
 
@@ -245,21 +246,12 @@ class User extends CI_Controller
 			{
 				reset_language(user_language($admin));
 					
-				$this->email->clear();
-				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $admin->email);
-				$this->email->subject(lang('reg_user_subject'));
-					
-				$message = sprintf(lang('mail_heading'), $admin->username);
-				$message .= br(2);
-				$message .= sprintf(lang('reg_user_body'), $u->username, $u->email);
-				$message .= br(2);
-				$message .= lang('mail_ending');
-				$message .= br(2);
-				$message .= lang('mail_disclaimer');
-					
-				$this->email->message($message);
-				$this->email->send();
+				$this->mail->prepare(True);
+				$this->mail->to($admin->email);
+				$this->mail->subject(lang('reg_user_subject'));
+				$this->mail->to_name($admin->username);
+				$this->mail->message(sprintf(lang('reg_user_body'), $u->username, $u->email));
+				$this->mail->send();
 			}
 
 			// Finish registration
@@ -300,21 +292,12 @@ class User extends CI_Controller
 		// Send activation e-mail to user
 		reset_language(user_language($user));
 			
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-		$this->email->subject(lang('activate_subject'));
-			
-		$message = sprintf(lang('mail_heading'), $user->username);
-		$message .= br(2);
-		$message .= sprintf(lang('activate_body'));
-		$message .= br(2);
-		$message .= lang('mail_ending');
-		$message .= br(2);
-		$message .= lang('mail_disclaimer');
-			
-		$this->email->message($message);
-		$this->email->send();
+		$this->mail->prepare(True);
+		$this->mail->to($user->email);
+		$this->mail->subject(lang('activate_subject'));
+		$this->mail->to_name($user->username);
+		$this->mail->message(lang('activate_body'));	
+		$this->mail->send();
 
 		flashdata(sprintf(lang('u_activated'), $user->username));
 		redirect('/user/', 'refresh');
@@ -446,21 +429,12 @@ class User extends CI_Controller
 			// Send out reset e-mail
 			reset_language(user_language($user));
 				
-			$this->email->clear();
-			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-			$this->email->subject(lang('resetpw_subject'));
-				
-			$message = sprintf(lang('mail_heading'), $user->username);
-			$message .= br(2);
-			$message .= sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url));
-			$message .= br(2);
-			$message .= lang('mail_ending');
-			$message .= br(2);
-			$message .= lang('mail_disclaimer');
-				
-			$this->email->message($message);
-			$this->email->send();
+			$this->mail->prepare(True);
+			$this->mail->to($user->email);
+			$this->mail->subject(lang('resetpw_subject'));
+			$this->mail->to_name($user->username);	
+			$this->mail->message(sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url)));
+			$this->mail->send();
 
 			// Show success
 			flashdata(sprintf(lang('forgot_pw_sent'), $user->email));

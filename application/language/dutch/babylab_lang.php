@@ -1,5 +1,6 @@
 <?php
-
+$lang['babylab_subtitle'] = "Onderzoek naar taalverwerving en - verwerking";
+$lang['administration_interface'] = "administrative interface";
 $lang['table_language'] 	= "js/datatables/language/dutch.txt";
 
 $lang['not_authorized'] 	= "U bent niet geauthoriseerd deze pagina te bekijken.";
@@ -86,15 +87,17 @@ $lang['not_loggedin_error'] = "Uw sessie was beëindigd. Gelieve opnieuw in te l
 
 /* Mails */
 $lang['mail_heading']		= "Beste %s,";
-$lang['mail_ending']		= "Bedankt, Babylab Utrecht";
+$lang['mail_default_ending'] = "Hartelijke groet";
+$lang['mail_thanks_ending']		= "Bedankt";
 $lang['mail_disclaimer']	= "<em>Deze e-mail is automatisch gegenereerd.</em>";
+$lang['mail_unsubscribe'] 	= "Afmelden voor nieuwsbrief";
 
 /* Selfservice Mails */
-$lang['selfservice_mail_subject'] = "Babylab Utrecht: Link voor selfservice";
+$lang['selfservice_mail_subject'] = "Link voor selfservice";
 $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab Utrecht een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kinderen aan- en afmelden voor het Babylab Utrecht en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor een dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s of mailen naar: %s.";
-$lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
+
 $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 
 /* Other Selfservice */
@@ -112,31 +115,33 @@ $lang['selfservice_mail_comments_to'] = "Als u andere opmerkingen of wijzigingen
 $lang['selfservice_reg_pp'] = "Nieuw kind aanmelden";
 
 /* Reminders */
-$lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
+$lang['rem_subject'] 		= "Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab Utrecht:";
 $lang['rem_exp_call']		= "In experiment %s kunt u momenteel %s proefpersonen bellen.";
 /* Registration of participants */
-$lang['reg_pp_subject'] 	= "Babylab Utrecht: Aanmelding proefpersoon";
+$lang['reg_pp_subject'] 	= "Aanmelding proefpersoon";
 $lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld: %s (tel.: %s). U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 /* Deregistration of participants */
-$lang['dereg_pp_subject'] 	= "Babylab Utrecht: Afmelding proefpersoon";
+$lang['dereg_pp_subject'] 	= "Afmelding proefpersoon";
 $lang['dereg_pp_body'] 		= "Er is afmelding binnengekomen voor %s (geboortedatum: %s, e-mail: %s, reden: %s). U kunt deze proefpersoon deactiveren in de administratieve interface.";
 /* Registration of users */
-$lang['reg_user_subject'] 	= "Babylab Utrecht: Aanmelding gebruiker";
+$lang['reg_user_subject'] 	= "Aanmelding gebruiker";
 $lang['reg_user_body'] 		= "Er is een nieuwe gebruiker aangemeld: %s (e-mail: %s). U kunt deze gebruiker activeren of verwijderen in de administratieve interface.";
 /* Activating of a user */
-$lang['activate_subject'] 	= "Babylab Utrecht: Gebruiker geactiveerd";
+$lang['activate_subject'] 	= "Gebruiker geactiveerd";
 $lang['activate_body'] 		= "Uw gebruikersaccount is geactiveerd. U kunt inloggen via " . anchor(base_url()) . ".";
 /* Reset password */
-$lang['resetpw_subject'] 	= "Babylab Utrecht: Verzoek tot wachtwoordherstel";
+$lang['resetpw_subject'] 	= "Verzoek tot wachtwoordherstel";
 $lang['resetpw_body'] 		= "U heeft een verzoek tot wachtwoordherstel verzonden. U kunt uw wachtwoord veranderen via %s.";
 $lang['reset_request_sent'] = "Er is al een verzoek tot wachtwoordherstel voor dit e-mailadres verzonden. Check uw inbox. Als uw geen e-mail hebt ontvangen, contacteer dan een administrator.";
 /* Confirmation */
 $lang['confirmation_sent']	= "Bevestigingsmail verstuurd naar <em>%s</em>.";
+$lang['appintment_confirmation'] = "afspraakbevestiging";
 $lang['reschedule_sent']	= "Bevestigingsmail van verzetten verstuurd naar <em>%s</em>.";
 $lang['request_participation_sent']	= "Verzoek tot deelname verstuurd naar <em>%s</em>.";
+$lang['participation_request'] = "verzoek tot deelname";
 /* Manual deactivation of participant */
-$lang['deac_pp_subject'] = "Babylab Utrecht: Proefpersoon gedeactiveerd";
+$lang['deac_pp_subject'] = "Proefpersoon gedeactiveerd";
 $lang['deac_pp_body'] = "Er is een proefpersoon gedeactiveerd: %s (tel.: %s) door %s. U kunt deze actie ongedaan maken via de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 
 /* Experiments */
@@ -176,6 +181,8 @@ $lang['attachment']         = "Bijlage";
 $lang['download']           = "Download";
 $lang['remove']             = "Verwijder";
 $lang['sure_remove_attachment'] = "Weet u zeker dat u de bijlage wilt verwijderen? Andere wijzigingen aan het experiment worden dan niet opgeslagen.";
+$lang['attachment_not_found_appointment_confirm'] = 'De bijlage %s voor experiment %s kon niet worden gevonden op de server toen een %s werd verstuurd naar %s. Deze persoon heeft de bijlage dan ook niet gekregen. Controleer de bijlage in de experimentinstellingen, of upload de bijlage opnieuw.';
+
 
 /* Relations */
 $lang['relation']	 		= "Verband";
@@ -379,6 +386,7 @@ $lang['sure_delete_call']	= "Weet u zeker dat u dit gesprek wilt verwijderen?";
 $lang['order']				= "Volgorde";
 $lang['start_call']			= "Begin gesprek";
 $lang['end_call']			= "Einde gesprek";
+$lang['testinvite_added']	= "De testuitnodiging van %s voor %s is toegevoegd";
 
 /* Comments */
 $lang['comment']	 		= "Opmerking";

@@ -34,14 +34,21 @@ class Reminder extends CI_Controller
 				
 				$participant = $this->participationModel->get_participant_by_participation($participation->id);
 				$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
-				$message = email_replace('mail/reminder', $participant, $participation, $experiment);
+
+				$message_args = array(
+						"participant" => $participant,
+						"participation" => $participation,
+						"experiment" => $experiment
+					)
+				$message = email_replace('mail/reminder', $message_args);
 		
-				$this->email->clear();
-				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-				$this->email->subject('Babylab Utrecht: Herinnering deelname');
-				$this->email->message($message);
-				$this->email->send();
+				$this->mail->prepare();
+				$this->mail->to($participant->email);
+				$this->mail->to_name(parent_name($participant));
+				$this->mail->subject('Herinnering deelname');
+				$this->mail->ending("Tot morgen", BABYLAB_TEAM);
+				$this->mail->message($message);
+				$this->mail->send();
 				// DEBUG: $this->email->print_debugger();
 			}
 		}
@@ -63,10 +70,9 @@ class Reminder extends CI_Controller
 		{
 			reset_language(user_language($user));
 
-			$this->email->clear();
-			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-			$this->email->subject(lang('rem_subject'));
+			$this->mail->prepare(True);
+			$this->mail->to($user->email);
+			$this->mail->subject(lang('rem_subject'));
 
 			$call_messages = array();
 			$experiments = $this->callerModel->get_experiments_by_caller($user->id);
@@ -81,17 +87,9 @@ class Reminder extends CI_Controller
 
 			if ($call_messages)
 			{
-				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
-				$message .= lang('rem_body');
-				$message .= br(1);
-				$message .= ul($call_messages);
-				$message .= lang('mail_ending');
-				$message .= br(2);
-				$message .= lang('mail_disclaimer');
-
-				$this->email->message($message);
-				$this->email->send();
+				$this->mail->to_name($user->username);
+				$this->mail->$message(lang('rem_body') . br(1) . ul($call_messages));
+				$this->mail->send();
 				// DEBUG: echo $this->email->print_debugger();
 			}
 		}

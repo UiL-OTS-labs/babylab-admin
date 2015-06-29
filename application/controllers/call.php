@@ -141,7 +141,7 @@ class Call extends CI_Controller
 				$invites = $this->create_test_invitations($participant);
 				$flashdata .= br() . $invites[0];
 				$testinvites = $invites[1];
-				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
+				$testinvite = ($testinvites) ? $testinvites[0] : NULL; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
 			}
 
 			// If there's a combination appointment made, create that participation as well, plus a confirmation e-mail 
@@ -208,7 +208,7 @@ class Call extends CI_Controller
 			$participation = $this->participationModel->get_participation_by_id($participation->id);
 			if ($participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
 			{
-				$flashdata = br() . $this->send_request_participation_email($participation->id);
+				$flashdata = br(2) . $this->send_request_participation_email($participation->id);
 				$this->callModel->update_call($call_id, CallStatus::Email);
 			}
 
@@ -300,28 +300,67 @@ class Call extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
 		
-		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite, $comb_exp);
+		$message_args = array(
+				"participant" => $participant, 
+				"participation" => $participation, 
+				"experiment" => $experiment, 
+				"testinvite" => $testinvite, 
+				"comb_experiment" => $comb_exp
+			);
+		$message = email_replace('mail/confirmation', $message_args);
 
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
-		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
-		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
-		$this->email->message($message);
+		$this->mail->prepare();
+		$this->mail->to($email);
+		$this->mail->to_name(parent_name($participant));
+		$this->mail->bcc($leader_emails);
+		$this->mail->subject('Bevestiging van uw afspraak');
+		$this->mail->message($message);
+
+		$flash = array();
 
 		// Add attachments 
 		if ($experiment->attachment)
 		{
-			$this->email->attach('uploads/' . $experiment->attachment);
+			$attach_url = 'uploads/' . $experiment->attachment;
+			if(file_exists($attach_url))
+			{
+				$this->mail->attach('uploads/' . $experiment->attachment);
+			} else {
+				array_push($flash, $this->add_missing_attachment_comment(lang('appintment_confirmation'), $participant, $experiment, $email));
+			}
+		 
 		}
 		if ($comb_exp && $comb_exp->attachment && $comb_exp->attachment != $experiment->attachment) 
 		{
-			$this->email->attach('uploads/' . $comb_exp->attachment);
+			$attach_url = 'uploads/' . $comb_exp->attachment;
+			if(file_exists($attach_url))
+			{
+				$this->mail->attach('uploads/' . $comb_exp->attachment);
+			} else {
+				array_push($flash, $this->add_missing_attachment_comment(lang('appintment_confirmation'), $participant, $comb_exp, $email));
+			}
 		}
 
-		$this->email->send();
+		$this->mail->send();
 
-		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $email);
+		// Add mail sent to flashdata
+		array_push($flash, sprintf(lang('confirmation_sent'), (in_development() ? TO_EMAIL_OVERRIDE : $email)));
+		
+		return implode(br(2), $flash);
+	}
+
+	/** Place a comment in de db about the missing attachment and also show it as flashdata */
+	private function add_missing_attachment_comment($type, $participant, $experiment, $email)
+	{
+		$comment = sprintf(lang('attachment_not_found_appointment_confirm'), $experiment->attachment, $experiment->name, $type, $email);
+		$comment_array = array(
+				'body'				=> $comment,
+				'participant_id' 	=> $participant->id,
+				'user_id'		 	=> current_user_id()
+		);
+		$comment_id = $this->commentModel->add_comment($comment_array);
+		$this->commentModel->prioritize($comment_id);
+		return $comment;
 	}
 
 	/** Send request for participation e-mail */
@@ -330,21 +369,37 @@ class Call extends CI_Controller
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+		$flash = array();
 
-		$message = email_replace('mail/request_participation', $participant, $participation, $experiment);
+		$message_args = array(
+				"participant" => $participant,
+				"participation" => $participation,
+				"experiment" => $experiment
+			);
+		$message = email_replace('mail/request_participation', $message_args);
 
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
-		$this->email->message($message);
+		$this->mail->prepare();
+		$this->mail->to($participant->email);
+		$this->mail->to_name(parent_name($participant));
+		$this->mail->subject('Verzoek tot deelname aan onderzoek');
+		$this->mail->message($message);
+		
 		if ($experiment->attachment)
 		{
-			$this->email->attach('uploads/' . $experiment->attachment);
+			$attach_url = 'uploads/' . $experiment->attachment;
+			if(file_exists($attach_url))
+			{
+				$this->mail->attach($attach_url);
+			} else {
+				array_push($flash, $this->add_missing_attachment_comment(lang('participation_request'), $participant, $experiment, $participant->$email));
+			}
 		}
-		$this->email->send();
 
-		return sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->mail->send();
+
+		array_push($flash, sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email));
+
+		return implode(br(2), $flash);
 	}
 
 	/** Create test invitations (based on number of participations), 
@@ -357,7 +412,8 @@ class Call extends CI_Controller
 		foreach ($testinvites as $testinvite)
 		{
 			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-			$flashdata .= sprintf(lang('testinvite_added'), name($participant), $test->name);
+			$t_add = lang('estinvite_added');
+			$flashdata .= sprintf($t_add, name($participant), $test->name);
 		}
 
 		return array($flashdata, $testinvites);

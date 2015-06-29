@@ -733,15 +733,20 @@ class Participation extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
 
-		$message = email_replace('mail/reschedule', $participant, $participation, $experiment);
+		$message_args = array(
+				"participant" => $participant,
+				"participation" => $participation,
+				"experiment" => $experiment
+				);
+		$message = email_replace('mail/reschedule', $message_args);
 
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
-		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
-		$this->email->message($message);
-		$this->email->send();
+		$this->mail->prepare();
+		$this->mail->to($participant->email);
+		$this->mail->bcc($leader_emails); 
+		$this->mail->subject('Uw afspraak is verzet');
+		$this->mail->to_name(parent_name($participant));
+		$this->mail->message($message);
+		$this->mail->send();
 
 		return sprintf(lang('reschedule_sent'), $participant->email);
 	}
@@ -754,14 +759,19 @@ class Participation extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
 
-		$message = email_replace('mail/cancel', $participant, $participation, $experiment);
+		$message_args = array(
+				"participant" => $participant,
+				"participation" => $participation,
+				"experiment" => $experiment
+				);
+		$message = email_replace('mail/cancel', $message_args);
 
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
-		$this->email->subject('Babylab Utrecht: Afspraak verwijderd');
-		$this->email->message($message);
-		$this->email->send();
+		$this->mail->prepare(True);
+		$this->mail->to($leader_emails); 
+		$this->mail->to_name('leider(s)');
+		$this->mail->subject('Afspraak verwijderd');
+		$this->mail->message($message);
+		$this->mail->send();
 	}
 	
 	/** Send a mail to the technical folks */ 
@@ -771,15 +781,22 @@ class Participation extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		
-		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, 
-			NULL, NULL, FALSE, $tech_comment, L::English);
+		$message_args = array(
+				"participant" => $participant,
+				"participation" => $participation,
+				"experiment" => $experiment,
+				"message" => $tech_comment,
+				"language" => L::English
+			);
+		$message = email_replace('mail/tech_comment', $message_args);
 		
-		$this->email->clear();
-		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : LAB_EMAIL);
-		$this->email->subject('Babylab Utrecht: Technisch probleem');
-		$this->email->message($message);
-		$this->email->send();
+		$this->mail->prepare();
+		$this->mail->to(LAB_EMAIL);
+		$this->mail->to("lab staff");
+		$this->mail->subject('Technisch probleem');
+		$this->mail->no_footer_buttons();
+		$this->mail->message($message);
+		$this->mail->send();
 	}
 
 	/////////////////////////

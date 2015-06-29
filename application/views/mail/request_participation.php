@@ -1,6 +1,3 @@
-<html>
-<body>
-<p>Beste <?=$name_parent; ?>,</p>
 <p>Enige tijd geleden heeft u zich opgegeven om met uw <?=$gender; ?> <?=$name; ?> deel te nemen aan experimenten aan het Babylab van de Universiteit Utrecht. 
 Een van onze medewerkers heeft u tweemaal telefonisch proberen te bereiken (op telefoonnummer <?=$phone; ?>), maar is daarin niet geslaagd. 
 Daarom sturen wij u deze e-mail.</p>
@@ -10,8 +7,3 @@ In de bijlage vindt u een korte beschrijving van het onderzoek <em><?=$exp_name;
 <p>Als u mee wilt doen, zouden wij graag een afspraak plannen tussen <strong><?=$min_date; ?> en <?=$max_date; ?></strong>. 
 Het onderzoek duurt, inclusief uitleg vooraf en ruimte voor vragen achteraf, ongeveer <?=$duration_total; ?> minuten.</p>
 <p>Wij horen graag van u en zien uit naar uw komst, hopelijk tot ziens op het Babylab!</p>
-<p>Hartelijke groet,</p>
-<p><?=BABYLAB_TEAM; ?></p>
-<p><em>Deze e-mail is automatisch gegenereerd.</em></p>
-</body>
-</html>

@@ -1,6 +1,3 @@
-<html>
-<body>
-<p>Beste <?=$name_parent; ?>,</p>
 <p>Graag willen wij u eraan herinneren dat wij u onlangs een e-mail hebben gestuurd met het verzoek een online vragenlijst in te vullen. 
 Wij stuurden u deze e-mail, omdat <?=$name; ?> de leeftijd heeft bereikt voor het meetmoment van <?=$gender_pos; ?> taalvaardigheid na <?=$whennr; ?> maanden.</p>
 <p>Deze vragenlijst is onderdeel van het experiment waarvoor u met <?=$name_first; ?> bij het Babylab bent langsgekomen of nog gaat langskomen.
@@ -19,6 +16,3 @@ Bovendien wordt de lijst op een veilige manier bewaard: de informatie is alleen 
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p><?=BABYLAB_TEAM; ?></p>
-<p><em>Deze e-mail is automatisch gegenereerd.</em></p>
-</body>
-</html>

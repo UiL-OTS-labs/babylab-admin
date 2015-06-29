@@ -236,21 +236,12 @@ class Participant extends CI_Controller
 			{
 				reset_language(user_language($user));
 
-				$this->email->clear();
-				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-				$this->email->subject(lang('reg_pp_subject'));
-
-				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
-				$message .= sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url);
-				$message .= br(2);
-				$message .= lang('mail_ending');
-				$message .= br(2);
-				$message .= lang('mail_disclaimer');
-
-				$this->email->message($message);
-				$this->email->send();
+				$this->mail->prepare(True);
+				$this->mail->to($user->email);
+				$this->mail->subject(lang('reg_pp_subject'));
+				$this->mail->to_name($user->username);
+				$this->mail->message(sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url));
+				$this->mail->send();
 			}
 
 			// Display success
@@ -294,7 +285,7 @@ class Participant extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	/** Submits the registration of a participant */
+	/** Submits the deregistration of a participant */
 	public function deregister_submit($language)
 	{
 		// Reset the language
@@ -319,21 +310,12 @@ class Participant extends CI_Controller
 			{
 				reset_language(user_language($user));
 
-				$this->email->clear();
-				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-				$this->email->subject(lang('dereg_pp_subject'));
-
-				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
-				$message .= sprintf(lang('dereg_pp_body'), $name, $dob, $email, $reason);
-				$message .= br(2);
-				$message .= lang('mail_ending');
-				$message .= br(2);
-				$message .= lang('mail_disclaimer');
-
-				$this->email->message($message);
-				$this->email->send();
+				$this->mail->prepare(True);
+				$this->mail->to($user->email);
+				$this->mail->subject(lang('dereg_pp_subject'));
+				$this->mail->to_name($user->username);
+				$this->mail->message(sprintf(lang('dereg_pp_body'), $name, $dob, $email, $reason));
+				$this->mail->send();
 			}
 
 			// Finish registration
@@ -559,21 +541,12 @@ class Participant extends CI_Controller
 		{
 			reset_language(user_language($user));
 
-			$this->email->clear();
-			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
-			$this->email->subject(lang('dereg_pp_subject'));
-
-			$message = sprintf(lang('mail_heading'), $user->username);
-			$message .= br(2);
-			$message .= sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url);
-			$message .= br(2);
-			$message .= lang('mail_ending');
-			$message .= br(2);
-			$message .= lang('mail_disclaimer');
-
-			$this->email->message($message);
-			$this->email->send();
+			$this->mail->prepare(True);
+			$this->mail->to($user->email);
+			$this->mail->subject(lang('deac_pp_subject'));
+			$this->mail->to_name($user->username);
+			$this->mail->message(sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url));
+			$this->mail->send();
 		}
 
 		flashdata(sprintf(lang('p_deactivated'), name($p)));
