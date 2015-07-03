@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Participations can be in 7 possible stages:
+ * Participations can be in 6 possible stages:
  *
  * confirmed	cancelled	no-show	completed	description
  * 0			0			0		0			unconfirmed (called but no response)
@@ -90,7 +90,7 @@ class Participation extends CI_Controller
 		$this->participationModel->delete_participation($participation_id);
 
 		flashdata(sprintf(lang('part_deleted'), name($participant), $experiment->name));
-		redirect($referrer ? $referrer : $this->agent->referrer, 'refresh');
+		redirect($referrer ? $referrer : $this->agent->referrer(), 'refresh');
 	}
 
 	///////////////////////////////////////////
