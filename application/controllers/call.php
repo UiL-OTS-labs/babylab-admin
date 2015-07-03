@@ -312,11 +312,17 @@ class Call extends CI_Controller
 		// Add attachments 
 		if ($experiment->attachment)
 		{
-			$this->email->attach('uploads/' . $experiment->attachment);
+			if (file_exists('uploads/' . $experiment->attachment))
+			{
+				$this->email->attach('uploads/' . $experiment->attachment);
+			}
 		}
 		if ($comb_exp && $comb_exp->attachment && $comb_exp->attachment != $experiment->attachment) 
 		{
-			$this->email->attach('uploads/' . $comb_exp->attachment);
+			if (file_exists('uploads/' . $experiment->attachment))
+			{
+				$this->email->attach('uploads/' . $comb_exp->attachment);
+			}
 		}
 
 		$this->email->send();
