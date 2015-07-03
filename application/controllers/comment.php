@@ -16,8 +16,8 @@ class Comment extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
-		$priority_only = is_array($this->input->post('view_high_priority'));
-		$handled_only = is_array($this->input->post('view_handled'));
+		$priority_only = $this->session->flashdata('priority') || is_array($this->input->post('view_high_priority'));
+		$handled_only = $this->session->flashdata('handled') || is_array($this->input->post('view_handled'));
 
 		create_comment_table();
 		$data['ajax_source'] = site_url(array('comment', 'table', intval($priority_only), intval($handled_only)));
@@ -123,10 +123,11 @@ class Comment extends CI_Controller
 	// Other views
 	/////////////////////////
 
-	/** Specifies the contents of tthe page with only priority items. */
+	/** Redirects to the index with only priority items selected. */
 	public function priority()
 	{
-		$this->index(TRUE);
+		$this->session->set_flashdata('priority', TRUE);
+		redirect('comment', 'refresh');
 	}
 
 	/** Specifies the content of a page with the contents for a specific participant */
