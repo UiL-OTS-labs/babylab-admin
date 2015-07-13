@@ -236,12 +236,12 @@ class Participant extends CI_Controller
 			{
 				reset_language(user_language($user));
 
-				$this->mail->prepare(True);
-				$this->mail->to($user->email);
-				$this->mail->subject(lang('reg_pp_subject'));
-				$this->mail->to_name($user->username);
-				$this->mail->message(sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url));
-				$this->mail->send();
+				$this->email->prepare(True);
+				$this->email->to($user->email);
+				$this->email->subject(lang('reg_pp_subject'));
+				$this->email->to_name($user->username);
+				$this->email->message(sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url));
+				$this->email->send();
 			}
 
 			// Display success
@@ -310,12 +310,12 @@ class Participant extends CI_Controller
 			{
 				reset_language(user_language($user));
 
-				$this->mail->prepare(True);
-				$this->mail->to($user->email);
-				$this->mail->subject(lang('dereg_pp_subject'));
-				$this->mail->to_name($user->username);
-				$this->mail->message(sprintf(lang('dereg_pp_body'), $name, $dob, $email, $reason));
-				$this->mail->send();
+				$this->email->prepare(True);
+				$this->email->to($user->email);
+				$this->email->subject(lang('dereg_pp_subject'));
+				$this->email->to_name($user->username);
+				$this->email->message(sprintf(lang('dereg_pp_body'), $name, $dob, $email, $reason));
+				$this->email->send();
 			}
 
 			// Finish registration
@@ -541,12 +541,12 @@ class Participant extends CI_Controller
 		{
 			reset_language(user_language($user));
 
-			$this->mail->prepare(True);
-			$this->mail->to($user->email);
-			$this->mail->subject(lang('deac_pp_subject'));
-			$this->mail->to_name($user->username);
-			$this->mail->message(sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url));
-			$this->mail->send();
+			$this->email->prepare(True);
+			$this->email->to($user->email);
+			$this->email->subject(lang('deac_pp_subject'));
+			$this->email->to_name($user->username);
+			$this->email->message(sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url));
+			$this->email->send();
 		}
 
 		flashdata(sprintf(lang('p_deactivated'), name($p)));

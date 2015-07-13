@@ -42,13 +42,13 @@ class Reminder extends CI_Controller
 					)
 				$message = email_replace('mail/reminder', $message_args);
 		
-				$this->mail->prepare();
-				$this->mail->to($participant->email);
-				$this->mail->to_name(parent_name($participant));
-				$this->mail->subject('Herinnering deelname');
-				$this->mail->ending("Tot morgen", BABYLAB_TEAM);
-				$this->mail->message($message);
-				$this->mail->send();
+				$this->email->prepare();
+				$this->email->to($participant->email);
+				$this->email->to_name(parent_name($participant));
+				$this->email->subject('Herinnering deelname');
+				$this->email->ending("Tot morgen", BABYLAB_TEAM);
+				$this->email->message($message);
+				$this->email->send();
 				// DEBUG: $this->email->print_debugger();
 			}
 		}
@@ -70,9 +70,9 @@ class Reminder extends CI_Controller
 		{
 			reset_language(user_language($user));
 
-			$this->mail->prepare(True);
-			$this->mail->to($user->email);
-			$this->mail->subject(lang('rem_subject'));
+			$this->email->prepare(True);
+			$this->email->to($user->email);
+			$this->email->subject(lang('rem_subject'));
 
 			$call_messages = array();
 			$experiments = $this->callerModel->get_experiments_by_caller($user->id);
@@ -87,9 +87,9 @@ class Reminder extends CI_Controller
 
 			if ($call_messages)
 			{
-				$this->mail->to_name($user->username);
-				$this->mail->$message(lang('rem_body') . br(1) . ul($call_messages));
-				$this->mail->send();
+				$this->email->to_name($user->username);
+				$this->email->$message(lang('rem_body') . br(1) . ul($call_messages));
+				$this->email->send();
 				// DEBUG: echo $this->email->print_debugger();
 			}
 		}

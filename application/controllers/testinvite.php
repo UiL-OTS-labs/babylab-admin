@@ -125,13 +125,13 @@ class TestInvite extends CI_Controller
 			);
 		$message = email_replace($template->template . '_reminder', $message_args);
 
-		$this->mail->prepare();
-		$this->mail->to($participant->email);
-		$this->mail->to_name(parent_name($participant));
-		$this->mail->no_ending();
-		$this->mail->subject('Herinnering uitnodiging voor vragenlijst');
-		$this->mail->message($message);
-		$this->mail->send();
+		$this->email->prepare();
+		$this->email->to($participant->email);
+		$this->email->to_name(parent_name($participant));
+		$this->email->no_ending();
+		$this->email->subject('Herinnering uitnodiging voor vragenlijst');
+		$this->email->message($message);
+		$this->email->send();
 
 		$this->testInviteModel->set_manually_reminded($testinvite->id);
 

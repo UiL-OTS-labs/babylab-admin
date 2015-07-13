@@ -309,12 +309,12 @@ class Call extends CI_Controller
 			);
 		$message = email_replace('mail/confirmation', $message_args);
 
-		$this->mail->prepare();
-		$this->mail->to($email);
-		$this->mail->to_name(parent_name($participant));
-		$this->mail->bcc($leader_emails);
-		$this->mail->subject('Bevestiging van uw afspraak');
-		$this->mail->message($message);
+		$this->email->prepare();
+		$this->email->to($email);
+		$this->email->to_name(parent_name($participant));
+		$this->email->bcc($leader_emails);
+		$this->email->subject('Bevestiging van uw afspraak');
+		$this->email->message($message);
 
 		$flash = array();
 
@@ -324,7 +324,7 @@ class Call extends CI_Controller
 			$attach_url = 'uploads/' . $experiment->attachment;
 			if(file_exists($attach_url))
 			{
-				$this->mail->attach('uploads/' . $experiment->attachment);
+				$this->email->attach('uploads/' . $experiment->attachment);
 			} else {
 				array_push($flash, $this->add_missing_attachment_comment(lang('appintment_confirmation'), $participant, $experiment, $email));
 			}
@@ -335,13 +335,13 @@ class Call extends CI_Controller
 			$attach_url = 'uploads/' . $comb_exp->attachment;
 			if(file_exists($attach_url))
 			{
-				$this->mail->attach('uploads/' . $comb_exp->attachment);
+				$this->email->attach('uploads/' . $comb_exp->attachment);
 			} else {
 				array_push($flash, $this->add_missing_attachment_comment(lang('appintment_confirmation'), $participant, $comb_exp, $email));
 			}
 		}
 
-		$this->mail->send();
+		$this->email->send();
 
 		// Add mail sent to flashdata
 		array_push($flash, sprintf(lang('confirmation_sent'), (in_development() ? TO_EMAIL_OVERRIDE : $email)));
@@ -378,24 +378,24 @@ class Call extends CI_Controller
 			);
 		$message = email_replace('mail/request_participation', $message_args);
 
-		$this->mail->prepare();
-		$this->mail->to($participant->email);
-		$this->mail->to_name(parent_name($participant));
-		$this->mail->subject('Verzoek tot deelname aan onderzoek');
-		$this->mail->message($message);
+		$this->email->prepare();
+		$this->email->to($participant->email);
+		$this->email->to_name(parent_name($participant));
+		$this->email->subject('Verzoek tot deelname aan onderzoek');
+		$this->email->message($message);
 		
 		if ($experiment->attachment)
 		{
 			$attach_url = 'uploads/' . $experiment->attachment;
 			if(file_exists($attach_url))
 			{
-				$this->mail->attach($attach_url);
+				$this->email->attach($attach_url);
 			} else {
 				array_push($flash, $this->add_missing_attachment_comment(lang('participation_request'), $participant, $experiment, $participant->$email));
 			}
 		}
 
-		$this->mail->send();
+		$this->email->send();
 
 		array_push($flash, sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email));
 

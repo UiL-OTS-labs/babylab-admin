@@ -740,13 +740,13 @@ class Participation extends CI_Controller
 				);
 		$message = email_replace('mail/reschedule', $message_args);
 
-		$this->mail->prepare();
-		$this->mail->to($participant->email);
-		$this->mail->bcc($leader_emails); 
-		$this->mail->subject('Uw afspraak is verzet');
-		$this->mail->to_name(parent_name($participant));
-		$this->mail->message($message);
-		$this->mail->send();
+		$this->email->prepare();
+		$this->email->to($participant->email);
+		$this->email->bcc($leader_emails); 
+		$this->email->subject('Uw afspraak is verzet');
+		$this->email->to_name(parent_name($participant));
+		$this->email->message($message);
+		$this->email->send();
 
 		return sprintf(lang('reschedule_sent'), $participant->email);
 	}
@@ -766,12 +766,12 @@ class Participation extends CI_Controller
 				);
 		$message = email_replace('mail/cancel', $message_args);
 
-		$this->mail->prepare(True);
-		$this->mail->to($leader_emails); 
-		$this->mail->to_name('leider(s)');
-		$this->mail->subject('Afspraak verwijderd');
-		$this->mail->message($message);
-		$this->mail->send();
+		$this->email->prepare(True);
+		$this->email->to($leader_emails); 
+		$this->email->to_name('leider(s)');
+		$this->email->subject('Afspraak verwijderd');
+		$this->email->message($message);
+		$this->email->send();
 	}
 	
 	/** Send a mail to the technical folks */ 
@@ -790,13 +790,13 @@ class Participation extends CI_Controller
 			);
 		$message = email_replace('mail/tech_comment', $message_args);
 		
-		$this->mail->prepare();
-		$this->mail->to(LAB_EMAIL);
-		$this->mail->to("lab staff");
-		$this->mail->subject('Technisch probleem');
-		$this->mail->no_footer_buttons();
-		$this->mail->message($message);
-		$this->mail->send();
+		$this->email->prepare();
+		$this->email->to(LAB_EMAIL);
+		$this->email->to("lab staff");
+		$this->email->subject('Technisch probleem');
+		$this->email->no_footer_buttons();
+		$this->email->message($message);
+		$this->email->send();
 	}
 
 	/////////////////////////

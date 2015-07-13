@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Mail
+class MY_Email extends CI_Email
 {
 
     var $CI;
@@ -16,6 +16,7 @@ class Mail
 
     public function __construct()
     {
+        parent::__construct();
         $this->CI =& get_instance();
     }
 
@@ -39,12 +40,13 @@ class Mail
      */
     public function to($to)
     {
-        $this->CI->email->to(in_development() ? TO_EMAIL_OVERRIDE : $to);
+        echo "Using to function";
+        parent::to(in_development() ? TO_EMAIL_OVERRIDE : $to);
     }
 
     public function bcc($bcc)
     {
-        $this->CI->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $bcc);
+        parent::bcc(in_development() ? TO_EMAIL_OVERRIDE : $bcc);
     }
 
     /**
@@ -53,7 +55,7 @@ class Mail
      */
     public function subject($subject)
     {
-        $this->CI->email->subject(sprintf("Babylab Utrecht: %s", $subject));
+        parent::subject(sprintf("Babylab Utrecht: %s", $subject));
     }
 
     /** 
@@ -114,7 +116,7 @@ class Mail
 
         $message = $this->CI->load->view('mail/mail', $data, TRUE);
 
-        $this->CI->email->message($message);
+        parent::message($message);
     }
 
     /**
@@ -135,7 +137,11 @@ class Mail
      */
     public function attach($attachment)
     {
-        // $this->CI->email->attach($attachment);
+        $attach_url = 'uploads/' . $attachment;
+        if(file_exists($attach_url))
+        {
+            parent::attach($attachment);
+        }
     }
 
     /**
@@ -151,7 +157,8 @@ class Mail
      */
     public function send()
     {
-        $this->CI->email->send();
+        $this->set_mailtype("html");
+        parent::send();
     }
 
     /**

@@ -246,12 +246,12 @@ class User extends CI_Controller
 			{
 				reset_language(user_language($admin));
 					
-				$this->mail->prepare(True);
-				$this->mail->to($admin->email);
-				$this->mail->subject(lang('reg_user_subject'));
-				$this->mail->to_name($admin->username);
-				$this->mail->message(sprintf(lang('reg_user_body'), $u->username, $u->email));
-				$this->mail->send();
+				$this->email->prepare(True);
+				$this->email->to($admin->email);
+				$this->email->subject(lang('reg_user_subject'));
+				$this->email->to_name($admin->username);
+				$this->email->message(sprintf(lang('reg_user_body'), $u->username, $u->email));
+				$this->email->send();
 			}
 
 			// Finish registration
@@ -292,12 +292,12 @@ class User extends CI_Controller
 		// Send activation e-mail to user
 		reset_language(user_language($user));
 			
-		$this->mail->prepare(True);
-		$this->mail->to($user->email);
-		$this->mail->subject(lang('activate_subject'));
-		$this->mail->to_name($user->username);
-		$this->mail->message(lang('activate_body'));	
-		$this->mail->send();
+		$this->email->prepare(True);
+		$this->email->to($user->email);
+		$this->email->subject(lang('activate_subject'));
+		$this->email->to_name($user->username);
+		$this->email->message(lang('activate_body'));	
+		$this->email->send();
 
 		flashdata(sprintf(lang('u_activated'), $user->username));
 		redirect('/user/', 'refresh');
@@ -429,12 +429,12 @@ class User extends CI_Controller
 			// Send out reset e-mail
 			reset_language(user_language($user));
 				
-			$this->mail->prepare(True);
-			$this->mail->to($user->email);
-			$this->mail->subject(lang('resetpw_subject'));
-			$this->mail->to_name($user->username);	
-			$this->mail->message(sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url)));
-			$this->mail->send();
+			$this->email->prepare(True);
+			$this->email->to($user->email);
+			$this->email->subject(lang('resetpw_subject'));
+			$this->email->to_name($user->username);	
+			$this->email->message(sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url)));
+			$this->email->send();
 
 			// Show success
 			flashdata(sprintf(lang('forgot_pw_sent'), $user->email));

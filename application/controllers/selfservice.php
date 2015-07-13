@@ -52,13 +52,13 @@ class SelfService extends CI_Controller
 
             $message_data['url'] = 'selfservice/auth/' . $code;
             $message = $this->load->view('mail/selfservice', $message_data, TRUE);
-            $this->mail->prepare();
-            $this->mail->to($email);
-            $this->mail->to_name($parent_name);
-            $this->mail->subject(lang('selfservice_mail_subject'));
-            $this->mail->no_footer_buttons();
-            $this->mail->message($message);
-            $this->mail->send();
+            $this->email->prepare();
+            $this->email->to($email);
+            $this->email->to_name($parent_name);
+            $this->email->subject(lang('selfservice_mail_subject'));
+            $this->email->no_footer_buttons();
+            $this->email->message($message);
+            $this->email->send();
 
             flashdata(sprintf(lang('selfservice_mail_sent'), $email));
             redirect('selfservice');
