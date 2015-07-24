@@ -304,7 +304,7 @@ $lang['rescheduled']		= "Appointment rescheduled";
 $lang['reschedule_short']   = "reschedule";
 $lang['reschedule_info']	= "Now rescheduling <strong>%s</strong> in experiment <em>%s</em>. The current appointment is at %s.";
 $lang['cancelled']			= "Is unable/does not want to participate";
-$lang['cancelled_complete']	= "Never wants to participate again (unsubscribe from any next call)";
+$lang['cancelled_complete']	= "Never wants to participate again (unsubscribe from Babylab Database)";
 $lang['cancelled_short']	= "Cancelled";
 $lang['cancel_info']        = "You're about to cancel the participation of <strong>%s</strong> in experiment <em>%s</em>. 
     The leader(s) of this experiment will receive an e-mail of this cancellation.
