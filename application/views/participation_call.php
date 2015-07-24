@@ -332,6 +332,11 @@
 					<th><?=lang('act_nr_part'); ?></th>
 					<td><?=$nr_participations; ?></td>
 				</tr>
+				<tr>
+					<th><?=lang('attachment'); ?></th>
+					<td><?=$experiment->attachment . ' ' . 
+					anchor('experiment/download_attachment/' . $experiment->id, lang('download'), 'download'); ?></td>
+				</tr>
 			</table>
 		</div>
 	</div>

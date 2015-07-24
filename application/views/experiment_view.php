@@ -45,6 +45,11 @@
 				<td><?=$experiment->wbs_number; ?></td>
 			</tr>
 			<tr>
+				<th><?=lang('attachment'); ?></th>
+				<td><?=$experiment->attachment . ' ' . 
+				anchor('experiment/download_attachment/' . $experiment->id, lang('download'), 'download'); ?></td>
+			</tr>
+			<tr>
 				<th><?=lang('experiment_color'); ?></th>
 				<td><?=stripslashes(get_colored_label($experiment));?></td>
 			</tr>
