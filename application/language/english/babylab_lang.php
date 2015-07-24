@@ -191,6 +191,7 @@ $lang['sure_delete_relation']	= "Are you sure you want to remove this relation?"
 $lang['prerequisite']		= "Is a prerequisite for participation to";
 $lang['excludes']			= "Excludes participation to";
 $lang['combination']		= "Is (possibly) combined with";
+$lang['send_combination'] 	= "Also schedule an appointment for <em>%s</em>?";
 
 /* Locations */
 $lang['location']			= "Location";
@@ -319,8 +320,8 @@ $lang['no_shows_info']      = "This overview shows the no-shows per participant.
                                 When there are a lot of these, one might want to remove the participant. 
                                 You can use the deactivate-button here for that.";
 $lang['completed']			= "Completed";
-$lang['complete_part']		= "Complete participation";
-$lang['complete_part_info']	= "In this window you can complete the participation of <em>%s</em> to experiment <em>%s</em>.
+$lang['complete_part']		= "Complete session";
+$lang['complete_part_info']	= "In this window you can complete the session of <em>%s</em> to experiment <em>%s</em>.
 							   Please complete all required fields before confirming.";
 $lang['message_left']		= "Left a message?";
 $lang['none']				= "None";
@@ -357,11 +358,11 @@ $lang['interruptions_info'] = "This overview shows the interrupted participation
                                 You can use the deactivate-button here for that.";
 $lang['excluded']           = "Excluded";
 $lang['excluded_reason']    = "Reason exclusion";
-$lang['excluded_long']      = "Exclude this participation from analysis";
-$lang['part_interrupted']   = "This participation is excluded from analysis.";
-$lang['part_comment']		= "Comments for participation";
+$lang['excluded_long']      = "Exclude this session from analysis";
+$lang['part_interrupted']   = "This session is excluded from analysis.";
+$lang['part_comment']		= "Comments on session";
 $lang['part_comment_info']	= "The (required) comment added below will only be saved for this participation. <em>(example: didn't sit still)</em>";
-$lang['pp_comment']			= "Comments for participant";
+$lang['pp_comment']			= "Comments on participant";
 $lang['pp_comment_info']	= "Any comment added below will be saved with the participant for future reference. <em>(example: possibly dyslexic)</em>";
 $lang['tech_comment']		= "Comments for lab staff";
 $lang['tech_comment_info']	= "Any comment added below will be e-mailed to the lab staff directly. <em>(example: sound seems off)</em>";
