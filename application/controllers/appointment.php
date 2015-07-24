@@ -19,7 +19,7 @@ class Appointment extends CI_Controller
 		$data['experiments'] = $this->experimentModel->get_all_experiments();
 		$data['participants'] = $this->participantModel->get_all_participants();
 		$data['locations'] = $this->locationModel->get_all_locations();
-		$data['leaders'] = $this->userModel->get_all_leaders();
+		$data['leaders'] = array_merge($this->userModel->get_all_leaders(), $this->userModel->get_all_admins());
 
 		// Load the view
 		if ($header) $this->load->view('templates/header', $data);
