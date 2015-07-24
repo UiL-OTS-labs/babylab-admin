@@ -66,6 +66,9 @@ $lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'h
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
+$lang['login_admin'] 		= "Login als admin";
+$lang['login_leader'] 		= "Login als leider";
+$lang['login_caller'] 		= "Login als beller";
 $lang['logout'] 			= "Uitloggen";
 $lang['reset']				= "Leegmaken";
 $lang['invalid_login']		= "Onjuiste inloggegevens of gebruiker gedeactiveerd. Probeer opnieuw in te loggen.";

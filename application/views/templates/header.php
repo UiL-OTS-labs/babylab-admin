@@ -166,17 +166,17 @@ $(function() {
 			echo " | ";
 			if (user_role() === UserRole::Admin && !is_admin()) 
 			{
-				echo anchor('login/switch_to/admin', 'Login als admin');
+				echo anchor('login/switch_to/admin', lang('login_admin'));
 				echo " | ";
 			}
 			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_leader()) 
 			{
-				echo anchor('login/switch_to/leader', 'Login als leider');
+				echo anchor('login/switch_to/leader', lang('login_leader'));
 				echo " | ";
 			}
 			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_caller())
 			{
-				echo anchor('login/switch_to/caller', 'Login als beller');
+				echo anchor('login/switch_to/caller', lang('login_caller'));
 				echo " | ";
 			}
 			echo anchor('login/logout', lang('logout'));

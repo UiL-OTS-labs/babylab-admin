@@ -66,6 +66,9 @@ $lang['register_return']    = "Click " . anchor('http://babylab.wp.hum.uu.nl', '
 
 /* Login page */
 $lang['login'] 				= "Log in";
+$lang['login_admin'] 		= "Log in as admin";
+$lang['login_leader'] 		= "Log in as leader";
+$lang['login_caller'] 		= "Log in as caller";
 $lang['logout'] 			= "Log out";
 $lang['reset']				= "Reset";
 $lang['invalid_login']		= "Invalid credentials or user deactivated. Please try again.";
