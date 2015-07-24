@@ -15,7 +15,7 @@ $lang['welcome']			= "Welcome <i>%s</i>!";
 $lang['welcome_admin']		= "Welcome to the administrative interface of the Babylab call center.";
 $lang['welcome_caller']		= "Welcome to the caller interface of the Babylab call center.";
 $lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown below).
-								Curerntly you can call %s participant(s). 
+								Currently you can call %s participant(s). 
 							   	Choose one of the experiments below and click the phone icon to start calling.";
 $lang['info_leader']		= "You are enrolled as leader for %s experiment(s) (shown below).";
 
@@ -303,7 +303,7 @@ $lang['reschedule']			= "Reschedule appointment";
 $lang['rescheduled']		= "Appointment rescheduled";
 $lang['reschedule_short']   = "reschedule";
 $lang['reschedule_info']	= "Now rescheduling <strong>%s</strong> in experiment <em>%s</em>. The current appointment is at %s.";
-$lang['cancelled']			= "Can't/won't participate";
+$lang['cancelled']			= "Is unable/does not want to participate";
 $lang['cancelled_complete']	= "Never wants to participate again (unsubscribe from any next call)";
 $lang['cancelled_short']	= "Cancelled";
 $lang['cancel_info']        = "You're about to cancel the participation of <strong>%s</strong> in experiment <em>%s</em>. 
