@@ -2,7 +2,8 @@
 $lang['testinvite']			= "Inivitation";
 $lang['testinvites']		= "Inivitations";
 $lang['add_testinvite'] 	= "Add inivitation";
-$lang['testinvite_added']	= "New invitation for test <em>%s</em> added successfully.<br>An e-mail was sent to <em>%s</em>.";
+$lang['testinvite_added']	= "New invitation for <em>%s</em> to test <em>%s</em> added successfully.<br>An e-mail was sent to <em>%s</em>.";
+$lang['testinvite_added_nomail'] = "New invitation for <em>%s</em> to test <em>%s</em> added successfully.";
 $lang['sure_delete_testinvite']	= "Are you sure you want to delete this invitation?";
 $lang['testinvite_deleted'] = "Inivitation deleted successfully.";
 $lang['manual_reminder']	= "Manual reminder";

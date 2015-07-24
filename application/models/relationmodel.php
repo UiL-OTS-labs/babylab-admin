@@ -16,7 +16,7 @@ class RelationModel extends CI_Model
 		return $this->db->get('relation')->result();
 	}
 
-	/** Returns all relations as an array. */
+	/** Returns all relations for a specific type as an array. */
 	public function get_relations_by_type($relation_type)
 	{
 		$this->db->where('relation', $relation_type);
@@ -68,6 +68,14 @@ class RelationModel extends CI_Model
 	/////////////////////////
 	// Experiments
 	/////////////////////////
+
+	/** Returns the relation between two experiments. */
+	public function get_relation_by_experiments($experiment_id, $rel_exp_id)
+	{
+		$this->db->where('experiment_id', $experiment_id);
+		$this->db->where('rel_exp_id', $rel_exp_id);
+		return $this->db->get('relation')->row();
+	}
 
 	/** Update relations, delete if current relations is not in line with selected ones */
 	public function update_relations($experiment_id, $relations, $relation_type)

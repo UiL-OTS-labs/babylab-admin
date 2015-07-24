@@ -309,7 +309,7 @@ class Call extends CI_Controller
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 
-		// Add attachments 
+		// Add attachment for experiment
 		if ($experiment->attachment)
 		{
 			if (file_exists('uploads/' . $experiment->attachment))
@@ -317,9 +317,11 @@ class Call extends CI_Controller
 				$this->email->attach('uploads/' . $experiment->attachment);
 			}
 		}
-		if ($comb_exp && $comb_exp->attachment && $comb_exp->attachment != $experiment->attachment) 
+		// Add attachment (only for combination experiments)
+		if ($comb_exp && $comb_exp->attachment) 
 		{
-			if (file_exists('uploads/' . $experiment->attachment))
+			$relation = $this->relationModel->get_relation_by_experiments($experiment->id, $comb_exp->id);
+			if ($relation->relation === RelationType::Combination && file_exists('uploads/' . $comb_exp->attachment))
 			{
 				$this->email->attach('uploads/' . $comb_exp->attachment);
 			}
@@ -363,7 +365,7 @@ class Call extends CI_Controller
 		foreach ($testinvites as $testinvite)
 		{
 			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-			$flashdata .= sprintf(lang('testinvite_added'), name($participant), $test->name);
+			$flashdata .= sprintf(lang('testinvite_added_nomail'), name($participant), $test->name);
 		}
 
 		return array($flashdata, $testinvites);

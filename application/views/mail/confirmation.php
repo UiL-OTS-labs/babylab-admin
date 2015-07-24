@@ -1,28 +1,35 @@
 <html>
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
-<p>U heeft zojuist een afspraak gepland met één van de medewerkers van het BabyLab.</p> 
-<p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>
-<?php if ($combination) { ?>
- en op <strong><?=$comb_appointment; ?></strong>
+<p>U heeft zojuist een afspraak gepland met één van de medewerkers van het BabyLab.</p>
+<?php if ($longitudinal) { ?>
+<p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> en op <strong><?=$comb_appointment; ?></strong>.</p>
+<?php } else { ?>
+<p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>.</p>
 <?php } ?>
-.</p>
 <p>De locatie is Janskerkhof 13. Eventuele reis- en parkeerkosten worden vergoed.</p>
 <p>Het Janskerkhof 13 heeft helaas geen informatiebalie waar u zich kunt melden. 
 Daarom zal een van de onderzoeksmedewerkers u op het afgesproken tijdstip komen halen. 
 Wanneer u het gebouw binnenkomt, staat u in de hal. 
 Daar staan twee banken, waar u kunt wachten als u wat eerder bent gearriveerd dan het afgesproken tijdstip.</p>
 <?php if ($combination) { ?>
-Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
+<p>Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
 Het tweede experiment is een <?=$comb_type; ?> en duurt maximaal <?=$comb_duration; ?> minuten. 
-Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u voor de eerste sessie ongeveer <?=$duration_total; ?> minuten
-en voor de tweede sessie ongeveer <?=$comb_duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab. 
-In de bijlage van deze mail vindt u meer informatie over de experimenten en onze werkwijze.
+Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer 
+<?=$duration_total + $comb_duration; ?> minuten moeten reserveren voor uw bezoek aan het lab. 
+<?php } else if ($longitudinal && $duration == $comb_duration) { ?>
+<p>Het experiment is een <?=$type; ?>. Beide afspraken duren maximaal <?=$duration; ?> minuten. 
+Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab.
+<?php } else if ($longitudinal && $duration != $comb_duration) { ?>
+<p>Het experiment is een <?=$type; ?>. De eerste afspraak duurt maximaal <?=$duration; ?> minuten. 
+De tweede afspraak duurt maximaal <?=$comb_duration; ?> minuten. 
+Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$duration_total; ?> minuten voor de eerste afspraak, 
+en ongeveer <?=$comb_duration_total; ?> moeten reserveren voor uw tweede bezoek aan het lab.
 <?php } else { ?>
 <p>Het experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
 Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer <?=$duration_total; ?> minuten moeten reserveren voor uw bezoek aan het lab.
-In de bijlage van deze mail vindt u meer informatie over het experiment en onze werkwijze.</p>
 <?php } ?>
+In de bijlage van deze mail vindt u meer informatie over het experiment en onze werkwijze.</p>
 <?php if ($survey_link) { ?>
 <p>Omdat u voor de eerste keer met <?=$name_first; ?> een bezoek brengt aan het BabyLab, zouden wij u willen vragen de onderstaande link te openen.
 Hier vindt u vragen die o.a. ingaan op de gezinssamenstelling en medische achtergrond van <?=$name_first; ?>. 
@@ -36,7 +43,7 @@ Mocht u verder nog vragen hebben dan kunt u contact opnemen met:</p>
 <?php if ($survey_link) { ?>
 <p>De link naar de vragenlijst (<em>Anamnese 1ste bezoek</em>) vindt u hier: <?=$survey_link; ?>.</p>
 <?php } ?>
-<p>Meer informatie over het BabyLab en bijvoorbeeld hoe er te komen is beschikbaar op <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
+<p>Meer informatie over het BabyLab en bijvoorbeeld hoe er te komen is beschikbaar op <?=anchor('http://babylab.wp.hum.uu.nl'); ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p><?=BABYLAB_TEAM; ?></p>

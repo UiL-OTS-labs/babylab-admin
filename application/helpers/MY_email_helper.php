@@ -40,6 +40,7 @@ if (!function_exists('email_replace'))
 		$message_data['auto'] 				= $auto;
 		$message_data['message'] 			= $message;
 		$message_data['combination']		= FALSE;
+		$message_data['longitudinal']		= FALSE;
 		$message_data['survey_link']		= FALSE;
 
 		if ($user)
@@ -81,8 +82,10 @@ if (!function_exists('email_replace'))
 		{
 			$location = $CI->locationModel->get_location_by_experiment($comb_experiment);
 			$comb_participation = $CI->participationModel->get_participation($comb_experiment->id, $participant->id);
-			
-			$message_data['combination']		= TRUE;
+			$relation = $CI->relationModel->get_relation_by_experiments($experiment->id, $comb_experiment->id);
+
+			$message_data['combination']		= $relation->relation === RelationType::Combination;
+			$message_data['longitudinal']		= $relation->relation === RelationType::Prerequisite;
 			$message_data['comb_exp_name']		= $comb_experiment->name;
 			$message_data['comb_type'] 			= $comb_experiment->type;
 			$message_data['comb_duration'] 		= $comb_experiment->duration;

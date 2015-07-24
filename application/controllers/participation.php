@@ -401,10 +401,18 @@ class Participation extends CI_Controller
 		// Create call record
 		$call_id = $this->callModel->create_call($participation_id);
 
-		// Find possible combination experiment and check if participation exists
+		// Find possible combined experiment, first check combinations
 		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
 		$comb_exp = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
-		$comb_part = ($comb_exp) ? $this->participationModel->get_participation($comb_exp->id, $participant_id) :  FALSE;
+		if (!$comb_exp)
+		{
+			// Then check prerequisites
+			$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Prerequisite);
+			$comb_exp = $prereqs ? $this->experimentModel->get_experiment_by_id($prereqs[0]) : FALSE;
+		}
+
+		// Check if participation to combined experiment already exists
+		$comb_part = $comb_exp ? $this->participationModel->get_participation($comb_exp->id, $participant_id) : FALSE;
 		if ($comb_part) $comb_exp = FALSE;
 
 		// Create page data
