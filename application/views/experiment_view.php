@@ -111,8 +111,8 @@
 			$this->load->view('templates/list_view', $testinvites);
 		?>
 		<ul>
-			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/anamnese', 'Download resultaten Anamnese'); ?></li>
-			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', 'Download resultaten N-CDI'); ?></li>
+			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/anamnese', sprintf(lang('download_results'), 'Anamnese')); ?></li>
+			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', sprintf(lang('download_results'), 'N-CDI')); ?></li>
 		</ul>
 	</div>
 </div>

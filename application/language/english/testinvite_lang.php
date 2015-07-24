@@ -20,4 +20,5 @@ $lang['testinvite_not_exists'] 		= "No invitation for <em>%s</em> for survey <em
 $lang['testinvite_action'] 			= "Send reminders for non-completed invitations (now: %s invitations need reminders).";
 $lang['show_all_testinvites'] 		= "Show all invitations";
 $lang['needs_manual_reminder'] 		= "Show invitations that need manual reminders";
+$lang['download_results'] 			= "Download results %s";
 ?>

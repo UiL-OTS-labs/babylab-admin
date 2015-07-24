@@ -20,4 +20,5 @@ $lang['testinvite_not_exists'] 		= "Er is nog geen uitnodiging voor <em>%s</em> 
 $lang['testinvite_action'] 			= "Herinneringen versturen voor niet ingevulde vragenlijsten (nu: %s vragenlijsten te laat ingevuld).";
 $lang['show_all_testinvites'] 		= "Toon alle uitnodigingen";
 $lang['needs_manual_reminder'] 		= "Toon uitnodigingen die handmatig herinnerd moeten worden";
+$lang['download_results'] 			= "Download resultaten %s";
 ?>
