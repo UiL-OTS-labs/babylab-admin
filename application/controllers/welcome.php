@@ -128,7 +128,7 @@ class Welcome extends CI_Controller
 		$user = $this->userModel->get_user_by_id($user_id);
 		$experiments = $this->leaderModel->get_experiments_by_leader($user_id);
 		$nr_experiments = count($experiments);
-		$conf_part = count($this->participationModel->get_confirmed_participations($experiments));
+		$conf_part = $nr_experiments ? count($this->participationModel->get_confirmed_participations($experiments)) : 0;
 		$conf_url = array('url' => 'participation', 'title' => sprintf(lang('part_action'), $conf_part));
 
 		create_experiment_table();
