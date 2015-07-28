@@ -285,7 +285,9 @@ class Appointment extends CI_Controller
 			$user_link .= br();
 		}
 
-		$participation_actions = is_leader() ? '' : '<center>' . participation_actions($participation->id) . '</center>';
+		// Show actions only if user the leader of this participation (or if user is admin/caller)
+		$current_user_is_leader = is_leader() && $participation->user_id_leader != current_user_id();
+		$participation_actions = $current_user_is_leader ? '' : '<center>' . participation_actions($participation->id) . '</center>';
 
 		return addslashes($exp_link . $part_link . $loc_link . $user_link . $participation_actions);
 	}
@@ -309,7 +311,7 @@ class Appointment extends CI_Controller
 
 	/**
 	 * Generates the messages for an event, based on appointment information.
-	 * Appointment $appointment
+	 * @param Participation $appointment
 	 */
 	private function get_messages($appointment)
 	{

@@ -83,7 +83,7 @@ if (!function_exists('participation_actions'))
 				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $delete_link);
 				break;
 			case UserRole::Leader:
-				$actions = array($get_link, $cancel_link, $noshow_link, $completed_link);
+				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link);
 				break;
 			default:
 				$actions = array($get_link, $cancel_link, $reschedule_link);
