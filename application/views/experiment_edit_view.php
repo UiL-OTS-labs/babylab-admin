@@ -70,17 +70,29 @@ $(function() {
 <?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
 <?=form_dropdown_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
 
-<?=form_fieldset(lang('attachment')); ?>
+<?=form_fieldset(lang('attachments')); ?>
 <div class="pure-control-group">
-<?=form_label(lang('attachment'), 'userfile'); ?>
+<?=form_label(lang('attachment'), 'attachment'); ?>
 <?php if ($attachment) { 
     echo '<em>' . $attachment . '</em> ';
-    echo anchor('experiment/download_attachment/' . $id, lang('download'), 'download');
+    echo anchor(array('experiment/download_attachment', $id, 'attachment'), lang('download'));
     echo ' ';
-    echo anchor('experiment/remove_attachment/' . $id, lang('remove'), warning(lang('sure_remove_attachment')));
+    echo anchor(array('experiment/remove_attachment', $id, 'attachment'), lang('remove'), warning(lang('sure_remove_attachment')));
 } else { ?>
-    <input type="file" name="userfile" size="20" class="pure-input-rounded" />
-    <?=form_error('userfile'); ?>
+    <input type="file" name="attachment" size="20" class="pure-input-rounded" />
+    <?=form_error('attachment'); ?>
+<?php } ?>
+</div>
+<div class="pure-control-group">
+<?=form_label(lang('informedconsent'), 'informedconsent'); ?>
+<?php if ($informedconsent) { 
+    echo '<em>' . $informedconsent . '</em> ';
+    echo anchor(array('experiment/download_attachment', $id, 'informedconsent'), lang('download'));
+    echo ' ';
+    echo anchor(array('experiment/remove_attachment', $id, 'informedconsent'), lang('remove'), warning(lang('sure_remove_informedconsent')));
+} else { ?>
+    <input type="file" name="informedconsent" size="20" class="pure-input-rounded" />
+    <?=form_error('informedconsent'); ?>
 <?php } ?>
 </div>
 

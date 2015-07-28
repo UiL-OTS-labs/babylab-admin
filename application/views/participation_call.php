@@ -335,7 +335,12 @@
 				<tr>
 					<th><?=lang('attachment'); ?></th>
 					<td><?=$experiment->attachment . ' ' . 
-					anchor('experiment/download_attachment/' . $experiment->id, lang('download'), 'download'); ?></td>
+					anchor(array('experiment/download_attachment', $experiment->id, 'attachment'), lang('download')); ?></td>
+				</tr>
+				<tr>
+					<th><?=lang('informedconsent'); ?></th>
+					<td><?=$experiment->informedconsent . ' ' . 
+					anchor(array('experiment/download_attachment', $experiment->id, 'informedconsent'), lang('download')); ?></td>
 				</tr>
 			</table>
 		</div>

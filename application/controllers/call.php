@@ -317,6 +317,14 @@ class Call extends CI_Controller
 				$this->email->attach('uploads/' . $experiment->attachment);
 			}
 		}
+		// Add informed consent
+		if ($experiment->informedconsent)
+		{
+			if (file_exists('uploads/' . $experiment->informedconsent))
+			{
+				$this->email->attach('uploads/' . $experiment->informedconsent);
+			}
+		}
 		// Add attachment (only for combination experiments)
 		if ($comb_exp && $comb_exp->attachment) 
 		{
@@ -348,7 +356,10 @@ class Call extends CI_Controller
 		$this->email->message($message);
 		if ($experiment->attachment)
 		{
-			$this->email->attach('uploads/' . $experiment->attachment);
+			if (file_exists('uploads/' . $experiment->attachment))
+			{
+				$this->email->attach('uploads/' . $experiment->attachment);
+			}
 		}
 		$this->email->send();
 

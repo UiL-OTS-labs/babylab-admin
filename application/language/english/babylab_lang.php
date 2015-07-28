@@ -177,11 +177,13 @@ $lang['archived_exp']		= "Archived experiment successfully.";
 $lang['unarchived_exp']		= "Activated experiment successfully.";
 $lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range.";
 $lang['act_nr_part']		= "Current number of participants";
+$lang['attachments']        = "Attachments";
 $lang['attachment']         = "Attachment";
 $lang['download']           = "Download";
 $lang['remove']             = "Remove";
 $lang['sure_remove_attachment'] = "Are you sure you want to remove the attachment? Other edits to the experiment will not be saved.";
-
+$lang['informedconsent']     = "Informed consent";
+$lang['sure_remove_informedconsent'] = "Are you sure you want to remove the informed consent? Other edits to the experiment will not be saved.";
 
 /* Relations */
 $lang['relation']	 		= "Relation";
