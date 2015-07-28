@@ -378,6 +378,7 @@ $lang['participation_exists'] = "A participation for <em>%s</em> to <em>%s</em> 
 $lang['participation_edit_leader'] 		= "Edit leader of participation";
 $lang['participation_leader_edited'] 	= "Leader of participation successfully edited.";
 $lang['age_at_participation'] 	= "Age at participation";
+$lang['download_participations'] = "Download completed participations";
 
 /* Calls */
 $lang['call']	 			= "Call";

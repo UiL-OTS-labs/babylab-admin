@@ -376,6 +376,7 @@ $lang['participation_exists'] = "Er bestaat al een deelname van <em>%s</em> aan 
 $lang['participation_edit_leader'] 		= "Leider deelname bewerken";
 $lang['participation_leader_edited'] 	= "Leider deelname succesvol bewerkt.";
 $lang['age_at_participation'] 	= "Leeftijd op testmoment";
+$lang['download_participations'] = "Download voltooide deelnames";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";
