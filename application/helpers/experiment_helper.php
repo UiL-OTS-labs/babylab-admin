@@ -117,7 +117,7 @@ if (!function_exists('experiment_get_link'))
 	/** Returns the get link for an experiment */
 	function experiment_get_link($experiment)
 	{
-		return current_role() === UserRole::Caller ? $experiment->name : anchor('experiment/get/' . $experiment->id, $experiment->name);
+		return anchor('experiment/get/' . $experiment->id, $experiment->name);
 	}
 }
 
