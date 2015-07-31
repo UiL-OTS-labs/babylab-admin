@@ -308,36 +308,42 @@ class Call extends CI_Controller
 		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
-
-		// Add attachment for experiment
-		if ($experiment->attachment)
-		{
-			if (file_exists('uploads/' . $experiment->attachment))
-			{
-				$this->email->attach('uploads/' . $experiment->attachment);
-			}
-		}
-		// Add informed consent
-		if ($experiment->informedconsent)
-		{
-			if (file_exists('uploads/' . $experiment->informedconsent))
-			{
-				$this->email->attach('uploads/' . $experiment->informedconsent);
-			}
-		}
-		// Add attachment (only for combination experiments)
-		if ($comb_exp && $comb_exp->attachment) 
-		{
-			$relation = $this->relationModel->get_relation_by_experiments($experiment->id, $comb_exp->id);
-			if ($relation->relation === RelationType::Combination && file_exists('uploads/' . $comb_exp->attachment))
-			{
-				$this->email->attach('uploads/' . $comb_exp->attachment);
-			}
-		}
+		$this->add_attachments($experiment, $comb_exp);
 
 		$this->email->send();
 
 		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $email);
+	}
+
+	/** Adds the correct attachments for an experiment and possibly a combination experiment */
+	private function add_attachments($experiment, $comb_exp)
+	{
+		// Add attachment
+		if ($experiment->attachment && file_exists('uploads/' . $experiment->attachment))
+		{
+			$this->email->attach('uploads/' . $experiment->attachment);
+		}
+		// Add informed consent
+		if ($experiment->informedconsent && file_exists('uploads/' . $experiment->informedconsent))
+		{
+			$this->email->attach('uploads/' . $experiment->informedconsent);
+		}
+		// Add attachment / informed consent of second experiment (only for combination experiments)
+		if ($comb_exp) 
+		{
+			$relation = $this->relationModel->get_relation_by_experiments($experiment->id, $comb_exp->id);
+			if ($relation->relation === RelationType::Combination) 
+			{
+				if ($comb_exp->attachment && file_exists('uploads/' . $comb_exp->attachment))
+				{
+					$this->email->attach('uploads/' . $comb_exp->attachment);
+				}
+				if ($comb_exp->informedconsent && file_exists('uploads/' . $comb_exp->informedconsent))
+				{
+					$this->email->attach('uploads/' . $comb_exp->informedconsent);
+				}
+			}
+		}
 	}
 
 	/** Send request for participation e-mail */
@@ -354,12 +360,10 @@ class Call extends CI_Controller
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
-		if ($experiment->attachment)
+		// Add attachment
+		if ($experiment->attachment && file_exists('uploads/' . $experiment->attachment))
 		{
-			if (file_exists('uploads/' . $experiment->attachment))
-			{
-				$this->email->attach('uploads/' . $experiment->attachment);
-			}
+			$this->email->attach('uploads/' . $experiment->attachment);
 		}
 		$this->email->send();
 
