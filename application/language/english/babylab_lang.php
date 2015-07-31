@@ -284,13 +284,13 @@ $lang['control']            = "Control";
 $lang['participant_graph']  = "Show graph per year/month";
 
 /* Participations */
-$lang['participation']	 	= "Participation";
-$lang['participations']	 	= "Participations";
-$lang['participations_for']	= "Participations in experiment %s";
+$lang['participation']	 	= "Appointment";
+$lang['participations']	 	= "Appointments";
+$lang['participations_for']	= "Appointments in experiment %s";
 $lang['risk']               = "D/M";
 $lang['last_called']	 	= "Last called";
 $lang['last_call']	 		= "%s for %s";
-$lang['last_experiment']	= "Last participation";
+$lang['last_experiment']	= "Last appointment";
 $lang['last_exp']	 		= "%s at %s";
 $lang['never_called']		= "Never called for an experiment";
 $lang['never_participated']	= "Never participated in an experiment";
@@ -309,7 +309,7 @@ $lang['reschedule_info']	= "Now rescheduling <strong>%s</strong> in experiment <
 $lang['cancelled']			= "Is unable/does not want to participate";
 $lang['cancelled_complete']	= "Never wants to participate again (unsubscribe from Babylab Database)";
 $lang['cancelled_short']	= "Cancelled";
-$lang['cancel_info']        = "You're about to cancel the participation of <strong>%s</strong> in experiment <em>%s</em>. 
+$lang['cancel_info']        = "You're about to cancel the appointment of <strong>%s</strong> in experiment <em>%s</em>. 
     The leader(s) of this experiment will receive an e-mail of this cancellation.
     You can also delete this appointment, so you'll be able to call the participant again.
     If you made a new appointment, it's better to %s this appointment right away.";
@@ -330,17 +330,17 @@ $lang['none']				= "None";
 $lang['voicemail']			= "Left voicemail";
 $lang['email_sent']			= "Sent e-mail myself";
 $lang['delete_participation'] = "Delete to be able to call again";
-$lang['sure_delete_part']	= "Are you sure you want to delete this participation?";
+$lang['sure_delete_part']	= "Are you sure you want to delete this appointment?";
 $lang['part_cancel_call']	= "Calling <em>%s</em> for experiment <em>%s</em> cancelled.";
-$lang['part_confirmed']		= "Participation of <em>%s</em> in experiment <em>%s</em> confirmed.";
-$lang['part_cancelled'] 	= "Participation of <em>%s</em> in experiment <em>%s</em> cancelled.";
-$lang['part_cancelled_complete'] 	= "Participation of <em>%s</em> in experiment <em>%s</em> cancelled.<br/><em>%s</em> deactivated.";
+$lang['part_confirmed']		= "Appointment of <em>%s</em> in experiment <em>%s</em> confirmed.";
+$lang['part_cancelled'] 	= "Appointment of <em>%s</em> in experiment <em>%s</em> cancelled.";
+$lang['part_cancelled_complete'] 	= "Appointment of <em>%s</em> in experiment <em>%s</em> cancelled.<br/><em>%s</em> deactivated.";
 $lang['part_no_reply']		= "Added a no reply notice for <em>%s</em> in experiment <em>%s</em>.";
-$lang['part_no_show']		= "Participation of <em>%s</em> in experiment <em>%s</em> marked as no-show.";
-$lang['part_completed']		= "Participation of <em>%s</em> in experiment <em>%s</em> marked as completed.";
-$lang['part_deleted']		= "Participation of <em>%s</em> in experiment <em>%s</em> deleted.";
-$lang['part_rescheduled']	= "Participation of <em>%s</em> in experiment <em>%s</em> rescheduled.";
-$lang['part_action']		= "Marking the participation of participants as completed (confirmed but not completed: %s participations)";
+$lang['part_no_show']		= "Appointment of <em>%s</em> in experiment <em>%s</em> marked as no-show.";
+$lang['part_completed']		= "Appointment of <em>%s</em> in experiment <em>%s</em> marked as completed.";
+$lang['part_deleted']		= "Appointment of <em>%s</em> in experiment <em>%s</em> deleted.";
+$lang['part_rescheduled']	= "Appointment of <em>%s</em> in experiment <em>%s</em> rescheduled.";
+$lang['part_action']		= "Marking the appointments of participants as completed (confirmed but not completed: %s appointments)";
 $lang['now_calling']		= "You're about to call <b>%s</b> (%s), born %s (%s months old).";
 $lang['already_called']		= "%s has been called %s time(s) already for this experiment (last call: %s, action: %s).";
 $lang['call_contact']		= "You can contact %s's parent <b>%s</b> via:";
@@ -352,10 +352,10 @@ $lang['control_group']	 	= "Control group";
 $lang['part_number']	 	= "Participant number";
 $lang['interrupted']	 	= "Interrupted";
 $lang['interrupted_long']   = "Interrupted during experiment";
-$lang['part_interrupted']	= "This participation was interrupted.";
-$lang['interruptions']		= "Interrupted participations";
-$lang['interruptions_for']	= "Interrupted participations for %s";
-$lang['interruptions_info'] = "This overview shows the interrupted participations per participant.
+$lang['part_interrupted']	= "This session was interrupted.";
+$lang['interruptions']		= "Interrupted sessions";
+$lang['interruptions_for']	= "Interrupted sessions for %s";
+$lang['interruptions_info'] = "This overview shows the interrupted sessions per participant.
                                 When there are a lot of these, one might want to remove the participant. 
                                 You can use the deactivate-button here for that.";
 $lang['excluded']           = "Excluded";
@@ -363,7 +363,7 @@ $lang['excluded_reason']    = "Reason exclusion";
 $lang['excluded_long']      = "Exclude this session from analysis";
 $lang['part_interrupted']   = "This session is excluded from analysis.";
 $lang['part_comment']		= "Comments on session";
-$lang['part_comment_info']	= "The (required) comment added below will only be saved for this participation. <em>(example: didn't sit still)</em>";
+$lang['part_comment_info']	= "The (required) comment added below will only be saved for this session. <em>(example: didn't sit still)</em>";
 $lang['pp_comment']			= "Comments on participant";
 $lang['pp_comment_info']	= "Any comment added below will be saved with the participant for future reference. <em>(example: possibly dyslexic)</em>";
 $lang['tech_comment']		= "Comments for lab staff";
@@ -371,14 +371,14 @@ $lang['tech_comment_info']	= "Any comment added below will be e-mailed to the la
 $lang['concept_mail_only']	= "Send concept confirmation mail to %s rather than directly to participant";
 $lang['concept_send']		= "A concept confirmation mail has been send to <em>%s</em>. Do not forget to send the actual mail!";
 
-$lang['ad_hoc_participation'] = "Add ad hoc participation";
+$lang['ad_hoc_participation'] = "Add ad hoc appointment";
 $lang['participation_no_restrictions'] = "<b>Warning!</b><br/>This page is intended as a <i>last resort</i> and does not contain any safeguards whatsoever.<br/>
 Please make sure the participant can and wants to participate in the experiment and is available at the specified time!";
-$lang['participation_exists'] = "A participation for <em>%s</em> to <em>%s</em> already exists. Please delete this participation, before you try to make a new one.";
-$lang['participation_edit_leader'] 		= "Edit leader of participation";
-$lang['participation_leader_edited'] 	= "Leader of participation successfully edited.";
-$lang['age_at_participation'] 	= "Age at participation";
-$lang['download_participations'] = "Download completed participations";
+$lang['participation_exists'] = "An appointment for <em>%s</em> to <em>%s</em> already exists. Please delete this appointment, before you try to make a new one.";
+$lang['participation_edit_leader'] 		= "Edit leader of appointment";
+$lang['participation_leader_edited'] 	= "Leader of appointment successfully edited.";
+$lang['age_at_participation'] 	= "Age at appointment";
+$lang['download_participations'] = "Download completed sessions";
 
 /* Calls */
 $lang['call']	 			= "Call";
