@@ -39,7 +39,7 @@ class Appointment extends CI_Controller
 		$events = array();
 
 		// For each appointment, create an event
-		$appointments = $this->filter_appointments();
+		$appointments = $this->filter_appointments($this->input->post('start'), $this->input->post('end'));
 		foreach ($appointments as $appointment)
 		{
 			// Participant, experiment and leader
@@ -93,7 +93,7 @@ class Appointment extends CI_Controller
 		$result = array();
 
 		// For each user
-		$availabilities = $this->filter_availabilities();
+		$availabilities = $this->filter_availabilities($this->input->post('start'), $this->input->post('end'));
 		foreach ($availabilities as $u_id => $u)
 		{
 			// For each day
@@ -113,6 +113,8 @@ class Appointment extends CI_Controller
 			}
 		}
 
+		// echo $this->input->get('start');
+
 		echo json_encode($result);
 	}
 
@@ -121,7 +123,7 @@ class Appointment extends CI_Controller
 	{
 		$events = array();
 
-		$closings = $this->closingModel->get_all_closings(); 
+		$closings = $this->closingModel->get_all_closings($this->input->post('start'), $this->input->post('end')); 
 		foreach ($closings as $closing) 
 		{
 			
@@ -161,7 +163,7 @@ class Appointment extends CI_Controller
 	/**
 	 * Returns the appointments based on the filters provided. 
 	 */
-	private function filter_appointments()
+	private function filter_appointments($range_begin, $range_end)
 	{
 		$experiment_ids = $this->input->post('experiment_ids');
 		$participant_ids = $this->input->post('participant_ids');
@@ -192,14 +194,15 @@ class Appointment extends CI_Controller
 		}
 
 		// Leaders can only see appointments starting from a month ago
-		$date_from = current_role() === UserRole::Leader ? input_date('-1 month') : NULL;
-		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled, $date_from);
+		// But we only need to see the current month
+		$date_from = (current_role() === UserRole::Leader && input_date('-1 month') > $range_begin) ? input_date('-1 month') : $range_begin;
+		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled, $date_from, $range_end);
 	}
 
 	/**
 	 * Runs the filter on availabilities
 	 */
-	private function filter_availabilities()
+	private function filter_availabilities($range_begin, $range_end)
 	{
 		// Post Data
 		$experiment_ids = $this->input->post('experiment_ids');
@@ -218,7 +221,7 @@ class Appointment extends CI_Controller
 				$c_u = array();
 
 				// Get availabilities for current user
-				$av = $this->availabilityModel->get_availabilities_by_user($u->id);
+				$av = $this->availabilityModel->get_availabilities_by_user($u->id, $range_begin, $range_end);
 
 				// Iterate through availabilities
 				foreach($av as $a)

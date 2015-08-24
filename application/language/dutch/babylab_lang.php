@@ -193,7 +193,7 @@ $lang['excludes']			= "Sluit deelname uit aan";
 $lang['combination']		= "Is (mogelijk) gecombineerd met";
 $lang['send_combination'] 	= "Direct afspraak voor combinatie-experiment <em>%s</em> maken?";
 
-/* Locaties */
+/* Locations */
 $lang['location']			= "Locatie";
 $lang['locations']			= "Locaties";
 $lang['data_for_location']	= "Details van locatie <em>%s</em>";

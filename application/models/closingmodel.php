@@ -11,8 +11,10 @@ class ClosingModel extends CI_Model
     /////////////////////////
 
     /** Returns all closings as an array */
-    public function get_all_closings()
+    public function get_all_closings($begin, $end)
     {
+        if($begin) $this->db->where('to >= ', $begin);
+        if($end) $this->db->where('from <= ', $end);
         return $this->db->get_where('closing')->result();
     }
 
