@@ -132,7 +132,7 @@ class Call extends CI_Controller
 
 			// Fetch the participant's email (or the concept e-mail)
 			$flashdata = '';
-			$email = $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
+			$email = (bool) $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
 
 			// Send the anamnese (or not, if checkbox is set)
 			$testinvite = NULL;
