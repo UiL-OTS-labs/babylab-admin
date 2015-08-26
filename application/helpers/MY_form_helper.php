@@ -21,16 +21,18 @@ if (!function_exists('form_colorpicker'))
 {
 	function form_colorpicker($name, $value='', $extra = '', $div = 'pure-control-group')
 	{
-		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"' . ' style="display: none;"';
+		$extra = $extra . ' placeholder="' . lang($name) . '" id="' . $name . '"';
 		$value = $value || $value == 0 ? $value : '';
+
+		$script = "<script type='text/javascript'>$('#" . $name . "').spectrum({preferredFormat: 'hex', color: '" . $value . "'});</script>";
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label(lang($name), $name);
+		$input = form_input($name, set_value($name, $value), $extra);
 		$error_box = form_error($name);
 		$div_end = empty($div) ? '' : '</div>';
-		$input = "<label id='colorselector2'><label></label></label>";
-		$input .= form_input($name, set_value($name, $value), $extra);
-		return $div_start . $label . $input . $error_box . $div_end;
+
+		return $div_start . $label . $input . $error_box . $div_end . $script;
 	}
 }
 
