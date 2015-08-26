@@ -388,16 +388,18 @@ class Participant extends CI_Controller
 		$data['sort_order'] = 'desc';  // Youngest first
 		$data['page_title'] = sprintf(lang('callable_for'), $experiment->name);
 
-		// Display some information on current participants. TODO: translate
+		// Display some information on current participants.
 		$info = sprintf(lang('call_info'), $experiment->name, $weeks_ahead);
-		$info .= '<p>Dit experiment heeft momenteel:</p>';
+		$info .= '<p>' . lang('call_experiment_info') . '</p>';
 		if (is_risk($experiment))
 		{
 			$risks = $this->participationModel->get_participations_by_experiment($experiment_id, TRUE);
 			$controls = $this->participationModel->get_participations_by_experiment($experiment_id, FALSE);
 			$risk = lcfirst($experiment->dyslexic ? lang('dyslexic') : lang('multilingual'));
-			$participations = array(count($risks) . ' proefpersonen in de risicogroep (risico: ' . $risk . ')',
-			count($controls) . ' proefpersonen in de controlegroep');
+			$participations = array(
+					sprintf(lang('call_n_of_risc'), count($risks), $risk),
+					sprintf(lang('call_n_of_controll'), count($controls))
+				);
 			$info .= ul($participations);
 		}
 		else

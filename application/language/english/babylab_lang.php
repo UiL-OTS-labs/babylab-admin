@@ -223,6 +223,9 @@ $lang['deleted_caller']		= "Deleted caller successfully.";
 $lang['caller_action']		= "Adding callers to experiments (now: %s experiment(s) without callers)";
 $lang['not_caller']			= "You are not a caller for experiment %s.";
 $lang['not_callable_for']	= "%s is not callable (anymore) for experiment %s.";
+$lang['call_experiment_info'] = "At the moment, this experiment has:";
+$lang['call_n_of_risc']		= "%d participants in the risc group (risc: %s)";
+$lang['call_n_of_controll']	= "%d participants in the controll group";
 
 /* Leaders */
 $lang['leader'] 			= "Leader";

@@ -221,6 +221,9 @@ $lang['deleted_caller']		= "Beller succesvol verwijderd.";
 $lang['caller_action']		= "Bellers toevoegen aan experimenten (nu: %s experiment(en) zonder bellers)";
 $lang['not_caller']			= "U bent geen beller voor <em>%s</em>.";
 $lang['not_callable_for']	= "<em>%s</em> is niet (meer) belbaar voor experiment <em>%s</em>.";
+$lang['call_experiment_info'] = "Dit experiment heeft momenteel:";
+$lang['call_n_of_risc']		= "%d proefpersonen in de risicogroep (risico: %s)";
+$lang['call_n_of_controll']	= "%d proefpersonen in de controlegroep";
 
 /* Leaders */
 $lang['leader'] 			= "Leider";
