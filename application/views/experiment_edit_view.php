@@ -1,6 +1,5 @@
-<!-- Color Picker TODO: consider a more lightweight package like Spectrum (http://bgrins.github.io/spectrum/) -->
-<?=link_tag('css/colorpicker.css'); ?>
-<script src="js/colorPicker.min.js"></script>
+<?=link_tag('css/spectrum.css');?>
+<script src="js/spectrum.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#wbs_number").on('keyup', function(e)  {
@@ -16,25 +15,6 @@ $(function() {
 		 'placeholder': "__.______._"
 		}
 	);
-
-    $('#colorselector2').ColorPicker({
-        color: '<?=$experiment_color;?>',
-        onShow: function (colpkr) {
-            $(colpkr).fadeIn(500);
-            return false;
-        },
-        onHide: function (colpkr) {
-            $(colpkr).fadeOut(500);
-            return false;
-        },
-        onChange: function (hsb, hex, rgb) {
-            $('#experiment_color').val('#' + hex);
-            $('#colorselector2 label').css('background-color', '#' + hex);
-        }
-    });
-    $('#colorselector2 label').css('cursor', 'pointer');
-    $('#colorselector2 label').css('background-color', '<?=$experiment_color;?>');
-    $('#experiment_color').val('<?=$experiment_color;?>');
 });
 </script>
 
