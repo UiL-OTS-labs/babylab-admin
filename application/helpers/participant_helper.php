@@ -143,10 +143,10 @@ if (!function_exists('birthweight'))
 
 if (!function_exists('pregnancy'))
 {
-	/** Returns the pregnancy dureation of the participant */
+	/** Returns the pregnancy duration of the participant */
 	function pregnancy($participant)
 	{
-		return $participant->pregnancyweeks . ' ' . lang('months') . '; ' . $participant->pregnancydays . ' ' . lang('days');
+		return $participant->pregnancyweeks . ' ' . lang('weeks') . '; ' . $participant->pregnancydays . ' ' . lang('days');
 	}
 }
 
