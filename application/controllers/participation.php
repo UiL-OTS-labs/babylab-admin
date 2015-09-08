@@ -414,6 +414,7 @@ class Participation extends CI_Controller
 		// Check if participation to combined experiment already exists
 		$comb_part = $comb_exp ? $this->participationModel->get_participation($comb_exp->id, $participant_id) : FALSE;
 		if ($comb_part) $comb_exp = FALSE;
+		$comb_leaders = $comb_exp ? $this->leaderModel->get_leader_users_by_experiments($comb_exp->id) : array();
 
 		// Create page data
 		$data = get_min_max_days($participant, $experiment);
@@ -434,6 +435,7 @@ class Participation extends CI_Controller
 		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['first_visit'] = $first_visit;
 		$data['combination_exp'] = $comb_exp;
+		$data['combination_leaders'] = leader_options($comb_leaders);
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
 		$this->load->view('templates/header', $data);

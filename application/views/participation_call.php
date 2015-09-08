@@ -208,7 +208,7 @@
 							<span id="comb_appointment" style="display:none;">
 							<?=form_input('comb_appointment', '', 'placeholder= "' . lang('appointment') . '" class="appointment required"'); ?>
 							<?=form_label(lang('leader')); ?>
-                            <?=form_dropdown_and_label('comb_leader', $leaders, array(), '', FALSE, NULL); ?>
+                            <?=form_dropdown_and_label('comb_leader', $combination_leaders, array(), '', FALSE, NULL); ?>
 							<?=form_hidden('comb_exp', $combination_exp->id); ?>
 							</span>
 							</p>
