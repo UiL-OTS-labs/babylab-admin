@@ -12,4 +12,3 @@
 </p>
 <p><?=sprintf(lang('selfservice_mail_ending'), lang('babylab_team'));?></p>
 <p><?=lang('mail_disclaimer');?></p>
-

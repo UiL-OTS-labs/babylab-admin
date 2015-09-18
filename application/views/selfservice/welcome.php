@@ -18,7 +18,7 @@ $(function() {
 
 <?=form_open('selfservice/welcome_submit', array('class' => 'pure-form pure-form-aligned')); ?>
 
-<?=form_fieldset(lang('selfservice_form_heading')); ?>
+<?=form_fieldset(lang('selfservice_contact_heading')); ?>
 <?=form_input_and_label('parentfirstname', $parentfirstname, 'required'); ?>
 <?=form_input_and_label('parentlastname', $parentlastname, 'required'); ?>
 <?=form_input_and_label('city', $city); ?>
@@ -28,6 +28,7 @@ $(function() {
 
 <?=form_fieldset_close(); ?>
 <?=form_fieldset(lang('selfservice_pps_heading')); ?>
+<p><?=lang('selfservice_pps_help'); ?></p>
 
 <?php
     $tmpl = array('table_open' => '<table class="pure-table">' );
