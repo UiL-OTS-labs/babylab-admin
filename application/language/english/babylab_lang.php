@@ -381,6 +381,9 @@ Please make sure the participant can and wants to participate in the experiment 
 $lang['participation_exists'] = "An appointment for <em>%s</em> to <em>%s</em> already exists. Please delete this appointment, before you try to make a new one.";
 $lang['participation_edit_leader'] 		= "Edit leader of appointment";
 $lang['participation_leader_edited'] 	= "Leader of appointment successfully edited.";
+$lang['calendar_comment'] 	= "Calendar comment";
+$lang['participation_edit_comment'] 	= "Edit calendar comment";
+$lang['participation_comment_edited'] 	= "Calendar comment successfully edited.";
 $lang['age_at_participation'] 	= "Age at appointment";
 $lang['download_participations'] = "Download completed sessions";
 
@@ -478,12 +481,12 @@ $lang['testcat']			= "Test category";
 $lang['testcats']			= "Test categories";
 $lang['data_for_testcat']	= "Details of test category <em>%s</em>";
 $lang['add_testcat'] 		= "Add new test category";
-$lang['testcat_added']		= "New test category <em>%s</em> was succesfully added.";
+$lang['testcat_added']		= "New test category <em>%s</em> was successfully added.";
 $lang['edit_tc']			= "Edit test category";
 $lang['edit_testcat']		= "Edit test category <i>%s</i>";
-$lang['testcat_edited'] 	= "Test category %s was succesfully edited.";
+$lang['testcat_edited'] 	= "Test category %s was successfully edited.";
 $lang['sure_delete_testcat']= "Are you sure you want to remove this test category";
-$lang['testcat_deleted'] 	= "Test category succesfully removed.";
+$lang['testcat_deleted'] 	= "Test category successfully removed.";
 $lang['parent_testcat'] 	= "Parent category";
 $lang['code']				= "Code";
 

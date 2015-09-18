@@ -213,6 +213,41 @@ class Participation extends CI_Controller
 		}
 	}
 
+	/** Allows admins to change the calendar comment of a participation. */
+	public function edit_comment($participation_id)
+	{
+		$participation = $this->participationModel->get_participation_by_id($participation_id);
+
+		$data['page_title'] = lang('participation_edit_comment');
+		$data['action'] = 'participation/edit_comment_submit/' . $participation_id;
+
+		$data['calendar_comment'] = $participation->calendar_comment;
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('participation_comment_edit_view', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/** Handles the submit of a change the calendar comment of a participation. */
+	public function edit_comment_submit($participation_id)
+	{
+		$this->form_validation->set_rules('calendar_comment', lang('calendar_comment'), 'trim|required|max_length[200]');
+		if (!$this->form_validation->run()) 
+		{
+			$this->edit_comment($participation_id);
+		}
+		else
+		{
+			$participation = array(
+				'calendar_comment' => $this->input->post('calendar_comment')
+			);
+			$this->participationModel->update_participation($participation_id, $participation);
+			
+			flashdata(lang('participation_comment_edited'));
+			redirect('appointment', 'refresh');
+		}
+	}
+
 	private function validate_experiment()
 	{
 		// Require experiment and participant to be selected

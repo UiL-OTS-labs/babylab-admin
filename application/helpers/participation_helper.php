@@ -76,17 +76,18 @@ if (!function_exists('participation_actions'))
 		$noshow_link = $is_confirmed && !$is_noshow && !$after_now ? anchor('participation/no_show/' . $pp->id, img_noshow()) : img_noshow(TRUE);
 		$completed_link = $is_confirmed && !$after_now ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
 		$delete_link = anchor('participation/delete/' . $pp->id, img_p_delete(), warning(lang('sure_delete_part')));
+		$comment_link = anchor('participation/edit_comment/' . $pp->id, img_comment());
 
 		switch (current_role())
 		{
 			case UserRole::Admin:
-				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $delete_link);
+				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $comment_link, $delete_link);
 				break;
 			case UserRole::Leader:
-				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link);
+				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $comment_link);
 				break;
 			default:
-				$actions = array($get_link, $cancel_link, $reschedule_link);
+				$actions = array($get_link, $cancel_link, $reschedule_link, $comment_link);
 				break;
 		}
 		return implode(' ', $actions);

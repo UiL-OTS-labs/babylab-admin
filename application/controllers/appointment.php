@@ -288,11 +288,19 @@ class Appointment extends CI_Controller
 			$user_link .= br();
 		}
 
+		$comment = '';
+		if ($participation->calendar_comment)
+		{
+			$comment .= lang('comment') . ': '; 
+			$comment .= $participation->calendar_comment;
+			$comment .= br(); 
+		}
+
 		// Show actions only if user the leader of this participation (or if user is admin/caller)
 		$current_user_is_leader = is_leader() && $participation->user_id_leader != current_user_id();
 		$participation_actions = $current_user_is_leader ? '' : '<center>' . participation_actions($participation->id) . '</center>';
 
-		return addslashes($exp_link . $part_link . $loc_link . $user_link . $participation_actions);
+		return addslashes($exp_link . $part_link . $loc_link . $user_link . $comment . $participation_actions);
 	}
 
 	/**

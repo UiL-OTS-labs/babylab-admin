@@ -97,6 +97,18 @@ if (!function_exists('img_participations'))
 	}
 }
 
+if (!function_exists('img_comment'))
+{
+	/** Returns the image for a comment */
+	function img_comment()
+	{
+		return img(array(
+				'src' => 'images/comments.png',
+				'title' => lang('comment'),
+		));
+	}
+}
+
 if (!function_exists('img_comments'))
 {
 	/** Returns the image for comments */

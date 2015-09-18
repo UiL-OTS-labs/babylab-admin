@@ -26,6 +26,9 @@ $(function(){
 </script>
 
 <?=heading($page_title, 2); ?>
+
+<?=$this->session->flashdata('message'); ?>
+
 <!-- Filter helper buttons. Disabled in this version -->  
 
 <!-- <div class="filter-control">
