@@ -156,7 +156,7 @@ class ParticipantModel extends CI_Model
 		// Get the results
 		$participants = $this->db->get()->result();
 
-		// Now check whether the participants are of correct age, from $weeks_ahead to 1 week 
+		// Now check whether the participants are of correct age, from $weeks_ahead to now
 		$result = array();
 		foreach ($participants as $participant)
 		{
@@ -164,7 +164,7 @@ class ParticipantModel extends CI_Model
 			$months_from = $age_from[0];
 			$days_from = $age_from[1];
 			
-			$age_to = explode(';', age_in_months_and_days($participant->dateofbirth, input_date('+ 1 week')));
+			$age_to = explode(';', age_in_months_and_days($participant->dateofbirth, input_date()));
 			$months_to = $age_to[0];
 			$days_to = $age_to[1];
 
