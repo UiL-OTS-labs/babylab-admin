@@ -318,6 +318,7 @@ $lang['cancel_info']        = "You're about to cancel the appointment of <strong
     You can also delete this appointment, so you'll be able to call the participant again.
     If you made a new appointment, it's better to %s this appointment right away.";
 $lang['call_started']		= "Call started";
+$lang['call_back']			= "Call back later";
 $lang['no_reply']			= "No reply";
 $lang['no_show']			= "No show";
 $lang['no_shows']			= "No-shows";
@@ -340,6 +341,7 @@ $lang['part_confirmed']		= "Appointment of <em>%s</em> in experiment <em>%s</em>
 $lang['part_cancelled'] 	= "Appointment of <em>%s</em> in experiment <em>%s</em> cancelled.";
 $lang['part_cancelled_complete'] 	= "Appointment of <em>%s</em> in experiment <em>%s</em> cancelled.<br/><em>%s</em> deactivated.";
 $lang['part_no_reply']		= "Added a no reply notice for <em>%s</em> in experiment <em>%s</em>.";
+$lang['part_call_back']		= "Added call back date for <em>%s</em> in experiment <em>%s</em>.";
 $lang['part_no_show']		= "Appointment of <em>%s</em> in experiment <em>%s</em> marked as no-show.";
 $lang['part_completed']		= "Appointment of <em>%s</em> in experiment <em>%s</em> marked as completed.";
 $lang['part_deleted']		= "Appointment of <em>%s</em> in experiment <em>%s</em> deleted.";
@@ -386,6 +388,8 @@ $lang['participation_edit_comment'] 	= "Edit calendar comment";
 $lang['participation_comment_edited'] 	= "Calendar comment successfully edited.";
 $lang['age_at_participation'] 	= "Age at appointment";
 $lang['download_participations'] = "Download completed sessions";
+$lang['called_on'] 			= "Called on %s";
+$lang['call_back_on'] 		= "Call back on %s";
 
 /* Calls */
 $lang['call']	 			= "Call";

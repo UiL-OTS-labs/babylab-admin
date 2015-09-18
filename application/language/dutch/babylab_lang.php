@@ -317,6 +317,7 @@ $lang['cancel_info']        = "<ul><li>U gaat nu de afspraak met <strong>%s</str
     <li>De afspraak kan ook verwijderd worden, dan wordt het mogelijk de proefpersoon opnieuw te bellen.</li> 
     <li>Als u al een nieuwe afspraak gemaakt heeft, dan is het beter om deze afspraak direct te %s.</li></ul>";
 $lang['call_started']		= "Gesprek gestart";
+$lang['call_back']			= "Later terugbellen";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";
@@ -339,6 +340,7 @@ $lang['part_confirmed']		= "<em>%s</em> ingeschreven voor experiment <em>%s</em>
 $lang['part_cancelled'] 	= "<em>%s</em> uitgeschreven voor experiment <em>%s</em>.";
 $lang['part_cancelled_complete'] = "<em>%s</em> uitgeschreven voor experiment <em>%s</em>. <br/><em>%s</em> gedeactiveerd.";
 $lang['part_no_reply']		= "Melding van geen gehoor toegevoegd voor <em>%s</em> in experiment <em>%s</em>.";
+$lang['part_call_back']		= "Terugbeldatum toegevoegd voor <em>%s</em> in experiment <em>%s</em>.";
 $lang['part_no_show']		= "Deelname van <em>%s</em> aan experiment <em>%s</em> als no-show gemarkeerd.";
 $lang['part_completed']		= "Deelname van <em>%s</em> aan experiment <em>%s</em> als voltooid gemarkeerd.";
 $lang['part_deleted']		= "Deelname van <em>%s</em> aan experiment <em>%s</em> verwijderd.";
@@ -385,6 +387,8 @@ $lang['participation_edit_comment'] 	= "Bewerken agendacommentaar";
 $lang['participation_comment_edited'] 	= "Agendacommentaar succesvol bewerkt.";
 $lang['age_at_participation'] 	= "Leeftijd op testmoment";
 $lang['download_participations'] = "Download voltooide deelnames";
+$lang['called_on'] 			= "Gebeld op %s";
+$lang['call_back_on'] 		= "Terugbellen op %s";
 
 /* Calls */
 $lang['call']	 			= "Gesprek";

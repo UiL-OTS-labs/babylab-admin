@@ -37,6 +37,23 @@
         	$('#comb_appointment').toggle();
     	});
 
+		// Call back scheduling
+		$('input[name="call_back_date"').datetimepicker({
+			changeMonth : true,
+			changeYear : true,
+			minDate : 0, // from now onwards
+			maxDate : '<?=$max_date_js; ?>',
+			showOn : 'both',
+			buttonImage : 'images/calendar.png',
+			buttonImageOnly : true,
+			buttonText : 'Pick a date and time'
+		});
+		
+        // Set the appointment field(s) to read-only
+		$('input[name="call_back_date"').attr({
+			readOnly : true
+		});
+
 		// Navigation handling: only allow navigation from forms or the cancel link.
 		var correct = false; 
 
@@ -235,6 +252,17 @@
 						<?=form_checkbox(array('name' => 'never_again', 'id' => 'never_again', 'value' => true)); ?>
 						<label for="never_again"><?=lang('cancelled_complete'); ?></label></p><p>
 						<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
+						<?=form_submit_only(); ?>
+						</p>
+						<?=form_close(); ?>
+					</div>
+				</li>
+				<li><u class="call_link"><?=lang('call_back'); ?> </u>
+					<div class="show">
+					<?=form_open('call/call_back/' . $call_id); ?>
+						<p>
+						<?=lang('date'); ?>
+						<?=form_input('call_back_date', '', 'placeholder= "' . lang('date') . '" class="required"'); ?>
 						<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>

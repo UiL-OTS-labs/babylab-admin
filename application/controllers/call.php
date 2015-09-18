@@ -218,6 +218,42 @@ class Call extends CI_Controller
 		}
 	}
 
+	/** Call-back: adds a call back date to the participation */
+	public function call_back($call_id)
+	{
+		$this->check_integrity($call_id);
+		
+		$participation = $this->callModel->get_participation_by_call($call_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation->id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
+
+		$this->form_validation->set_rules('call_back_date', lang('call_back_date'), 'required');
+
+		// Run validation
+		if (!$this->form_validation->run())
+		{
+			// If not succeeded, show form again with error messages
+			flashdata(validation_errors(), FALSE);
+			redirect($this->agent->referrer(), 'refresh');
+		}
+		else
+		{
+			// If succeeded, insert data into database
+			$p = array(
+				'status' 			=> ParticipationStatus::Unconfirmed,
+				'call_back_date' 	=> input_datetime($this->input->post('call_back_date')),
+				'lastcalled' 		=> input_datetime());
+
+			$this->callModel->end_call($call_id, CallStatus::CallBack);
+			$this->participationModel->update_participation($participation->id, $p);
+			$this->participationModel->release_lock($participation->id);
+
+			flashdata(sprintf(lang('part_call_back'), name($participant), $experiment->name));
+
+			redirect('/participant/find/' . $experiment->id, 'refresh');
+		}
+	}
+
 	/** Cancel: cancels the participation to the experiment */
 	public function cancel($call_id)
 	{

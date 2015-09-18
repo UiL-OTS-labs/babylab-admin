@@ -56,6 +56,7 @@ class Gender {
 class CallStatus {
 	const CallStarted	= 'call_started';
 	const NoReply 		= 'no_reply';
+	const CallBack 		= 'call_back';
 	const Voicemail 	= 'voicemail';
 	const Email 		= 'email';
 	const Confirmed 	= 'confirmed';
