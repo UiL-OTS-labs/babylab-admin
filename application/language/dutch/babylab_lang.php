@@ -285,6 +285,12 @@ $lang['both']				= "Beide";
 $lang['origin']				= "Hoe hoorde u van het Babylab Utrecht?";
 $lang['control']            = "Controle";
 $lang['participant_graph']  = "Toon grafiek per jaar/maand";
+$lang['comment_space']  	= "Ruimte voor eventuele opmerkingen";
+$lang['origin_letter']  	= "de wervingsbrief (met de folder)";
+$lang['origin_zwazat']  	= "de Zwangere Zaterdag";
+$lang['origin_mouth']  		= "mond-tot-mondreclame";
+$lang['origin_info']  		= "voorlichtingsavond bij de verloskundigenpraktijk";
+$lang['origin_other']  		= "anders";
 
 /* Participations */
 $lang['participation']	 	= "Deelname";

@@ -87,12 +87,12 @@
 
 	<?=form_fieldset(lang('data_end')); ?>
 	<?=form_dropdown_and_label('origin', array(
-	'letter' 	=> 'de wervingsbrief (met de folder)',
-	'zwazat' 	=> 'de Zwangere Zaterdag', 
-	'mouth' 	=> 'mond-tot-mondreclame',
-	'info' 		=> 'voorlichtingsavond bij de verloskundigenpraktijk',
-	'other' 	=> 'anders'), $origin); ?>
-	<?=form_textarea_and_label('comment', $comment, 'Ruimte voor eventuele opmerkingen'); ?>
+	'letter' 	=> lang('origin_letter'),
+	'zwazat' 	=> lang('origin_zwazat'), 
+	'mouth' 	=> lang('origin_mouth'),
+	'info' 		=> lang('origin_info'),
+	'other' 	=> lang('origin_other')), $origin); ?>
+	<?=form_textarea_and_label('comment', $comment, lang('comment_space')); ?>
 
 	<?=form_controls(); ?>
 	<?=form_fieldset_close(); ?>
