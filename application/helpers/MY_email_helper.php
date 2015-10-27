@@ -62,7 +62,10 @@ if (!function_exists('email_replace'))
 
 		if ($participation) 
 		{
+			$leader = $CI->userModel->get_user_by_id($participation->user_id_leader); 
+			
 			$message_data['appointment']	= format_datetime($participation->appointment);
+			$message_data['leader_name']	= $leader->firstname;
 		}
 		
 		if ($experiment) 

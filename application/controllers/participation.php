@@ -203,10 +203,35 @@ class Participation extends CI_Controller
 		}
 		else
 		{
-			$participation = array(
-				'user_id_leader' => $this->input->post('leader')
+			$participation = $this->participationModel->get_participation_by_id($participation_id);
+
+			// Update the participation
+			$leader_id = $this->input->post('leader');
+			$p = array(
+				'user_id_leader' => $leader_id
 			);
-			$this->participationModel->update_participation($participation_id, $participation);
+			$this->participationModel->update_participation($participation_id, $p);
+
+			// Send an e-mail to the new leader
+			if ($leader_id != $participation->user_id_leader)
+			{
+				$new_leader = $this->userModel->get_user_by_id($leader_id);
+				$old_leader = $this->userModel->get_user_by_id($participation->user_id_leader);
+				$new_p = $this->participationModel->get_participation_by_id($participation_id);
+				$participant = $this->participationModel->get_participant_by_participation($participation_id);
+				$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
+				
+				$message = email_replace('mail/change_leader', $participant, $new_p, $experiment);
+
+				$this->email->clear();
+				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $new_leader);
+				$this->email->cc(in_development() ? TO_EMAIL_OVERRIDE : $old_leader);
+				$this->email->subject('Babylab Utrecht: Verandering experimentleider');
+				$this->email->message($message);
+
+				$this->email->send();
+			}
 			
 			flashdata(lang('participation_leader_edited'));
 			redirect('participation/get/' . $participation_id, 'refresh');
