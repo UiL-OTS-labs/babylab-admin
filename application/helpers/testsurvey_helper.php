@@ -124,7 +124,7 @@ if (!function_exists('survey_by_id'))
 	/** Returns the URL to the survey */
 	function survey_by_id($survey_id)
 	{
-		return anchor('http://survey.hum.uu.nl/admin/admin.php?sid=' . $survey_id, $survey_id, 'target="_blank"');
+		return anchor(base_url() . 'survey/admin/admin.php?sid=' . $survey_id, $survey_id, 'target="_blank"');
 	}
 }
 
@@ -133,7 +133,7 @@ if (!function_exists('survey_link'))
 	/** Returns the URL to the survey */
 	function survey_link($survey_id, $token)
 	{
-		$link = 'http://survey.hum.uu.nl/index.php?sid=' . $survey_id . '&token=' . $token;
+		$link = base_url() . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
 		return anchor($link, $link, 'target="_blank"');
 	}
 }
