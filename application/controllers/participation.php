@@ -175,8 +175,6 @@ class Participation extends CI_Controller
 	/** Allows admins to change the leader of a participation. */
 	public function edit_leader($participation_id)
 	{
-		$this->admin_only();
-
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		$leaders = $this->leaderModel->get_leader_users_by_experiments($experiment->id);
