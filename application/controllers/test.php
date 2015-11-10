@@ -160,36 +160,6 @@ class Test extends CI_Controller
 		return $result;
 	}
 
-	/**
-	 *
-	 * Specifies the contents of the result page.
-	 * @deprecated
-	 * @param int $testinvite_id
-	 */
-	public function results($testinvite_id)
-	{
-		if (!SURVEY_DEV_MODE)
-		{
-			$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
-			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
-			$this->load->model('surveyModel');
-			$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
-			$result_array = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $testinvite->token);
-
-			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
-
-			$data['page_title'] = sprintf(lang('scores_for'), name($participant));
-			$data['result'] = $result;
-			$data['result_array'] = $result_array;
-			$data['test'] = $test;
-
-			$this->load->view('templates/header', $data);
-			$this->authenticate->authenticate_redirect('test_results_view', $data, UserRole::Leader);
-			$this->load->view('templates/footer');
-		}
-	}
-
 	/////////////////////////
 	// Form handling
 	/////////////////////////

@@ -82,8 +82,17 @@ class TestInvite extends CI_Controller
 		// Create the token in LimeSurvey (if we're on production)
 		if (!SURVEY_DEV_MODE)
 		{
-			$this->load->model('surveyModel');
-			$this->surveyModel->create_token($participant, $testsurvey->limesurvey_id, $testinvite->token);
+			// Instantiate a new client
+			$client = new JsonRPCClient(LS_BASEURL . '/index.php/admin/remotecontrol');
+			
+			// Receive session key
+			$sessionKey = $client->get_session_key(LS_USER, LS_PASSWORD);
+			//var_dump($sessionKey);
+			
+			// Generate the token in LimeSurvey 
+			
+			// Release the session key
+			$client->release_session_key($sessionKey);
 		}
 
 		// Email to participant and return to overview
