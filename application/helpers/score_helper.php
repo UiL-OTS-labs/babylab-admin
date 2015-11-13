@@ -235,12 +235,13 @@ if (!function_exists('scores_to_csv'))
 
 if (!function_exists('score_actions'))
 {
-	/** Possible actions for a score: edit, delete */
+	/** Possible actions for a score: edit and delete */
 	function score_actions($score_id)
 	{
 		$edit_link = anchor('score/edit/' . $score_id, img_edit());
 		$delete_link = anchor('score/delete/' . $score_id, img_delete(), warning(lang('sure_delete_score')));
 
-		return implode(' ', array($edit_link, $delete_link));
+		$actions = is_admin() ? array($edit_link, $delete_link) : array();
+		return implode(' ', $actions);
 	}
 }

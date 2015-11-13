@@ -59,13 +59,13 @@ if (!function_exists('testcat_get_link_by_id'))
 		$CI =& get_instance();
 		$testcat = $CI->testCatModel->get_testcat_by_id($testcat_id);
 
-		return testcat_get_link($testcat);
+		return is_admin() ? testcat_get_link($testcat) : testcat_code_name($testcat);
 	}
 }
 
 if (!function_exists('testcat_actions'))
 {
-	/** Possible actions for a testcat: prioritize and delete */
+	/** Possible actions for a testcat: edit, show scores and delete */
 	function testcat_actions($testcat_id)
 	{
 		$CI =& get_instance();
