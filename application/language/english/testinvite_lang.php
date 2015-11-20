@@ -1,11 +1,12 @@
 <?php
-$lang['testinvite']			= "Inivitation";
-$lang['testinvites']		= "Inivitations";
-$lang['add_testinvite'] 	= "Add inivitation";
+$lang['testinvite']			= "Invitation";
+$lang['testinvites']		= "Invitation";
+$lang['add_testinvite'] 	= "Add invitation";
 $lang['testinvite_added']	= "New invitation for <em>%s</em> to test <em>%s</em> added successfully.<br>An e-mail was sent to <em>%s</em>.";
 $lang['testinvite_added_nomail'] = "New invitation for <em>%s</em> to test <em>%s</em> added successfully.";
 $lang['sure_delete_testinvite']	= "Are you sure you want to delete this invitation?";
-$lang['testinvite_deleted'] = "Inivitation deleted successfully.";
+$lang['testinvite_deleted'] = "Invitation deleted successfully.";
+$lang['testinvite_not_deleted'] = "Invitation not deleted: the survey has already been completed.";
 $lang['manual_reminder']	= "Manual reminder";
 $lang['manual_reminder_sent']	= "Reminder for survey <em>%s</em> sent to <em>%s</em>.";
 

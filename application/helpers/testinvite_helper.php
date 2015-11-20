@@ -82,7 +82,7 @@ if (!function_exists('testinvite_actions'))
 		$reminder_link = $reminder_available ? $reminder_link : img_email('', TRUE);
 		$delete_link = anchor('testinvite/delete/' . $testinvite_id, img_delete(), warning(lang('sure_delete_testinvite')));
 
-		$actions = array($reminder_link);
+		if (is_caller()) $actions = array($reminder_link, $delete_link);
 		if (is_leader()) $actions = array($score_link, $reminder_link);
 		if (is_admin()) $actions = array($score_link, $reminder_link, $delete_link);
 		return implode(' ', $actions);

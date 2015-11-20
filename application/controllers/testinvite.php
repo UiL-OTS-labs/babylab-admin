@@ -138,8 +138,19 @@ class TestInvite extends CI_Controller
 	/** Deletes the specified testinvite, and returns to previous page */
 	public function delete($testinvite_id)
 	{
-		$this->testInviteModel->delete_testinvite($testinvite_id);
-		flashdata(lang('testinvite_deleted'));
+		$testinvite = $this->testInviteModel->get_testinvite_by_id($testinvite_id);
+
+		// Don't allow non-admins to delete completed testinvites
+		if (!is_admin() && $testinvite->datecompleted)
+		{
+			flashdata(lang('testinvite_not_deleted'), FALSE);
+		}
+		else
+		{
+			$this->testInviteModel->delete_testinvite($testinvite_id);
+			flashdata(lang('testinvite_deleted'));
+		}
+
 		redirect($this->agent->referrer(), 'refresh');
 	}
 

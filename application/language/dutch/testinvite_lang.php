@@ -6,6 +6,7 @@ $lang['testinvite_added']	 = "Uitnodiging voor <em>%s</em> voor vragenlijst <em>
 $lang['testinvite_added_nomail'] = "Uitnodiging voor <em>%s</em> voor vragenlijst <em>%s</em> aangemaakt.";
 $lang['sure_delete_testinvite']	= "Weet u zeker dat u deze uitnodiging wilt verwijderen?";
 $lang['testinvite_deleted'] = "Uitnodiging succesvol verwijderd.";
+$lang['testinvite_not_deleted'] = "Uitnodiging niet verwijderd: de survey is al afgerond.";
 $lang['manual_reminder']	= "Handmatige herinnering";
 $lang['manual_reminder_sent']	= "Herinnering voor vragenlijst <em>%s</em> verstuurd naar <em>%s</em>.";
 
