@@ -102,7 +102,7 @@ $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 
 /* Other Selfservice */
 $lang['selfservice'] = "Selfservice";
-$lang['selfservice_edit_success'] = "The changes were saved successfully";
+$lang['selfservice_edit_success'] = "The changes were saved successfully. You can close this browser window.";
 $lang['selfservice_incorrect_url'] = "Incorrect URL or request timed out. Please send a new request.";
 $lang['selfservice_mail_sent'] = "An email with access instructions for the self service portal was sent to %s";
 $lang['selfservice_welcome'] = "Selfservice Babylab Utrecht";
@@ -114,7 +114,11 @@ $lang['other_babylabs'] = "Other Babylabs";
 $lang['save_changes'] = "Save changes";
 $lang['selfservice_mail_comments_to'] = "If you have other comments, remarks or alterations, you can also email %s.";
 $lang['selfservice_reg_pp'] = "Register a new child";
-$lang['selfservice_pps_help'] = "Hieronder kunt u met het selectievakje uw kind(eren) aan/afmelden voor onderzoek van het Babylab Utrecht. Met het selectievakje onder \"Andere Babylabs\" staat u wel/niet toe dat u benaderd wordt voor onderzoek van andere Babylabs.";
+$lang['selfservice_pps_help'] 			= "Below you are able to register and deregister your child(ren) for research of the Babylab Utrecht with the checkboxes. 
+											The checkbox below \"Other Babylabs\" allows you to signal whether you can be contacted by other Babylabs. 
+											A checked checkbox means your child is registered, an empty checkbox means your child is deregistered.<br>
+											If you deregister your child, you will not be contacted for any future research of the Babylab Utrecht.
+											If you do want to participate again, you can register your child again via this selfservice page.";
 
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";

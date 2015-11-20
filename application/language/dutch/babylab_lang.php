@@ -101,20 +101,24 @@ $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
 $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 
 /* Other Selfservice */
-$lang['selfservice'] = "Selfservice";
-$lang['selfservice_edit_success'] = "De gegevens zijn opgeslagen";
-$lang['selfservice_incorrect_url'] = "Incorrecte URL of niet langer geldig. Vraag opnieuw toegang aan door uw e-mailadres in te voeren.";
-$lang['selfservice_mail_sent'] = "Een e-mail met toegangscode en instructies is verstuurd naar %s";
-$lang['selfservice_welcome'] = "Selfservice Babylab Utrecht";
-$lang['selfservice_explanation'] = "Op deze pagina kunt u uw gegevens wijzigen en (indien gewenst) uw kind(eren) uitschrijven voor onderzoek van het BabyLab Utrecht en andere Babylabs.";
-$lang['selfservice_contact_heading'] = "Uw gegevens";
-$lang['selfservice_pps_heading'] = "Deelnemende kind(eren)";
-$lang['child'] = "kind";
-$lang['other_babylabs'] = "Andere Babylabs";
-$lang['save_changes'] = "Wijzigingen opslaan";
-$lang['selfservice_mail_comments_to'] = "Als u andere opmerkingen of wijzigingen door wilt geven, kunt u ook e-mailen naar %s.";
-$lang['selfservice_reg_pp'] = "Nieuw kind aanmelden";
-$lang['selfservice_pps_help'] = "Hieronder kunt u met het selectievakje uw kind(eren) aan/afmelden voor onderzoek van het Babylab Utrecht. Met het selectievakje onder \"Andere Babylabs\" staat u wel/niet toe dat u benaderd wordt voor onderzoek van andere Babylabs.";
+$lang['selfservice'] 					= "Selfservice";
+$lang['selfservice_edit_success'] 		= "De gegevens zijn opgeslagen. U kunt dit venster sluiten.";
+$lang['selfservice_incorrect_url'] 		= "Incorrecte URL of niet langer geldig. Vraag opnieuw toegang aan door uw e-mailadres in te voeren.";
+$lang['selfservice_mail_sent'] 			= "Een e-mail met toegangscode en instructies is verstuurd naar %s";
+$lang['selfservice_welcome'] 			= "Selfservice Babylab Utrecht";
+$lang['selfservice_explanation'] 		= "Op deze pagina kunt u uw gegevens wijzigen en (indien gewenst) uw kind(eren) uitschrijven voor onderzoek van het BabyLab Utrecht en andere Babylabs.";
+$lang['selfservice_contact_heading'] 	= "Uw gegevens";
+$lang['selfservice_pps_heading'] 		= "Deelnemende kind(eren)";
+$lang['child'] 							= "kind";
+$lang['other_babylabs'] 				= "Andere Babylabs";
+$lang['save_changes'] 					= "Wijzigingen opslaan";
+$lang['selfservice_mail_comments_to'] 	= "Als u andere opmerkingen of wijzigingen door wilt geven, kunt u ook e-mailen naar %s.";
+$lang['selfservice_reg_pp'] 			= "Nieuw kind aanmelden";
+$lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw kind(eren) aan/afmelden voor onderzoek van het Babylab Utrecht. 
+											Met het selectievakje onder \"Andere Babylabs\" staat u wel/niet toe dat u benaderd wordt voor onderzoek van andere Babylabs. 
+											Een selectievakje aangevinkt betekent dat uw kind is aangemeld, uitgevinkt betekent dat uw kind is afgemeld.<br>
+											Als u uw kind afmeldt, zult u niet meer benaderd worden voor volgende onderzoeken van het Babylab Utrecht.
+											Mocht u in de toekomst toch weer mee willen doen aan onze onderzoeken, kunt u uw kind via de selfservice opnieuw aanmelden.";
 
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
