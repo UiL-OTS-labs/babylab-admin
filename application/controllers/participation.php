@@ -910,8 +910,13 @@ class Participation extends CI_Controller
 
 	public function table_by_caller()
 	{
+		// Only show experiments of this caller
 		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
 		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+
+		// Exclude archived experiments
+		$this->datatables->where('experiment.archived', FALSE);
+
 		$this->table();
 	}
 
@@ -932,6 +937,8 @@ class Participation extends CI_Controller
 
 		// Exclude empty participations
 		$this->datatables->where('appointment IS NOT NULL');
+		// Exclude archived experiments
+		$this->datatables->where('experiment.archived', FALSE);
 
 		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
 		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);

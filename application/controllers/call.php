@@ -505,8 +505,13 @@ class Call extends CI_Controller
 	 */
 	public function table_by_user($user_id)
 	{
+		// Exclude archived experiments
+		$this->datatables->where('experiment.archived', FALSE);
+
+		// Set the user id, delete the username column
 		$this->datatables->where('user_id', $user_id);
 		$this->datatables->unset_column('username');
+		
 		$this->table();
 	}
 

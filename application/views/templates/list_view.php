@@ -57,7 +57,7 @@ if (!isset($id))
 
 	<div id="actions">
 		<?php
-		if (isset($action_urls)) 
+		if (isset($action_urls) && $action_urls) 
 		{
 			echo heading(lang('actions'), 3);
 			$actions = array();
@@ -72,7 +72,7 @@ if (!isset($id))
 
 	<div id="filters">
 		<?php
-		if (isset($filter_options)) 
+		if (isset($filter_options) && $filter_options) 
 		{
 			echo heading(lang('filters'), 3);
 			echo form_open(current_url(), array('class' => 'pure-form'));
