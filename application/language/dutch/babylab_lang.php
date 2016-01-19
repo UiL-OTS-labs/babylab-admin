@@ -62,7 +62,7 @@ $lang['deregister_finish']	= "Bedankt voor uw afmelding";
 $lang['deregister_info']	= "Uw afmelding wordt verwerkt. Mochten we naar aanleiding van uw afmelding nog vragen hebben, dan nemen we contact met u op.";
 $lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.";
 
-$lang['register_return']    = "Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
@@ -127,6 +127,11 @@ $lang['rem_exp_call']		= "In experiment %s kunt u momenteel %s proefpersonen bel
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab Utrecht: Aanmelding proefpersoon";
 $lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld: %s (tel.: %s). U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
+
+$lang['reg_subject'] 		= "Babylab Utrecht: Aanmelding";
+$lang['reg_thanks'] 		= "<p>Hartelijk dank voor het aanmelden van %s. Leuk dat jullie mee willen doen!</p>";
+$lang['reg_body'] 			= "<p>Uw %s komt in het databestand van het Babylab Utrecht.<br>Zodra er een experiment is waaraan %s kan meedoen, dan wordt er telefonisch contact met u opgenomen. Wanneer het telefonisch niet lukt, zal de assistent van het babylab via de e-mail contact met u proberen op te nemen.</p>";
+$lang['reg_ending'] 		= "<p>Hopelijk tot snel in het Babylab!<br>" . BABYLAB_TEAM . "</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Afmelding proefpersoon";
 $lang['dereg_pp_body'] 		= "Er is afmelding binnengekomen voor %s (geboortedatum: %s, e-mail: %s, reden: %s). U kunt deze proefpersoon deactiveren in de administratieve interface.";

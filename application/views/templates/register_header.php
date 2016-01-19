@@ -15,7 +15,7 @@
 <!-- Date / Timepicker -->
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if ($current_language === L::Dutch) { ?>
 	<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
 	<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
 <?php } else { ?>

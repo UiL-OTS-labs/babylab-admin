@@ -227,9 +227,26 @@ class Participant extends CI_Controller
 			$comment = $this->post_comment($participant_id);
 			if ($comment) $this->commentModel->add_comment($comment);
 
-			// Don't activate, but send an e-mail to all admins to activate
+			// Don't activate on registration (let admins decide) 
 			$this->participantModel->deactivate($participant_id, DeactivateReason::NewParticipant);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
+
+			// Send confirmation e-mail to participant
+			$this->email->clear();
+			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $p->email);
+			$this->email->subject(lang('reg_subject'));
+
+			$message = '<p>' . sprintf(lang('mail_heading'), parent_name($p)) . '</p>';
+			$message .= sprintf(lang('reg_thanks'), name($p));
+			$message .= sprintf(lang('reg_body'), gender_child($p->gender), $p->firstname);
+			$message .= lang('reg_ending');
+			$message .= lang('mail_disclaimer');
+
+			$this->email->message($message);
+			$this->email->send();
+
+			// Send an e-mail to all admins to activate
 			$url = $this->config->site_url() . 'participant/get/' . $participant_id;
 			$users = $this->userModel->get_all_admins();
 			foreach ($users as $user)

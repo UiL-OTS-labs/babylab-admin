@@ -62,7 +62,7 @@ $lang['deregister_finish']	= "Thank you for your deregistration!";
 $lang['deregister_info']	= "Your request for deregistering will be processed. In case we have some questions for you regarding your deregistration, we may contact you.";
 $lang['deregister_pageintro'] = "You can use this form to deregister your child as participant of experiments of the Babylab Utrecht";
 
-$lang['register_return']    = "Click " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . "  to return to the Babylab Utrecht website.</p>";
+$lang['register_return']    = "You will receive an e-mail to confirm your registration. Click " . anchor('http://babylab.wp.hum.uu.nl', 'here') . " to return to the Babylab Utrecht website.</p>";
 
 /* Login page */
 $lang['login'] 				= "Log in";
@@ -126,7 +126,12 @@ $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab Utrecht: Participant registration";
-$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (tel.: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
+$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (phone: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
+
+$lang['reg_subject'] 		= "Babylab Utrecht: Registration";
+$lang['reg_thanks'] 		= "<p>Thanks a lot for registering %s.</p>";
+$lang['reg_body'] 			= "<p>Your %s will be entered in the Babylab Utrecht participant database.<br>When there's a suitable experiment for %s, we will contact you by phone or (alternatively) by e-mail.</p>";
+$lang['reg_ending'] 		= "<p>We hope to see you soon in the Babylab!<br>" . BABYLAB_TEAM . "</p>";
 /* Deregistration of participants */
 $lang['dereg_pp_subject'] 	= "Babylab Utrecht: Participant deregistration.";
 $lang['dereg_pp_body'] 		= "Participant %s (date of birth: %s, e-mail: %s, reason: %s) has deregistered. You can deactivate this participant in the administration interface.";
