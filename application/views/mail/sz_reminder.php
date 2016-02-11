@@ -9,7 +9,7 @@ De vragenlijst heeft betrekking op de talen die <?=$name_first; ?> thuis hoort e
 <p>De vragenlijst is te vinden via deze link: <?=$survey_link; ?>.</p>
 <p>Alvast heel hartelijk bedankt,</p>
 <p>Met vriendelijke groet,</p>
-<p>Dr. Josje Verhagen<br/>Dr. Elise de Bree<br/>Willemijn Doedens, Msc</p>
-<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Willemijn Doedens (<a href="mailto:W.J.Doedens@uu.nl">W.J.Doedens@uu.nl</a>).</p>
+<p>Dr. Josje Verhagen<br/>Dr. Elise de Bree<br/>Melissa Be, MSc</p>
+<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Melissa Be (<a href="mailto:melissabe00@gmail.com">melissabe00@gmail.com</a>).</p>
 </body>
 </html>

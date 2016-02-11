@@ -1,7 +1,7 @@
 <html>
 <body>
 <p>Beste ouder(s)/verzorger(s),</p>
-<p>Bedankt voor uw interesse in ons onderzoeksproject “Spoorzoeken in Taal”. 
+<p>Bedankt voor uw interesse in ons onderzoeksproject "Spoorzoeken in Taal". 
 Binnenkort gaat u met uw <?=$gender; ?> deelnemen aan het onderzoek aan het Babylab van de Universiteit Utrecht. 
 Wij zijn hier heel blij mee, zo kunnen vragen op het gebied van taalverwerving bij kinderen beantwoord worden.</p>
 <p>Ter aanvulling op de testgegevens willen wij u vragen om onze vragenlijst zo volledig mogelijk in te vullen. 
@@ -11,7 +11,7 @@ Bovendien worden de antwoorden op een veilige manier bewaard: de informatie is a
 <p>De link naar de vragenlijst vindt u hier: <?=$survey_link; ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Met vriendelijke groet,</p>
-<p>Dr. Josje Verhagen<br/>Dr. Elise de Bree<br/>Willemijn Doedens, Msc</p>
-<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Willemijn Doedens (<a href="mailto:W.J.Doedens@uu.nl">W.J.Doedens@uu.nl</a>).</p>
+<p>Dr. Josje Verhagen<br/>Dr. Elise de Bree<br/>Melissa Be, MSc</p>
+<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Melissa Be (<a href="mailto:melissabe00@gmail.com">melissabe00@gmail.com</a>).</p>
 </body>
 </html>
