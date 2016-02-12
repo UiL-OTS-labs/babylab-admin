@@ -12,6 +12,6 @@ Bovendien worden de antwoorden op een veilige manier bewaard: de informatie is a
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Met vriendelijke groet,</p>
 <p>Dr. Josje Verhagen<br/>Dr. Elise de Bree<br/>Melissa Be, MSc</p>
-<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Melissa Be (<a href="mailto:melissabe00@gmail.com">melissabe00@gmail.com</a>).</p>
+<p>Indien u vragen of opmerkingen heeft naar aanleiding van het onderzoek of de vragenlijst, neemt u dan gerust contact op met Melissa Be (<?=mailto(BABYLAB_MANAGER_EMAIL); ?>).</p>
 </body>
 </html>
