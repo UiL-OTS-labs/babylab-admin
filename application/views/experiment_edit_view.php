@@ -46,8 +46,11 @@ $(function() {
 <?=form_multiselect_and_label('leaders', $leaders, isset($current_leader_ids) ? $current_leader_ids: array()); ?>
 
 <?=form_fieldset(lang('relations')); ?>
+<p class="info"><?=lang('prerequisite_info'); ?></p>
 <?=form_multiselect_and_label('prerequisite', $experiments, isset($current_prerequisite_ids) ? $current_prerequisite_ids: array()); ?>
+<p class="info"><?=lang('excludes_info'); ?></p>
 <?=form_multiselect_and_label('excludes', $experiments, isset($current_exclude_ids) ? $current_exclude_ids : array()); ?>
+<p class="info"><?=lang('combination_info'); ?></p>
 <?=form_dropdown_and_label('combination', $experiments, isset($current_combination_ids) ? $current_combination_ids : array()); ?>
 
 <?=form_fieldset(lang('attachments')); ?>

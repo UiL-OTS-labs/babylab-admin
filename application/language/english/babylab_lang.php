@@ -203,6 +203,9 @@ $lang['sure_delete_relation']	= "Are you sure you want to remove this relation?"
 $lang['prerequisite']		= "Is a prerequisite for participation to";
 $lang['excludes']			= "Excludes participation to";
 $lang['combination']		= "Is (possibly) combined with";
+$lang['prerequisite_info']	= "Select experiments that are a requirement to participate in this experiment below. You can use this for longitudinal experiments.";
+$lang['excludes_info']		= "Select experiments below that a participant can't participate in if he participated in this experiment.";
+$lang['combination_info']	= "Select an experiment below that is possibly combined with this experiment.";
 $lang['send_combination'] 	= "Also schedule an appointment for <em>%s</em>?";
 
 /* Locations */
