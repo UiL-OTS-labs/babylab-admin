@@ -64,8 +64,8 @@
 <div id="languages">
 <?php if (!$is_registration) { ?>
 	<p>
-		<em>Vul hieronder in met welke talen het kind in aanraking komt en de
-			(geschatte) percentages van blootstelling aan deze talen.</em>
+		<em>Vul hieronder in met welke talen het kind in aanraking komt en de (geschatte) percentages van blootstelling aan deze talen. 
+			Als je deze velden invult (je kunt de velden ook leeg laten), moeten de percentages optellen tot 100.</em>
 	</p>
 	<?=form_error('percentage'); ?>
 	<?php
