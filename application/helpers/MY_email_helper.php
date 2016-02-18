@@ -14,7 +14,7 @@ if (!function_exists('email_testinvite'))
 		$CI->email->clear();
 		$CI->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$CI->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
-		$CI->email->subject('Babylab Utrecht: Uitnoding voor vragenlijst');
+		$CI->email->subject('Babylab Utrecht: Uitnodiging voor vragenlijst');
 		$CI->email->message($message);
 		$CI->email->send();
 		
