@@ -202,9 +202,9 @@ $lang['sure_delete_relation']	= "Weet u zeker dat u dit verband wilt verwijderen
 $lang['prerequisite']		= "Is voorwaarde voor deelname aan";
 $lang['excludes']			= "Sluit deelname uit aan";
 $lang['combination']		= "Is (mogelijk) gecombineerd met";
-$lang['prerequisite_info']	= "Selecteer hieronder experimenten aan welke de proefpersoon moet hebben deelgenomen voordat hij deelneemt aan dit experiment. Dit kun je gebruiken voor longitudinale experimenten.";
+$lang['prerequisite_info']	= "Selecteer hieronder experimenten aan welke de proefpersoon moet hebben deelgenomen voordat hij deelneemt aan dit experiment. Dit kun je gebruiken voor longitudinale experimenten of experimenten die uit twee sessies op twee verschillende tijdstippen bestaan.";
 $lang['excludes_info']		= "Selecteer hieronder experimenten aan welke de proefpersoon niet meer mag deelnemen als deze aan dit experiment heeft deelgenomen.";
-$lang['combination_info']	= "Selecteer hieronder een experiment met welke dit experiment mogelijk gecombineerd wordt.";
+$lang['combination_info']	= "Selecteer hieronder een experiment met welke dit experiment mogelijk gecombineerd wordt. Een combinatie betekent dat de experimenten direct achter elkaar worden uitgevoerd.";
 $lang['send_combination'] 	= "Direct afspraak voor combinatie-experiment <em>%s</em> maken?";
 
 /* Locations */

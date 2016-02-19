@@ -364,20 +364,16 @@ class Call extends CI_Controller
 		{
 			$this->email->attach('uploads/' . $experiment->informedconsent);
 		}
-		// Add attachment / informed consent of second experiment (only for combination experiments)
+		// Add attachment / informed consent of second experiment
 		if ($comb_exp) 
 		{
-			$relation = $this->relationModel->get_relation_by_experiments($experiment->id, $comb_exp->id);
-			if ($relation->relation === RelationType::Combination) 
+			if ($comb_exp->attachment && file_exists('uploads/' . $comb_exp->attachment))
 			{
-				if ($comb_exp->attachment && file_exists('uploads/' . $comb_exp->attachment))
-				{
-					$this->email->attach('uploads/' . $comb_exp->attachment);
-				}
-				if ($comb_exp->informedconsent && file_exists('uploads/' . $comb_exp->informedconsent))
-				{
-					$this->email->attach('uploads/' . $comb_exp->informedconsent);
-				}
+				$this->email->attach('uploads/' . $comb_exp->attachment);
+			}
+			if ($comb_exp->informedconsent && file_exists('uploads/' . $comb_exp->informedconsent))
+			{
+				$this->email->attach('uploads/' . $comb_exp->informedconsent);
 			}
 		}
 	}
