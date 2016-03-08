@@ -166,6 +166,7 @@ $lang['wbs_number']			= "WBS Number";
 $lang['experiment_color']	= "Experiment label color";
 $lang['description'] 		= "Task description";
 $lang['duration'] 			= "Duration";
+$lang['duration_info']		= "Below you can set the net duration of the experiment. In the agenda an additional " . INSTRUCTION_DURATION . " minutes will be reserved for introduction, questions and contingencies.";
 $lang['multilingual']		= "Multilingual";
 $lang['dyslexic']			= "Dyslexic";
 $lang['age'] 				= "Age";

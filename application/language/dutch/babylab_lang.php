@@ -165,6 +165,7 @@ $lang['wbs_number']			= "WBS Nummer";
 $lang['experiment_color']	= "Experiment label kleur";
 $lang['description'] 		= "Taakomschrijving";
 $lang['duration'] 			= "Duur (minuten)";
+$lang['duration_info']		= "Hieronder kun je de nettoduur van het experiment aangeven. In de agenda zal " . INSTRUCTION_DURATION . " minuten extra worden gereserveerd voor uitleg van de procedure, vragen achteraf en uitloop.";
 $lang['multilingual']		= "Tweetalig";
 $lang['dyslexic']			= "Dyslectisch";
 $lang['age'] 				= "Leeftijd";

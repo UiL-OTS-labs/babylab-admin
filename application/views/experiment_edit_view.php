@@ -28,6 +28,7 @@ $(function() {
 <?=form_input_and_label('name', $name, 'required'); ?>
 <?=form_input_and_label('type', $type, 'required'); ?>
 <?=form_input_and_label('description', $description, 'required'); ?>
+<p class="info"><?=lang('duration_info'); ?></p>
 <?=form_input_and_label('duration', $duration, 'required class="positive-integer"'); ?>
 <?=form_dropdown_and_label('location', location_options($locations), $location_id); ?>
 <?=form_input_and_label('wbs_number', $wbs_number, 'required'); ?>
