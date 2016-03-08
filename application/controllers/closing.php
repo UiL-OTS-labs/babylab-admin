@@ -31,7 +31,6 @@ class Closing extends CI_Controller
     {
         $data['page_title'] = lang('closings');
         $data['locations'] = location_options($this->locationModel->get_all_locations());
-        $data['lockdown_selected'] = ($this->input->post('lockdown')) ? true : false;
         
         $this->load->view('templates/header', $data);
         $this->authenticate->authenticate_redirect('closing_add_view', $data, UserRole::Admin);
@@ -77,7 +76,9 @@ class Closing extends CI_Controller
     /** Validates an closing */
     private function validate_closing()
     {
+        // TODO: validate that either location or lockdown has been selected
         $this->form_validation->set_rules('location', lang('location'), 'callback_not_zero');
+        $this->form_validation->set_rules('lockdown', lang('lockdown'), 'trim');
         $this->form_validation->set_rules('from_date', lang('from_date'), 'trim|required|callback_check_within_bounds');
         $this->form_validation->set_rules('to_date', lang('to_date'), 'trim|required|callback_check_within_bounds');
         $this->form_validation->set_rules('comment', lang('comment'), 'trim');
@@ -90,7 +91,7 @@ class Closing extends CI_Controller
     {
         $postingdata = array();
 
-        $lockdown   = ($this->input->post('lockdown')) ? true : false;
+        $lockdown   = $this->input->post('lockdown') === '1';
         $locations  = ($lockdown) ? array(null) : $this->input->post('location');
         $from       = input_datetime($this->input->post('from_date'));
         $to         = input_datetime($this->input->post('to_date'));
@@ -120,7 +121,7 @@ class Closing extends CI_Controller
     /** Checks whether the given date is within bounds of an existing closing for this location */
     public function check_within_bounds($date)
     {
-        $locations = ($this->input->post('lockdown')) ? array(null) : $this->input->post('location');
+        $locations = $this->input->post('lockdown') === '1' ? array(null) : $this->input->post('location');
         if($locations)
         {
             foreach($locations as $location_id)
@@ -140,7 +141,7 @@ class Closing extends CI_Controller
     /** Checks whether the given parameter is valid (if at least one location is set) */
     public function not_zero($values)
     {
-        if (!$values && !$this->input->post('lockdown'))
+        if (!$values && $this->input->post('lockdown') !== '1')
         {
             $this->form_validation->set_message('not_zero', lang('isset'));
             return FALSE;
@@ -151,18 +152,7 @@ class Closing extends CI_Controller
     /////////////////////////
     // Table
     /////////////////////////
-
-   
-    function get_location_link($id)
-    {
-        if(isset($id)){
-            return "ID is set";
-        } else {
-            return "ID is not set!";
-        }
-    }
     
-
     public function table($include_past = FALSE)
     {
         $this->datatables->select('name, from, comment, closing.id AS id, location_id');
@@ -180,6 +170,4 @@ class Closing extends CI_Controller
 
         echo $this->datatables->generate();
     }
-
-    
 }

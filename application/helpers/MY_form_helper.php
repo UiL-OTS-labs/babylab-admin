@@ -129,15 +129,15 @@ if (!function_exists('form_checkbox_and_label'))
 
 if (!function_exists('form_single_checkbox_and_label'))
 {
-	function form_single_checkbox_and_label($name, $value = NULL, $checked = FALSE, $label = '', $div = 'pure-control-group', $switch = FALSE)
+	function form_single_checkbox_and_label($name, $value, $current = FALSE, $checked = FALSE, $label = '', $div = 'pure-control-group', $switch = FALSE)
 	{
+		if (isset($current)) $checked = $current === $value;
 		$id = $name;
 		$text = empty($label) ? lang($name) : $label;
-		$name = $name . '[]';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label_start = '<label for=' . $id . '>';
-		$input = form_checkbox($name, $value, set_checkbox($id, $value, $checked), 'id="' . $id . '"');
+		$input = form_checkbox($name, $value, set_checkbox($name, $value, $checked), 'id="' . $id . '"');
 		$label_end = '</label>';
 		$div_end = empty($div) ? '' : '</div>';
 

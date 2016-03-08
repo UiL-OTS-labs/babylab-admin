@@ -7,7 +7,7 @@
 <?=form_open('closing/add_submit/', array('class' => 'pure-form pure-form-aligned')); ?>
 <?=form_fieldset(lang('add_closing')); ?>
 <?=form_multiselect_and_label('location', $locations, array(), 'class="chosen-select"'); ?>
-<?=form_single_checkbox_and_label('lockdown', 1, $lockdown_selected); ?>
+<?=form_single_checkbox_and_label('lockdown', '1'); ?>
 <?=form_input_and_label('from_date', '', 'id="from" readonly'); ?>
 <?=form_input_and_label('to_date', '', 'id="to" readonly'); ?>
 <?=form_textarea_and_label('comment'); ?>

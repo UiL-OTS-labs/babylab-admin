@@ -16,15 +16,18 @@ class Comment extends CI_Controller
 	/** Specifies the contents of the default page. */
 	public function index()
 	{
-		$priority_only = $this->session->flashdata('priority') || is_array($this->input->post('view_high_priority'));
-		$handled_only = $this->session->flashdata('handled') || is_array($this->input->post('view_handled'));
+		$priority_only = $this->session->flashdata('priority') || $this->input->post('view_high_priority') === '1';
+		$handled_only = $this->session->flashdata('handled') || $this->input->post('view_handled') === '1';
+
+		var_dump($priority_only);
+		var_dump($handled_only);
 
 		create_comment_table();
 		$data['ajax_source'] = site_url(array('comment', 'table', intval($priority_only), intval($handled_only)));
 		$data['page_title'] = lang('comments');
 		$data['filter_options'] = array(
-			array('name' => 'view_high_priority', 'value' => 1, 'checked' => $priority_only), 
-			array('name' => 'view_handled', 'value' => 1, 'checked' => $handled_only)
+			array('name' => 'view_high_priority', 'checked' => $priority_only), 
+			array('name' => 'view_handled', 'checked' => $handled_only)
 			);
 
 		$this->load->view('templates/header', $data);

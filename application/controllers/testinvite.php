@@ -67,7 +67,7 @@ class TestInvite extends CI_Controller
 			// If succeeded, insert data into database
 			$testsurvey_id = $this->input->post('testsurvey');
 			$participant_id = $this->input->post('participant');
-			$concept = (bool) $this->input->post('concept');
+			$concept = $this->input->post('concept') === '1';
 			$this->invite($testsurvey_id, $participant_id, $concept);
 		}
 	}

@@ -144,7 +144,7 @@ class Dyslexia extends CI_Controller
 
 		$dyslexia = array(
 				'gender' 		=> $this->input->post('gender'),
-				'statement' 	=> is_array($this->input->post('statement')),
+				'statement' 	=> $this->input->post('statement') === '1',
 				'emt_score' 	=> empty($emt_score) ? NULL : $emt_score,
 				'klepel_score' 	=> empty($klepel_score) ? NULL : $klepel_score,
 				'vc_score' 		=> empty($vc_score) ? NULL : $vc_score,

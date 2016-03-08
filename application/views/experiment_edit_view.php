@@ -34,8 +34,8 @@ $(function() {
 <?=form_colorpicker('experiment_color', $experiment_color, 'required');?>
 
 <?=form_fieldset('Eisen aan deelnemers'); ?>
-<?=form_single_checkbox_and_label('dyslexic', $dyslexic); ?>
-<?=form_single_checkbox_and_label('multilingual', $multilingual); ?>
+<?=form_single_checkbox_and_label('dyslexic', '1', $dyslexic); ?>
+<?=form_single_checkbox_and_label('multilingual', '1', $multilingual); ?>
 <?=form_input_and_label('agefrommonths', $agefrommonths, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agefromdays', $agefromdays, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agetomonths', $agetomonths, 'required class="positive-integer"'); ?>

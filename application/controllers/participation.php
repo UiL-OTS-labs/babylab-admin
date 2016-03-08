@@ -779,7 +779,7 @@ class Participation extends CI_Controller
 			}
 
 			// Deactivate participant (possibly)
-			if ($this->input->post('cancelled_complete'))
+			if ($this->input->post('cancelled_complete') === '1')
 			{
 				$this->participantModel->deactivate($participant->id, DeactivateReason::AfterExp);
 			}

@@ -49,7 +49,7 @@ $(function()
 <?=form_textarea_and_label('tech_comment', $tech_comment, lang('tech_comment')); ?>
 
 <?=form_fieldset(lang('actions')); ?>
-<?=form_single_checkbox_and_label('cancelled_complete'); ?>
+<?=form_single_checkbox_and_label('cancelled_complete', '1'); ?>
 
 <!-- TODO: add result file here. -->
 
