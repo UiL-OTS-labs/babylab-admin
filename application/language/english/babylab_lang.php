@@ -561,6 +561,7 @@ $lang['closing_include_past'] = "Show closings from the past";
 $lang['closing_exclude_past'] = "Don't show closings from the past";
 $lang['closing_within_bounds']= "The '%s' is within bounds of an existing closing for this location.";
 $lang['lockdown']			= "Building closed completely";
+$lang['all_day']			= "Closed all day";
 $lang['lockdown_timeframe'] = "The entire building is closed at the chosen time";
 $lang['lockdown_at_times'] = "The entire building is closed at the following times at the chosen day:";
 $lang['lab_closed'] = "The lab for this experiment is closed at the chosen time";

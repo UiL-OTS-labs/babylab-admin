@@ -79,8 +79,10 @@ class Closing extends CI_Controller
         // TODO: validate that either location or lockdown has been selected
         $this->form_validation->set_rules('location', lang('location'), 'callback_not_zero');
         $this->form_validation->set_rules('lockdown', lang('lockdown'), 'trim');
-        $this->form_validation->set_rules('from_date', lang('from_date'), 'trim|required|callback_check_within_bounds');
-        $this->form_validation->set_rules('to_date', lang('to_date'), 'trim|required|callback_check_within_bounds');
+        $this->form_validation->set_rules('all_day', lang('all_day'), 'trim');
+        $this->form_validation->set_rules('from_date', lang('from_date'), 'trim|callback_daterange_required|callback_check_within_bounds');
+        $this->form_validation->set_rules('to_date', lang('to_date'), 'trim|callback_daterange_required|callback_check_within_bounds');
+        $this->form_validation->set_rules('date', lang('date'), 'trim|callback_date_required|callback_check_within_bounds');
         $this->form_validation->set_rules('comment', lang('comment'), 'trim');
 
         return $this->form_validation->run();
@@ -93,8 +95,14 @@ class Closing extends CI_Controller
 
         $lockdown   = $this->input->post('lockdown') === '1';
         $locations  = ($lockdown) ? array(null) : $this->input->post('location');
-        $from       = input_datetime($this->input->post('from_date'));
-        $to         = input_datetime($this->input->post('to_date'));
+        $all_day     = $this->input->post('all_day') === '1';
+        if($all_day){
+            $from       = input_datetime($this->input->post('date'));
+            $to         = input_datetime($this->input->post('date') . " 23:59");
+        } else {
+            $from       = input_datetime($this->input->post('from_date'));
+            $to         = input_datetime($this->input->post('to_date'));
+        }
         $comment    = $this->input->post('comment');
         
 
@@ -144,6 +152,26 @@ class Closing extends CI_Controller
         if (!$values && $this->input->post('lockdown') !== '1')
         {
             $this->form_validation->set_message('not_zero', lang('isset'));
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public function daterange_required($values)
+    {
+        if(!$values && $this->input->post('all_day') !== '1')
+        {
+            $this->form_validation->set_message('daterange_required', lang('isset'));
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+    public function date_required($values)
+    {
+        if(!$values && $this->input->post('all_day') === '1')
+        {
+            $this->form_validation->set_message('date_required', lang('isset'));
             return FALSE;
         }
         return TRUE;

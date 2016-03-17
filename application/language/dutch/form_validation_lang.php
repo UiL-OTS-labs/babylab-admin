@@ -23,5 +23,5 @@ $lang['is_natural_no_zero'] = 'Het veld "%s" moet een getal bevatten dat groter 
 $lang['decimal']			= 'Het veld "%s" mag alleen een decimaal nummer bevatten.';
 $lang['less_than']			= 'Het veld "%s" mag alleen een getal bevatten dat kleiner is dan %s.';
 $lang['greater_than']		= 'Het veld "%s" mag alleen een getal bevatten dat groter is dan %s.';
-$lang['wbs_check']			= "Het door u opgegeven WBS nummer is niet in het correcte formaat."
+$lang['wbs_check']			= "Het door u opgegeven WBS nummer is niet in het correcte formaat.";
 ?>

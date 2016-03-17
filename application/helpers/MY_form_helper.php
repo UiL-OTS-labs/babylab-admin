@@ -79,14 +79,14 @@ if (!function_exists('form_multiselect_and_label'))
 		if (empty($selected) && isset($_POST[$name])){
 			$selected = $_POST[$name];
 		}
-
+		$oldname = $name;
 		$name .= '[]'; // CodeIgniter POST array syntax
 		$extra .= ' class="chosen-select" data-placeholder="' . $label_name . '"';
 		
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
 		$label = form_label($label_name, $name);
 		$dropdown = form_multiselect($name, $options, $selected, 'id="' . $name . '"' . $extra);
-		$error_box = form_error($name);
+		$error_box = form_error($oldname);
 		$div_end = empty($div) ? '' : '</div>';
 		
 		return $div_start . $label . $dropdown . $error_box . $div_end;

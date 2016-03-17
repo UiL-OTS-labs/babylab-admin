@@ -560,6 +560,7 @@ $lang['closing_include_past'] = "Sluitingen uit verleden tonen";
 $lang['closing_exclude_past'] = "Sluitingen uit verleden niet tonen";
 $lang['closing_within_bounds']= "De '%s' valt binnen een bestaande sluiting voor deze locatie.";
 $lang['lockdown']			= "Hele gebouw gesloten";
+$lang['all_day']			= "Hele dag gesloten";
 $lang['lockdown_timeframe'] = "Het hele gebouw is gesloten op het gekozen tijdstip";
 $lang['lockdown_at_times'] = "Het hele gebouw is gesloten op de volgende tijdstippen op de gekozen dag:";
 $lang['lab_closed'] = "Het lab voor dit experiment is gesloten op het gekozen tijdstip";
