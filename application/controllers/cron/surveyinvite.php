@@ -130,13 +130,17 @@ class SurveyInvite extends CI_Controller
 		$testinvites = $this->testInviteModel->get_not_completed_testinvites(); 
 		foreach ($testinvites as $testinvite)
 		{
-			// Check with LimeSurvey whether the survey has actually been completed
 			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
-			$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
-			if ($result) 
+			// If the survey still exists in LimeSurvey...
+			if ($this->surveyModel->get_survey_by_id($testsurvey->limesurvey_id))
 			{
-				// If there is actually a result row, set the survey to completed
-				$this->testInviteModel->set_completed($testinvite->id, $result->submitdate);
+				// Check with LimeSurvey whether the survey has actually been completed
+				$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
+				if ($result) 
+				{
+					// If there is actually a result row, set the survey to completed
+					$this->testInviteModel->set_completed($testinvite->id, $result->submitdate);
+				}
 			}
 		}
 	}
