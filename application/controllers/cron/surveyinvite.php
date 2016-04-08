@@ -74,7 +74,7 @@ class SurveyInvite extends CI_Controller
 		// Set the language to Dutch (TODO: set to language of participant?)
 		reset_language(L::Dutch);
 
-		// Get all testinvites that have not yet been returned
+		// Get all testinvites that have not yet been reminded
 		$testinvites = $this->testInviteModel->get_not_reminded_testinvites(); 
 		foreach ($testinvites as $testinvite)
 		{
@@ -110,7 +110,35 @@ class SurveyInvite extends CI_Controller
 				$this->testInviteModel->set_reminded($testinvite->id);
 			}
 		}
+	}
 
+	/**
+	 * Checks if surveys have been completed
+	 */
+	public function check_completed()
+	{
+		if (!$this->input->is_cli_request())
+		{
+			echo "This script can only be accessed via the command line" . PHP_EOL;
+			return;
+		}
+
+		// Set the language to Dutch (TODO: set to language of participant?)
+		reset_language(L::Dutch);
+
+		// Get all testinvites that have not yet been completed
+		$testinvites = $this->testInviteModel->get_not_completed_testinvites(); 
+		foreach ($testinvites as $testinvite)
+		{
+			// Check with LimeSurvey whether the survey has actually been completed
+			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
+			$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
+			if ($result) 
+			{
+				// If there is actually a result row, set the survey to completed
+				$this->testInviteModel->set_completed($testinvite->id, $result->submitdate);
+			}
+		}
 	}
 
 	/**

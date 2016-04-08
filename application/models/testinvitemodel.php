@@ -98,6 +98,13 @@ class TestInviteModel extends CI_Model
 		$this->db->update('testinvite');
 	}
 
+	/** Returns all not-completed testinvites as an array */
+	public function get_not_completed_testinvites()
+	{
+		$this->db->where('datecompleted', NULL);
+		return $this->db->get('testinvite')->result();
+	}
+
 	/** Returns all not-reminded testinvites as an array */
 	public function get_not_reminded_testinvites()
 	{
