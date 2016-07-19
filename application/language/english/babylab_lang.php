@@ -305,6 +305,7 @@ $lang['origin_zwazat']  	= "the \"Zwangere Zaterdag\" magazine";
 $lang['origin_mouth']  		= "word of mouth";
 $lang['origin_info']  		= "information from the midwives' practice";
 $lang['origin_other']  		= "other";
+$lang['date_in_future']		= "It's not possible to choose a date of birth in the future.";
 
 /* Participations */
 $lang['participation']	 	= "Appointment";

@@ -609,7 +609,7 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('firstname', lang('firstname'), 'trim|required');
 		$this->form_validation->set_rules('lastname', lang('lastname'), 'trim|required');
 		$this->form_validation->set_rules('gender', lang('gender'), 'trim|required');
-		$this->form_validation->set_rules('dob', lang('dob'), 'trim|required');
+		$this->form_validation->set_rules('dob', lang('dob'), 'trim|required|callback_in_future');
 		$this->form_validation->set_rules('parentfirstname', lang('parentfirstname'), 'trim|required');
 		$this->form_validation->set_rules('parentlastname', lang('parentlastname'), 'trim');
 		$this->form_validation->set_rules('city', lang('city'), 'trim');
@@ -745,6 +745,17 @@ class Participant extends CI_Controller
 	/////////////////////////
 	// Callbacks
 	/////////////////////////
+
+	/** Checks whether the given date is in the past */
+	public function in_future($value)
+	{
+		if (strtotime($value) > time())
+		{
+			$this->form_validation->set_message('in_future', lang('date_in_future'));
+			return FALSE;
+		}
+		return TRUE;
+	}
 
 	/** Checks whether the given parameter is higher than 0 */
 	public function not_empty($value)
