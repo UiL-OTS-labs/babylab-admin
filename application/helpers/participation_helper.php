@@ -62,17 +62,17 @@ if (!function_exists('participation_actions'))
 		$CI =& get_instance();
 		$pp = $CI->participationModel->get_participation_by_id($participation_id);
 
-		$is_cancelled = $pp->cancelled == 0;
-		$is_planned = $pp->confirmed == 1 && $pp->cancelled == 0 && $pp->noshow == 0 && $pp->completed == 0;
-		$is_confirmed = $pp->confirmed == 1 && $pp->cancelled == 0;
+		$not_cancelled = $pp->cancelled == 0;
+		$is_confirmed = $pp->confirmed == 1 && $not_cancelled;
+		$not_completed = $is_confirmed && $pp->noshow == 0 && $pp->completed == 0;
 		$is_noshow = $pp->noshow == 1;
 		$is_completed = $pp->completed == 1;
 
 		$after_now = input_datetime($pp->appointment) > input_datetime('now');
 
 		$get_link = participation_get_link($pp);
-		$cancel_link = $is_cancelled && $after_now ? anchor('participation/cancel/' . $pp->id, img_cancel(lang('cancelled'))) : img_cancel(lang('cancelled'), TRUE);
-		$reschedule_link = $is_planned ? anchor('participation/reschedule/' . $pp->id, img_calendar()) : img_calendar(TRUE);
+		$cancel_link = $not_completed && $not_cancelled ? anchor('participation/cancel/' . $pp->id, img_cancel(lang('cancelled'))) : img_cancel(lang('cancelled'), TRUE);
+		$reschedule_link = $not_completed ? anchor('participation/reschedule/' . $pp->id, img_calendar()) : img_calendar(TRUE);
 		$noshow_link = $is_confirmed && !$is_noshow && !$after_now ? anchor('participation/no_show/' . $pp->id, img_noshow()) : img_noshow(TRUE);
 		$completed_link = $is_confirmed && !$after_now ? anchor('participation/completed/' . $pp->id, img_accept(lang('completed'))) : img_accept(lang('completed'), TRUE);
 		$delete_link = anchor('participation/delete/' . $pp->id, img_p_delete(), warning(lang('sure_delete_part')));
