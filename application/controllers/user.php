@@ -200,6 +200,7 @@ class User extends CI_Controller
 		$data['language'] = $language;
 		$data['action'] = 'user/register_submit/' . $language;
 		$data['new_user'] = TRUE;
+		$data['referrer'] = $this->agent->referrer();
 		$data = add_fields($data, 'user');
 
 		$this->load->view('templates/header', $data);
