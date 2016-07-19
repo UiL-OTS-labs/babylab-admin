@@ -193,10 +193,7 @@ class Appointment extends CI_Controller
 			}
 		}
 
-		// Leaders can only see appointments starting from a month ago
-		// But we only need to see the current month
-		$date_from = (current_role() === UserRole::Leader && input_date('-1 month') > $range_begin) ? input_date('-1 month') : $range_begin;
-		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled, $date_from, $range_end);
+		return $this->participationModel->filter_participations($experiment_ids, $participant_ids, $leader_ids, $exclude_canceled, $range_begin, $range_end);
 	}
 
 	/**
