@@ -65,6 +65,10 @@
 					<th><?=lang('last_called'); ?></th>
 					<td><?=$last_called; ?></td>
 				</tr>
+				<tr>
+					<th><?=lang('registered'); ?></th>
+					<td><?=output_date($participant->created); ?></td>
+				</tr>
 			</table>
 		</div>
 		<div class="pure-u-2-5">
