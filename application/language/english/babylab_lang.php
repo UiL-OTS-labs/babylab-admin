@@ -195,6 +195,10 @@ $lang['remove']             = "Remove";
 $lang['sure_remove_attachment'] = "Are you sure you want to remove the information letter? Other edits to the experiment will not be saved.";
 $lang['informedconsent']     = "Consent form";
 $lang['sure_remove_informedconsent'] = "Are you sure you want to remove the consent form? Other edits to the experiment will not be saved.";
+$lang['date_start']			= "Start date";
+$lang['date_end']			= "End date";
+$lang['period']				= "Period";
+$lang['target_nr_participants'] = "Target number of participants";
 
 /* Relations */
 $lang['relation']	 		= "Relation";

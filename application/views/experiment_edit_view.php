@@ -1,5 +1,6 @@
 <?=link_tag('css/spectrum.css');?>
 <script src="js/spectrum.js"></script>
+<script type="text/javascript" src="js/date_range.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#wbs_number").on('keyup', function(e)  {
@@ -33,6 +34,12 @@ $(function() {
 <?=form_dropdown_and_label('location', location_options($locations), $location_id); ?>
 <?=form_input_and_label('wbs_number', $wbs_number, 'required'); ?>
 <?=form_colorpicker('experiment_color', $experiment_color, 'required');?>
+<div class="pure-control-group">
+<label><?=lang('period'); ?></label>
+<?=form_input('date_start', $date_start, 'id="from" readonly placeholder="'. lang('date_start') . '"'); ?>
+-
+<?=form_input('date_end', $date_end, 'id="to" readonly placeholder="'. lang('date_end') . '"'); ?>
+</div>
 
 <?=form_fieldset('Eisen aan deelnemers'); ?>
 <?=form_single_checkbox_and_label('dyslexic', '1', $dyslexic); ?>
@@ -41,6 +48,7 @@ $(function() {
 <?=form_input_and_label('agefromdays', $agefromdays, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agetomonths', $agetomonths, 'required class="positive-integer"'); ?>
 <?=form_input_and_label('agetodays', $agetodays, 'required class="positive-integer"'); ?>
+<?=form_input_and_label('target_nr_participants', $target_nr_participants, 'required class="positive-integer"'); ?>
 
 <?=form_fieldset('Bellers en leiders'); ?>
 <?=form_multiselect_and_label('callers', $callers, isset($current_caller_ids) ? $current_caller_ids: array()); ?>

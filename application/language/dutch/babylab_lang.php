@@ -194,6 +194,10 @@ $lang['remove']             = "Verwijder";
 $lang['sure_remove_attachment'] = "Weet u zeker dat u de informatiebrief wilt verwijderen? Andere wijzigingen aan het experiment worden dan niet opgeslagen.";
 $lang['informedconsent']     = "Toestemmingsverklaring";
 $lang['sure_remove_informedconsent'] = "Weet u zeker dat u de toestemmingsverklaring wilt verwijderen? Andere wijzigingen aan het experiment worden dan niet opgeslagen.";
+$lang['date_start']			= "Startdatum";
+$lang['date_end']			= "Einddatum";
+$lang['period']				= "Looptijd";
+$lang['target_nr_participants'] = "Gewenst aantal proefpersonen";
 
 /* Relations */
 $lang['relation']	 		= "Verband";

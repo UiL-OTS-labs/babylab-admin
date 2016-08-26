@@ -114,6 +114,9 @@ class Experiment extends CI_Controller
 		$data['page_title'] = lang('edit_experiment');
 		$data['action'] = 'experiment/edit_submit/' . $experiment_id;
 		$data = add_fields($data, 'experiment', $experiment);
+
+		$data['date_start'] = output_date($experiment->date_start, TRUE);
+		$data['date_end'] = output_date($experiment->date_end, TRUE);
 		
 		$data['locations'] = $this->locationModel->get_all_locations();
 		$data['callers'] = caller_options($callers);
@@ -331,12 +334,15 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('description', lang('description'), 'trim|required');
 		$this->form_validation->set_rules('duration', lang('duration'), 'trim|required');
 		$this->form_validation->set_rules('wbs_number', lang('wbs_number'), 'trim|required|callback_wbs_check');
+		$this->form_validation->set_rules('date_start', lang('date_start'), 'trim');
+		$this->form_validation->set_rules('date_end', lang('date_end'), 'trim');
 		$this->form_validation->set_rules('dyslexic', lang('dyslexic'), '');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), '');
 		$this->form_validation->set_rules('agefrommonths', lang('agefrommonths'), 'trim|required|is_natural|callback_age_check');
 		$this->form_validation->set_rules('agefromdays', lang('agefromdays'), 'trim|required|is_natural|less_than[32]');
 		$this->form_validation->set_rules('agetomonths', lang('agetomonths'), 'trim|required|is_natural');
 		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural|less_than[32]');
+		$this->form_validation->set_rules('target_nr_participants', lang('target_nr_participants'), 'trim|is_natural');
 		
 		if (!$has_attachment)
 		{
@@ -361,12 +367,15 @@ class Experiment extends CI_Controller
 				'duration'          => $this->input->post('duration'),
 				'wbs_number'        => $this->input->post('wbs_number'),
 				'experiment_color'  => $this->input->post('experiment_color'),
+				'date_start'        => input_date($this->input->post('date_start')),
+				'date_end'          => input_date($this->input->post('date_end')),
 				'dyslexic'          => $this->input->post('dyslexic') === '1',
 				'multilingual'      => $this->input->post('multilingual') === '1' ,
 				'agefrommonths'     => $this->input->post('agefrommonths'),
 				'agefromdays'       => $this->input->post('agefromdays'),
 				'agetomonths'       => $this->input->post('agetomonths'),
-				'agetodays'         => $this->input->post('agetodays')
+				'agetodays'         => $this->input->post('agetodays'),
+				'target_nr_participants'	=> $this->input->post('target_nr_participants'),
 		);
 
 		if ($this->attachment) $exp['attachment'] = $this->attachment;
