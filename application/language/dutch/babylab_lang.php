@@ -186,7 +186,7 @@ $lang['not_show_archived_exps'] = "Laat geen gearchiveerde experimenten zien";
 $lang['archived_exp']		= "Experiment succesvol gearchiveerd.";
 $lang['unarchived_exp']		= "Experiment succesvol uit het archief gehaald.";
 $lang['age_from_before_to'] = "De 'tot'-leeftijd ligt voor de 'vanaf'-leeftijd.";
-$lang['act_nr_part']		= "Huidig aantal proefpersonen";
+$lang['act_nr_part']		= "Geteste proefpersonen";
 $lang['attachments']        = "Bijlagen";
 $lang['attachment']         = "Informatiebrief";
 $lang['download']           = "Download";
@@ -198,6 +198,9 @@ $lang['date_start']			= "Startdatum";
 $lang['date_end']			= "Einddatum";
 $lang['period']				= "Looptijd";
 $lang['target_nr_participants'] = "Gewenst aantal proefpersonen";
+$lang['nr_participations'] = "%s (geïncludeerd: %s, gewenst: %s)";
+$lang['tested']				= "Getest";
+$lang['to_test']			= "Nog te testen";
 
 /* Relations */
 $lang['relation']	 		= "Verband";

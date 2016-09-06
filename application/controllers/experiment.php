@@ -45,10 +45,18 @@ class Experiment extends CI_Controller
 		$location = $this->locationModel->get_location_by_experiment($experiment);
 		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
 
+		$included = 0;
+		foreach ($participations as $participation) {
+			if ($participation->completed && !$participation->excluded) {
+				$included += 1;
+			}
+		}
+
 		$data['page_title'] = sprintf(lang('data_for_experiment'), $experiment->name);
 		$data['experiment'] = $experiment;
 		$data['location'] = $location;
 		$data['nr_participations'] = count($participations);
+		$data['nr_included'] = $included;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_view', $data);

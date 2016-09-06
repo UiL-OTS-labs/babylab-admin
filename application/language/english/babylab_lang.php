@@ -187,7 +187,7 @@ $lang['not_show_archived_exps'] = "Don't show archived experiments";
 $lang['archived_exp']		= "Archived experiment successfully.";
 $lang['unarchived_exp']		= "Activated experiment successfully.";
 $lang['age_from_before_to'] = "The 'to' age range is less than the 'from' age range.";
-$lang['act_nr_part']		= "Current number of participants";
+$lang['act_nr_part']		= "Tested participants";
 $lang['attachments']        = "Attachments";
 $lang['attachment']         = "Information letter";
 $lang['download']           = "Download";
@@ -199,6 +199,9 @@ $lang['date_start']			= "Start date";
 $lang['date_end']			= "End date";
 $lang['period']				= "Period";
 $lang['target_nr_participants'] = "Target number of participants";
+$lang['nr_participations'] = "%s (included: %s, target: %s)";
+$lang['tested']				= "Tested";
+$lang['to_test']			= "Still to test";
 
 /* Relations */
 $lang['relation']	 		= "Relation";
