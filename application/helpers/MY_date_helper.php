@@ -71,8 +71,10 @@ if (!function_exists('months_between'))
 	{
 		$months = array();
 
-		$start    = (new DateTime($min_date))->modify('first day of this month');
-		$end      = (new DateTime($max_date))->modify('first day of next month');
+		$start    = new DateTime($min_date);
+		$start->modify('first day of this month');
+		$end      = new DateTime($max_date);
+		$end->modify('first day of next month');
 		$interval = DateInterval::createFromDateString('1 month');
 		$period   = new DatePeriod($start, $interval, $end);
 
