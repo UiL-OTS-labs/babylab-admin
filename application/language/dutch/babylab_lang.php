@@ -50,6 +50,9 @@ $lang['months']				= "maanden";
 $lang['year']               = "Jaar";
 $lang['years'] 				= "jaren";
 
+$lang['total'] 				= "Totaal";
+$lang['unknown'] 			= "Onbekend";
+
 $lang['no_results_found']	= "Geen resultaten gevonden.";
 
 /* Register */
@@ -201,6 +204,7 @@ $lang['target_nr_participants'] = "Gewenst aantal proefpersonen";
 $lang['nr_participations'] = "%s (geïncludeerd: %s, gewenst: %s)";
 $lang['tested']				= "Getest";
 $lang['to_test']			= "Nog te testen";
+$lang['month_overview']		= "Geteste proefpersonen per maand en per leider";
 
 /* Relations */
 $lang['relation']	 		= "Verband";

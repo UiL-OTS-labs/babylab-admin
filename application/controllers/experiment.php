@@ -45,18 +45,70 @@ class Experiment extends CI_Controller
 		$location = $this->locationModel->get_location_by_experiment($experiment);
 		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
 
+		$leaders = array();
+		foreach ($participations as $participation)
+		{
+			if ($participation->cancelled)
+			{
+				continue;
+			}
+
+			$leader_id = $participation->user_id_leader;
+			if ($leader_id)
+			{
+				$leader = $this->userModel->get_user_by_id($leader_id)->username;
+			}
+			else
+			{
+				$leader = '~ ' . lang('unknown');  // Dirty trick to make sure this will be the last item in the list
+			}
+			array_push($leaders, $leader);
+		}
+		$unique_leaders = array_unique($leaders);
+		asort($unique_leaders);
+
+		$n = 0;
 		$included = 0;
-		foreach ($participations as $participation) {
-			if ($participation->completed && !$participation->excluded) {
+		$tested = array();
+		foreach ($participations as $participation)
+		{
+			if ($participation->cancelled)
+			{
+				continue;
+			}
+
+			if ($participation->completed && !$participation->excluded)
+			{
 				$included += 1;
 			}
+
+			$month = strftime('%Y-%m (%B)', strtotime($participation->appointment));
+
+			// If month is not yet in the array, add default values
+			if (!isset($tested[$month]))
+			{
+				$counts = array(lang('total') => 0);
+				foreach ($unique_leaders as $leader)
+				{
+					$counts[$leader] = 0;
+				}
+				$tested[$month] = $counts;
+			}
+
+			$leader = $leaders[$n];
+			$tested[$month][lang('total')] += 1;
+			$tested[$month][$leader] += 1;
+
+			$n++;
 		}
+		ksort($tested);
 
 		$data['page_title'] = sprintf(lang('data_for_experiment'), $experiment->name);
 		$data['experiment'] = $experiment;
 		$data['location'] = $location;
 		$data['nr_participations'] = count($participations);
 		$data['nr_included'] = $included;
+		$data['tested'] = $tested;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_view', $data);

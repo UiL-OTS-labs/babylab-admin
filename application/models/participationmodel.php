@@ -109,8 +109,8 @@ class ParticipationModel extends CI_Model
 	{
 		$this->db->where('experiment_id', $experiment_id);
 		if (isset($risk)) $this->db->where('risk', $risk);
-		// exclude empty participations -> TODO: make this standard?
-		$this->db->where('(appointment IS NOT NULL OR cancelled = 1)');
+		// exclude empty participations (and also do not include cancelled participations)
+		$this->db->where('appointment IS NOT NULL');
 		return $this->db->get('participation')->result();
 	}
 

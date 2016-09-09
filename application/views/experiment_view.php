@@ -37,7 +37,7 @@
 	<!-- General info -->
 	<?=heading(lang('general_info'), 3); ?>
 	<div>
-		<div style="width: 50%; float: left;">
+		<div style="width: 50%; float: left; margin-bottom: 10px;">
 			<table class="pure-table">
 				<tr>
 					<th><?=lang('name'); ?></th>
@@ -85,6 +85,36 @@
 		</div>
 
 		<div id="chart_div" style="width: 50%; height: 300px; float: right;"></div>
+
+		<?=heading(lang('month_overview'), 2); ?>
+		<table class="pure-table">
+			<thead>
+			<?php
+				echo '<tr>';
+				echo '<th style="min-width: 100px; text-align: center;">' . lang('month') . '</th>';
+				foreach (array_keys(reset($tested)) as $leader) {
+					echo '<th style="min-width: 50px; text-align: center;">';
+					echo $leader;
+					echo '</th>';
+				}
+				echo '</tr>';
+			?>
+			</thead>
+			<tbody>
+			<?php
+				foreach ($tested as $month => $leader_counts) {
+					echo '<tr>';
+					echo '<td>' . $month . '</td>';
+					foreach ($leader_counts as $leader => $count) {
+						echo '<td style="text-align: right;">';
+						echo $count;
+						echo '</td>';
+					}
+					echo '</tr>';
+				}
+			?>
+			</tbody>
+		</table>
 	</div>
 
 	<!-- Callers -->

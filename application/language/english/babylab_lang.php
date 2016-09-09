@@ -50,6 +50,9 @@ $lang['months']             = "months";
 $lang['year']               = "Year";
 $lang['years'] 				= "years";
 
+$lang['total'] 				= "Total";
+$lang['unknown'] 			= "Unknown";
+
 $lang['no_results_found']	= "No results found.";
 
 /* Register */
@@ -202,6 +205,7 @@ $lang['target_nr_participants'] = "Target number of participants";
 $lang['nr_participations'] = "%s (included: %s, target: %s)";
 $lang['tested']				= "Tested";
 $lang['to_test']			= "Still to test";
+$lang['month_overview']		= "Tested participants per month and per leader";
 
 /* Relations */
 $lang['relation']	 		= "Relation";
