@@ -68,7 +68,7 @@ if (!function_exists('create_total_score_table'))
 if (!function_exists('create_ncdi_score_array'))
 {
 	/** Creates the table with NCDI score date */
-	function create_ncdi_score_array($test, $testinvite)
+	function create_ncdi_score_array($test, $testinvite, $keep_zeroes = FALSE)
 	{
 		$CI =& get_instance();
 
@@ -82,7 +82,6 @@ if (!function_exists('create_ncdi_score_array'))
 			if ($score->score > 0)
 			{
 				$participant = $CI->testInviteModel->get_participant_by_testinvite($testinvite);
-
 				$score_age = age_in_months($participant, $score->date);
 				$percentile = $CI->percentileModel->find_percentile($tc->id, $participant->gender, $score_age, $score->score);
 				$language_age = $CI->percentileModel->find_50percentile_age($tc->id, $participant->gender, $score->score);
@@ -94,6 +93,16 @@ if (!function_exists('create_ncdi_score_array'))
 					'percentile' 	=> $percentile, 
 					'age' 			=> $language_age, 
 					'score_age' 	=> $score_age));
+			}
+			else if ($keep_zeroes)
+			{
+				array_push($result, array(
+					'code' 			=> $tc->code, 
+					'name' 			=> $tc->name, 
+					'score' 		=> '', 
+					'percentile' 	=> '', 
+					'age' 			=> '', 
+					'score_age' 	=> ''));
 			}
 		}
 
@@ -197,7 +206,7 @@ if (!function_exists('scores_to_csv'))
 			// For N-CDI: total score data
 			if ($test_code == 'ncdi_wz') 
 			{
-				$totals = create_ncdi_score_array($test, $testinvite);
+				$totals = create_ncdi_score_array($test, $testinvite, TRUE);
 				foreach ($totals as $total)
 				{
 					array_push($csv_row, $total['score'], $total['percentile'], $total['age']);
