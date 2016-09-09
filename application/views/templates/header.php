@@ -137,6 +137,7 @@ $(function() {
 				<li><?=anchor('welcome', lang('home')); ?></li>
 				<li><?=anchor('participation', lang('participations')); ?></li>
 				<li><?=anchor('appointment', lang('calendar')); ?></li>
+				<li><?=anchor('closing', lang('closings')); ?></li>
 				<li><?=anchor('call/user/' . current_user_id(), lang('calls')); ?></li>
 				<li><?=anchor('participant', lang('participants')); ?></li>
 				<li><?=anchor('testinvite', lang('testinvites')); ?></li>

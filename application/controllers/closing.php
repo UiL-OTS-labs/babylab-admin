@@ -22,7 +22,7 @@ class Closing extends CI_Controller
         $data['action_urls'] = array($add_url, $past_url);
 
         $this->load->view('templates/header', $data);
-        $this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+        $this->load->view('templates/list_view', $data);
         $this->load->view('templates/footer');
     }
 
@@ -33,7 +33,7 @@ class Closing extends CI_Controller
         $data['locations'] = location_options($this->locationModel->get_all_locations());
         
         $this->load->view('templates/header', $data);
-        $this->authenticate->authenticate_redirect('closing_add_view', $data, UserRole::Admin);
+        $this->load->view('closing_add_view', $data);
         $this->load->view('templates/footer');
     }
 
