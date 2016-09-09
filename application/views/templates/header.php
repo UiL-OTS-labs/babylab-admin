@@ -72,6 +72,7 @@ $(function() {
 				<li class='has-sub'><a href="javascript:void(0)"><?=lang('experiments'); ?></a>
 					<ul>
 						<li><?=anchor('experiment', lang('overview')); ?></li>
+						<li><?=anchor('experiment/timeline', lang('timeline')); ?></li>
 						<li><?=anchor('relation', lang('relations')); ?></li>
 						<li class='last'><?=anchor('location', lang('locations')); ?></li>
 					</ul>

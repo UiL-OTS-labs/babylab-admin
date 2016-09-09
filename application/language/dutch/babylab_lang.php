@@ -205,6 +205,7 @@ $lang['nr_participations'] = "%s (geïncludeerd: %s, gewenst: %s)";
 $lang['tested']				= "Getest";
 $lang['to_test']			= "Nog te testen";
 $lang['month_overview']		= "Geteste proefpersonen per maand en per leider";
+$lang['timeline']			= "Tijdlijn";
 
 /* Relations */
 $lang['relation']	 		= "Verband";

@@ -61,3 +61,26 @@ if (!function_exists('input_datetime'))
 		return date('Y-m-d H:i:s', strtotime($date));
 	}
 }
+
+
+if (!function_exists('months_between'))
+{
+	// Retrieves the months between two dates
+	// Copied from http://stackoverflow.com/a/18743012
+	function months_between($min_date, $max_date)
+	{
+		$months = array();
+
+		$start    = (new DateTime($min_date))->modify('first day of this month');
+		$end      = (new DateTime($max_date))->modify('first day of next month');
+		$interval = DateInterval::createFromDateString('1 month');
+		$period   = new DatePeriod($start, $interval, $end);
+
+		foreach ($period as $dt)
+		{
+			array_push($months, $dt->format('Y-m'));
+		}
+
+		return $months;
+	}
+}

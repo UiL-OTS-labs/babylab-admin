@@ -206,6 +206,7 @@ $lang['nr_participations'] = "%s (included: %s, target: %s)";
 $lang['tested']				= "Tested";
 $lang['to_test']			= "Still to test";
 $lang['month_overview']		= "Tested participants per month and per leader";
+$lang['timeline']			= "Timeline";
 
 /* Relations */
 $lang['relation']	 		= "Relation";

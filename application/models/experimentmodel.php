@@ -88,6 +88,18 @@ class ExperimentModel extends CI_Model
 		return $this->db->count_all_results();
 	}
 
+	/** Returns the number of participations per month for the given experiment */
+	public function count_participations_per_month($experiment_id, $min_date = NULL, $max_date = NULL)
+	{
+		$this->db->select(array('DATE_FORMAT(appointment, "%Y-%m") AS month', 'COUNT(*) AS count'));
+		$this->db->where('experiment_id', $experiment_id);
+		if ($min_date) $this->db->where('appointment >=', $min_date);
+		if ($max_date) $this->db->where('appointment <=', $max_date);
+		$this->db->group_by(array('DATE_FORMAT(appointment, "%Y-%m")'));
+		$this->db->order_by('month');
+		return $this->db->get('participation')->result();
+	}
+
 	/////////////////////////
 	// Participants
 	/////////////////////////

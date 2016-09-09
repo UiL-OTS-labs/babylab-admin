@@ -249,6 +249,48 @@ class Experiment extends CI_Controller
 		$this->index(1);
 	}
 
+	/** Shows a timeline of experiments */
+	public function timeline()
+	{
+		$experiments = $this->experimentModel->get_all_experiments(FALSE);
+
+		// Retrieve the months between the selected dates
+		$date_start = $this->input->post('date_start');
+		$date_end = $this->input->post('date_end');
+		$min_date = $date_start ? input_date($date_start) : input_date(date('Y-01-01'));
+		$max_date = $date_end ? input_date($date_end) : input_date(date('Y-12-31'));
+		$months = months_between($min_date, $max_date);
+
+		// Loop over experiments, count participations per year/month
+		$tested = array();
+		foreach ($experiments as $experiment)
+		{
+			// For every new experiment, add default counts
+			foreach ($months as $month)
+			{
+				$default_counts[$month] = 0;
+			}
+			$tested[$experiment->name] = $default_counts;
+
+			$month_counts = $this->experimentModel->count_participations_per_month($experiment->id, $min_date, $max_date);
+			foreach ($month_counts as $mc)
+			{
+				$tested[$experiment->name][$mc->month] = $mc->count;
+			}
+		}
+		ksort($tested);
+
+		$data['page_title'] = lang('timeline');
+		$data['action'] = 'experiment/timeline/';
+		$data['tested'] = $tested;
+		$data['date_start'] = output_date($min_date, TRUE);
+		$data['date_end'] = output_date($max_date, TRUE);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('experiment_timeline_view', $data);
+		$this->load->view('templates/footer');
+	}
+
 	/** Shows all experiments for a caller TODO: unused? */
 	public function caller($user_id)
 	{
