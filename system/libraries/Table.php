@@ -5,8 +5,9 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @author		EllisLab Dev Team
+ * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.3.1
@@ -20,13 +21,14 @@
  *
  * Lets you create tables manually or from database result objects, or arrays.
  *
- * @package	CodeIgniter
+ * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	HTML Tables
- * @author		ExpressionEngine Dev Team
+ * @author		EllisLab Dev Team
  * @link		http://codeigniter.com/user_guide/libraries/uri.html
  */
 class CI_Table {
+
 	var $rows				= array();
 	var $heading			= array();
 	var $auto_heading		= TRUE;
@@ -35,7 +37,7 @@ class CI_Table {
 	var $newline			= "\n";
 	var $empty_cells		= "";
 	var	$function			= FALSE;
-	
+
 	public function __construct()
 	{
 		log_message('debug', "Table Class Initialized");
@@ -56,6 +58,7 @@ class CI_Table {
 		{
 			return FALSE;
 		}
+
 		$this->template = $template;
 	}
 
@@ -300,7 +303,7 @@ class CI_Table {
 			$out .= $this->template['thead_close'];
 			$out .= $this->newline;
 		}
-		
+
 		// Build the table rows
 		if (count($this->rows) > 0)
 		{
