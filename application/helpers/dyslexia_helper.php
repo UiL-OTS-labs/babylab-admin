@@ -51,3 +51,64 @@ if (!function_exists('dyslexia_check'))
 		return $result;
 	}
 }
+
+if (!function_exists('dyslexia_to_csv'))
+{
+	/** Creates a .csv-file from a list of DyslexiaModels */
+	function dyslexia_to_csv($dyslexia_list, $experiment_id = NULL)
+	{
+		$CI =& get_instance();
+
+		// Retrieve the headers
+		$headers = array(lang('participant'), lang('parent'), lang('statement'), 
+			lang('emt_score'), lang('klepel_score'), lang('vc_score'), lang('comment'));
+
+		if ($experiment_id)
+		{
+			array_unshift($headers, lang('part_number'));
+		}
+		
+		// Add headers to the csv array (later used in fputscsv)
+		$csv_array = array();
+		$csv_array[] = $headers;
+		
+		// Generate array for each row and put in total array
+		foreach ($dyslexia_list as $dyslexia)
+		{			
+			$participant = $CI->dyslexiaModel->get_participant_by_dyslexia($dyslexia);
+			
+			$refnr = reference_number($participant);
+			$s = $dyslexia->statement ? lang('yes') : lang('no');
+			$csv_row = array($refnr, $dyslexia->gender, $s, 
+				$dyslexia->emt_score, $dyslexia->klepel_score, $dyslexia->vc_score, $dyslexia->comment);
+
+			if ($experiment_id) 
+			{
+				$participation = $CI->participationModel->get_participation($experiment_id, $participant->id);
+				array_unshift($csv_row, $participation->part_number);
+			}
+			
+			// Add row to csv array
+			$csv_array[] = $csv_row;
+		}
+		
+		// Create a new output stream and capture the result in a new object
+		$fp = fopen('php://output', 'w');
+		ob_start();
+		
+		// Create a new row in the CSV file for every in the array
+		foreach ($csv_array as $row)
+		{
+			fputcsv($fp, $row, ';');
+		}
+		
+		// Capture the output as a string
+		$csv = ob_get_contents();
+		
+		// Close the object and the stream
+		ob_end_clean();
+		fclose($fp);
+
+		return $csv;
+	}
+}

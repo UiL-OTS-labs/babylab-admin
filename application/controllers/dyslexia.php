@@ -21,11 +21,12 @@ class Dyslexia extends CI_Controller
 	public function index()
 	{
 		$add_url = array('url' => 'dyslexia/add', 'title' => lang('add_dyslexia'));
+		$download_url = array('url' => 'dyslexia/download', 'title' => lang('download_dyslexia'));
 
 		create_dyslexia_table();
 		$data['ajax_source'] = 'dyslexia/table/';
 		$data['page_title'] = lang('dyslexia');
-		$data['action_urls'] = array($add_url);
+		$data['action_urls'] = array($add_url, $download_url);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -114,6 +115,31 @@ class Dyslexia extends CI_Controller
 		flashdata(lang('dyslexia_deleted'), TRUE, 'dyslexia_message');
 		redirect($this->agent->referrer(), 'refresh');
 	}
+
+	/////////////////////////
+	// Other views
+	/////////////////////////
+
+	/**
+	 * Downloads all dyslexia scores as a .csv-file.
+	 */
+	public function download()
+	{
+		if (current_role() !== UserRole::Admin)
+		{
+			flashdata(lang('not_authorized'));
+			redirect('/dyslexia/', 'refresh');
+		}
+
+		$csv = dyslexia_to_csv($this->dyslexiaModel->get_all_dyslexias());
+		
+		// Generate filename
+		$filename = 'dyslexia_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
+		
+		// Download the file
+		force_download($filename, $csv); 		
+	}
+
 
 	/////////////////////////
 	// Form handling

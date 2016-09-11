@@ -4,6 +4,7 @@ $lang['statement']				= "Verklaring";
 $lang['emt_score']				= "EMT score";
 $lang['klepel_score']			= "KLEPEL score";
 $lang['vc_score']				= "VC score";
+$lang['download_dyslexia']		= "Download alle dyslexie-gegevens";
 $lang['add_dyslexia']			= "Dyslexie-item toevoegen";
 $lang['dyslexia_added']			= "Nieuw dyslexie-item succesvol toegevoegd.";
 $lang['edit_dyslexia']			= "Dyslexie-item bewerken";

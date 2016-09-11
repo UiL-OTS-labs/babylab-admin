@@ -372,6 +372,31 @@ class Experiment extends CI_Controller
 
 		force_download($name, $data);
 	}
+
+	/**
+	 * Downloads all dyslexia data of an experiment as a .csv-file.
+	 * @param integer $experiment_id
+	 */
+	public function download_dyslexia($experiment_id)
+	{
+		// Retrieve the scores and convert to .csv
+		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id, TRUE);
+		
+		$result = array();
+		foreach ($participants as $participant)
+		{
+			$result = array_merge($result, $this->dyslexiaModel->get_dyslexias_by_participant($participant->id));
+		}
+		$csv = dyslexia_to_csv($result, $experiment_id);
+		
+		// Generate filename
+		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
+		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
+		$filename = $escaped . '_dyslexia_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
+		
+		// Download the file
+		force_download($filename, $csv);
+	}
 	
 	/**
 	 * Downloads all scores of participants of an experiment as a .csv-file.
