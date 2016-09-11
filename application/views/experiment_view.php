@@ -84,6 +84,7 @@
 			</table>
 		</div>
 
+		<?php if ($nr_participations > 0) { ?>
 		<div id="chart_div" style="width: 50%; height: 300px; float: right;"></div>
 
 		<?=heading(lang('month_overview'), 2); ?>
@@ -115,6 +116,7 @@
 			?>
 			</tbody>
 		</table>
+		<?php } ?>
 	</div>
 
 	<!-- Callers -->
