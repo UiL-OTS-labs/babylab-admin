@@ -13,8 +13,7 @@
 
 <?=$this->session->flashdata('message'); ?>
 
-<div
-	id="accordion">
+<div id="accordion">
 	<!-- General info -->
 	<h3>
 	<?=lang('general_info'); ?>
@@ -90,9 +89,7 @@
 	</div>
 
 	<!-- Contact details -->
-	<h3>
-	<?=lang('contact_details'); ?>
-	</h3>
+	<?=heading(lang('contact_details'), 3); ?>
 	<div>
 		<table class="pure-table">
 			<tr>
@@ -114,23 +111,36 @@
 		</table>
 	</div>
 
-	<!-- Languages -->
-	<h3>
-	<?=lang('languages'); ?>
-	</h3>
-	<div>
+	<!-- Languages and dyslexia -->
 	<?php
-	create_language_table('languages');
-	$languages['id'] = 'languages';
-	$languages['ajax_source'] = 'language/table_by_participant/' . $participant->id;
-	$this->load->view('templates/list_view', $languages);
+		if ($participant->multilingual || $participant->dyslexicparent)
+		{
+			echo heading(lang('specific_info'), 3);
+			echo '<div>';
+
+			if ($participant->multilingual) 
+			{
+				echo heading(lang('languages'), 4);
+				create_language_table('languages');
+				$languages['id'] = 'languages';
+				$languages['ajax_source'] = 'language/table_by_participant/' . $participant->id;
+				$this->load->view('templates/list_view', $languages);	
+			}
+
+			if ($participant->dyslexicparent)
+			{
+				echo heading(lang('dyslexia'), 4);
+				create_dyslexia_table('dyslexia');
+				$dyslexia['id'] = 'dyslexia';
+				$dyslexia['ajax_source'] = 'dyslexia/table_by_participant/' . $participant->id;
+				$this->load->view('templates/list_view', $dyslexia);
+			}
+			echo '</div>';
+		}
 	?>
-	</div>
 
 	<!-- Impediments -->
-	<h3>
-	<?=lang('impediments') . ' (' . $impediment_size . ')'; ?>
-	</h3>
+	<?=heading(lang('impediments') . ' (' . $impediment_size . ')', 3); ?>
 	<div>
 	<?php
 	create_impediment_table('impediments');
@@ -142,9 +152,7 @@
 	</div>
 
 	<!-- Comments -->
-	<h3>
-	<?=lang('comments') . ' (' . $comment_size . ')'; ?>
-	</h3>
+	<?=heading(lang('comments') . ' (' . $comment_size . ')', 3); ?>
 	<div>
 	<?php
 	create_comment_table('comments');
@@ -156,9 +164,7 @@
 	</div>
 
 	<!-- Participations -->
-	<h3>
-	<?=lang('participations') . ' (' . $participation_size . ')'; ?>
-	</h3>
+	<?=heading(lang('participations') . ' (' . $participation_size . ')', 3); ?>
 	<div>
 	<?php
 	create_participation_table('participations');
@@ -169,9 +175,7 @@
 	</div>
 
 	<!-- TestInvites -->
-	<h3>
-	<?=lang('testinvites'); ?>
-	</h3>
+	<?=heading(lang('testinvites'), 3); ?>
 	<div>
 	<?php
 		create_testinvite_participant_table('testinvites');
