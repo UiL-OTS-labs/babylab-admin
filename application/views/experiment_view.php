@@ -15,8 +15,8 @@
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
           ['Type', 'Amount'],
-          ["<?=lang('tested'); ?>", <?=$nr_participations; ?>],
-          ["<?=lang('to_test'); ?>", <?=max($experiment->target_nr_participants - $nr_participations, 0); ?>],
+          ["<?=lang('tested'); ?>", <?=$nr_included; ?>],
+          ["<?=lang('to_test'); ?>", <?=max($experiment->target_nr_participants - $nr_included, 0); ?>],
 		]);
 
 		var options = {
