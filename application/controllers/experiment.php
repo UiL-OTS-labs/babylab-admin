@@ -497,7 +497,7 @@ class Experiment extends CI_Controller
 				'date_start'        => input_date($this->input->post('date_start')),
 				'date_end'          => input_date($this->input->post('date_end')),
 				'dyslexic'          => $this->input->post('dyslexic') === '1',
-				'multilingual'      => $this->input->post('multilingual') === '1' ,
+				'multilingual'      => $this->input->post('multilingual') === '1',
 				'agefrommonths'     => $this->input->post('agefrommonths'),
 				'agefromdays'       => $this->input->post('agefromdays'),
 				'agetomonths'       => $this->input->post('agetomonths'),

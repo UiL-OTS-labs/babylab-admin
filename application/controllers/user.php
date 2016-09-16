@@ -526,6 +526,40 @@ class User extends CI_Controller
 		}
 	}
 
+	/**
+	 *
+	 * Specifies the contents of the signature view, in which new user will have to sign a contract.
+	 */
+	public function sign()
+	{
+		$user = $this->userModel->get_user_by_id(current_user_id());
+
+		$data['page_title'] = lang('sign');
+		$data['action'] = 'user/sign_submit';
+		$data['user_full_name'] = $user->firstname . ' ' . $user->lastname;
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('user_sign_view', $data);
+		$this->load->view('templates/footer');
+	}
+
+	/**
+	 * Signs the contract.
+	 */
+	public function sign_submit()
+	{
+		// Set current time as signature time
+		$user = array(
+			'needssignature'	=> FALSE,
+			'signed' 			=> input_datetime(),
+		);
+		$this->userModel->update_user(current_user_id(), $user);
+
+		// Redirect to welcome page
+		flashdata(lang('signed'));
+		redirect('welcome');
+	}
+
 	/////////////////////////
 	// Form handling
 	/////////////////////////
@@ -545,25 +579,29 @@ class User extends CI_Controller
 	}
 	
 	/**
+	 * 
 	 * Posts a user (when adding, updating, registering)
 	 * @param $creating whether we're creating this user, if so, add username and password
 	 */
 	private function post_user($creating = TRUE)
 	{
 		$user = array(
-				'role' 				=> $this->input->post('role'),
-				'firstname'			=> $this->input->post('firstname'),
-				'lastname'			=> $this->input->post('lastname'),
-				'email'				=> $this->input->post('email'),
-				'phone' 			=> $this->input->post('phone'),
-				'mobile' 			=> $this->input->post('mobile'),
-				'preferredlanguage' => $this->input->post('preferredlanguage')
+			'role' 				=> $this->input->post('role'),
+			'firstname'			=> $this->input->post('firstname'),
+			'lastname'			=> $this->input->post('lastname'),
+			'email'				=> $this->input->post('email'),
+			'phone' 			=> $this->input->post('phone'),
+			'mobile' 			=> $this->input->post('mobile'),
+			'preferredlanguage' => $this->input->post('preferredlanguage'),
 		);
 		
 		if ($creating) 
 		{
 			$user['username'] = $this->input->post('username');
 			$user['password'] = $this->phpass->hash($this->input->post('password'));
+
+			// Callers will need to sign a form
+			$user['needssignature'] = $this->input->post('role') === UserRole::Caller;
 		}
 		
 		return $user;

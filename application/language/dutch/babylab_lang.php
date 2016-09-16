@@ -512,6 +512,9 @@ $lang['sure_delete_user']	= "Weet u zeker dat u deze gebruiker wilt verwijderen?
 $lang['deleted_user']		= "Gebruiker %s succesvol verwijderd.";
 $lang['show_active_users']	= "Toon enkel geactiveerde gebruikers";
 $lang['show_inactive_users']= "Toon ook gedeactiveerde gebruikers";
+$lang['contract']			= "Contract";
+$lang['needssignature']		= "Moet contract tekenen";
+$lang['signed']				= "Contract getekend";
 
 /* Test Categories */
 $lang['testcat']			= "Testcategorie";

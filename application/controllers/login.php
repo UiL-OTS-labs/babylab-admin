@@ -46,7 +46,7 @@ class Login extends CI_Controller
 	public function submit($language = L::Dutch)
 	{
 		// Login = NOT OK -> destroy session and return to login form
-		if ($this->validate($language) == FALSE)
+		if (!$this->validate($language))
 		{
 			$this->session->sess_destroy();
 			$this->index($language);
@@ -58,15 +58,24 @@ class Login extends CI_Controller
 			// Load language file
 			reset_language(current_language());
 
-			// Where to go now?
+			// If a Caller has not yet signed, send him to that form
+			$user = $this->userModel->get_user_by_id(current_user_id());
+			if ($user->needssignature && !$user->signed)
+			{
+				redirect('user/sign/');
+			}
+
+			// Otherwise, check if we have a referrer, if so, send to that page
 			$referrer = $this->input->post('referrer');
-			
-			// If user was sent to login from different page, redirect to
-			// that page after login
-			if (isset($referrer) && $referrer != '') redirect($referrer);
-			
+			if ($referrer)
+			{
+				redirect($referrer);
+			}
 			// Otherwise, redirect to welcome page for user role
-			else redirect('welcome');
+			else
+			{
+				redirect('welcome');
+			}
 		}
 	}
 

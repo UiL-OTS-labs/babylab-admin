@@ -16,8 +16,8 @@
     <?php if ($role == UserRole::Admin || is_admin()) { ?>
         <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
     <?php } ?>
-    <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
     <?=form_radio_and_label('role', UserRole::Leader, $role); ?>
+    <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
 </div>
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>
 <?=form_input_and_label('lastname', $lastname, 'required'); ?>
@@ -34,4 +34,3 @@
 <?=form_controls(); ?>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-<?=validation_errors(); ?>
