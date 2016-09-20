@@ -113,7 +113,7 @@
 </style>
 
 <?=heading($page_title, 2); ?>
-<p>De grafiek hieronder toont de scores van uw kind ten opzichte van de vastgestelde percentieltabellen.</p>
+<p>De grafiek hieronder toont<?php if ($participant_id) { ?> de scores van uw kind ten opzichte van<?php } ?> de vastgestelde percentieltabellen.</p>
 <ul>
 	<li>De gele lijn volgt het 50ste percentiel, het donkergele gebied tussen het 15de en 85ste percentiel, en het lichtgele gebied tussen het 1ste en 99ste percentiel.</li>
 	<?php if ($participant_id) { ?> <li>De blauwe punten geven de score van uw kind aan.</li> <?php } ?>
