@@ -391,7 +391,7 @@ class Chart extends CI_Controller
 
 			$rows[$unique]['t'] = array('v' => $testcat);
 			$rows[$unique]['g'] = array('v' => $gender);
-			$rows[$unique]['a'] = array('v' => $percentile->age);
+			$rows[$unique]['a'] = array('v' => intval($percentile->age));
 			$rows[$unique][$percentile->percentile] = array('v' => $percentile->score);
 			if ($percentile->percentile == 50) 
 			{
@@ -404,7 +404,7 @@ class Chart extends CI_Controller
 				if ((empty($percentile->gender) || $percentile->gender === $p_gender) && $percentile->age == $p_age)
 				{
 					$score = $this->testCatModel->total_score($percentile->testcat_id, $testinvite_id);
-					$rows[$unique][100] = array('v' => $score->score);
+					$rows[$unique][100] = array('v' => intval($score->score));
 					$tooltip = 'Score kind na ' . $percentile->age . ' maanden: ' . $score->score;
 					$rows[$unique][101] = array('v' => $tooltip);
 				}
@@ -457,7 +457,7 @@ class Chart extends CI_Controller
 						$rows[$nr][0] = array('v' => $testcat->name);
 						$rows[$nr][1] = array('v' => $gender);
 						$rows[$nr][2] = array('v' => $age);
-						$rows[$nr][3] = array('v' => $score->score);
+						$rows[$nr][3] = array('v' => intval($score->score));
 						$rows[$nr][4] = array('v' => NULL);
 
 						$nr++;
