@@ -399,7 +399,7 @@ class Chart extends CI_Controller
 				$rows[$unique]['tt'] = array('v' => $tooltip);
 			}
 
-			if ($participant && $percentile->percentile == 1) // only do this at the last run... TODO: kinda dirty
+			if (isset($participant) && $percentile->percentile == 1) // only do this at the last run... TODO: kinda dirty
 			{
 				if ((empty($percentile->gender) || $percentile->gender === $p_gender) && $percentile->age == $p_age)
 				{
