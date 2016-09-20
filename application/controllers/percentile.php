@@ -251,9 +251,11 @@ class Percentile extends CI_Controller
 	/** Creates the table with percentile data */
 	public function table()
 	{
-		$this->datatables->select('testcat_id, gender, age, score, percentile, id');
+		$this->datatables->select('testcat.test_id AS test_id, testcat_id, gender, age, score, percentile, percentile.id AS id');
 		$this->datatables->from('percentile');
+		$this->datatables->join('testcat', 'testcat.id = percentile.testcat_id');
 
+		$this->datatables->edit_column('test_id', '$1', 'test_get_link_by_id(test_id)');
 		$this->datatables->edit_column('testcat_id', '$1', 'testcat_get_link_by_id(testcat_id)');
 		$this->datatables->edit_column('gender', '$1', 'gender(gender)');
 		$this->datatables->edit_column('id', '$1', 'percentile_actions(id)');
@@ -264,6 +266,7 @@ class Percentile extends CI_Controller
 	public function table_by_testcat($testcat_id)
 	{
 		$this->datatables->where('testcat_id', $testcat_id);
+		$this->datatables->unset_column('test_id');
 		$this->datatables->unset_column('testcat_id');
 		$this->table();
 	}

@@ -12,7 +12,11 @@ if (!function_exists('create_percentile_table'))
 		$CI =& get_instance();
 		base_table($id);
 		$heading = array(lang('gender'), lang('age'), lang('score'), lang('percentile'), lang('actions'));
-		if (empty($id)) array_unshift($heading, lang('testcat'));
+		if (empty($id))
+		{
+			array_unshift($heading, lang('testcat'));
+			array_unshift($heading, lang('test'));
+		}
 		$CI->table->set_heading($heading);
 	}
 }
