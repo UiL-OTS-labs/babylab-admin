@@ -24,7 +24,15 @@ class SurveyModel extends CI_Model
 	// Results
 	/////////////////////////
 
-	/** Returns the testinvite for an id */
+	/** Returns the survey result for a response id */
+	public function get_result_by_id($survey_id, $response_id)
+	{
+        $this->survey_db->where('id', $response_id);
+		$this->survey_db->where('submitdate IS NOT NULL');
+		return $this->survey_db->get('survey_' . $survey_id)->row();
+	}
+
+	/** Returns the survey result for a token */
 	public function get_result_by_token($survey_id, $token)
 	{
         $this->survey_db->where('token', $token);
@@ -39,11 +47,23 @@ class SurveyModel extends CI_Model
         return $result->submitdate;
     }
 
-	/** Returns all question id's and answer values */
-	public function get_result_array($survey_id, $token)
+	/** Returns all question id's and answer values (by response id) */
+	public function get_result_array_by_id($survey_id, $response_id, $retrieve_labels = TRUE)
+	{
+		$result = $this->get_result_by_id($survey_id, $response_id);
+		return $this->get_result_array($survey_id, $result, $retrieve_labels);
+	}
+
+	/** Returns all question id's and answer values (by token) */
+	public function get_result_array_by_token($survey_id, $token, $retrieve_labels = TRUE)
 	{
 		$result = $this->get_result_by_token($survey_id, $token);
+		return $this->get_result_array($survey_id, $result, $retrieve_labels);
+	}
 
+	/** Turns a result line into an array */
+	private function get_result_array($survey_id, $result, $retrieve_labels = TRUE)
+	{
 		$result_array = array();
 		$fields = $this->survey_db->list_fields('survey_' . $survey_id);
 		foreach ($fields as $field)
@@ -53,8 +73,12 @@ class SurveyModel extends CI_Model
 			{
 				$question = $this->get_question($field_array[0], $field_array[1], $field_array[2]);
 				$parent_id = !empty($question->parent_qid) ? $question->parent_qid : $question->qid;
-				$answer = $this->get_answer_by_code($parent_id, $result->$field);
-				if (empty($answer)) $answer = $result->$field;
+				$answer = $result->$field;
+				if ($retrieve_labels)
+				{
+					$label = $this->get_answer_by_code($parent_id, $result->$field);
+					if ($label) $answer = $label;
+				}
 
 				if ($question->type === 'P') // for multiple choice with comments
 				{

@@ -39,7 +39,7 @@ class Chart extends CI_Controller
 		$data = $this->set_test_data($data, $test);
 		$data = $this->set_token_data($data, $token);
 
-		if ($data['valid_token'] && $test->code === 'ncdi_wz') // TODO: magic string
+		if ($data['valid_token'] && substr($test->code, 0, 4) === 'ncdi') // TODO: magic string
 		{
 			// Calculate the scores
 			$testinvite = $data['testinvite'];
@@ -133,44 +133,128 @@ class Chart extends CI_Controller
 			sleep(2); // Explicitly wait some time to make sure results are stored
 
 			$this->load->model('surveyModel');
-			$result = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $token);
+			$result = $this->surveyModel->get_result_array_by_token($testsurvey->limesurvey_id, $token);
             $date = $this->surveyModel->get_submit_date($testsurvey->limesurvey_id, $token);
 
-			foreach ($result as $question => $answer)
+			$this->add_scores($testinvite, $result, $date);
+
+			redirect('c/' . $test_code . '/' . $token . '/home');
+		}
+	}
+
+	/**
+	 * Creates an ad-hoc participant/testInvite and proceeds to fill the scores.
+	 * @param string $test_code
+	 * @param int $response_id
+	 */
+	public function add_participant($test_code, $response_id)
+	{
+		if (!SURVEY_DEV_MODE)
+		{
+			$test = $this->testModel->get_test_by_code($test_code);
+			$testsurveys = $this->testSurveyModel->get_testsurveys_by_test($test->id);
+
+			// Set $testsurvey to the first item, unless we found none or multiple
+			if (!$testsurveys)
 			{
-				$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
+				echo 'We could not create an ad-hoc participant: no questionnaire link found.';
+				return;
+			}
+			else if (count($testsurveys) > 2)
+			{
+				echo 'We could not create an ad-hoc participant: multiple questionnaire links found, so not clear which to use.';
+				return;
+			}
+			$testsurvey = $testsurveys[0];
 
-				if ($testcat)
+			sleep(2); // Explicitly wait some time to make sure results are stored
+
+			$this->load->model('surveyModel');
+			$result = $this->surveyModel->get_result_array_by_id($testsurvey->limesurvey_id, $response_id, FALSE);
+			$mapping = $this->testSurveyMappingModel->get_mapping_by_testsurvey($testsurvey->id, 'participant');
+
+			// Check if participant exists
+			$participant = NULL;
+			if ($participant)
+			{
+				$participant_id = $participant->id;
+			}
+			// Otherwise, create a new partipant, set as deactivated
+			else
+			{
+				$m = $result[$mapping->multilingual] === 'Y';
+				$d = !$result[$mapping->dyslexicparent] ? NULL : $result[$mapping->dyslexicparent];
+				$p = !$result[$mapping->problemsparent] ? NULL : $result[$mapping->problemsparent];
+
+				$participant = array(
+					'firstname' 			=> $result[$mapping->firstname],
+					'lastname' 				=> $result[$mapping->lastname],
+					'gender' 				=> strtolower($result[$mapping->gender]),
+					'dateofbirth'			=> input_date($result[$mapping->dateofbirth]),
+					'birthweight' 			=> $result[$mapping->birthweight],
+					'pregnancyweeks' 		=> $result[$mapping->pregnancyweeks],
+					'pregnancydays' 		=> $result[$mapping->pregnancydays],
+					'phone' 				=> '',
+					'email'					=> '',
+					'multilingual' 			=> $m,
+					'dyslexicparent' 		=> $d,
+					'problemsparent' 		=> $p,
+					'deactivated'			=> input_datetime(),
+				);
+				$participant_id = $this->participantModel->add_participant($participant);
+			}
+
+			// Create an ad-hoc testInvite and fill the scores
+			$testinvite = $this->testInviteModel->create_testinvite($testsurvey->id, $participant_id);
+			$this->add_scores($testinvite, $result, input_date());
+
+			redirect('c/' . $test_code . '/' . $testinvite->token . '/home');
+		}
+	}
+
+	/**
+	 * Adds scores to a testInvite and sets it as completed.
+	 * @param testInvite $testinvite
+	 * @param array $result
+	 * @param date $date_completed
+	 */
+	private function add_scores($testinvite, $result, $date_completed)
+	{
+		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+
+		foreach ($result as $question => $answer)
+		{
+			$testcat = $this->testCatModel->get_testcat_by_question_id($test, $question);
+
+			if ($testcat)
+			{
+				$score_type = $testcat->score_type;
+
+				switch ($score_type)
 				{
-					$score_type = $testcat->score_type;
+					case 'bool':
+						switch ($answer)
+						{
+							case 'Y'	: $answer = true; break;
+							case 'N'	: $answer = false; break;
+						}
+					case 'int': 	$answer = (int) $answer; break;
+					case 'date': 	break;
+					case 'string': 	break;
+				}
 
-					switch ($score_type)
-					{
-						case 'bool':
-							switch ($answer)
-							{
-								case 'Y'	: $answer = true; break;
-								case 'N'	: $answer = false; break;
-							}
-						case 'int': 	$answer = (int) $answer; break;
-						case 'date': 	break;
-						case 'string': 	break;
-					}
-
-					$score = array(
+				$score = array(
 					'testcat_id'			=> $testcat->id,
 					'testinvite_id' 		=> $testinvite->id,
 					'score'					=> $answer,
-					'date'					=> $date
-					);
+					'date'					=> $date_completed,
+				);
 
-					$this->scoreModel->add_score($score);
-				}
+				$this->scoreModel->add_score($score);
 			}
-
-			$this->testInviteModel->set_completed($testinvite->id, $date);
-			redirect('c/' . $test_code . '/' . $token . '/home');
 		}
+
+		$this->testInviteModel->set_completed($testinvite->id, $date_completed);
 	}
 
 	/////////////////////////
@@ -281,7 +365,6 @@ class Chart extends CI_Controller
 	 *
 	 * Checks competence vs. production.
 	 * Under normal circumstances, competence should be at least as high as production.
-	 * TODO: this is quick and dirty...
 	 * @param array $scores
 	 */
 	private function check_comp_vs_prod($scores)

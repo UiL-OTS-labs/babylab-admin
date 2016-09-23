@@ -174,7 +174,7 @@ class Test extends CI_Controller
 			$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 			$this->load->model('surveyModel');
 			$result = $this->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
-			$result_array = $this->surveyModel->get_result_array($testsurvey->limesurvey_id, $testinvite->token);
+			$result_array = $this->surveyModel->get_result_array_by_token($testsurvey->limesurvey_id, $testinvite->token);
 
 			$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
 			$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);

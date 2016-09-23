@@ -246,15 +246,22 @@ class TestSurvey extends CI_Controller
 	/** Checks whether the survey exists */
 	public function survey_exists($survey_id)
 	{
-		$this->load->model('surveyModel');
-		$survey = $this->surveyModel->get_survey_by_id($survey_id);
-
-		if (empty($survey))
+		if (!SURVEY_DEV_MODE)
 		{
-			$this->form_validation->set_message('survey_exists', lang('survey_does_not_exist'));
-			return FALSE;
+			$this->load->model('surveyModel');
+			$survey = $this->surveyModel->get_survey_by_id($survey_id);
+
+			if (!$survey)
+			{
+				$this->form_validation->set_message('survey_exists', lang('survey_does_not_exist'));
+				return FALSE;
+			}
+			return TRUE;
 		}
-		return TRUE;
+		else
+		{
+			return TRUE;
+		}
 	}
 
 	/////////////////////////

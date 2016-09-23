@@ -68,6 +68,7 @@ $route['c/(:any)/(:any)/(:any)']= 'charts/chart/$3/$1/$2';
 $route['c/(:any)/(:any)'] 		= 'charts/chart/$2/$1';
 $route['c/(:any)'] 				= 'charts/chart/home/$1';
 $route['f/(:any)/(:any)'] 		= 'charts/chart/fill_scores/$1/$2';
+$route['a/(:any)/(:any)'] 		= 'charts/chart/add_participant/$1/$2';
 
 $route['ncdi_calculator'] 		= 'charts/calculator';
 

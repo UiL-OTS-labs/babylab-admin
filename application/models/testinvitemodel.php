@@ -189,7 +189,7 @@ class TestInviteModel extends CI_Model
 		$this->db->join('testsurvey', 'testsurvey.id = testinvite.testsurvey_id');
 		$this->db->where('testinvite.participant_id', $participant->id);
 		$this->db->where('testinvite.id !=', $testinvite->id);
-		$this->db->where('testsurvey.whennr <', $testsurvey->whennr);
+		if ($testsurvey->whennr) $this->db->where('testsurvey.whennr <', $testsurvey->whennr);
 		$this->db->where('testsurvey.test_id', $test->id);
 		$this->db->order_by('testsurvey.whennr asc');
 		return $this->db->get()->result();

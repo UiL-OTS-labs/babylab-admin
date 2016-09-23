@@ -134,15 +134,19 @@ class TestCatModel extends CI_Model
 	// Scores
 	/////////////////////////
 
-	/** Returns the total score (an array) for a testcat per testinvite */
+	/** Returns the total score (an array) for a testCat per testinvite */
 	public function total_score($testcat_id, $testinvite_id)
 	{
-		$children = $this->get_children($testcat_id);
-		$children_ids = get_object_ids($children);
+		// If a testCat has children, select the scores of its children
+		$testcat_ids = $testcat_id;
+		if ($this->has_children($testcat_id))
+		{
+			$testcat_ids = get_object_ids($this->get_children($testcat_id));
+		}
 
 		$this->db->select_sum('score');
 		$this->db->select_max('date');
-		$this->db->where_in('testcat_id', $children_ids);
+		$this->db->where_in('testcat_id', $testcat_ids);
 		$this->db->where('testinvite_id', $testinvite_id);
 		return $this->db->get('score')->row();
 	}
@@ -150,13 +154,17 @@ class TestCatModel extends CI_Model
 	/** Returns the total score (an array) for a testcat per participant */
 	public function total_score_per_testinvite($testcat_id)
 	{
-		$children = $this->get_children($testcat_id);
-		$children_ids = get_object_ids($children);
+		// If a testCat has children, select the scores of its children
+		$testcat_ids = $testcat_id;
+		if ($this->has_children($testcat_id))
+		{
+			$testcat_ids = get_object_ids($this->get_children($testcat_id));
+		}
 
 		$this->db->select('testinvite_id');
 		$this->db->select_sum('score');
 		$this->db->select_max('date');
-		$this->db->where_in('testcat_id', $children_ids);
+		$this->db->where_in('testcat_id', $testcat_ids);
 		$this->db->group_by('testinvite_id');
 		return $this->db->get('score')->result();
 	}
