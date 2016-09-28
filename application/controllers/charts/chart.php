@@ -558,20 +558,17 @@ class Chart extends CI_Controller
 					$age = explode(';', age_in_months_and_days($participant->dateofbirth, $testinvite->datecompleted));
 					$age = $age[0] + $age[1] / 31; // to evenly divide over months.
 
-					if ($age >= 10 && $age <= 40)
-					{
-						$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
-						// FIXME: quick and dirty fix for percentiles without gender...
-						$gender = in_array($testcat->code, array('w', 'z')) ? NULL : gender_sex($participant->gender);
+					$testcat = $this->testCatModel->get_testcat_by_id($testcat_id);
+					// FIXME: quick and dirty fix for percentiles without gender...
+					$gender = in_array($testcat->code, array('w', 'z')) ? NULL : gender_sex($participant->gender);
 
-						$rows[$nr][0] = array('v' => $testcat->name);
-						$rows[$nr][1] = array('v' => $gender);
-						$rows[$nr][2] = array('v' => $age);
-						$rows[$nr][3] = array('v' => intval($score->score));
-						$rows[$nr][4] = array('v' => NULL);
+					$rows[$nr][0] = array('v' => $testcat->name);
+					$rows[$nr][1] = array('v' => $gender);
+					$rows[$nr][2] = array('v' => $age);
+					$rows[$nr][3] = array('v' => intval($score->score));
+					$rows[$nr][4] = array('v' => NULL);
 
-						$nr++;
-					}
+					$nr++;
 				}
 			}
 		}
