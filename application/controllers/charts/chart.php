@@ -178,6 +178,7 @@ class Chart extends CI_Controller
 			$lastname = $result[$mapping->lastname];
 			$gender = strtolower($result[$mapping->gender]);
 			$dob = input_date($result[$mapping->dateofbirth]);
+			$email = $result[$mapping->email];
 			$participants = $this->participantModel->find_participants_by_name_gender_birth($firstname, $lastname, $gender, $dob);
 
 			// If we find only one, set the $participant_id to the one found
@@ -201,7 +202,7 @@ class Chart extends CI_Controller
 					'pregnancyweeks' 		=> $result[$mapping->pregnancyweeks],
 					'pregnancydays' 		=> $result[$mapping->pregnancydays],
 					'phone' 				=> '',
-					'email'					=> $result[$mapping->email],
+					'email'					=> $email,
 					'multilingual' 			=> $m,
 					'dyslexicparent' 		=> $d,
 					'problemsparent' 		=> $p,
@@ -216,7 +217,10 @@ class Chart extends CI_Controller
 			$this->add_scores($testinvite, $result, input_date());
 
 			// Send an e-mail with the URL to the results page
-			$this->send_completion_email($testinvite);
+			if ($email)
+			{
+				$this->send_completion_email($testinvite);
+			}
 
 			redirect('c/' . $test_code . '/' . $testinvite->token . '/home');
 		}
