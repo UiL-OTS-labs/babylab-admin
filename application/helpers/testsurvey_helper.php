@@ -138,6 +138,16 @@ if (!function_exists('survey_link'))
 	}
 }
 
+if (!function_exists('results_link'))
+{
+	/** Returns the URL to the survey */
+	function results_link($test_code, $token)
+	{
+		$link = base_url() . 'c/' . $test_code . '/' . $token . '/home';
+		return anchor($link, $link, 'target="_blank"');
+	}
+}
+
 /////////////////////////
 // Options
 /////////////////////////

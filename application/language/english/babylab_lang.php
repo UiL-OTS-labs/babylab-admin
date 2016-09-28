@@ -88,6 +88,7 @@ $lang['reason_call']		= "deregistered during call for new appointment";
 $lang['reason_exp']			= "deregistered after experiment";
 $lang['reason_manual']		= "deregistered manually";
 $lang['reason_selfservice']	= "deregistered in selfservice";
+$lang['reason_survey']		= "created after survey";
 $lang['not_loggedin_error'] = "Your session has ended. Please login again";
 
 /* Mails */

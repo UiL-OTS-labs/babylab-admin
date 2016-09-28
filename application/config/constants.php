@@ -100,6 +100,7 @@ class DeactivateReason {
 	const AfterExp		= 'exp';
 	const Manual		= 'manual';
 	const SelfService	= 'selfservice';
+	const FromSurvey	= 'survey';
 }
 
 /** Exclusion reasons */

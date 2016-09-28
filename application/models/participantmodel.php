@@ -67,6 +67,16 @@ class ParticipantModel extends CI_Model
 		return $this->db->get_where('participant', array('selfservicecode' => $selfservicecode))->result();
 	}
 
+	/** Returns the participants given firstname, lastname and date of birth */
+	public function find_participants_by_name_gender_birth($firstname, $lastname, $gender, $dateofbirth)
+	{
+		$this->db->where('LOWER(firstname)', strtolower($firstname));
+		$this->db->where('LOWER(lastname)', strtolower($lastname));
+		$this->db->where('gender', $gender);
+		$this->db->where('dateofbirth', $dateofbirth);
+		return $this->db->get('participant')->result();
+	}
+
 	/** Returns the participants given part of the name */
 	public function find_participants_by_name($name)
 	{

@@ -174,12 +174,18 @@ class Chart extends CI_Controller
 			$mapping = $this->testSurveyMappingModel->get_mapping_by_testsurvey($testsurvey->id, 'participant');
 
 			// Check if participant exists
-			$participant = NULL;
-			if ($participant)
+			$firstname = $result[$mapping->firstname];
+			$lastname = $result[$mapping->lastname];
+			$gender = strtolower($result[$mapping->gender]);
+			$dob = input_date($result[$mapping->dateofbirth]);
+			$participants = $this->participantModel->find_participants_by_name_gender_birth($firstname, $lastname, $gender, $dob);
+
+			// If we find only one, set the $participant_id to the one found
+			if (count($participants) === 1)
 			{
-				$participant_id = $participant->id;
+				$participant_id = $participants[0]->id;
 			}
-			// Otherwise, create a new partipant, set as deactivated
+			// Otherwise, we can't be sure, create a new partipant, set as deactivated
 			else
 			{
 				$m = $result[$mapping->multilingual] === 'Y';
@@ -187,19 +193,20 @@ class Chart extends CI_Controller
 				$p = !$result[$mapping->problemsparent] ? NULL : $result[$mapping->problemsparent];
 
 				$participant = array(
-					'firstname' 			=> $result[$mapping->firstname],
-					'lastname' 				=> $result[$mapping->lastname],
-					'gender' 				=> strtolower($result[$mapping->gender]),
-					'dateofbirth'			=> input_date($result[$mapping->dateofbirth]),
+					'firstname' 			=> $firstname,
+					'lastname' 				=> $lastname,
+					'gender' 				=> $gender,
+					'dateofbirth'			=> $dob,
 					'birthweight' 			=> $result[$mapping->birthweight],
 					'pregnancyweeks' 		=> $result[$mapping->pregnancyweeks],
 					'pregnancydays' 		=> $result[$mapping->pregnancydays],
 					'phone' 				=> '',
-					'email'					=> '',
+					'email'					=> $result[$mapping->email],
 					'multilingual' 			=> $m,
 					'dyslexicparent' 		=> $d,
 					'problemsparent' 		=> $p,
 					'deactivated'			=> input_datetime(),
+					'deactivated_reason'	=> DeactivateReason::FromSurvey,
 				);
 				$participant_id = $this->participantModel->add_participant($participant);
 			}
@@ -208,8 +215,28 @@ class Chart extends CI_Controller
 			$testinvite = $this->testInviteModel->create_testinvite($testsurvey->id, $participant_id);
 			$this->add_scores($testinvite, $result, input_date());
 
+			// Send an e-mail with the URL to the results page
+			$this->send_completion_email($testinvite);
+
 			redirect('c/' . $test_code . '/' . $testinvite->token . '/home');
 		}
+	}
+
+	private function send_completion_email($testinvite)
+	{
+		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
+		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
+		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
+
+		// Email to participant
+		$message = email_replace($template->template . '_completion', $participant, NULL, NULL, $testinvite);
+
+		$this->email->clear();
+		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->subject('Babylab Utrecht: Bedankt voor het invullen van de vragenlijst');
+		$this->email->message($message);
+		$this->email->send();
 	}
 
 	/**
