@@ -134,7 +134,7 @@ class Chart extends CI_Controller
 
 			$this->load->model('surveyModel');
 			$result = $this->surveyModel->get_result_array_by_token($testsurvey->limesurvey_id, $token);
-            $date = $this->surveyModel->get_submit_date($testsurvey->limesurvey_id, $token);
+			$date = $this->surveyModel->get_submit_date($testsurvey->limesurvey_id, $token);
 
 			$this->add_scores($testinvite, $result, $date);
 
@@ -192,29 +192,35 @@ class Chart extends CI_Controller
 				$m = $result[$mapping->multilingual] === 'Y';
 				$d = !$result[$mapping->dyslexicparent] ? NULL : $result[$mapping->dyslexicparent];
 				$p = !$result[$mapping->problemsparent] ? NULL : $result[$mapping->problemsparent];
+				$l = !$result[$mapping->languagedisorderparent] ? NULL : $result[$mapping->languagedisorderparent];
+				$a = !$result[$mapping->autisticparent] ? NULL : $result[$mapping->autisticparent];
+				$at = !$result[$mapping->attentiondisorderparent] ? NULL : $result[$mapping->attentiondisorderparent];
 
 				$participant = array(
-					'firstname' 			=> $firstname,
-					'lastname' 				=> $lastname,
-					'gender' 				=> $gender,
-					'dateofbirth'			=> $dob,
-					'birthweight' 			=> $result[$mapping->birthweight],
-					'pregnancyweeks' 		=> $result[$mapping->pregnancyweeks],
-					'pregnancydays' 		=> $result[$mapping->pregnancydays],
-					'phone' 				=> '',
-					'email'					=> $email,
-					'multilingual' 			=> $m,
-					'dyslexicparent' 		=> $d,
-					'problemsparent' 		=> $p,
-					'deactivated'			=> input_datetime(),
-					'deactivated_reason'	=> DeactivateReason::FromSurvey,
+					'firstname'					=> $firstname,
+					'lastname'					=> $lastname,
+					'gender'					=> $gender,
+					'dateofbirth'				=> $dob,
+					'birthweight'				=> $result[$mapping->birthweight],
+					'pregnancyweeks'			=> $result[$mapping->pregnancyweeks],
+					'pregnancydays'				=> $result[$mapping->pregnancydays],
+					'phone'						=> '',
+					'email'						=> $email,
+					'multilingual'				=> $m,
+					'dyslexicparent'			=> $d,
+					'problemsparent'			=> $p,
+					'languagedisorderparent'	=> $l,
+					'autisticparent'			=> $a,
+					'attentiondisorderparent'	=> $at,
+					'deactivated'				=> input_datetime(),
+					'deactivated_reason'		=> DeactivateReason::FromSurvey,
 				);
 				$participant_id = $this->participantModel->add_participant($participant);
 			}
 
 			// Create an ad-hoc testInvite and fill the scores
 			$testinvite = $this->testInviteModel->create_testinvite($testsurvey->id, $participant_id);
-			$this->add_scores($testinvite, $result, input_date());
+			$this->add_scores($testinvite, $result, input_datetime());
 
 			// Send an e-mail with the URL to the results page
 			if ($email)
