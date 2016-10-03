@@ -27,7 +27,7 @@ class SurveyModel extends CI_Model
 	/** Returns the survey result for a response id */
 	public function get_result_by_id($survey_id, $response_id)
 	{
-        $this->survey_db->where('id', $response_id);
+        $this->survey_db->where('id', intval($response_id));
 		$this->survey_db->where('submitdate IS NOT NULL');
 		return $this->survey_db->get('survey_' . $survey_id)->row();
 	}
