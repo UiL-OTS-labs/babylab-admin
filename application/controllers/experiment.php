@@ -275,7 +275,23 @@ class Experiment extends CI_Controller
 			$month_counts = $this->experimentModel->count_participations_per_month($experiment->id, $min_date, $max_date);
 			foreach ($month_counts as $mc)
 			{
-				$tested[$experiment->name][$mc->month] = $mc->count;
+				$tested[$experiment->name][$mc->month] = array();
+				$tested[$experiment->name][$mc->month]['count'] = $mc->count;
+				$tested[$experiment->name][$mc->month]['color'] = 'none';
+			}
+
+			if ($experiment->date_start)
+			{
+				$e_months = months_between(max(input_date($experiment->date_start), $min_date), min(input_date($experiment->date_end), $max_date));
+				foreach ($e_months as $month)
+				{
+					if (!isset($tested[$experiment->name][$month]['count']))
+					{
+						$tested[$experiment->name][$month] = array();
+						$tested[$experiment->name][$month]['count'] = 0;
+					}
+					$tested[$experiment->name][$month]['color'] = $experiment->experiment_color;					
+				}
 			}
 		}
 		ksort($tested);
@@ -486,6 +502,9 @@ class Experiment extends CI_Controller
 	/** Posts the data for an experiment */
 	private function post_experiment()
 	{
+		$date_start = $this->input->post('date_start');
+		$date_end = $this->input->post('date_end');
+
 		$exp = array(
 				'location_id'       => $this->input->post('location'),
 				'name'              => $this->input->post('name'),
@@ -494,8 +513,8 @@ class Experiment extends CI_Controller
 				'duration'          => $this->input->post('duration'),
 				'wbs_number'        => $this->input->post('wbs_number'),
 				'experiment_color'  => $this->input->post('experiment_color'),
-				'date_start'        => input_date($this->input->post('date_start')),
-				'date_end'          => input_date($this->input->post('date_end')),
+				'date_start'        => $date_start ? input_date($date_start) : NULL,
+				'date_end'          => $date_end ? input_date($date_end) : NULL,
 				'dyslexic'          => $this->input->post('dyslexic') === '1',
 				'multilingual'      => $this->input->post('multilingual') === '1',
 				'agefrommonths'     => $this->input->post('agefrommonths'),

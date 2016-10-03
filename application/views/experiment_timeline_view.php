@@ -25,11 +25,14 @@
 	<tbody>
 	<?php
 		$totals = '';
-		foreach ($tested as $experiment => $month_counts) {
+		foreach ($tested as $experiment => $month_counts)
+		{
 			echo '<tr>';
 			echo '<td>' . $experiment . '</td>';
-			foreach ($month_counts as $month => $count) {
-				echo '<td style="text-align: right;">';
+			foreach ($month_counts as $month => $count_color)
+			{
+				$count = $count_color['count'];
+				echo '<td style="text-align: right; background-color: ' . $count_color['color'] . ' ">';
 				echo $count > 0 ? $count : '';
 				echo '</td>';
 
@@ -47,7 +50,8 @@
 
 		echo '<tr style="font-weight: bold;">';
 		echo '<td>' . lang('total') . '</td>';
-		foreach ($totals as $month => $count) {
+		foreach ($totals as $month => $count)
+		{
 			echo '<td style="text-align: right;">';
 			echo $count;
 			echo '</td>';
