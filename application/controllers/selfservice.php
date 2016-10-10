@@ -124,6 +124,12 @@ class SelfService extends CI_Controller
     /** Submits the username and password and redirects based on validation. */
     public function welcome_submit()
     {
+        if (!$this->session->userdata('selfservice'))
+        {
+            flashdata(lang('selfservice_incorrect_url'), FALSE);
+            redirect('selfservice');
+        }
+        
         // If register button is clicked, go to registration
         if ($this->input->post('register'))
         {
