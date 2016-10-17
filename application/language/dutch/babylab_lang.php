@@ -353,6 +353,8 @@ $lang['cancel_info']        = "<ul><li>U gaat nu de afspraak met <strong>%s</str
     <li>Als u al een nieuwe afspraak gemaakt heeft, dan is het beter om deze afspraak direct te %s.</li></ul>";
 $lang['call_started']		= "Gesprek gestart";
 $lang['call_back']			= "Later terugbellen";
+$lang['call_back_date']		= "Terugbellen op";
+$lang['call_back_menu']		= "Terugbellen";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";

@@ -299,6 +299,19 @@ class Participation extends CI_Controller
 	// Other views
 	/////////////////////////
 
+	/** Shows a page with participations that need to be called back */
+	public function callback()
+	{
+		create_participation_callback_table();
+		$data['page_title'] = lang('call_back_menu');
+		$data['ajax_source'] = 'participation/table_callback';
+		$data['sort_column'] = 2;	// Sort on call_back_date
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/list_view', $data);
+		$this->load->view('templates/footer');
+	}
+
 	/** Shows the page for a specific experiment */
 	public function experiment($experiment_id)
 	{
@@ -952,6 +965,36 @@ class Participation extends CI_Controller
 		$this->datatables->edit_column('comment', '$1', 'comment_body(comment, 50)');
 		$this->datatables->edit_column('id', '$1', 'participation_actions(id)');
 
+		$this->datatables->unset_column('experiment_id');
+
+		echo $this->datatables->generate();
+	}
+
+	/**
+	 * Special table with participants that need to be called back
+	 */
+	public function table_callback()
+	{
+		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
+
+		$this->datatables->select('CONCAT(participant.firstname, " ", participant.lastname) AS p, 
+									name AS e, call_back_date, call_back_comment,
+									participation.id AS id, participant_id, experiment_id', FALSE);
+		$this->datatables->from('participation');
+		$this->datatables->join('participant', 'participant.id = participation.participant_id');
+		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
+		$this->datatables->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
+
+		$this->datatables->where('call.status', CallStatus::CallBack);
+
+		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+
+		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
+		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
+		$this->datatables->edit_column('call_back_date', '$1', 'output_date(call_back_date)');
+		$this->datatables->edit_column('id', '$1', 'participation_callback_actions(id)');
+
+		$this->datatables->unset_column('participant_id');
 		$this->datatables->unset_column('experiment_id');
 
 		echo $this->datatables->generate();

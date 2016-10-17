@@ -54,6 +54,17 @@ if (!function_exists('create_participation_counter_table'))
 	}
 }
 
+if (!function_exists('create_participation_callback_table'))
+{
+	/** Creates the table with participants that need to be called back */
+	function create_participation_callback_table($id = NULL)
+	{
+		$CI =& get_instance();
+		base_table($id);
+		$CI->table->set_heading(lang('participant'), lang('experiment'), lang('call_back_date'), lang('comment'), lang('actions'));
+	}
+}
+
 if (!function_exists('participation_actions'))
 {
 	/** Possible actions for a participation: prioritize and delete */
@@ -90,6 +101,23 @@ if (!function_exists('participation_actions'))
 				$actions = array($get_link, $cancel_link, $reschedule_link, $comment_link);
 				break;
 		}
+		return implode(' ', $actions);
+	}
+}
+
+if (!function_exists('participation_callback_actions'))
+{
+	/** Possible actions for a participation: prioritize and delete */
+	function participation_callback_actions($participation_id)
+	{
+		$CI =& get_instance();
+		$participation = $CI->participationModel->get_participation_by_id($participation_id);
+		$participant = $CI->participationModel->get_participant_by_participation($participation_id);
+
+		$call_link = img_call_p($participant, $participation->experiment_id);
+
+		$actions = array($call_link);
+
 		return implode(' ', $actions);
 	}
 }

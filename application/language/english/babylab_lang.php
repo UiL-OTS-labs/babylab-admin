@@ -354,6 +354,8 @@ $lang['cancel_info']        = "You're about to cancel the appointment of <strong
     If you made a new appointment, it's better to %s this appointment right away.";
 $lang['call_started']		= "Call started";
 $lang['call_back']			= "Call back later";
+$lang['call_back_date']		= "Call back on";
+$lang['call_back_menu']		= "Call back";
 $lang['no_reply']			= "No reply";
 $lang['no_show']			= "No show";
 $lang['no_shows']			= "No-shows";
