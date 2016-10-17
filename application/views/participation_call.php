@@ -38,7 +38,8 @@
     	});
 
 		// Call back scheduling
-		$('input[name="call_back_date"').datetimepicker({
+		$('input[name="call_back_date"').datepicker({
+        	dateFormat : 'dd-mm-yy',
 			changeMonth : true,
 			changeYear : true,
 			minDate : 0, // from now onwards
@@ -46,7 +47,7 @@
 			showOn : 'both',
 			buttonImage : 'images/calendar.png',
 			buttonImageOnly : true,
-			buttonText : 'Pick a date and time'
+			buttonText : 'Pick a date'
 		});
 		
         // Set the appointment field(s) to read-only
@@ -247,23 +248,24 @@
 				</li>
 				<li><u class="call_link"><?=lang('cancelled'); ?> </u>
 					<div class="show">
-					<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
+						<?=form_open('call/cancel/' . $call_id, array('class' => 'pure-form')); ?>
 						<p>
-						<?=form_checkbox(array('name' => 'never_again', 'id' => 'never_again', 'value' => true)); ?>
-						<label for="never_again"><?=lang('cancelled_complete'); ?></label></p><p>
-						<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
-						<?=form_submit_only(); ?>
+							<?=form_checkbox(array('name' => 'never_again', 'id' => 'never_again', 'value' => true)); ?>
+							<label for="never_again"><?=lang('cancelled_complete'); ?></label></p><p>
+							<?=form_input('comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
+							<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>
 					</div>
 				</li>
 				<li><u class="call_link"><?=lang('call_back'); ?> </u>
 					<div class="show">
-					<?=form_open('call/call_back/' . $call_id); ?>
+						<?=form_open('call/call_back/' . $call_id); ?>
 						<p>
-						<?=lang('date'); ?>
-						<?=form_input('call_back_date', '', 'placeholder= "' . lang('date') . '" class="required"'); ?>
-						<?=form_submit_only(); ?>
+							<?=lang('date'); ?>
+							<?=form_input('call_back_date', '', 'placeholder= "' . lang('date') . '" class="required"'); ?>
+							<?=form_input('call_back_comment', '', 'placeholder= "' . lang('comment') . '"'); ?>
+							<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>
 					</div>

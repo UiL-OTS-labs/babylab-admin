@@ -220,9 +220,21 @@ if (!function_exists('last_called'))
 			$call = $CI->callModel->last_call($participation->id);
 			if ($call && $call->timeend)
 			{
-				$date = $call->status == CallStatus::CallBack ? $participation->call_back_date : $call->timeend;
-				$msg = $call->status == CallStatus::CallBack ? 'call_back_on' : 'called_on';
-				$result = '<abbr title="' . sprintf(lang($msg), format_datetime($date)) . '">';
+				$msg = '';
+				if ($call->status == CallStatus::CallBack)
+				{
+					$msg = sprintf(lang('call_back_on'), format_date($participation->call_back_date));
+					if ($participation->call_back_comment)
+					{
+						$msg .= ', ' . $participation->call_back_comment;
+					}
+				}
+				else
+				{
+					$msg = sprintf(lang('called_on'), format_datetime($call->timeend));
+				}
+
+				$result = '<abbr title="' . $msg . '">';
 				$result .= lang($call->status);
 				$result .= '</abbr>';
 			}

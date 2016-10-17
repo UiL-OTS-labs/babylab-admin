@@ -228,6 +228,7 @@ class Call extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
 		$this->form_validation->set_rules('call_back_date', lang('call_back_date'), 'required');
+		$this->form_validation->set_rules('call_back_comment', lang('call_back_comment'), 'trim');
 
 		// Run validation
 		if (!$this->form_validation->run())
@@ -241,7 +242,8 @@ class Call extends CI_Controller
 			// If succeeded, insert data into database
 			$p = array(
 				'status' 			=> ParticipationStatus::Unconfirmed,
-				'call_back_date' 	=> input_datetime($this->input->post('call_back_date')),
+				'call_back_date' 	=> input_date($this->input->post('call_back_date')),
+				'call_back_comment' => $this->input->post('call_back_comment'),
 				'lastcalled' 		=> input_datetime());
 
 			$this->callModel->end_call($call_id, CallStatus::CallBack);
