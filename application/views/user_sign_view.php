@@ -54,13 +54,10 @@
     </p>
     <ul>
         <li>
-            De gegevens zorgvuldig in te voeren.
+            De gegevens zorgvuldig in te voeren en het altijd te melden als ik merk dat ik fouten heb gemaakt bij het invoeren of analyseren van de data. De student draagt zorg voor de kwaliteit van de onderzoeksgegevens. NB: De onderzoeker draagt er zorg voor dat de student het project met een voldoende kan voltooien ook als de student merkt en meldt dat hij/zij fouten heeft gemaakt (tenzij er sprake is van opzet of grove nalatigheid). De student hoeft dus niet te vrezen voor een onvoldoende of voor tijdverlies.
         </li>
         <li>
-            Altijd te melden als ik merk dat ik fouten heb gemaakt bij het invoeren of analyseren van de data. De student draagt zorg voor de kwaliteit van de onderzoeksgegevens. De onderzoeker draagt er zorg voor dat de student het project met een voldoende kan voltooien ook als de student merkt en meldt dat hij/zij fouten heeft gemaakt (tenzij er sprake is van opzet of grove nalatigheid). De student hoeft dus niet te vrezen voor een onvoldoende of voor tijdverlies.
-        </li>
-        <li>
-            Indien het een onderzoeksstage betreft gebruikt de student de gegevens voor het schrijven van een onderzoeksverslag of scriptie, bij voorkeur in de vorm van een artikel. Dit artikel wordt echter nergens anders ter publicatie aangeboden dan aan zijn/haar beoordelaars van de UU. De student publiceert of rapporteert niet over het onderzoek zonder uitdrukkelijke toestemming van de onderzoeker.
+            De gegevens die ik gebruik voor het schrijven van een onderzoeksverslag of scriptie, bij voorkeur in de vorm van een artikel, nergens anders ter publicatie zal aanbieden dan aan mijn begeleiders van de UU. Ik publiceer of rapporteer niet over het onderzoek zonder de uitdrukkelijke toestemming van mijn begeleiders van de UU.
         </li>
     </ul>
     <button class="pure-button pure-button-primary">
