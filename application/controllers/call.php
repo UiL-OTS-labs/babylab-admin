@@ -199,21 +199,32 @@ class Call extends CI_Controller
 			$message = $this->input->post('message');
 			$message = $message === 'none' ? CallStatus::NoReply : $message;
 
-			$flashdata = '';
-
 			$this->callModel->end_call($call_id, $message);
 			$this->participationModel->no_reply($participation->id);
 			$this->participationModel->release_lock($participation->id);
 
+			// Send a request for participation if:
+			// - no e-mail has yet been sent
+			// - this is the designated number of calls after which the request should be sent
+			$flashdata = '';
+
 			$participation = $this->participationModel->get_participation_by_id($participation->id);
-			if ($participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
+			$calls = $this->callModel->get_calls_by_participation($participation->id);
+
+			$email_sent = FALSE;
+			foreach ($calls as $call)
+			{
+				$email_sent |= $call->status == CallStatus::Email;
+			}
+
+			if (!$email_sent && $participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
 			{
 				$flashdata = br() . $this->send_request_participation_email($participation->id);
 				$this->callModel->update_call($call_id, CallStatus::Email);
 			}
 
+			// Set the flashdata and redirect
 			flashdata(sprintf(lang('part_no_reply'), name($participant), $experiment->name) . $flashdata);
-
 			redirect('/participant/find/' . $experiment->id, 'refresh');
 		}
 	}
