@@ -413,7 +413,7 @@ $lang['pp_comment_info']	= "Any comment added below will be saved with the parti
 $lang['tech_comment']		= "Comments for lab staff";
 $lang['tech_comment_info']	= "Any comment added below will be e-mailed to the lab staff directly. <em>(example: sound seems off)</em>";
 $lang['concept_mail_only']	= "Send concept confirmation mail to %s rather than directly to participant";
-$lang['concept_send']		= "A concept confirmation mail has been send to <em>%s</em>. Do not forget to send the actual mail!";
+$lang['concept_send']		= "A concept confirmation mail has been send to <em>%s</em>. Do not forget to send the actual mail (to <strong>%s</strong>)!";
 
 $lang['ad_hoc_participation'] = "Add ad hoc appointment";
 $lang['participation_no_restrictions'] = "<b>Warning!</b><br/>This page is intended as a <i>last resort</i> and does not contain any safeguards whatsoever.<br/>

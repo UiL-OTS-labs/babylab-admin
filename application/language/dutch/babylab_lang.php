@@ -355,7 +355,7 @@ $lang['call_started']		= "Gesprek gestart";
 $lang['call_back']			= "Later terugbellen";
 $lang['call_back_date']		= "Terugbellen op";
 $lang['call_back_menu']		= "Terugbellen";
-$lang['call_back_warn']		= "U kunt vandaag %s proefpersonen terugbellen. Bekijk <a href='participation/callback'>hier</a> het overzicht.";
+$lang['call_back_warn']		= "U kunt vandaag %s proefperso(o)n(en) terugbellen. Bekijk <a href='participation/callback'>hier</a> het overzicht.";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";
@@ -412,7 +412,7 @@ $lang['pp_comment_info']	= "Opmerkingen die hier worden toegevoegd worden opgesl
 $lang['tech_comment']		= "Bericht voor technisch personeel";
 $lang['tech_comment_info']	= "Opmerkingen die hier worden toegevoegd worden direct naar het labpersoneel gemaild. <em>(voorbeeld: geluid lijkt niet goed te werken)</em>";
 $lang['concept_mail_only']	= "Stuur conceptmail naar %s in plaats van direct naar deelnemer";
-$lang['concept_send']		= "Er is een conceptmail verstuurd naar <em>%s</em>. Vergeet niet alsnog een bevestiging naar de deelnemer te sturen!";
+$lang['concept_send']		= "Er is een conceptmail verstuurd naar <em>%s</em>. Vergeet niet deze bevestiging naar de deelnemer te sturen (<strong>%s</strong>)!";
 
 $lang['ad_hoc_participation'] = "Ad hoc deelname toevoegen";
 $lang['participation_no_restrictions'] = "<b>Let op!</b><br/>Deze pagina is bedoeld als een <i>laatste redmiddel</i> en bevat geen vangnetten.<br/>

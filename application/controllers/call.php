@@ -166,7 +166,7 @@ class Call extends CI_Controller
 			// If we send a concept, add that to the confirmation message
 			if ($this->input->post('concept')) 
 			{
-				$flashdata .= br(2) . sprintf(lang('concept_send'), $email);
+				$flashdata .= br(2) . sprintf(lang('concept_send'), $email, $participant->email);
 			}
 
 			// Return to the find participants page with a success message
