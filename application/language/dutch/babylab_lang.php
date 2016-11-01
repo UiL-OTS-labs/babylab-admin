@@ -355,6 +355,7 @@ $lang['call_started']		= "Gesprek gestart";
 $lang['call_back']			= "Later terugbellen";
 $lang['call_back_date']		= "Terugbellen op";
 $lang['call_back_menu']		= "Terugbellen";
+$lang['call_back_warn']		= "U kunt vandaag %s proefpersonen terugbellen. Bekijk <a href='participation/callback'>hier</a> het overzicht.";
 $lang['no_reply']			= "Geen gehoor";
 $lang['no_show']			= "No-show";
 $lang['no_shows']			= "No-shows";

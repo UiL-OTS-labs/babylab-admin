@@ -356,6 +356,7 @@ $lang['call_started']		= "Call started";
 $lang['call_back']			= "Call back later";
 $lang['call_back_date']		= "Call back on";
 $lang['call_back_menu']		= "Call back";
+$lang['call_back_warn']		= "You can call back %s participant(s) today. Check the overview <a href='participation/callback'>here</a>.";
 $lang['no_reply']			= "No reply";
 $lang['no_show']			= "No show";
 $lang['no_shows']			= "No-shows";

@@ -320,4 +320,23 @@ class ParticipationModel extends CI_Model
 		$this->db->where('id', $participation_id);
 		$this->db->update('participation', array('locktime' => NULL));
 	}
+
+	/////////////////////////
+	// Call-backs
+	/////////////////////////
+
+	/** Releases the lock of the participation */
+	public function count_to_be_called_back($call_back_date = NULL)
+	{
+		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
+
+		$this->db->join('participant', 'participant.id = participation.participant_id');
+		$this->db->join('experiment', 'experiment.id = participation.experiment_id');
+		$this->db->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
+		$this->db->where('call.status', CallStatus::CallBack);
+		if ($experiment_ids) $this->db->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		if ($call_back_date) $this->db->where('call_back_date', $call_back_date);
+
+		return $this->db->count_all_results('participation');
+	}
 }

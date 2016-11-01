@@ -83,6 +83,14 @@ class Welcome extends CI_Controller
 			}
 		}
 
+		// Check if there are participants that need to be called back today
+		$callback_count = $this->participationModel->count_to_be_called_back(input_date());
+		$callback_msg = '';
+		if ($callback_count)
+		{
+			$callback_msg = '<p class="warning">' . sprintf(lang('call_back_warn'), $callback_count) . '</p>';
+		}
+
 		// Count testinvites that need to be reminded manually
 		$testinvite_count = $this->testInviteModel->count_to_be_reminded_testinvites();
 		$testinvite_url = array('url' => 'testinvite/index/1', 'title' => sprintf(lang('testinvite_action'), $testinvite_count));
@@ -91,7 +99,8 @@ class Welcome extends CI_Controller
 		$data['ajax_source'] = 'experiment/table/0/' . $user_id;
 		$data['page_title'] = sprintf(lang('welcome'), $user->username);
 		$data['page_info'] = 
-			sprintf(lang('info_caller'), $nr_experiments, $nr_participants) . 
+			sprintf(lang('info_caller'), $nr_experiments, $nr_participants) .
+			$callback_msg .
 			$this->construct_longitudinal_message($longitudinal);
 		$data['action_urls'] = array($testinvite_url);
 
