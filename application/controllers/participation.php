@@ -941,7 +941,7 @@ class Participation extends CI_Controller
 		$experiment_ids = $this->leaderModel->get_experiment_ids_by_leader(current_user_id());
 
 		$this->datatables->select('name AS e, 
-			CASE WHEN part_number = "" THEN CONCAT(participant.firstname, " ", participant.lastname) ELSE part_number END AS part_number, 
+			CASE WHEN part_number IS NULL THEN CONCAT(participant.firstname, " ", participant.lastname) ELSE part_number END AS part_number, 
 			risk, appointment, appointment AS age, interrupted, excluded, comment,
 			participation.id AS id, participant_id, experiment_id', FALSE);
 		$this->datatables->from('participation');
