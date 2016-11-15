@@ -65,11 +65,11 @@ $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
 /** Don't connect to LimeSurvey database when this is true */
-define('SURVEY_DEV_MODE', TRUE);
+defined('SURVEY_DEV_MODE')	or define('SURVEY_DEV_MODE', TRUE);
 
-define('LS_BASEURL',	'');
-define('LS_USER',		'');
-define('LS_PASSWORD',	'');
+defined('LS_BASEURL')		or define('LS_BASEURL',		'');
+defined('LS_USER')			or define('LS_USER',		'');
+defined('LS_PASSWORD')		or define('LS_PASSWORD',	'');
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
