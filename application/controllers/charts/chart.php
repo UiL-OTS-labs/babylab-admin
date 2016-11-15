@@ -598,8 +598,6 @@ class Chart extends CI_Controller
 			$nr++;
 		}
 
-		//echo '<pre>' . var_dump($rows) . '</pre>';die;
-
 		$table['rows'] = $this->flatten($rows);
 		echo json_encode($table);
 	}

@@ -19,9 +19,6 @@ class Comment extends CI_Controller
 		$priority_only = $this->session->flashdata('priority') || $this->input->post('view_high_priority') === '1';
 		$handled_only = $this->session->flashdata('handled') || $this->input->post('view_handled') === '1';
 
-		var_dump($priority_only);
-		var_dump($handled_only);
-
 		create_comment_table();
 		$data['ajax_source'] = site_url(array('comment', 'table', intval($priority_only), intval($handled_only)));
 		$data['page_title'] = lang('comments');
