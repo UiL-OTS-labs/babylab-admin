@@ -320,6 +320,7 @@ $lang['origin_info']  		= "information from the midwives' practice";
 $lang['origin_other']  		= "other";
 $lang['date_in_future']		= "It's not possible to choose a date of birth in the future.";
 $lang['registered']			= "Registered on";
+$lang['registered_before_birth'] = "Registered before birth!";
 $lang['specific_info']		= "Specific information";
 
 /* Participations */

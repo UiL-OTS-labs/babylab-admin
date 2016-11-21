@@ -319,6 +319,7 @@ $lang['origin_info']  		= "voorlichtingsavond bij de verloskundigenpraktijk";
 $lang['origin_other']  		= "anders";
 $lang['date_in_future']		= "Het is niet mogelijk een geboortedatum in de toekomst te kiezen.";
 $lang['registered']			= "Aangemeld op";
+$lang['registered_before_birth'] = "Aangemeld vóór geboorte!";
 $lang['specific_info']		= "Bijzondere gegevens";
 
 /* Participations */

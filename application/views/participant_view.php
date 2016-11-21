@@ -57,16 +57,27 @@
 					<td><?=img_tick($participant->multilingual); ?></td>
 				</tr>
 				<tr>
+					<th><?=lang('registered'); ?></th>
+					<td>
+						<?php 
+							echo output_date($participant->created);
+							if ($participant->created < $participant->dateofbirth)
+							{
+								echo ' ';
+								echo '<span class="warning">';
+								echo lang('registered_before_birth');
+								echo '</span>';
+							}
+						?>
+					</td>
+				</tr>
+				<tr>
 					<th><?=lang('last_experiment'); ?></th>
 					<td><?=$last_experiment; ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('last_called'); ?></th>
 					<td><?=$last_called; ?></td>
-				</tr>
-				<tr>
-					<th><?=lang('registered'); ?></th>
-					<td><?=output_date($participant->created); ?></td>
 				</tr>
 			</table>
 		</div>

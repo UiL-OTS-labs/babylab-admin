@@ -177,6 +177,21 @@
 					<td><?=mailto($participant->email); ?></td>
 				</tr>
 				<tr>
+					<th><?=lang('registered'); ?></th>
+					<td>
+						<?php 
+							echo output_date($participant->created);
+							if ($participant->created < $participant->dateofbirth)
+							{
+								echo ' ';
+								echo '<span class="warning">';
+								echo lang('registered_before_birth');
+								echo '</span>';
+							}
+						?>
+					</td>
+				</tr>
+				<tr>
 					<th><?=lang('last_experiment'); ?></th>
 					<td><?=$last_experiment; ?></td>
 				</tr>
