@@ -29,10 +29,11 @@
 							"<?=isset($sort_order)  ? $sort_order  : 'asc'; ?>"]],
 			"aoColumnDefs": [
 				{
-					"aTargets" : [ <?=isset($hide_columns) ? $hide_columns : ""; ?> ],
-					"bVisible" : false
+					"aTargets": [ <?=isset($hide_columns) ? $hide_columns : ""; ?> ],
+					"bVisible": false
 				}
-			]
+			],
+			"bStateSave": true,
 		});
 	});
 </script>
