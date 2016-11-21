@@ -285,15 +285,25 @@
 						<?=form_close(); ?>
 					</div>
 				</li>
+				<li><u class="call_link"><?=lang('via_email'); ?> </u>
+					<div class="show">
+					<?=form_open('call/via_email/' . $call_id); ?>
+						<p>
+							<?=lang('via_email_info'); ?>
+							<?=form_submit_only(); ?>
+						</p>
+						<?=form_close(); ?>
+					</div>
+				</li>
 				<li><u class="call_link"><?=lang('no_reply'); ?> </u>
 					<div class="show">
 					<?=form_open('call/no_reply/' . $call_id); ?>
 						<p>
-						<?=lang('message_left'); ?>
-						<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
-						<?=form_radio_and_label('message', 'voicemail'); ?>
-						<?=form_radio_and_label('message', 'email', '', lang('email_sent')); ?>
-						<?=form_submit_only(); ?>
+							<?=lang('message_left'); ?>
+							<?=form_radio_and_label('message', 'none', 'none', lang('no')); ?>
+							<?=form_radio_and_label('message', 'voicemail'); ?>
+							<?=form_radio_and_label('message', 'email', '', lang('email_sent')); ?>
+							<?=form_submit_only(); ?>
 						</p>
 						<?=form_close(); ?>
 					</div>

@@ -267,6 +267,24 @@ class Call extends CI_Controller
 		}
 	}
 
+	/** Via email: sets the call to email */
+	public function via_email($call_id)
+	{
+		$this->check_integrity($call_id);
+
+		$participation = $this->callModel->get_participation_by_call($call_id);
+		$participant = $this->participationModel->get_participant_by_participation($participation->id);
+		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
+
+		$this->callModel->end_call($call_id, CallStatus::Email);
+		$this->participationModel->no_reply($participation->id);
+		$this->participationModel->release_lock($participation->id);
+
+		// Set the flashdata and redirect
+		flashdata(sprintf(lang('part_via_email'), name($participant), $participant->email));
+		redirect('/participant/find/' . $experiment->id, 'refresh');
+	}
+
 	/** Cancel: cancels the participation to the experiment */
 	public function cancel($call_id)
 	{
