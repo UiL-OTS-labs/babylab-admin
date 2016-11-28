@@ -450,60 +450,88 @@ class Participant extends CI_Controller
 	{
 		$table = array();
 		$table['cols'] = array(
-		array('label' => lang('year'), 'type' => 'string'),
-		array('label' => lang('month'), 'type' => 'string'),
-		array('label' => lang('control'), 'type' => 'number'),
-		array('label' => lang('dyslexic'), 'type' => 'number'),
-		array('label' => lang('multilingual'), 'type' => 'number'),
-		array('label' => lang('both'), 'type' => 'number'),
+			array('label' => lang('graph_show_by'), 'type' => 'string'),
+			array('label' => lang('year'), 'type' => 'string'),
+			array('label' => lang('month'), 'type' => 'string'),
+			array('label' => lang('control'), 'type' => 'number'),
+			array('label' => lang('dyslexic'), 'type' => 'number'),
+			array('label' => lang('multilingual'), 'type' => 'number'),
+			array('label' => lang('both'), 'type' => 'number'),
 		);
 
-		$count = array();
+		$dob_count = array();
+		$created_count = array();
 
-		$participants = $this->participantModel->get_all_participants(TRUE); 
+		$participants = $this->participantModel->get_all_participants(TRUE);
 		foreach ($participants AS $participant)
 		{
-			$month = date('Y-m', strtotime($participant->dateofbirth));
+			$dob_month = date('Y-m', strtotime($participant->dateofbirth));
+			$created_month = date('Y-m', strtotime($participant->created));
 			$d = $participant->dyslexicparent != NULL;
 			$m = $participant->multilingual;
-			$type = 3 * $d + 5 * $m; 
+			// Converting to integer to allow easier fetching
+			$type = 3 * $d + 5 * $m;
 
-			if (!isset($count[$month][$type]))
-			{
-				$count[$month][$type] = 1; 
-			}
-			else 
-			{
-				$count[$month][$type]++;
-			}
+			$this->add_to_tally($dob_count, $dob_month, $type);
+			$this->add_to_tally($created_count, $created_month, $type);
 		}
-		ksort($count);
+		ksort($dob_count);
+		ksort($created_count);
 
-		$nr = 0;
-		$rows = array();
-		foreach ($count as $k => $v)
-		{
-			$rows[$nr][0] = array('v' => substr($k, 0, 4));
-			$rows[$nr][1] = array('v' => strftime('%h %Y', strtotime($k)));
-			$rows[$nr][2] = array('v' => isset($v[0]) ? $v[0] : 0);
-			$rows[$nr][3] = array('v' => isset($v[3]) ? $v[3] : 0);
-			$rows[$nr][4] = array('v' => isset($v[5]) ? $v[5] : 0);
-			$rows[$nr][5] = array('v' => isset($v[8]) ? $v[8] : 0);
-
-			$nr++;
-		}
-
-		$table['rows'] = $this->flatten($rows);
+		$dob_rows = $this->create_rows($dob_count, lang('dob'));
+		$created_rows = $this->create_rows($created_count, lang('registered'));
+		$table['rows'] = $this->flatten(array_merge($dob_rows, $created_rows));
 		echo json_encode($table);
 	}
 
 	/**
-	 * Flattens the results
+	 * Adds one or creates a new tally in the $count array.
+	 */
+	private function add_to_tally(&$count, $month, $type)
+	{
+		if (!isset($count[$month][$type]))
+		{
+			$count[$month][$type] = 1; 
+		}
+		else 
+		{
+			$count[$month][$type]++;
+		}
+	}
+
+	/**
+	 * Creates a rows array in the Google Charts format.
+	 */
+	private function create_rows($count, $type)
+	{
+		$nr = 0;
+		$rows = array();
+		foreach ($count as $k => $v)
+		{
+			$rows[$nr][0] = array('v' => $type);
+			$rows[$nr][1] = array('v' => substr($k, 0, 4));
+			$rows[$nr][2] = array('v' => strftime('%h %Y', strtotime($k)));
+			if (isset($v[0])) $rows[$nr][3] = array('v' => $v[0]);
+			if (isset($v[3])) $rows[$nr][4] = array('v' => $v[3]);
+			if (isset($v[5])) $rows[$nr][5] = array('v' => $v[5]);
+			if (isset($v[8])) $rows[$nr][6] = array('v' => $v[8]);
+
+			$nr++;
+		}
+
+		return $rows;
+	}
+
+	/**
+	 * Flattens the rows to the Google Charts format
 	 */
 	private function flatten($rows)
 	{
 		$result = array();
-		foreach ($rows as $row) array_push($result, array('c' => array_values($row)));
+		foreach ($rows as $row)
+		{
+			array_push($result, array('c' => array_values($row)));
+		}
 		return $result;
 	}
 
