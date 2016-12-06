@@ -570,7 +570,11 @@ class User extends CI_Controller
 	 */
 	private function validate_user()
 	{
-		$this->form_validation->set_rules('role', lang('role'), 'trim|required');
+		if (is_admin())
+		{
+			$this->form_validation->set_rules('role', lang('role'), 'trim|required');
+		}
+
 		$this->form_validation->set_rules('firstname', lang('firstname'), 'trim|required');
 		$this->form_validation->set_rules('lastname', lang('lastname'), 'trim|required');
 		$this->form_validation->set_rules('phone', lang('phone'), 'trim');
@@ -585,8 +589,12 @@ class User extends CI_Controller
 	 */
 	private function post_user($creating = TRUE)
 	{
+		// Retrieve the role: if admin, from form, otherwise use the current role
+		$role = is_admin() ? $this->input->post('role') : user_role();
+
+		// Create the user
 		$user = array(
-			'role' 				=> $this->input->post('role'),
+			'role' 				=> $role,
 			'firstname'			=> $this->input->post('firstname'),
 			'lastname'			=> $this->input->post('lastname'),
 			'email'				=> $this->input->post('email'),
@@ -594,14 +602,18 @@ class User extends CI_Controller
 			'mobile' 			=> $this->input->post('mobile'),
 			'preferredlanguage' => $this->input->post('preferredlanguage'),
 		);
-		
+
 		if ($creating) 
 		{
 			$user['username'] = $this->input->post('username');
 			$user['password'] = $this->phpass->hash($this->input->post('password'));
 
+			// Set the role to caller if no role has been specified (i.e. on registering)
+			if (!$role) $role = UserRole::Caller;
+			$user['role'] = $role;
+
 			// Callers will need to sign a form
-			$user['needssignature'] = $this->input->post('role') === UserRole::Caller;
+			$user['needssignature'] = $role === UserRole::Caller;
 		}
 		
 		return $user;

@@ -11,15 +11,15 @@
     <?=form_input_and_label('password', '', 'required', TRUE); ?>
     <?=form_input_and_label('password_conf', '', 'required', TRUE); ?>
 <?php } ?>
+<?php if (is_admin()) { ?>
 <div class="pure-control-group">
     <?=form_label(lang('role'), 'role'); ?>
-    <?php if ($role == UserRole::Admin || is_admin()) { ?>
-        <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
-    <?php } ?>
+    <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
     <?=form_radio_and_label('role', UserRole::Leader, $role); ?>
     <?=form_radio_and_label('role', UserRole::Researcher, $role); ?>
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
 </div>
+<?php } ?>
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>
 <?=form_input_and_label('lastname', $lastname, 'required'); ?>
 <?=form_input_and_label('email', $email, 'required'); ?>
