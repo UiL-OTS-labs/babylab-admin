@@ -60,7 +60,7 @@ class Login extends CI_Controller
 
 			// If a Caller has not yet signed, send him to that form
 			$user = $this->userModel->get_user_by_id(current_user_id());
-			if ($user->needssignature && !$user->signed)
+			if (is_caller() && $user->needssignature && !$user->signed)
 			{
 				redirect('user/sign/');
 			}
