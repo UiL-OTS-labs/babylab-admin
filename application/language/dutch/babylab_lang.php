@@ -12,8 +12,8 @@ $lang['delete']				= "Verwijderen";
 $lang['cancel']				= "Annuleren";
 $lang['back']				= "Terug";
 $lang['welcome']			= "Welkom <i>%s</i>!";
-$lang['welcome_admin']		= "Welkom in de administratieve interface van het Babylab call center.";
-$lang['welcome_caller']		= "Welkom in het Babylab call center.";
+$lang['welcome_admin']		= "Welkom in de administratieve interface van het Babylab belsysteem.";
+$lang['welcome_caller']		= "Welkom in het Babylab belsysteem.";
 $lang['info_caller']		= "U staat ingeschreven als beller voor %s experiment(en) (hieronder weergegeven).
 								Momenteel kunt u %s proefperso(o)n(en) bellen. 
 							   	Kies een van de experimenten hieronder en klik het bel-icoon om te beginnen met bellen.";
