@@ -925,7 +925,14 @@ class Participation extends CI_Controller
 	{
 		// Only show experiments of this caller
 		$experiment_ids = $this->callerModel->get_experiment_ids_by_caller(current_user_id());
-		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		if ($experiment_ids)
+		{
+			$this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		}
+		else
+		{
+			$this->datatables->where('experiment_id IS NULL');
+		}
 
 		// Exclude archived experiments
 		$this->datatables->where('experiment.archived', FALSE);
@@ -952,8 +959,16 @@ class Participation extends CI_Controller
 		$this->datatables->where('appointment IS NOT NULL');
 		// Exclude archived experiments
 		$this->datatables->where('experiment.archived', FALSE);
-
-		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		// Show experiments where the current user is a leader (or none if there are no experiments where he is leader)
+		if ($experiment_ids)
+		{
+			$this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		}
+		else
+		{
+			$this->datatables->where('experiment_id IS NULL'); // Do not show any experiments then.
+		}
+		// Filter on experiment id
 		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
@@ -985,9 +1000,17 @@ class Participation extends CI_Controller
 		$this->datatables->join('experiment', 'experiment.id = participation.experiment_id');
 		$this->datatables->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
 
+		// Filter on call status
 		$this->datatables->where('call.status', CallStatus::CallBack);
-
-		if ($experiment_ids) $this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		// Show experiments where the current user is a caller (or none if there are no experiments where he is caller)
+		if ($experiment_ids)
+		{
+			$this->datatables->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		}
+		else
+		{
+			$this->datatables->where('experiment_id IS NULL'); // Do not show any experiments then.
+		}
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');

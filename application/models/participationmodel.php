@@ -334,7 +334,14 @@ class ParticipationModel extends CI_Model
 		$this->db->join('experiment', 'experiment.id = participation.experiment_id');
 		$this->db->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
 		$this->db->where('call.status', CallStatus::CallBack);
-		if ($experiment_ids) $this->db->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		if ($experiment_ids)
+		{
+			$this->db->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');
+		}
+		else 
+		{
+			$this->db->where('experiment_id IS NULL');
+		}
 		if ($call_back_date) $this->db->where('call_back_date', $call_back_date);
 
 		return $this->db->count_all_results('participation');

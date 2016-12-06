@@ -626,22 +626,23 @@ class Experiment extends CI_Controller
 
 	public function table($archived = FALSE, $caller_id = '', $leader_id = '')
 	{
-		$experiment_ids = array(); // where id IN een niet lege array, dat is wel handig
+		$experiment_ids = array();
 		if ($caller_id) $experiment_ids += $this->callerModel->get_experiment_ids_by_caller($caller_id);
 		if ($leader_id) $experiment_ids += $this->leaderModel->get_experiment_ids_by_leader($leader_id);
-
-		// if (empty($experiment_ids)) array_push($experiment_ids, 0);
 
 		$this->datatables->select('name, agefrommonths, dyslexic, multilingual, id AS callers, id AS leaders, id');
 		$this->datatables->from('experiment');
 
 		if (!$archived) $this->datatables->where('archived', $archived);
-		if ($caller_id || $leader_id) {
-			if($experiment_ids)
+		if ($caller_id || $leader_id)
+		{
+			if ($experiment_ids)
 			{
 				$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
-			} else {
-				$this->datatables->where('id is NULL');
+			}
+			else
+			{
+				$this->datatables->where('id IS NULL');
 			}
 		}
 
@@ -664,24 +665,27 @@ class Experiment extends CI_Controller
 	public function table_without_caller()
 	{
 		$experiment_ids = get_object_ids($this->callerModel->get_experiments_without_callers());
-		if($experiment_ids) 
+		if ($experiment_ids)
 		{
 			$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
-		} else {
-			$this->datatables->where('id IN (NULL)');
+		}
+		else
+		{
+			$this->datatables->where('id IS NULL');
 		}
 		$this->table();
-		
 	}
 
 	public function table_without_leader()
 	{
 		$experiment_ids = get_object_ids($this->leaderModel->get_experiments_without_leaders());
-		if($experiment_ids) 
+		if ($experiment_ids)
 		{
 			$this->datatables->where('id IN (' . implode(',', $experiment_ids) . ')');
-		} else {
-			$this->datatables->where('id IN (NULL)');
+		}
+		else
+		{
+			$this->datatables->where('id IS NULL');
 		}
 		$this->table();
 	}
