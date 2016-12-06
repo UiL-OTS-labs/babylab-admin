@@ -157,14 +157,17 @@ class Login extends CI_Controller
 				// Remove the password field
 				unset($user->password);
 
+				// Set role to leader if researcher (to simplify checking later on)
+				$role = $user->role === UserRole::Researcher ? UserRole::Leader : $user->role;
+
 				// Set session data
 				$session_data = array(
-						'username' 	=> $username,
-						'user_id' 	=> $user->id,
-						'user_role' => $user->role, // Stays the same
-						'role' 		=> $user->role, // Might be changed when user switches role
-						'logged_in' => TRUE,
-						'language' 	=> user_language($user)
+					'username'	=> $username,
+					'user_id'	=> $user->id,
+					'user_role'	=> $user->role,	// Stays the same
+					'role'		=> $role,		// Might be changed when user switches role
+					'logged_in'	=> TRUE,
+					'language'	=> user_language($user)
 				);
 				$this->session->set_userdata($session_data);
 

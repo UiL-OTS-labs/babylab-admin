@@ -84,21 +84,24 @@ class UserModel extends CI_Model
 	public function get_all_callers()
 	{
 		$this->db->where('activated IS NOT NULL');
-		return $this->db->get_where('user', array('role' => UserRole::Caller))->result();
+		$this->db->where('role', UserRole::Caller);
+		return $this->db->get('user')->result();
 	}
 
-	/** Returns all the active users of type leader */
+	/** Returns all the active users of type leader or researcher */
 	public function get_all_leaders()
 	{
 		$this->db->where('activated IS NOT NULL');
-		return $this->db->get_where('user', array('role' => UserRole::Leader))->result();
+		$this->db->where_in('role', array(UserRole::Leader, UserRole::Researcher));
+		return $this->db->get('user')->result();
 	}
 
 	/** Returns all the active users of type admin */
 	public function get_all_admins()
 	{
 		$this->db->where('activated IS NOT NULL');
-		return $this->db->get_where('user', array('role' => UserRole::Admin))->result();
+		$this->db->where('role', UserRole::Admin);
+		return $this->db->get('user')->result();
 	}
 
 	/** Returns whether or not a user exists based on the given user id */

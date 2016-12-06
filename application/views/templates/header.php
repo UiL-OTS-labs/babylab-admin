@@ -129,7 +129,7 @@ $(function() {
 		</div>
 		<?php } ?>
 
-		<?php if (current_role() === UserRole::Caller) { ?>
+		<?php if (is_caller()) { ?>
 		
 		<div
 			class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-custom">
@@ -146,7 +146,7 @@ $(function() {
 		</div>
 		<?php } ?>
 
-		<?php if (current_role() === UserRole::Leader) { ?>
+		<?php if (is_leader()) { ?>
 		<div
 			class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-custom">
 			<ul>

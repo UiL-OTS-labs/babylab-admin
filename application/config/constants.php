@@ -39,7 +39,8 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 /** Roles */
 class UserRole {
 	const Admin 		= 'admin';
-	const Leader 		= 'leader';
+	const Leader 		= 'leader';			// Has access to both leader and caller interface
+	const Researcher	= 'researcher';		// Only has access to leader interface
 	const Caller 		= 'caller';
 	const System 		= 'system';
 }

@@ -17,6 +17,7 @@
         <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
     <?php } ?>
     <?=form_radio_and_label('role', UserRole::Leader, $role); ?>
+    <?=form_radio_and_label('role', UserRole::Researcher, $role); ?>
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
 </div>
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>

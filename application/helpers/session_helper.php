@@ -110,7 +110,7 @@ if (!function_exists('is_leader'))
 	/** Returns whether or not the current user is a leader */
 	function is_leader()
 	{
-		return current_role() === UserRole::Leader;
+		return in_array(current_role(), array(UserRole::Leader, UserRole::Researcher));
 	}
 }
 

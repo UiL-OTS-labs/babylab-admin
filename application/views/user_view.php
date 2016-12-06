@@ -50,7 +50,7 @@ if (is_admin())
 
 <!-- Calls -->
 <?php
-	if (current_role() === UserRole::Caller)
+	if (is_caller())
 	{
 		echo heading(lang('calls'), 3);
 		create_call_table('calls', FALSE);

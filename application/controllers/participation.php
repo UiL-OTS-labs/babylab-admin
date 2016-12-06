@@ -41,7 +41,7 @@ class Participation extends CI_Controller
 				$source = 'participation/table/'; 
 				$actions = array($add_url); 
 				break;
-			case UserRole::Leader: 
+			case UserRole::Leader:
 				create_participation_leader_table();
 				$source = 'participation/table_by_leader/'; 
 				$actions = array(); 
@@ -317,7 +317,7 @@ class Participation extends CI_Controller
 	{
 		switch (current_role())
 		{
-			case UserRole::Leader: 
+			case UserRole::Leader:
 				create_participation_leader_table();
 				$source = 'participation/table_by_leader/' . $experiment_id; 
 				break;

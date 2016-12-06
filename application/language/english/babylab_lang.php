@@ -256,6 +256,7 @@ $lang['call_n_of_controll']	= "%d participants in the controll group";
 
 /* Leaders */
 $lang['leader'] 			= "Leader";
+$lang['researcher'] 		= "Researcher";
 $lang['leaders']	 		= "Leaders";
 $lang['leaders_for_exp']	= "Leaders voor experiment %s";
 $lang['exp_without_leader']	= "Currently there are no leaders for %s experiment(s). You can add them in the " . anchor('experiment', 'experiment overview') . ".";

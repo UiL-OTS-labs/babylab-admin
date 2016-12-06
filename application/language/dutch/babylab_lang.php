@@ -255,6 +255,7 @@ $lang['call_n_of_controll']	= "%d proefpersonen in de controlegroep";
 
 /* Leaders */
 $lang['leader'] 			= "Leider";
+$lang['researcher'] 		= "Onderzoeker";
 $lang['leaders']	 		= "Leiders";
 $lang['leaders_for_exp']	= "Leiders voor experiment %s";
 $lang['exp_without_leader']	= "Momenteel zijn er geen leiders voor %s experiment(en). U kunt deze toevoegen in het <a href='experiment'>overzicht van experimenten</a>.";
