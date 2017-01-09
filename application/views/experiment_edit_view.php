@@ -31,6 +31,7 @@ $(function() {
 <?=form_input_and_label('description', $description, 'required'); ?>
 <p class="info"><?=lang('duration_info'); ?></p>
 <?=form_input_and_label('duration', $duration, 'required class="positive-integer"'); ?>
+<?=form_input_and_label('duration_additional', $duration_additional, 'required class="positive-integer"'); ?>
 <?=form_dropdown_and_label('location', location_options($locations), $location_id); ?>
 <?=form_input_and_label('wbs_number', $wbs_number, 'required'); ?>
 <?=form_colorpicker('experiment_color', $experiment_color, 'required');?>

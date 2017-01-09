@@ -50,7 +50,7 @@ class Appointment extends CI_Controller
 			// Begin and end datetime
 			$dateTime = new DateTime($appointment->appointment);
 			$startTime = $dateTime->format(DateTime::ISO8601);
-			$minutes = $experiment->duration + INSTRUCTION_DURATION;
+			$minutes = $experiment->duration + $experiment->duration_additional;
 			$dateTime->add(new DateInterval('PT' . $minutes . 'M'));
 			$end = $dateTime->format(DateTime::ISO8601);
 

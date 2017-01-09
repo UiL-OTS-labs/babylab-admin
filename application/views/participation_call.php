@@ -373,7 +373,7 @@
 				</tr>
 				<tr>
 					<th><?=lang('duration'); ?></th>
-					<td><?=$experiment->duration; ?></td>
+					<td><?=sprintf(lang('duration_total'), $experiment->duration, $experiment->duration_additional); ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('location'); ?></th>

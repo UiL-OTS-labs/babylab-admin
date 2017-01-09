@@ -79,7 +79,7 @@ if (!function_exists('email_replace'))
 			$message_data['exp_name']		= $experiment->name;
 			$message_data['type'] 			= $experiment->type;
 			$message_data['duration'] 		= $experiment->duration;
-			$message_data['duration_total'] = $experiment->duration + INSTRUCTION_DURATION;
+			$message_data['duration_total'] = $experiment->duration + $experiment->duration_additional;
 			$message_data['description'] 	= $experiment->description;
 			$message_data['location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
 			$message_data['caller_contacts'] = extract_callers($experiment, $comb_experiment);
@@ -96,7 +96,7 @@ if (!function_exists('email_replace'))
 			$message_data['comb_exp_name']		= $comb_experiment->name;
 			$message_data['comb_type'] 			= $comb_experiment->type;
 			$message_data['comb_duration'] 		= $comb_experiment->duration;
-			$message_data['comb_duration_total']= $comb_experiment->duration + INSTRUCTION_DURATION;
+			$message_data['comb_duration_total']= $comb_experiment->duration + $comb_experiment->duration_additional;
 			$message_data['comb_description'] 	= $comb_experiment->description;
 			$message_data['comb_location'] 		= sprintf('%s (%s)', $location->name, $location->roomnumber);
 			$message_data['comb_appointment']	= format_datetime($comb_participation->appointment);

@@ -117,7 +117,7 @@ class ExcludedReason {
 /** Number of weeks to look ahead */
 define('WEEKS_AHEAD', 2);
 
-/** Duration of instructions: 20 minutes */
+/** Default duration of instructions: 20 minutes */
 define('INSTRUCTION_DURATION', 20);
 
 /** After how many calls to send a request for participation */

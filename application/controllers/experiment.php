@@ -130,6 +130,7 @@ class Experiment extends CI_Controller
 		$data['callers'] = caller_options($callers);
 		$data['leaders'] = leader_options($leaders);
 		$data['experiments'] = experiment_options($experiments);
+		$data['duration_additional'] = INSTRUCTION_DURATION;
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_edit_view', $data);
@@ -476,6 +477,7 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('type', lang('type'), 'trim|required');
 		$this->form_validation->set_rules('description', lang('description'), 'trim|required');
 		$this->form_validation->set_rules('duration', lang('duration'), 'trim|required');
+		$this->form_validation->set_rules('duration_additional', lang('duration_additional'), 'trim|required');
 		$this->form_validation->set_rules('wbs_number', lang('wbs_number'), 'trim|required|callback_wbs_check');
 		$this->form_validation->set_rules('date_start', lang('date_start'), 'trim');
 		$this->form_validation->set_rules('date_end', lang('date_end'), 'trim');
@@ -511,6 +513,7 @@ class Experiment extends CI_Controller
 				'type'              => $this->input->post('type'),
 				'description'       => $this->input->post('description'),
 				'duration'          => $this->input->post('duration'),
+				'duration_additional'		=> $this->input->post('duration_additional'),
 				'wbs_number'        => $this->input->post('wbs_number'),
 				'experiment_color'  => $this->input->post('experiment_color'),
 				'date_start'        => $date_start ? input_date($date_start) : NULL,
@@ -520,7 +523,7 @@ class Experiment extends CI_Controller
 				'agefrommonths'     => $this->input->post('agefrommonths'),
 				'agefromdays'       => $this->input->post('agefromdays'),
 				'agetomonths'       => $this->input->post('agetomonths'),
-				'agetodays'         => $this->input->post('agetodays'),
+				'agetodays'			=> $this->input->post('agetodays'),
 				'target_nr_participants'	=> $this->input->post('target_nr_participants'),
 		);
 
