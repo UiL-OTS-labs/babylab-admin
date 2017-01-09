@@ -14,12 +14,10 @@ U krijgt een korte vragenlijst te zien; het invullen kost u 5 tot 10 minuten.</p
 <p>Wij willen u met nadruk laten weten dat wij zeer vertrouwelijk omgaan met de informatie die u ons toevertrouwt. 
 Bovendien worden de antwoorden op een veilige manier bewaard: de informatie is alleen toegankelijk voor de desbetreffende onderzoeker.</p>
 <p>De link naar de vragenlijst (<em><?=$survey_name; ?></em>) vindt u hier: <?=$survey_link; ?>.</p>
+<p>Mocht u vragen hebben n.a.v. deze e-mail of de vragenlijst, dan kunt u contact met ons opnemen door te mailen naar <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p><?=BABYLAB_TEAM; ?></p>
-<p>Indien u vragen of opmerkingen heeft n.a.v. deze e-mail of de vragenlijst, dan kunt u contact opnemen met:
-<?=BABYLAB_MANAGER; ?> via <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
-Meer informatie over het babylab vindt u op: <a href="http://babylab.wp.hum.uu.nl">http://babylab.wp.hum.uu.nl</a>.</p>
 <p><em>Deze e-mail is automatisch gegenereerd.</em></p>
 </body>
 </html>

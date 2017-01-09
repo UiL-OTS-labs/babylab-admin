@@ -100,7 +100,7 @@ $lang['mail_disclaimer']	= "<em>Deze e-mail is automatisch gegenereerd.</em>";
 $lang['selfservice_mail_subject'] = "Babylab Utrecht: Link voor selfservice";
 $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab Utrecht een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kind(eren) aan- en afmelden voor het Babylab Utrecht en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
-$lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor één dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s of mailen naar: %s.";
+$lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor één dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s.";
 $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
 $lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
 

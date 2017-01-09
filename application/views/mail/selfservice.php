@@ -7,7 +7,6 @@
 <p><?=sprintf(lang('selfservice_mail_valid_one_day'), 
 	anchor('selfservice', 'Babylab Utrecht selfservice'), 
 	BABYLAB_MANAGER, 
-	BABYLAB_MANAGER_PHONE, 
 	mailto(BABYLAB_MANAGER_EMAIL));?>
 </p>
 <p><?=sprintf(lang('selfservice_mail_ending'), lang('babylab_team'));?></p>

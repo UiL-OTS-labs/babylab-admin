@@ -15,7 +15,7 @@ Zo ziet u waar op dit moment de taalvaardigheid van <?=$name_first; ?> valt ten 
 <p>Wij willen u met nadruk laten weten dat wij zeer vertrouwelijk omgaan met de informatie die u ons toevertrouwt. 
 Bovendien wordt de lijst op een veilige manier bewaard: de informatie is alleen toegankelijk voor de desbetreffende onderzoeker.</p>
 <p>De link naar de vragenlijst (<em><?=$survey_name; ?></em>) vindt u hier: <?=$survey_link; ?>.</p>
-<p>Mocht u vragen hebben n.a.v. de vragenlijst of de interpretatie daarvan, dan kunt u contact opnemen met <?=BABYLAB_MANAGER; ?>: <?=BABYLAB_MANAGER_PHONE; ?> of mailen naar: <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.</p>
+<p>Mocht u vragen hebben n.a.v. de vragenlijst of de interpretatie daarvan, dan kunt u contact met ons opnemen door te mailen naar <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p><?=BABYLAB_TEAM; ?></p>

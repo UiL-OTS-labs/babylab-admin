@@ -3,7 +3,7 @@
 <p>Meer informatie over deze test vindt u op <?=anchor('http://www.taalexpert.nl/test.aspx?id=173', 'taalexpert.nl', 'target="_blank"'); ?>.
 </p>
 <p>Bij vragen of opmerkingen over de resultaten op deze site kunt u
-contact opnemen met <?=BABYLAB_MANAGER; ?> (<?=BABYLAB_MANAGER_PHONE; ?> of <?=mailto(BABYLAB_MANAGER_EMAIL); ?>).
+contact opnemen met <?=BABYLAB_MANAGER; ?> (<?=mailto(BABYLAB_MANAGER_EMAIL); ?>).
 </p>
 
 <?php if (!$valid_token) { ?>
