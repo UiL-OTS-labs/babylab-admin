@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 /////////////////////////
 // Table-related
@@ -6,36 +9,40 @@
 
 if (!function_exists('create_participation_table'))
 {
+
 	/** Creates the table with participation data */
 	function create_participation_table($id = NULL)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		base_table($id);
-		$CI->table->set_heading(lang('participant'), lang('experiment'), lang('appointment'), lang('leader'), 
-			lang('cancelled_short'), lang('no_show'), lang('completed'), lang('actions'));
+		$CI->table->set_heading(lang('participant'), lang('experiment'), lang('appointment'), lang('leader'), lang('cancelled_short'), lang('no_show'), lang('completed'), lang('actions'));
 	}
+
 }
 
 if (!function_exists('create_participation_leader_table'))
 {
+
 	/** Creates the table with participation data for leaders */
 	function create_participation_leader_table($id = NULL)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		base_table($id);
-		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), 
-			lang('age'), lang('interrupted'), lang('excluded'), lang('comment'), lang('actions'));
+		$CI->table->set_heading(lang('experiment'), lang('part_number'), lang('risk'), lang('appointment'), lang('age'), lang('interrupted'), lang('excluded'), lang('comment'), lang('actions'));
 	}
+
 }
 
 if (!function_exists('create_participation_counter_table'))
 {
+
 	/** Creates the table with participation data with a specific counter column (no_shows, interruptions) */
 	function create_participation_counter_table($participations, $title)
 	{
-		if (empty($participations)) return lang('no_results_found');
+		if (empty($participations))
+			return lang('no_results_found');
 
-		$CI =& get_instance();
+		$CI = & get_instance();
 
 		base_table();
 		$CI->table->set_heading(lang('participant'), lang('participations'), $title, lang('percentage'), lang('actions'));
@@ -52,25 +59,29 @@ if (!function_exists('create_participation_counter_table'))
 
 		return $CI->table->generate();
 	}
+
 }
 
 if (!function_exists('create_participation_callback_table'))
 {
+
 	/** Creates the table with participants that need to be called back */
 	function create_participation_callback_table($id = NULL)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		base_table($id);
 		$CI->table->set_heading(lang('participant'), lang('experiment'), lang('call_back_date'), lang('comment'), lang('actions'));
 	}
+
 }
 
 if (!function_exists('participation_actions'))
 {
+
 	/** Possible actions for a participation: prioritize and delete */
 	function participation_actions($participation_id)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		$pp = $CI->participationModel->get_participation_by_id($participation_id);
 
 		$not_cancelled = $pp->cancelled == 0;
@@ -103,14 +114,16 @@ if (!function_exists('participation_actions'))
 		}
 		return implode(' ', $actions);
 	}
+
 }
 
 if (!function_exists('participation_callback_actions'))
 {
+
 	/** Possible actions for a participation: prioritize and delete */
 	function participation_callback_actions($participation_id)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		$participation = $CI->participationModel->get_participation_by_id($participation_id);
 		$participant = $CI->participationModel->get_participant_by_participation($participation_id);
 
@@ -120,6 +133,7 @@ if (!function_exists('participation_callback_actions'))
 
 		return implode(' ', $actions);
 	}
+
 }
 
 /////////////////////////
@@ -128,24 +142,31 @@ if (!function_exists('participation_callback_actions'))
 
 if (!function_exists('get_min_max_days'))
 {
-	function get_min_max_days($participant, $experiment)
-	{
-		$min = $participant->dateofbirth . '+' . $experiment->agefrommonths . ' months +' . $experiment->agefromdays . ' days';
-		$max = $participant->dateofbirth . '+' . $experiment->agetomonths . ' months +' . $experiment->agetodays . ' days';
 
-		$data['min_date'] = output_date($min);
-		$data['max_date'] = output_date($max);
-		$data['min_date_js'] = output_date($min, TRUE);
-		$data['max_date_js'] = output_date($max, TRUE);
+	function get_min_max_days($participant, $experiment, $is_comb = FALSE)
+	{
+		$pre = $is_comb ? 'comb_' : '';
+		$min = $participant->dateofbirth . '+'
+				. $experiment->agefrommonths . ' months +'
+				. $experiment->agefromdays . ' days';
+		$max = $participant->dateofbirth . '+'
+				. $experiment->agetomonths . ' months +'
+				. $experiment->agetodays . ' days';
+
+		$data[$pre . 'min_date'] = output_date($min);
+		$data[$pre . 'max_date'] = output_date($max);
+		$data[$pre . 'min_date_js'] = output_date($min, TRUE);
+		$data[$pre . 'max_date_js'] = output_date($max, TRUE);
 
 		// Don't allow planning of an appointment before today.
 		if (input_date($min) < input_date('now'))
 		{
-			$data['min_date_js'] = output_date('now', TRUE);
+			$data[$pre . 'min_date_js'] = output_date('now', TRUE);
 		}
 
 		return $data;
 	}
+
 }
 
 /////////////////////////
@@ -154,21 +175,25 @@ if (!function_exists('get_min_max_days'))
 
 if (!function_exists('participation_get_link'))
 {
+
 	/** Returns the get link for a participation */
 	function participation_get_link($participation)
 	{
 		return anchor('participation/get/' . $participation->id, img_zoom('participation'));
 	}
+
 }
 
 if (!function_exists('participation_get_link_by_id'))
 {
+
 	/** Returns the get link for a participant */
 	function participation_get_link_by_id($participant_id)
 	{
-		$CI =& get_instance();
+		$CI = & get_instance();
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 
 		return participation_get_link($participation);
 	}
+
 }

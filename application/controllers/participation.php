@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 /**
  * Participations can be in 6 possible stages:
@@ -16,6 +19,7 @@
  */
 class Participation extends CI_Controller
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,20 +40,20 @@ class Participation extends CI_Controller
 
 		switch (current_role())
 		{
-			case UserRole::Admin: 
+			case UserRole::Admin:
 				create_participation_table();
-				$source = 'participation/table/'; 
-				$actions = array($add_url); 
+				$source = 'participation/table/';
+				$actions = array($add_url);
 				break;
 			case UserRole::Leader:
 				create_participation_leader_table();
-				$source = 'participation/table_by_leader/'; 
-				$actions = array(); 
+				$source = 'participation/table_by_leader/';
+				$actions = array();
 				break;
-			default: 
+			default:
 				create_participation_table();
-				$source = 'participation/table_by_caller/'; 
-				$actions = array(); 
+				$source = 'participation/table_by_caller/';
+				$actions = array();
 				break;
 		}
 
@@ -97,7 +101,7 @@ class Participation extends CI_Controller
 	// Add participation (admin only)
 	///////////////////////////////////////////
 
-	/** Restrict acces to admin only **/
+	/** Restrict acces to admin only */
 	private function admin_only()
 	{
 		if (current_role() != UserRole::Admin)
@@ -147,18 +151,18 @@ class Participation extends CI_Controller
 		{
 			// No errors, get the current participation
 			$participation = $this->participationModel->get_participation($experiment->id, $participant->id);
-				
+
 			if (empty($participation))
 			{
 				// No participation exists yet, create a new one
 				$participation_id = $this->participationModel->create_participation($experiment, $participant);
-			} 
+			}
 			else if ($participation->status == ParticipationStatus::Unconfirmed)
 			{
 				// A non-completed participation exists, use this one
 				$participation_id = $participation->id;
 			}
-			else 
+			else
 			{
 				// Participation already exists and is completed, error.
 				flashdata(sprintf(lang('participation_exists'), name($participant), $experiment->name), FALSE);
@@ -166,9 +170,9 @@ class Participation extends CI_Controller
 			}
 
 			$call_id = $this->callModel->create_call($participation_id);
-			redirect('call/confirm/' . $call_id . '/' . 
-				$this->input->post('leader') . '/' . 
-				strtotime($this->input->post('appointment')), 'refresh');
+			redirect('call/confirm/' . $call_id . '/' .
+					$this->input->post('leader') . '/' .
+					strtotime($this->input->post('appointment')), 'refresh');
 		}
 	}
 
@@ -195,7 +199,7 @@ class Participation extends CI_Controller
 	public function edit_leader_submit($participation_id)
 	{
 		$this->form_validation->set_rules('leader', lang('leader'), 'callback_not_default');
-		if (!$this->form_validation->run()) 
+		if (!$this->form_validation->run())
 		{
 			$this->edit_leader($participation_id);
 		}
@@ -218,7 +222,7 @@ class Participation extends CI_Controller
 				$new_p = $this->participationModel->get_participation_by_id($participation_id);
 				$participant = $this->participationModel->get_participant_by_participation($participation_id);
 				$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
-				
+
 				$message = email_replace('mail/change_leader', $participant, $new_p, $experiment);
 
 				$this->email->clear();
@@ -230,7 +234,7 @@ class Participation extends CI_Controller
 
 				$this->email->send();
 			}
-			
+
 			flashdata(lang('participation_leader_edited'));
 			redirect('participation/get/' . $participation_id, 'refresh');
 		}
@@ -255,7 +259,7 @@ class Participation extends CI_Controller
 	public function edit_comment_submit($participation_id)
 	{
 		$this->form_validation->set_rules('calendar_comment', lang('calendar_comment'), 'trim|required|max_length[200]');
-		if (!$this->form_validation->run()) 
+		if (!$this->form_validation->run())
 		{
 			$this->edit_comment($participation_id);
 		}
@@ -265,7 +269,7 @@ class Participation extends CI_Controller
 				'calendar_comment' => $this->input->post('calendar_comment')
 			);
 			$this->participationModel->update_participation($participation_id, $participation);
-			
+
 			flashdata(lang('participation_comment_edited'));
 			redirect('appointment', 'refresh');
 		}
@@ -288,8 +292,8 @@ class Participation extends CI_Controller
 		{
 			$this->form_validation->set_message('not_default', lang('isset'));
 			return FALSE;
-		} 
-		else 
+		}
+		else
 		{
 			return TRUE;
 		}
@@ -305,7 +309,7 @@ class Participation extends CI_Controller
 		create_participation_callback_table();
 		$data['page_title'] = lang('call_back_menu');
 		$data['ajax_source'] = 'participation/table_callback';
-		$data['sort_column'] = 2;	// Sort on call_back_date
+		$data['sort_column'] = 2; // Sort on call_back_date
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -319,13 +323,13 @@ class Participation extends CI_Controller
 		{
 			case UserRole::Leader:
 				create_participation_leader_table();
-				$source = 'participation/table_by_leader/' . $experiment_id; 
+				$source = 'participation/table_by_leader/' . $experiment_id;
 				break;
-			default: 
+			default:
 				create_participation_table();
 				$add_url = array('url' => 'participation/add', 'title' => lang('ad_hoc_participation'));
-				$source = 'participation/table/0/' . $experiment_id; 
-				$data['action_urls'] = array($add_url); 
+				$source = 'participation/table/0/' . $experiment_id;
+				$data['action_urls'] = array($add_url);
 				break;
 		}
 
@@ -347,27 +351,28 @@ class Participation extends CI_Controller
 		// Add headers to the csv array (later used in fputscsv)
 		$csv_array = array();
 		$csv_array[] = array(
-			lang('part_number'), 
-			lang('gender'), 
-			lang('age_at_participation'), 
-			lang('appointment'), 
-			lang('dyslexic'), 
-			lang('multilingual'), 
-			lang('interrupted'), 
-			lang('excluded'), 
-			lang('completed'), 
-			lang('no_show'), 
+			lang('part_number'),
+			lang('gender'),
+			lang('age_at_participation'),
+			lang('appointment'),
+			lang('dyslexic'),
+			lang('multilingual'),
+			lang('interrupted'),
+			lang('excluded'),
+			lang('completed'),
+			lang('no_show'),
 			lang('comment'));
-		
+
 		// Generate array for each row and put in total array
 		foreach ($participations as $participation)
 		{
-			if (!$participation->completed) continue;
+			if (!$participation->completed)
+				continue;
 
 			$participant = $this->participationModel->get_participant_by_participation($participation->id);
 			$csv_row = array(
-				$participation->part_number, 
-				$participant->gender, 
+				$participation->part_number,
+				$participant->gender,
 				age_in_months_and_days($participant->dateofbirth, $participation->appointment),
 				output_datetime($participation->appointment, TRUE),
 				$participant->dyslexicparent ? $participant->dyslexicparent : lang('no'),
@@ -377,33 +382,33 @@ class Participation extends CI_Controller
 				$participation->completed ? lang('yes') : lang('no'),
 				$participation->noshow ? lang('yes') : lang('no'),
 				$participation->comment);
-			
+
 			// Add row to csv array
 			$csv_array[] = $csv_row;
 		}
-		
+
 		// Create a new output stream and capture the result in a new object
 		$fp = fopen('php://output', 'w');
 		ob_start();
-		
+
 		// Create a new row in the CSV file for every in the array
 		foreach ($csv_array as $row)
 		{
 			fputcsv($fp, $row, ';');
 		}
-		
+
 		// Capture the output as a string
 		$csv = ob_get_contents();
-		
+
 		// Close the object and the stream
 		ob_end_clean();
 		fclose($fp);
-		
+
 		// Generate filename
 		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
 		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
 		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
-		
+
 		// Download the file
 		force_download($filename, $csv);
 	}
@@ -446,7 +451,6 @@ class Participation extends CI_Controller
 		// Retrieve links
 		$comments = $this->commentModel->get_comments_by_participant($participant_id);
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
-		$experiments = $this->experimentModel->get_experiments_by_participant($participant_id);
 		$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
 		$leaders = $this->leaderModel->get_leader_users_by_experiments($experiment_id);
 		$first_visit = count($this->participationModel->get_participations_by_participant($participant_id, TRUE)) == 0;
@@ -484,7 +488,10 @@ class Participation extends CI_Controller
 
 		// Check if participation to combined experiment already exists
 		$comb_part = $comb_exp ? $this->participationModel->get_participation($comb_exp->id, $participant_id) : FALSE;
-		if ($comb_part) $comb_exp = FALSE;
+		if ($comb_part)
+		{
+			$comb_exp = FALSE;
+		}
 		$comb_leaders = $comb_exp ? $this->leaderModel->get_leader_users_by_experiments($comb_exp->id) : array();
 
 		// Create page data
@@ -509,6 +516,11 @@ class Participation extends CI_Controller
 		$data['combination_leaders'] = leader_options($comb_leaders);
 		$data['page_title'] = sprintf(lang('call_participant'), name($participant));
 
+		if ($comb_exp)
+		{
+			$data = array_merge($data, get_min_max_days($participant, $comb_exp, TRUE));
+		}
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('participation_call', $data);
 		$this->load->view('templates/footer');
@@ -525,45 +537,44 @@ class Participation extends CI_Controller
 		$endtime = new DateTime($datetime);
 		$endtime->add(new DateInterval('PT' . $experiment->duration . "M"));
 		$endtime = input_datetime($endtime->format('Y-m-d H:i'));
-		
+
 		$lab_closed = $this->closingModel->within_bounds($starttime, $location->id) || $this->closingModel->within_bounds($endtime, $location->id);
 		$closings = $this->closingModel->get_closing_by_location_for_time($location->id, $date);
-		
+
 		$locked_down = $this->closingModel->within_bounds($starttime, NULL) || $this->closingModel->within_bounds($endtime, NULL);
 		$lockdowns = $this->closingModel->get_closing_by_location_for_time(NULL, $date);
-		
-		$user_available = !($this->availabilityModel->within_bounds($starttime, $leader_id) || $this->availabilityModel->within_bounds($starttime, $leader_id)); 
+
+		$user_available = !($this->availabilityModel->within_bounds($starttime, $leader_id) || $this->availabilityModel->within_bounds($starttime, $leader_id));
 		$user_availability = $this->availabilityModel->get_availability_by_user_and_day($leader_id, $date);
 
 		$locks = array();
-		foreach($lockdowns as $lockdown)
+		foreach ($lockdowns as $lockdown)
 		{
 			array_push($locks, sprintf(lang('timeframe'), format_datetime($lockdown->from), format_datetime($lockdown->to)));
 		}
 		$locked = array("status" => $locked_down, "string" => lang('lockdown_timeframe'), "times" => $locks);
 
 		$closings = array();
-		foreach($closings as $closing)
+		foreach ($closings as $closing)
 		{
 			array_push($closings, sprintf(lang('timeframe'), format_datetime($closing->from), format_datetime($closing->to)));
 		}
-		$closed = array("status" => $lab_closed, "string" => lang('lab_closed') ,"times" => $closings);
+		$closed = array("status" => $lab_closed, "string" => lang('lab_closed'), "times" => $closings);
 
 		$availabilities = array();
-		if(isset($user_availability))
+		if (isset($user_availability))
 		{
-			foreach($user_availability as $av)
+			foreach ($user_availability as $av)
 			{
 				array_push($availabilities, sprintf(lang('timeframe'), format_datetime($av->from), format_datetime($av->to)));
 			}
 		}
-		
+
 		$availability = array("status" => $user_available, "string" => sprintf(lang('is_not_available'), $leader->username), "times" => $availabilities);
 
 		echo json_encode(array("locks" => $locked, "closings" => $closed, "availability" => $availability));
 	}
 
-	
 	/**
 	 * Shows the calendar in a new popup window
 	 */
@@ -589,7 +600,7 @@ class Participation extends CI_Controller
 
 		$data['page_info'] = lang('no_shows_info');
 		$data['table'] = create_participation_counter_table($participations, lang('no_shows'));
-		$data['sort_column'] = 1;	// sort on count of no shows
+		$data['sort_column'] = 1; // sort on count of no shows
 		$data['sort_order'] = 'desc';
 
 		$this->load->view('templates/header', $data);
@@ -689,14 +700,14 @@ class Participation extends CI_Controller
 	/** Submits the cancellation (or deletion) of a participation */
 	public function cancel_submit($participation_id)
 	{
-		$referrer = $this->input->post('referrer'); 
+		$referrer = $this->input->post('referrer');
 		$this->send_cancellation_email($participation_id);
 
-		if ($this->input->post('delete')) 
+		if ($this->input->post('delete'))
 		{
 			$this->delete($participation_id, $referrer);
 		}
-		else 
+		else
 		{
 			$this->participationModel->cancel($participation_id, FALSE);
 
@@ -752,8 +763,7 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('part_number', lang('part_number'), 'trim|required');
 		$this->form_validation->set_rules('interrupted', lang('interrupted'), 'required');
 		$this->form_validation->set_rules('excluded', lang('excluded'), 'required');
-		$this->form_validation->set_rules('excluded_reason', lang('excluded_reason'), 
-			$this->input->post('excluded') ? 'callback_not_default' : 'trim');
+		$this->form_validation->set_rules('excluded_reason', lang('excluded_reason'), $this->input->post('excluded') ? 'callback_not_default' : 'trim');
 		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required');
 		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim');
 		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim');
@@ -771,18 +781,19 @@ class Participation extends CI_Controller
 			// If succeeded, insert data into database
 			$r = $this->input->post('excluded_reason');
 			$participation = array(
-				'part_number' 	=> $this->input->post('part_number'),
-				'interrupted' 	=> $this->input->post('interrupted'),
-				'excluded' 		=> $this->input->post('excluded'),
+				'part_number' => $this->input->post('part_number'),
+				'interrupted' => $this->input->post('interrupted'),
+				'excluded' => $this->input->post('excluded'),
 				'excluded_reason' => $r == '-1' ? NULL : $r,
-				'comment'  		=> $this->input->post('comment')
+				'comment' => $this->input->post('comment')
 			);
 			$this->participationModel->completed($participation_id, $participation);
 
 			// Add (possible) comment
 			$comment = $this->post_comment($participant->id);
-			if ($comment) $this->commentModel->add_comment($comment);
-			
+			if ($comment)
+				$this->commentModel->add_comment($comment);
+
 			// Mail (possible) technical comment
 			$tech_comment = $this->input->post('tech_comment');
 			if ($tech_comment)
@@ -819,7 +830,7 @@ class Participation extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
-		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
 		$this->email->message($message);
 		$this->email->send();
@@ -839,22 +850,21 @@ class Participation extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails); 
+		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Afspraak verwijderd');
 		$this->email->message($message);
 		$this->email->send();
 	}
-	
-	/** Send a mail to the technical folks */ 
+
+	/** Send a mail to the technical folks */
 	private function send_technical_email($participation_id, $tech_comment)
 	{
 		$participation = $this->participationModel->get_participation_by_id($participation_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
-		
-		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, 
-			NULL, NULL, FALSE, $tech_comment, L::English);
-		
+
+		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, NULL, FALSE, $tech_comment, L::English);
+
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : LAB_EMAIL);
@@ -871,12 +881,13 @@ class Participation extends CI_Controller
 	private function post_comment($participant_id)
 	{
 		$comment = $this->input->post('pp_comment');
-		if (empty($comment)) return NULL;
+		if (empty($comment))
+			return NULL;
 
 		return array(
-				'body'				=> $comment,
-				'participant_id' 	=> $participant_id,
-				'user_id'		 	=> current_user_id()
+			'body' => $comment,
+			'participant_id' => $participant_id,
+			'user_id' => current_user_id()
 		);
 	}
 
@@ -898,8 +909,10 @@ class Participation extends CI_Controller
 		// Exclude empty participations
 		$this->datatables->where('(appointment IS NOT NULL OR cancelled = 1)');
 
-		if ($participant_id) $this->datatables->where('participant_id', $participant_id);
-		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
+		if ($participant_id)
+			$this->datatables->where('participant_id', $participant_id);
+		if ($experiment_id)
+			$this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(participant_id)');
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
@@ -969,7 +982,8 @@ class Participation extends CI_Controller
 			$this->datatables->where('experiment_id IS NULL'); // Do not show any experiments then.
 		}
 		// Filter on experiment id
-		if ($experiment_id) $this->datatables->where('experiment_id', $experiment_id);
+		if ($experiment_id)
+			$this->datatables->where('experiment_id', $experiment_id);
 
 		$this->datatables->edit_column('e', '$1', 'experiment_get_link_by_id(experiment_id)');
 		$this->datatables->edit_column('appointment', '$1', 'output_datetime(appointment)');
@@ -1022,4 +1036,5 @@ class Participation extends CI_Controller
 
 		echo $this->datatables->generate();
 	}
+
 }

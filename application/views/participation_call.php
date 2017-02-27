@@ -16,11 +16,21 @@
 		});
 
 		// Appointment(s) scheduling
-		$( ".appointment" ).datetimepicker({
+		$('input[name="appointment"]').datetimepicker({
 			changeMonth : true,
 			changeYear : true,
 			minDate : '<?=$min_date_js; ?>',
 			maxDate : '<?=$max_date_js; ?>',
+			showOn : 'both',
+			buttonImage : 'images/calendar.png',
+			buttonImageOnly : true,
+			buttonText : 'Pick a date and time'
+		});
+		$('input[name="comb_appointment"]').datetimepicker({
+			changeMonth : true,
+			changeYear : true,
+			minDate : '<?=$comb_min_date_js; ?>',
+			maxDate : '<?=$comb_max_date_js; ?>',
 			showOn : 'both',
 			buttonImage : 'images/calendar.png',
 			buttonImageOnly : true,
@@ -134,7 +144,7 @@
 			});
 		}
 
-		$('.appointment').change(function(){
+		$('input[name="appointment"]').change(function(){
 			checkChosenTime();
 		});
 
