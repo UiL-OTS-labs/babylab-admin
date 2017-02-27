@@ -1,6 +1,8 @@
 <?php
+
 class UserModel extends CI_Model
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -10,10 +12,14 @@ class UserModel extends CI_Model
 	// CRUD-actions
 	/////////////////////////
 
-	/** Returns all users as an array */
+	/** Returns all users (except system users) as an array */
 	public function get_all_users($include_inactive = FALSE)
 	{
-		if (!$include_inactive) $this->db->where('activated IS NOT NULL');
+		if (!$include_inactive)
+		{
+			$this->db->where('activated IS NOT NULL');
+		}
+		$this->db->where('role !=', UserRole::System);
 		return $this->db->get('user')->result();
 	}
 
@@ -30,8 +36,15 @@ class UserModel extends CI_Model
 		$u = $this->get_user_by_id($user_id);
 		if (isset($user['role']) && $user['role'] != $u->role)
 		{
-			if ($u->role === UserRole::Caller) $this->callerModel->delete_callers_by_user($user_id);
-			if ($u->role === UserRole::Leader) $this->leaderModel->delete_leaders_by_user($user_id);
+			if ($u->role === UserRole::Caller)
+			{
+				$this->callerModel->delete_callers_by_user($user_id);
+			}
+
+			if ($u->role === UserRole::Leader)
+			{
+				$this->leaderModel->delete_leaders_by_user($user_id);
+			}
 		}
 
 		$this->db->where('id', $user_id);
@@ -116,13 +129,14 @@ class UserModel extends CI_Model
 	public function set_activate($user_id, $activated)
 	{
 		$this->db->where('id', $user_id);
-		if ($activated) 
+		if ($activated)
 		{
 			$this->db->update('user', array('activated' => input_date()));
 		}
-		else 
+		else
 		{
 			$this->db->update('user', array('activated' => NULL));
 		}
 	}
+
 }
