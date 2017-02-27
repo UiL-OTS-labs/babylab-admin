@@ -1,6 +1,8 @@
 <?php
+
 class ParticipantModel extends CI_Model
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -16,7 +18,11 @@ class ParticipantModel extends CI_Model
 	 */
 	public function get_all_participants($active = FALSE)
 	{
-		if ($active) $this->db->where('activated', TRUE);
+		if ($active)
+		{
+			$this->db->where('activated', TRUE);
+		}
+
 		return $this->db->get('participant')->result();
 	}
 
@@ -108,7 +114,10 @@ class ParticipantModel extends CI_Model
 	 */
 	public function find_participants($experiment, $weeks_ahead = WEEKS_AHEAD)
 	{
-		if ($experiment->archived) return array();
+		if ($experiment->archived)
+		{
+			return array();
+		}
 
 		$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Prerequisite, TRUE);
 		$excludes = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Excludes, TRUE);
@@ -129,7 +138,7 @@ class ParticipantModel extends CI_Model
 					(SELECT 1
 					FROM 	participation AS part
 					WHERE	part.participant_id = p.id
-					AND 	part.completed = 1
+					AND 	part.confirmed = 1
 					AND 	part.experiment_id IN (' . implode(',', $prereqs) . '))', NULL, FALSE);
 		}
 		// not have been participating in an experiment that excludes this experiment
@@ -149,15 +158,15 @@ class ParticipantModel extends CI_Model
 					WHERE	imp.participant_id = p.id
 					AND 	(NOW() BETWEEN imp.from AND imp.to))', NULL, FALSE);
 		// not being risk (depending on the sort of experiment)
-		if ($experiment->dyslexic) 
+		if ($experiment->dyslexic)
 		{
 			$this->db->where('multilingual', FALSE);
 		}
-		if ($experiment->multilingual) 
+		if ($experiment->multilingual)
 		{
 			$this->db->where('dyslexicparent IS NULL');
 		}
-		if (!($experiment->dyslexic || $experiment->multilingual)) 
+		if (!($experiment->dyslexic || $experiment->multilingual))
 		{
 			$this->db->where('multilingual', FALSE);
 			$this->db->where('dyslexicparent IS NULL');
@@ -173,16 +182,16 @@ class ParticipantModel extends CI_Model
 			$age_from = explode(';', age_in_months_and_days($participant->dateofbirth, input_date('+' . $weeks_ahead . ' weeks')));
 			$months_from = $age_from[0];
 			$days_from = $age_from[1];
-			
+
 			$age_to = explode(';', age_in_months_and_days($participant->dateofbirth, input_date()));
 			$months_to = $age_to[0];
 			$days_to = $age_to[1];
 
-			if ($months_from > $experiment->agefrommonths || 
-				($months_from == $experiment->agefrommonths && $days_from >= $experiment->agefromdays))
+			if ($months_from > $experiment->agefrommonths ||
+					($months_from == $experiment->agefrommonths && $days_from >= $experiment->agefromdays))
 			{
-				if ($months_to < $experiment->agetomonths || 
-					($months_to == $experiment->agetomonths && $days_to < $experiment->agetodays))
+				if ($months_to < $experiment->agetomonths ||
+						($months_to == $experiment->agetomonths && $days_to < $experiment->agetodays))
 				{
 					array_push($result, $participant);
 				}
@@ -218,7 +227,7 @@ class ParticipantModel extends CI_Model
 			$this->db->where('(SELECT COUNT(*)
 					FROM 	participation AS part
 					WHERE	part.confirmed = 1
-					AND 	part.participant_id = p.id) = ', $count, FALSE);			
+					AND 	part.participant_id = p.id) = ', $count, FALSE);
 		}
 
 		return $this->db->get()->result();
@@ -241,8 +250,15 @@ class ParticipantModel extends CI_Model
 	/** Returns all 'risk' participants for an experiment */
 	public function get_risk_participants($experiment)
 	{
-		if ($experiment->dyslexic) $this->db->where('dyslexicparent IS NOT NULL');
-		if ($experiment->multilingual) $this->db->where('multilingual', $experiment->multilingual);
+		if ($experiment->dyslexic)
+		{
+			$this->db->where('dyslexicparent IS NOT NULL');
+		}
+		if ($experiment->multilingual)
+		{
+			$this->db->where('multilingual', $experiment->multilingual);
+		}
+
 		return $this->db->get('participant')->result();
 	}
 
@@ -273,8 +289,8 @@ class ParticipantModel extends CI_Model
 	{
 		$this->db->where('id', $participant_id);
 		$this->db->update('participant', array(
-			'activated' 		=> TRUE,
-			'deactivated' 		=> NULL,
+			'activated' => TRUE,
+			'deactivated' => NULL,
 			'deactivated_reason' => NULL));
 	}
 
@@ -283,8 +299,8 @@ class ParticipantModel extends CI_Model
 	{
 		$this->db->where('id', $participant_id);
 		$this->db->update('participant', array(
-			'activated' 		=> FALSE,
-			'deactivated' 		=> input_datetime(),
+			'activated' => FALSE,
+			'deactivated' => input_datetime(),
 			'deactivated_reason' => $reason));
 	}
 
@@ -297,7 +313,10 @@ class ParticipantModel extends CI_Model
 		$this->db->limit(1);
 		$participation = $this->db->get('participation')->row();
 
-		if (empty($participation)) return lang('never_called');
+		if (empty($participation))
+		{
+			return lang('never_called');
+		}
 
 		$last_called = $participation->lastcalled;
 		$experiment_id = $participation->experiment_id;
@@ -310,12 +329,15 @@ class ParticipantModel extends CI_Model
 	public function last_experiment($participant_id)
 	{
 		$this->db->where('participant_id', $participant_id);
-		$this->db->where('completed', TRUE);	// only completed experiments
+		$this->db->where('completed', TRUE); // only completed experiments
 		$this->db->order_by('appointment', 'DESC');
 		$this->db->limit(1);
 		$participation = $this->db->get('participation')->row();
 
-		if (empty($participation)) return lang('never_participated');
+		if (empty($participation))
+		{
+			return lang('never_participated');
+		}
 
 		$last_exp = $participation->appointment;
 		$experiment_id = $participation->experiment_id;
@@ -323,4 +345,5 @@ class ParticipantModel extends CI_Model
 
 		return sprintf(lang('last_exp'), output_date($last_exp), $experiment->name);
 	}
+
 }
