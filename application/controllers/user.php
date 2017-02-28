@@ -1,7 +1,11 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
+
 	// TODO: block ip's after multiple incorrect logins (failed_logins table)
 
 	public function __construct()
@@ -9,7 +13,7 @@ class User extends CI_Controller
 		parent::__construct();
 		$this->authenticate->redirect_except(array(
 			'register', 'register_submit', 'register_finish',
-			'forgot_password', 'forgot_password_submit', 
+			'forgot_password', 'forgot_password_submit',
 			'reset_password', 'reset_password_submit'));
 		reset_language(current_language());
 
@@ -27,9 +31,7 @@ class User extends CI_Controller
 	public function index($show_inactive = FALSE)
 	{
 		$add_url = array('url' => 'user/add', 'title' => lang('add_user'));
-		$active_url = $show_inactive 
-			? array('url' => 'user/index', 'title' => lang('show_active_users')) 
-			: array('url' => 'user/index/1', 'title' => lang('show_inactive_users'));
+		$active_url = $show_inactive ? array('url' => 'user/index', 'title' => lang('show_active_users')) : array('url' => 'user/index/1', 'title' => lang('show_inactive_users'));
 
 		create_user_table();
 		$data['ajax_source'] = 'user/table/' . $show_inactive;
@@ -64,7 +66,10 @@ class User extends CI_Controller
 	 */
 	public function add()
 	{
-		if (!is_admin()) return;
+		if (!is_admin())
+		{
+			return;
+		}
 
 		$data['page_title'] = lang('add_user');
 		$data['action'] = 'user/add_submit';
@@ -83,7 +88,10 @@ class User extends CI_Controller
 	 */
 	public function add_submit()
 	{
-		if (!is_admin()) return;
+		if (!is_admin())
+		{
+			return;
+		}
 
 		// Validation rules
 		$regex = '/^[a-zA-Z0-9_]{1,60}$/';
@@ -117,7 +125,10 @@ class User extends CI_Controller
 	 */
 	public function edit($user_id)
 	{
-		if (!is_admin() && !correct_user($user_id)) return;
+		if (!is_admin() && !correct_user($user_id))
+		{
+			return;
+		}
 
 		$user = $this->userModel->get_user_by_id($user_id);
 
@@ -139,7 +150,10 @@ class User extends CI_Controller
 	 */
 	public function edit_submit($user_id)
 	{
-		if (!is_admin() && !correct_user($user_id)) return;
+		if (!is_admin() && !correct_user($user_id))
+		{
+			return;
+		}
 
 		// Validation rules
 		$this->form_validation->set_rules('email', lang('email'), 'trim|required|valid_email');
@@ -238,19 +252,19 @@ class User extends CI_Controller
 			$user = $this->post_user();
 			$user_id = $this->userModel->add_user($user);
 			$this->userModel->set_activate($user_id, FALSE);
-				
+
 			// E-mail for activation to all admins
 			$u = $this->userModel->get_user_by_id($user_id);
 			$admins = $this->userModel->get_all_admins();
 			foreach ($admins as $admin)
 			{
 				reset_language(user_language($admin));
-					
+
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $admin->email);
 				$this->email->subject(lang('reg_user_subject'));
-					
+
 				$message = sprintf(lang('mail_heading'), $admin->username);
 				$message .= br(2);
 				$message .= sprintf(lang('reg_user_body'), $u->username, $u->email);
@@ -258,7 +272,7 @@ class User extends CI_Controller
 				$message .= lang('mail_ending');
 				$message .= br(2);
 				$message .= lang('mail_disclaimer');
-					
+
 				$this->email->message($message);
 				$this->email->send();
 			}
@@ -300,12 +314,12 @@ class User extends CI_Controller
 
 		// Send activation e-mail to user
 		reset_language(user_language($user));
-			
+
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
 		$this->email->subject(lang('activate_subject'));
-			
+
 		$message = sprintf(lang('mail_heading'), $user->username);
 		$message .= br(2);
 		$message .= sprintf(lang('activate_body'));
@@ -313,7 +327,7 @@ class User extends CI_Controller
 		$message .= lang('mail_ending');
 		$message .= br(2);
 		$message .= lang('mail_disclaimer');
-			
+
 		$this->email->message($message);
 		$this->email->send();
 
@@ -348,12 +362,15 @@ class User extends CI_Controller
 	 */
 	public function change_password($user_id)
 	{
-		if (!correct_user($user_id)) return;
+		if (!correct_user($user_id))
+		{
+			return;
+		}
 
 		$user = $this->userModel->get_user_by_id($user_id);
 
-		$data['user_id'] 	= $user->id;
-		$data['username']	= $user->username;
+		$data['user_id'] = $user->id;
+		$data['username'] = $user->username;
 		$data['page_title'] = lang('change_password');
 
 		$this->load->view('templates/header', $data);
@@ -368,7 +385,10 @@ class User extends CI_Controller
 	 */
 	public function change_password_submit($user_id)
 	{
-		if (!correct_user($user_id)) return;
+		if (!correct_user($user_id))
+		{
+			return;
+		}
 
 		// Validation rules
 		$this->form_validation->set_rules('password_prev', lang('password_prev'), 'required|callback_matches_password[' . $user_id . ']');
@@ -385,7 +405,7 @@ class User extends CI_Controller
 		{
 			// If succeeded, insert data into database (use user model)
 			$user = array(
-					'password' 	=> $this->phpass->hash($this->input->post('password_new'))
+				'password' => $this->phpass->hash($this->input->post('password_new'))
 			);
 			$this->userModel->update_user($user_id, $user);
 
@@ -437,21 +457,21 @@ class User extends CI_Controller
 			$url = bin2hex(openssl_random_pseudo_bytes(8));
 
 			$reset_request = array(
-					'activated'				=> NULL,
-					'resetrequeststring'	=> $url,
-					'resetrequesttime'		=> input_datetime()
+				'activated' => NULL,
+				'resetrequeststring' => $url,
+				'resetrequesttime' => input_datetime()
 			);
 
 			$this->userModel->update_user($user->id, $reset_request);
 
 			// Send out reset e-mail
 			reset_language(user_language($user));
-				
+
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
 			$this->email->subject(lang('resetpw_subject'));
-				
+
 			$message = sprintf(lang('mail_heading'), $user->username);
 			$message .= br(2);
 			$message .= sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url));
@@ -459,7 +479,7 @@ class User extends CI_Controller
 			$message .= lang('mail_ending');
 			$message .= br(2);
 			$message .= lang('mail_disclaimer');
-				
+
 			$this->email->message($message);
 			$this->email->send();
 
@@ -485,8 +505,8 @@ class User extends CI_Controller
 			return;
 		}
 
-		$data['resetstring']	= $resetstring;
-		$data['page_title'] 	= 'Reset password';
+		$data['resetstring'] = $resetstring;
+		$data['page_title'] = 'Reset password';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('user_reset_password_view', $data);
@@ -505,19 +525,21 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('password_conf', lang('password_conf'), 'required');
 
 		// Run validation
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() == FALSE)
+		{
 			// If not succeeded, show form again with error messages
 			$this->reset_password($resetstring);
 		}
-		else {
+		else
+		{
 			$u = $this->userModel->get_user_by_resetstring($resetstring);
 
 			// If succeeded, update password, activate user, and nullify reset request
 			$user = array(
-					'password' 				=> $this->phpass->hash($this->input->post('password_new')),
-					'activated'				=> input_datetime(),
-					'resetrequeststring'	=> NULL,
-					'resetrequesttime'		=> NULL
+				'password' => $this->phpass->hash($this->input->post('password_new')),
+				'activated' => input_datetime(),
+				'resetrequeststring' => NULL,
+				'resetrequesttime' => NULL
 			);
 			$this->userModel->update_user($u->id, $user);
 
@@ -550,8 +572,7 @@ class User extends CI_Controller
 	{
 		// Set current time as signature time
 		$user = array(
-			'needssignature'	=> FALSE,
-			'signed' 			=> input_datetime(),
+			'signed' => input_datetime(),
 		);
 		$this->userModel->update_user(current_user_id(), $user);
 
@@ -573,6 +594,7 @@ class User extends CI_Controller
 		if (is_admin())
 		{
 			$this->form_validation->set_rules('role', lang('role'), 'trim|required');
+			$this->form_validation->set_rules('needssignature', lang('needssignature'), 'trim');
 		}
 
 		$this->form_validation->set_rules('firstname', lang('firstname'), 'trim|required');
@@ -581,7 +603,7 @@ class User extends CI_Controller
 		$this->form_validation->set_rules('mobile', lang('mobile'), 'trim');
 		$this->form_validation->set_rules('preferredlanguage', lang('preferredlanguage'), 'trim|required');
 	}
-	
+
 	/**
 	 * 
 	 * Posts a user (when adding, updating, registering)
@@ -594,28 +616,35 @@ class User extends CI_Controller
 
 		// Create the user
 		$user = array(
-			'role' 				=> $role,
-			'firstname'			=> $this->input->post('firstname'),
-			'lastname'			=> $this->input->post('lastname'),
-			'email'				=> $this->input->post('email'),
-			'phone' 			=> $this->input->post('phone'),
-			'mobile' 			=> $this->input->post('mobile'),
+			'role' => $role,
+			'firstname' => $this->input->post('firstname'),
+			'lastname' => $this->input->post('lastname'),
+			'email' => $this->input->post('email'),
+			'phone' => $this->input->post('phone'),
+			'mobile' => $this->input->post('mobile'),
 			'preferredlanguage' => $this->input->post('preferredlanguage'),
 		);
+		
+		if (is_admin())
+		{
+			$user['needssignature'] = $this->input->post('needssignature');
+		}
 
-		if ($creating) 
+		if ($creating)
 		{
 			$user['username'] = $this->input->post('username');
 			$user['password'] = $this->phpass->hash($this->input->post('password'));
 
-			// Set the role to caller if no role has been specified (i.e. on registering)
-			if (!$role) $role = UserRole::Caller;
+			// Set the role to caller if no role has been specified (i.e. on registering),
+			// and then also make them sign the contract.
+			if (!$role)
+			{
+				$role = UserRole::Caller;
+				$user['needssignature'] = TRUE;
+			}
 			$user['role'] = $role;
-
-			// Callers will need to sign a form
-			$user['needssignature'] = $role === UserRole::Caller;
 		}
-		
+
 		return $user;
 	}
 
@@ -702,7 +731,10 @@ class User extends CI_Controller
 	{
 		$this->datatables->select('username, role, email, phone, mobile, id');
 		$this->datatables->from('user');
-		if (!$show_inactive) $this->datatables->where('activated IS NOT NULL');
+		if (!$show_inactive)
+		{
+			$this->datatables->where('activated IS NOT NULL');
+		}
 
 		$this->datatables->edit_column('username', '$1', 'user_get_link_by_id(id)');
 		$this->datatables->edit_column('role', '$1', 'lang(role)');
@@ -711,4 +743,5 @@ class User extends CI_Controller
 
 		echo $this->datatables->generate();
 	}
+
 }

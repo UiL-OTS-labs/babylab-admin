@@ -1,7 +1,11 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -30,12 +34,12 @@ class Login extends CI_Controller
 
 			$data['page_title'] = lang('login');
 			$data['language'] = $language;
-			if ($this->session->userdata('redirect_back')) 
+			if ($this->session->userdata('redirect_back'))
 			{
-			    $data['referrer'] = $this->session->userdata('redirect_back');  // grab value and put into a temp variable so we unset the session value
-			    $this->session->unset_userdata('redirect_back');
+				$data['referrer'] = $this->session->userdata('redirect_back');  // grab value and put into a temp variable so we unset the session value
+				$this->session->unset_userdata('redirect_back');
 			}
-			
+
 			$this->load->view('templates/header', $data);
 			$this->load->view('login_view', $data);
 			$this->load->view('templates/footer');
@@ -58,9 +62,9 @@ class Login extends CI_Controller
 			// Load language file
 			reset_language(current_language());
 
-			// If a Caller has not yet signed, send him to that form
+			// If a someone has not yet signed, send him to the contract
 			$user = $this->userModel->get_user_by_id(current_user_id());
-			if (is_caller() && $user->needssignature && !$user->signed)
+			if ($user->needssignature && !$user->signed)
 			{
 				redirect('user/sign/');
 			}
@@ -90,17 +94,17 @@ class Login extends CI_Controller
 	/** Switches the role of the current user, if he has that privilege. Returns to the welcome page. */
 	public function switch_to($role)
 	{
-		if (user_role() === UserRole::Admin && in_array($role, array(UserRole::Admin, UserRole::Leader, UserRole::Caller))) 
+		if (user_role() === UserRole::Admin && in_array($role, array(UserRole::Admin, UserRole::Leader, UserRole::Caller)))
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
 		}
-		else if (user_role() === UserRole::Leader && in_array($role, array(UserRole::Leader, UserRole::Caller))) 
+		else if (user_role() === UserRole::Leader && in_array($role, array(UserRole::Leader, UserRole::Caller)))
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
 		}
-		else 
+		else
 		{
 			show_error('Sorry, you are not allowed to do this.');
 		}
@@ -162,12 +166,12 @@ class Login extends CI_Controller
 
 				// Set session data
 				$session_data = array(
-					'username'	=> $username,
-					'user_id'	=> $user->id,
-					'user_role'	=> $user->role,	// Stays the same
-					'role'		=> $role,		// Might be changed when user switches role
-					'logged_in'	=> TRUE,
-					'language'	=> user_language($user)
+					'username' => $username,
+					'user_id' => $user->id,
+					'user_role' => $user->role, // Stays the same
+					'role' => $role, // Might be changed when user switches role
+					'logged_in' => TRUE,
+					'language' => user_language($user)
 				);
 				$this->session->set_userdata($session_data);
 
@@ -182,4 +186,5 @@ class Login extends CI_Controller
 			return FALSE;
 		}
 	}
+
 }

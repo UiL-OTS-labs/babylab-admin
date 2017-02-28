@@ -91,9 +91,11 @@
 
 <script>
 $(function() {
-    // On click of a button, show the next div
+    // On click of a button, show the next div, hide this and the previous buttons
     $("button").click(function() {
         $(this).parent('div').next().show();
+		$(this).hide();
+		$(this).parent('div').prev().find('button').hide();
     });
 });
 </script>

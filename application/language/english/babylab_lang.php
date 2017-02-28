@@ -516,6 +516,7 @@ $lang['phonealt']			= "Alternative phone number";
 $lang['mobile']				= "Mobile";
 $lang['preferredlanguage']	= "Preferred language";
 $lang['admin']				= "Admin";
+$lang['system']				= "System";
 $lang['english']			= "English";
 $lang['dutch']				= "Dutch";
 $lang['u_activated'] 		= "User %s activated.";

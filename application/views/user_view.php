@@ -25,6 +25,12 @@
 		<th><?=lang('preferredlanguage'); ?></th>
 		<td><?=lang(user_language($user)); ?></td>
 	</tr>
+	<?php if ($user->needssignature) { ?>
+	<tr>
+		<th><?=lang('signed'); ?></th>
+		<td><?=$user->signed ? output_datetime($user->signed) : lang('no'); ?></td>
+	</tr>
+	<?php } ?>
 </table>
 
 <!-- Experiments -->

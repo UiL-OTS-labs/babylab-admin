@@ -19,6 +19,11 @@
     <?=form_radio_and_label('role', UserRole::Researcher, $role); ?>
     <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
 </div>
+<div class="pure-control-group">
+	<?=form_label(lang('needssignature'), 'needssignature'); ?>
+	<?=form_radio_and_label('needssignature', '1', $needssignature, lang('yes')); ?>
+	<?=form_radio_and_label('needssignature', '0', $needssignature, lang('no'), TRUE); ?>
+</div>
 <?php } ?>
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>
 <?=form_input_and_label('lastname', $lastname, 'required'); ?>
