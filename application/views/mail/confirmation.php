@@ -8,10 +8,14 @@
 <p>U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong>.</p>
 <?php } ?>
 <p>De locatie is Janskerkhof 13. Eventuele reis- en parkeerkosten worden vergoed.</p>
-<p>Het Janskerkhof 13 heeft helaas geen informatiebalie waar u zich kunt melden. 
-Daarom zal een van de onderzoeksmedewerkers u op het afgesproken tijdstip komen halen. 
-Wanneer u het gebouw binnenkomt, staat u in de hal. 
-Daar staan twee banken, waar u kunt wachten als u wat eerder bent gearriveerd dan het afgesproken tijdstip.</p>
+<p>Wanneer u binnenkomt, kunt u doorlopen naar de <strong>wachtkamer van het Babylab</strong>.
+Deze bevindt zich in de kelder van het pand, in <strong>kamer K.01</strong>.
+Via de borden wordt u de weg gewezen naar de wachtkamer. Wanneer u met een kinderwagen komt, kunt u de route naar de lift volgen.
+Anders kunt u aan het einde van de welkomsthal de trap naar beneden nemen en de weg verder vervolgen met behulp van de borden.
+Let op: het pand heeft erg veel deuren!<br>
+Eén van onze onderzoeksmedewerkers zal u vervolgens op het afgesproken tijdstip op komen halen in de wachtkamer.
+U kunt een kopje koffie of thee pakken wanneer u eerder bent gearriveerd dan het afgesproken tijdstip.
+</p>
 <?php if ($combination) { ?>
 <p>Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten. 
 Het tweede experiment is een <?=$comb_type; ?> en duurt maximaal <?=$comb_duration; ?> minuten. 
