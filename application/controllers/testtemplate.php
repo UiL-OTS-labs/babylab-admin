@@ -1,11 +1,11 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 class TestTemplate extends CI_Controller
 {
-	/////////////////////////
-	// TODO: This controller is far from finished and largely unused. Consider deleting.
-	/////////////////////////
-	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -134,9 +134,7 @@ class TestTemplate extends CI_Controller
 			$this->form_validation->set_rules('test', lang('test'), 'callback_not_zero');
 		}
 
-		$this->form_validation->set_rules('limesurvey_id', lang('limesurvey_id'), 'trim|required|is_natural_no_zero|callback_survey_exists');
-		$this->form_validation->set_rules('whensent', lang('whensent'), 'trim|required');
-		$this->form_validation->set_rules('whennr', lang('whennr'), 'trim|required|is_natural_no_zero');
+		$this->form_validation->set_rules('template', lang('template'), 'trim|required');
 
 		return $this->form_validation->run();
 	}
@@ -144,17 +142,16 @@ class TestTemplate extends CI_Controller
 	/** Posts the data for a testtemplate */
 	private function post_testtemplate($new_testtemplate)
 	{
-		$surveyid = $this->input->post('limesurvey_id');
-		$surveyid = empty($surveyid) ? NULL : $surveyid;
-
 		$testtemplate = array(
-				'test_id'		=> $this->input->post('test'),
-				'limesurvey_id' => $surveyid,
-				'whensent' 		=> $this->input->post('whensent'),
-				'whennr' 		=> $this->input->post('whennr')
+			'test_id' => $this->input->post('test'),
+			'template' => $this->input->post('template'),
+			'language' => L::Dutch, // TODO: actually use this field
 		);
 
-		if (!$new_testtemplate) unset($testtemplate['test_id']);
+		if (!$new_testtemplate)
+		{
+			unset($testtemplate['test_id']);
+		}
 
 		return $testtemplate;
 	}
@@ -174,20 +171,6 @@ class TestTemplate extends CI_Controller
 		return TRUE;
 	}
 
-	/** Checks whether the survey exists */
-	public function survey_exists($survey_id)
-	{
-		$this->load->model('surveyModel');
-		$survey = $this->surveyModel->get_survey_by_id($survey_id);
-
-		if (empty($survey))
-		{
-			$this->form_validation->set_message('survey_exists', lang('survey_does_not_exist'));
-			return FALSE;
-		}
-		return TRUE;
-	}
-
 	/////////////////////////
 	// Table
 	/////////////////////////
@@ -201,7 +184,6 @@ class TestTemplate extends CI_Controller
 
 		$this->datatables->edit_column('t', '$1', 'test_get_link_by_id(test_id)');
 		$this->datatables->edit_column('language', '$1', 'lang(language)');
-		$this->datatables->edit_column('text', '$1', 'synopsis(text)');
 		$this->datatables->edit_column('id', '$1', 'testtemplate_actions(id)');
 
 		$this->datatables->unset_column('test_id');
@@ -215,4 +197,5 @@ class TestTemplate extends CI_Controller
 		$this->datatables->where('test.id', $test_id);
 		$this->table();
 	}
+
 }

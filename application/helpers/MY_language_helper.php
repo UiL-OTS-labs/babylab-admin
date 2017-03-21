@@ -18,6 +18,7 @@ if (!function_exists('reset_language'))
 		$CI->lang->load('test', $language);
 		$CI->lang->load('testinvite', $language);
 		$CI->lang->load('testsurvey', $language);
+		$CI->lang->load('testtemplate', $language);
 		$CI->lang->load('language', $language);
 		$CI->lang->load('dyslexia', $language);
 

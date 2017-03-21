@@ -66,63 +66,63 @@ $(function() {
 		<?=heading(lang('babylab'), 1); ?>
 
 		<?php if (is_admin()) { ?>
-		<div id='cssmenu'>
+		<div id="cssmenu">
 			<ul>
 				<li><?=anchor('welcome', lang('home')); ?></li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('experiments'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('experiments'); ?></a>
 					<ul>
 						<li><?=anchor('experiment', lang('overview')); ?></li>
 						<li><?=anchor('experiment/timeline', lang('timeline')); ?></li>
 						<li><?=anchor('relation', lang('relations')); ?></li>
-						<li class='last'><?=anchor('location', lang('locations')); ?></li>
+						<li class="last"><?=anchor('location', lang('locations')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participations'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('participations'); ?></a>
 					<ul>
 						<li><?=anchor('participation', lang('overview')); ?></li>
 						<li><?=anchor('call', lang('calls')); ?></li>
 						<li><?=anchor('result', lang('results')); ?></li>
 						<li><?=anchor('participation/no_shows', lang('no_shows')); ?></li>
-						<li class='last'><?=anchor('participation/interruptions', lang('interruptions')); ?>
+						<li class="last"><?=anchor('participation/interruptions', lang('interruptions')); ?>
 						</li>
 					</ul>
 				</li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('calendar'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('calendar'); ?></a>
 					<ul>
 						<li><?=anchor('appointment', lang('calendar')); ?></li>
 						<li><?=anchor('availability', lang('availability')); ?></li>
-						<li class='last'><?=anchor('closing', lang('closings')); ?></li>
+						<li class="last"><?=anchor('closing', lang('closings')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('participants'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('participants'); ?></a>
 					<ul>
 						<li><?=anchor('participant', lang('overview')); ?></li>
 						<li><?=anchor('language', lang('languages')); ?></li>
 						<li><?=anchor('dyslexia', lang('dyslexia')); ?></li>
 						<li><?=anchor('impediment', lang('impediments')); ?></li>
-						<li class='last'><?=anchor('comment', lang('comments')); ?></li>
+						<li class="last"><?=anchor('comment', lang('comments')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('users'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('users'); ?></a>
 					<ul>
 						<li><?=anchor('user', lang('overview')); ?></li>
 						<li><?=anchor('caller', lang('callers')); ?></li>
-						<li class='last'><?=anchor('leader', lang('leaders')); ?></li>
+						<li class="last"><?=anchor('leader', lang('leaders')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub'><a href="javascript:void(0)"><?=lang('tests'); ?></a>
+				<li class="has-sub"><a href="javascript:void(0)"><?=lang('tests'); ?></a>
 					<ul>
 						<li><?=anchor('test', lang('overview')); ?></li>
 						<li><?=anchor('testcat', lang('testcats')); ?></li>
 						<li><?=anchor('percentile', lang('percentiles')); ?></li>
-						<li class='last'><?=anchor('score', lang('scores')); ?></li>
+						<li class="last"><?=anchor('score', lang('scores')); ?></li>
 					</ul>
 				</li>
-				<li class='has-sub last'><a href="javascript:void(0)"><?=lang('testsurveys'); ?></a>
+				<li class="has-sub last"><a href="javascript:void(0)"><?=lang('testsurveys'); ?></a>
 					<ul>
 						<li><?=anchor('testsurvey', lang('overview')); ?></li>
-						<li class='last'><?=anchor('testinvite', lang('testinvites')); ?>
-						</li>
+						<li><?=anchor('testinvite', lang('testinvites')); ?></li>
+						<li class="last"><?=anchor('testtemplate', lang('testtemplates')); ?></li>
 					</ul>
 				</li>
 			</ul>
