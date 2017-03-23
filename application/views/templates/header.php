@@ -196,7 +196,6 @@ $(function() {
 			$menu = array(
 			anchor($english ? 'login' : 'inloggen', lang('login')),
 			anchor($english ? 'forgot_password' : 'wachtwoord_vergeten', lang('forgot_password')),
-			anchor($english ? 'register' : 'registreren', lang('reg_user')),
 			anchor($english ? 'signup' : 'aanmelden', lang('reg_pp')),
 			anchor($english ? 'selfservice' : 'selfservice', lang('selfservice')),
 			 	anchor($english ? 'inloggen' : 'login', '<em>' . ($english ? 'Nederlands' : 'English') . '</em>')

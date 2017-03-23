@@ -12,7 +12,6 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		$this->authenticate->redirect_except(array(
-			'register', 'register_submit', 'register_finish',
 			'forgot_password', 'forgot_password_submit',
 			'reset_password', 'reset_password_submit'));
 		reset_language(current_language());
