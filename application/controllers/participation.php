@@ -171,8 +171,8 @@ class Participation extends CI_Controller
 
 			$call_id = $this->callModel->create_call($participation_id);
 			redirect('call/confirm/' . $call_id . '/' .
-					$this->input->post('leader') . '/' .
-					strtotime($this->input->post('appointment')), 'refresh');
+				$this->input->post('leader') . '/' .
+				strtotime($this->input->post('appointment')), 'refresh');
 		}
 	}
 
@@ -486,9 +486,9 @@ class Participation extends CI_Controller
 			$comb_exp = $prereqs ? $this->experimentModel->get_experiment_by_id($prereqs[0]) : FALSE;
 		}
 
-		// Check if participation to combined experiment already exists
+		// Check if (confirmed) participation to combined experiment already exists
 		$comb_part = $comb_exp ? $this->participationModel->get_participation($comb_exp->id, $participant_id) : FALSE;
-		if ($comb_part)
+		if ($comb_part && $comb_part->confirmed)
 		{
 			$comb_exp = FALSE;
 		}

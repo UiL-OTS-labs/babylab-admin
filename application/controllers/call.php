@@ -153,8 +153,8 @@ class Call extends CI_Controller
 			{
 				$comb_experiment = $this->experimentModel->get_experiment_by_id($this->input->post('comb_exp'));
 				$comb_leader = $this->input->post('comb_leader');
-				$comb_participation_id = $this->participationModel->create_participation($comb_experiment, $participant);
 				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
+				$comb_participation_id = $this->participationModel->get_or_create_participation($comb_experiment, $participant);
 				$this->participationModel->confirm($comb_participation_id, $comb_appointment, $comb_leader);
 				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email, $comb_experiment);
 			}
