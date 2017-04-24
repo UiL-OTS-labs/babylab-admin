@@ -1,7 +1,11 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (!defined('BASEPATH'))
+	exit('No direct script access allowed');
 
 class Call extends CI_Controller
 {
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,7 +27,7 @@ class Call extends CI_Controller
 	{
 		create_call_table();
 		$data['ajax_source'] = 'call/table/';
-		$data['sort_column'] = 5;	// Sort on timestart
+		$data['sort_column'] = 5; // Sort on timestart
 		$data['page_title'] = lang('calls');
 
 		$this->load->view('templates/header', $data);
@@ -54,11 +58,12 @@ class Call extends CI_Controller
 	 */
 	public function user($user_id)
 	{
-		if (!is_admin() && !correct_user($user_id)) return;
+		if (!is_admin() && !correct_user($user_id))
+			return;
 
 		create_call_table(NULL, FALSE);
 		$data['ajax_source'] = 'call/table_by_user/' . $user_id;
-		$data['sort_column'] = 5;	// Sort on timestart
+		$data['sort_column'] = 5; // Sort on timestart
 		$data['page_title'] = lang('calls');
 
 		$this->load->view('templates/header', $data);
@@ -74,7 +79,7 @@ class Call extends CI_Controller
 	public function undo($call_id)
 	{
 		$this->check_integrity($call_id);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 
 		$this->callModel->delete_call($call_id);
@@ -91,14 +96,13 @@ class Call extends CI_Controller
 	public function confirm($call_id, $leader = NULL, $appointment = NULL)
 	{
 		$this->check_integrity($call_id);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
-		$this->form_validation->set_rules('appointment', lang('appointment'), 
-                'trim|required|callback_check_closings[' . $experiment->location_id . ']');
-		
+		$this->form_validation->set_rules('appointment', lang('appointment'), 'trim|required|callback_check_closings[' . $experiment->location_id . ']');
+
 		// Run validation
 		if (!$this->form_validation->run() && $appointment == NULL)
 		{
@@ -117,7 +121,7 @@ class Call extends CI_Controller
 				// This is a confirmation of a call, so post the appointment and format it for MySQL.
 				$appointment = input_datetime($this->input->post('appointment'));
 			}
-			else 
+			else
 			{
 				// This is an ad-hoc participation send via url as Unix timestamp, so directly convert to MySQL date.
 				$appointment = date('Y-m-d H:i:s', $appointment);
@@ -149,13 +153,13 @@ class Call extends CI_Controller
 			{
 				$comb_experiment = $this->experimentModel->get_experiment_by_id($this->input->post('comb_exp'));
 				$comb_leader = $this->input->post('comb_leader');
-				$comb_participation_id = $this->participationModel->create_participation($comb_experiment, $participant);
 				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
+				$comb_participation_id = $this->participationModel->get_or_create_participation($comb_experiment, $participant);
 				$this->participationModel->confirm($comb_participation_id, $comb_appointment, $comb_leader);
 				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email, $comb_experiment);
 			}
 			// Else we can send a simple confirmation e-mail
-			else 
+			else
 			{
 				if (!$ad_hoc)
 				{
@@ -164,7 +168,7 @@ class Call extends CI_Controller
 			}
 
 			// If we send a concept, add that to the confirmation message
-			if ($this->input->post('concept')) 
+			if ($this->input->post('concept'))
 			{
 				$flashdata .= br(2) . sprintf(lang('concept_send'), $email, $participant->email);
 			}
@@ -179,7 +183,7 @@ class Call extends CI_Controller
 	public function no_reply($call_id)
 	{
 		$this->check_integrity($call_id);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
@@ -233,7 +237,7 @@ class Call extends CI_Controller
 	public function call_back($call_id)
 	{
 		$this->check_integrity($call_id);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
@@ -252,10 +256,11 @@ class Call extends CI_Controller
 		{
 			// If succeeded, insert data into database
 			$p = array(
-				'status' 			=> ParticipationStatus::Unconfirmed,
-				'call_back_date' 	=> input_date($this->input->post('call_back_date')),
+				'status' => ParticipationStatus::Unconfirmed,
+				'call_back_date' => input_date($this->input->post('call_back_date')),
 				'call_back_comment' => $this->input->post('call_back_comment'),
-				'lastcalled' 		=> input_datetime());
+				'lastcalled' => input_datetime(),
+			);
 
 			$this->callModel->end_call($call_id, CallStatus::CallBack);
 			$this->participationModel->update_participation($participation->id, $p);
@@ -289,17 +294,17 @@ class Call extends CI_Controller
 	public function cancel($call_id)
 	{
 		$this->check_integrity($call_id);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
 		// Add (possible) comment
 		$comment = $this->post_comment($participant->id);
-		if ($comment) 
-        {
-            $this->commentModel->add_comment($comment);
-        }
+		if ($comment)
+		{
+			$this->commentModel->add_comment($comment);
+		}
 
 		// End the call
 		$this->callModel->end_call($call_id, CallStatus::Cancelled);
@@ -319,12 +324,12 @@ class Call extends CI_Controller
 
 		redirect('/participant/find/' . $experiment->id, 'refresh');
 	}
-	
+
 	/** Take over: takes over a call (when someone else is calling, but didn't finish) */
 	public function take_over($call_id)
 	{
 		$this->check_integrity($call_id, TRUE);
-		
+
 		$participation = $this->callModel->get_participation_by_call($call_id);
 
 		$this->callModel->delete_call($call_id);
@@ -332,7 +337,7 @@ class Call extends CI_Controller
 
 		redirect('participation/call/' . $participation->participant_id . '/' . $participation->experiment_id, 'refresh');
 	}
-	
+
 	/**
 	 * 
 	 * Check integrity of a call: 
@@ -345,7 +350,7 @@ class Call extends CI_Controller
 	private function check_integrity($call_id, $take_over = FALSE)
 	{
 		$call = $this->callModel->get_call_by_id($call_id);
-		if (empty($call)) 
+		if (empty($call))
 		{
 			show_error("Call does not exist. It might have been taken over.");
 		}
@@ -366,7 +371,13 @@ class Call extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 		$leader_emails = $this->leaderModel->get_leader_emails_by_experiment($experiment->id);
-		
+
+		if ($comb_exp)
+		{
+			$comb_leader_emails = $this->leaderModel->get_leader_emails_by_experiment($comb_exp->id);
+			$leader_emails = array_unique(array_merge($leader_emails, $comb_leader_emails));
+		}
+
 		$message = email_replace('mail/confirmation', $participant, $participation, $experiment, $testinvite, $comb_exp);
 
 		$this->email->clear();
@@ -396,7 +407,7 @@ class Call extends CI_Controller
 			$this->email->attach('uploads/' . $experiment->informedconsent);
 		}
 		// Add attachment / informed consent of second experiment
-		if ($comb_exp) 
+		if ($comb_exp)
 		{
 			if ($comb_exp->attachment && file_exists('uploads/' . $comb_exp->attachment))
 			{
@@ -461,33 +472,34 @@ class Call extends CI_Controller
 	private function post_comment($participant_id)
 	{
 		$comment = $this->input->post('comment');
-		if (empty($comment)) return NULL;
+		if (empty($comment))
+			return NULL;
 
 		$user_id = current_user_id();
-		if (empty($user_id)) $user_id = system_user_id();
+		if (empty($user_id))
+			$user_id = system_user_id();
 
 		return array(
-				'body'				=> $comment,
-				'participant_id' 	=> $participant_id,
-				'user_id'		 	=> $user_id
+			'body' => $comment,
+			'participant_id' => $participant_id,
+			'user_id' => $user_id
 		);
 	}
 
-    /////////////////////////
-    // Callbacks
-    /////////////////////////
+	/////////////////////////
+	// Callbacks
+	/////////////////////////
 
-    /** Checks whether the given date is within bounds of an existing closing for this location */
-    public function check_closings($date, $location_id)
-    {
-        if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
-        {
-            $this->form_validation->set_message('check_closings', 
-                    sprintf(lang('location_closed'), location_name($location_id)));
-            return FALSE;
-        }
-        return TRUE;
-    }
+	/** Checks whether the given date is within bounds of an existing closing for this location */
+	public function check_closings($date, $location_id)
+	{
+		if ($this->closingModel->within_bounds(input_datetime($date), $location_id))
+		{
+			$this->form_validation->set_message('check_closings', sprintf(lang('location_closed'), location_name($location_id)));
+			return FALSE;
+		}
+		return TRUE;
+	}
 
 	/////////////////////////
 	// Table
@@ -538,7 +550,7 @@ class Call extends CI_Controller
 		// Set the user id, delete the username column
 		$this->datatables->where('user_id', $user_id);
 		$this->datatables->unset_column('username');
-		
+
 		$this->table();
 	}
 
@@ -552,4 +564,5 @@ class Call extends CI_Controller
 		$this->datatables->where('participation_id', $participation_id);
 		$this->table();
 	}
+
 }
