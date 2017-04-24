@@ -76,10 +76,25 @@ if (!function_exists('testinvite_actions'))
 		$scores = $CI->scoreModel->get_scores_by_testinvite($testinvite_id);
 
 		$reminder_available = !$testinvite->datecompleted && $testinvite->datereminder;
-		$reminder_link = anchor('testinvite/manual_reminder/' . $testinvite_id, img_email(lang('manual_reminder'), FALSE));
+		$r_link = anchor('testinvite/manual_reminder/' . $testinvite_id, img_email(lang('manual_reminder'), FALSE));
+		$reminder_link = $reminder_available ? $r_link : img_email('', TRUE);
 
-		$score_link = anchor('score/testinvite/' . $testinvite_id, img_scores(empty($scores)));
-		$reminder_link = $reminder_available ? $reminder_link : img_email('', TRUE);
+		// By default, the score link is an opaque image
+		$score_link = img_scores(TRUE);
+		if ($testinvite->datecompleted)
+		{
+			// If we copied and processed the scores to our database, show them there
+			if ($scores)
+			{
+				$score_link = anchor('score/testinvite/' . $testinvite_id, img_scores());
+			}
+			// Otherwise, return a link to the raw scores in LimeSurvey
+			else
+			{
+				$score_link = anchor(survey_results_link($testinvite_id), img_scores());
+			}
+		}
+		
 		$delete_link = anchor('testinvite/delete/' . $testinvite_id, img_delete(), warning(lang('sure_delete_testinvite')));
 
 		if (is_caller()) $actions = array($reminder_link, $delete_link);
@@ -95,5 +110,30 @@ if (!function_exists('testinvite_results_link'))
 	function testinvite_results_link($testinvite_id, $token)
 	{
 		return anchor('test/results/' . $testinvite_id, $token);
+	}
+}
+
+if (!function_exists('survey_results_link'))
+{
+	/** Returns the link to the results in LimeSurvey */
+	function survey_results_link($testinvite_id)
+	{
+		if (!SURVEY_DEV_MODE)
+		{
+			$CI =& get_instance();
+			$testinvite = $CI->testInviteModel->get_testinvite_by_id($testinvite_id);
+			$testsurvey = $CI->testInviteModel->get_testsurvey_by_testinvite($testinvite);
+
+			$CI->load->model('surveyModel');
+			$result = $CI->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
+			
+			$url = LS_BASEURL . '/admin.php?action=browse&sid=';
+			$url .= $testsurvey->limesurvey_id . '&subaction=id&id=' . $result->id;
+			return $url;
+		}
+		else
+		{
+			return '';
+		}
 	}
 }
