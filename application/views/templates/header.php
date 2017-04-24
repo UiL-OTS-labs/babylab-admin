@@ -154,6 +154,7 @@ $(function() {
 				<li><?=anchor('participation', lang('participations')); ?></li>
 				<li><?=anchor('appointment', lang('calendar')); ?></li>
 				<li><?=anchor('availability', lang('availability')); ?></li>
+				<li><?=anchor('testinvite', lang('testinvites')); ?></li>
 			</ul>
 		</div>
 		<?php } ?>
