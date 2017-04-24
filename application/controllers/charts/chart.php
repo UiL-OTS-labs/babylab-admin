@@ -354,7 +354,7 @@ class Chart extends CI_Controller
 		{
 			if (in_array($score['code'], array('b', 'p')))
 			{
-				if ($score['percentile'] < NCDI_MINIMUM_PERCENTILE)
+				if ($score['percentile'] <= NCDI_MINIMUM_PERCENTILE)
 				{
 					$one = TRUE;
 				}
