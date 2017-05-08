@@ -243,7 +243,7 @@ class Call extends CI_Controller
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
 		$this->form_validation->set_rules('call_back_date', lang('call_back_date'), 'required');
-		$this->form_validation->set_rules('call_back_comment', lang('call_back_comment'), 'trim');
+		$this->form_validation->set_rules('call_back_comment', lang('call_back_comment'), 'trim|max_length[500]');
 
 		// Run validation
 		if (!$this->form_validation->run())

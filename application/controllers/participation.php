@@ -258,7 +258,7 @@ class Participation extends CI_Controller
 	/** Handles the submit of a change the calendar comment of a participation. */
 	public function edit_comment_submit($participation_id)
 	{
-		$this->form_validation->set_rules('calendar_comment', lang('calendar_comment'), 'trim|required|max_length[200]');
+		$this->form_validation->set_rules('calendar_comment', lang('calendar_comment'), 'trim|required|max_length[500]');
 		if (!$this->form_validation->run())
 		{
 			$this->edit_comment($participation_id);
@@ -764,9 +764,9 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('interrupted', lang('interrupted'), 'required');
 		$this->form_validation->set_rules('excluded', lang('excluded'), 'required');
 		$this->form_validation->set_rules('excluded_reason', lang('excluded_reason'), $this->input->post('excluded') ? 'callback_not_default' : 'trim');
-		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required');
-		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim');
-		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim');
+		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required|max_length[500]');
+		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim|max_length[2000]');
+		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim|max_length[500]');
 
 		// Run validation
 		if (!$this->form_validation->run())
