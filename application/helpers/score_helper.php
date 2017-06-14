@@ -160,7 +160,7 @@ if (!function_exists('scores_to_csv'))
 		}
 		
 		// For N-CDI: add parent test categories
-		if ($test_code == 'ncdi_wz') 
+		if (substr($test->code, 0, 4) === 'ncdi') // TODO: magic string
 		{
 			$parent_testcats = $CI->testCatModel->get_testcats_by_test($test->id, TRUE);
 			foreach ($parent_testcats as $parent)
@@ -204,7 +204,7 @@ if (!function_exists('scores_to_csv'))
 			}
 			
 			// For N-CDI: total score data
-			if ($test_code == 'ncdi_wz') 
+			if (substr($test->code, 0, 4) === 'ncdi') // TODO: magic string
 			{
 				$totals = create_ncdi_score_array($test, $testinvite, TRUE);
 				foreach ($totals as $total)

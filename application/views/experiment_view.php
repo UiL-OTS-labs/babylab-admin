@@ -174,8 +174,14 @@
 			$this->load->view('templates/list_view', $testinvites);
 		?>
 		<ul>
-			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/anamnese', sprintf(lang('download_results'), 'Anamnese')); ?></li>
-			<li><?=anchor('experiment/download_scores/' . $experiment->id . '/ncdi_wz', sprintf(lang('download_results'), 'N-CDI')); ?></li>
+			<?php
+				foreach ($downloadable_tests as $test)
+				{
+					echo '<li>';
+					echo anchor('experiment/download_scores/' . $experiment->id . '/' . $test->code, sprintf(lang('download_results'), $test->name));
+					echo '</li>';
+				}
+			?>
 			<?php if ($experiment->dyslexic) { ?>
 				<li><?=anchor('experiment/download_dyslexia/' . $experiment->id, lang('download_dyslexia')); ?></li>
 			<?php } ?>

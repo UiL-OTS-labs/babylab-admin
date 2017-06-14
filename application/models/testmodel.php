@@ -50,4 +50,12 @@ class TestModel extends CI_Model
 	{
 		return $this->db->get_where('test', array('code' => $code))->row();
 	}
+
+	/** Returns all tests for a specific set of codes */
+	public function get_tests_by_codes($codes)
+	{
+		$this->db->where_in('code', $codes);
+		$this->db->order_by('code');
+		return $this->db->get('test')->result();
+	}
 }

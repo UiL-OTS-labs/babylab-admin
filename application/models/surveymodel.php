@@ -187,7 +187,7 @@ class SurveyModel extends CI_Model
 				$token_insert['attribute_' . $n++] = $language->percentage;
 			}
 		}
-		if ($survey_id == 21825 || $survey_id == 23863) // NCDI-WZ / Anam-short (TODO: make this generic?)
+		if (in_array($survey_id, array(86644, 21825, 23863))) // NCDI-WG/WZ / Anam-short (TODO: make this generic?)
 		{
 			$token_insert['attribute_1'] = strtoupper($participant->gender);
 			$token_insert['attribute_2'] = input_date($participant->dateofbirth);
