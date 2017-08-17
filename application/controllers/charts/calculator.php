@@ -82,6 +82,8 @@ class Calculator extends CI_Controller
 			'percentielscore zinnen', 'taalleeftijd zinnen'), ';');
 		
 		$separator = $this->input->post('separator');
+		
+		ini_set('auto_detect_line_endings', '1');  // Also detect Mac line endings
 
 		if (($handle = fopen($filename, 'r')) !== FALSE)
 		{
