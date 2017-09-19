@@ -29,8 +29,8 @@
 		$('input[name="comb_appointment"]').datetimepicker({
 			changeMonth : true,
 			changeYear : true,
-			minDate : '<?=$comb_min_date_js; ?>',
-			maxDate : '<?=$comb_max_date_js; ?>',
+			minDate : '<?=isset($comb_min_date_js) ? $comb_min_date_js : ''; ?>',
+			maxDate : '<?=isset($comb_max_date_js) ? $comb_max_date_js : ''; ?>',
 			showOn : 'both',
 			buttonImage : 'images/calendar.png',
 			buttonImageOnly : true,
