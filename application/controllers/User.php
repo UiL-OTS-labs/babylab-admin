@@ -265,11 +265,11 @@ class User extends CI_Controller
 				$this->email->subject(lang('reg_user_subject'));
 
 				$message = sprintf(lang('mail_heading'), $admin->username);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= sprintf(lang('reg_user_body'), $u->username, $u->email);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_ending');
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_disclaimer');
 
 				$this->email->message($message);
@@ -320,11 +320,11 @@ class User extends CI_Controller
 		$this->email->subject(lang('activate_subject'));
 
 		$message = sprintf(lang('mail_heading'), $user->username);
-		$message .= br(2);
+		$message .= '<br /><br />';
 		$message .= sprintf(lang('activate_body'));
-		$message .= br(2);
+		$message .= '<br /><br />';
 		$message .= lang('mail_ending');
-		$message .= br(2);
+		$message .= '<br /><br />';
 		$message .= lang('mail_disclaimer');
 
 		$this->email->message($message);
@@ -472,11 +472,11 @@ class User extends CI_Controller
 			$this->email->subject(lang('resetpw_subject'));
 
 			$message = sprintf(lang('mail_heading'), $user->username);
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= sprintf(lang('resetpw_body'), anchor(base_url() . 'resetpw/' . $url));
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= lang('mail_ending');
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= lang('mail_disclaimer');
 
 			$this->email->message($message);

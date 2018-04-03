@@ -24,7 +24,7 @@
 			<?php 
 				if ($verify_languages || $verify_dyslexia) 
 				{ 
-					echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+					echo '<p class="warning">'. implode('<br />', array_merge($verify_languages, $verify_dyslexia)) . '</p>';
 				} 
 			?>
 			<table class="pure-table">
@@ -90,7 +90,7 @@
 					$class = $new ? 'warning' : 'info';
 					echo '<div class="' . $class . '"';
 					echo "<p>" . lang('p_not_yet_active') . "</p>";
-					echo "<p>" . lang('reason') . br(); 
+					echo "<p>" . lang('reason') . '<br />';
 					echo lang('reason_' . $reason) . ' (' . output_datetime($participant->deactivated) . ")</p>";
 					if ($new) echo participant_activate_link($participant, lang('activate'));
 					echo "</div>";

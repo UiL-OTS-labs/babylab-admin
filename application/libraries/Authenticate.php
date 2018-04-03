@@ -49,7 +49,9 @@ class Authenticate
 	 */
 	public function logged_in()
 	{
-		return $this->CI->session->userdata('logged_in');
+	    $logged_in = $this->CI->session->userdata('logged_in');
+
+		return !is_null($logged_in) && $logged_in;
 	}
 
 	/**
@@ -59,7 +61,7 @@ class Authenticate
 	 */
 	public function redirect_except($exceptions = array())
 	{
-		$method = $this->CI->router->fetch_method();
+		$method = $this->CI->router->method;
 		
 		if (!$this->logged_in())
 		{

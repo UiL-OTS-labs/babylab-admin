@@ -18,7 +18,7 @@ class SurveyInvite extends CI_Controller
 	 */
 	public function invite()
 	{
-		if (!$this->input->is_cli_request())
+		if (!is_cli())
 		{
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
@@ -65,7 +65,7 @@ class SurveyInvite extends CI_Controller
 	 */
 	public function reminder()
 	{
-		if (!$this->input->is_cli_request())
+		if (!is_cli())
 		{
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
@@ -117,7 +117,7 @@ class SurveyInvite extends CI_Controller
 	 */
 	public function check_completed()
 	{
-		if (!$this->input->is_cli_request())
+		if (!is_cli())
 		{
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
@@ -191,5 +191,5 @@ class SurveyInvite extends CI_Controller
 	}
 }
 
-/* End of file surveyinvite.php */
-/* Location: ./application/controllers/cron/surveyinvite.php */
+/* End of file SurveyInvite.php */
+/* Location: ./application/controllers/cron/SurveyInvite.php */

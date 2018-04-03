@@ -176,7 +176,7 @@ class Participant extends CI_Controller
 		reset_language($language);
 
 		$participant_id = $this->session->userdata('participant_id');
-		$participant = $participant_id ? $this->participantModel->get_participant_by_id($participant_id) : NULL;
+		$participant = !is_null($participant_id) ? $this->participantModel->get_participant_by_id($participant_id) : NULL;
 
 		$data['page_title'] = lang('reg_pp');
 		$data['action'] = $language === L::English ? '/signup_submit/' : '/aanmelden_versturen/';
@@ -259,11 +259,11 @@ class Participant extends CI_Controller
 				$this->email->subject(lang('reg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_ending');
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_disclaimer');
 
 				$this->email->message($message);
@@ -342,11 +342,11 @@ class Participant extends CI_Controller
 				$this->email->subject(lang('dereg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= sprintf(lang('dereg_pp_body'), $name, $dob, $email, $reason);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_ending');
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_disclaimer');
 
 				$this->email->message($message);
@@ -422,7 +422,7 @@ class Participant extends CI_Controller
 		else
 		{
 			$participations = $this->participationModel->get_participations_by_experiment($experiment_id);
-			$info .= ul(array(count($participations) . nbs() . lcfirst(lang('participants')) . '.'));
+			$info .= ul(array(count($participations) . '&nbsp;' . lcfirst(lang('participants')) . '.'));
 		}
 		$data['page_info'] = $info;
 
@@ -541,7 +541,7 @@ class Participant extends CI_Controller
 	public function age_overview()
 	{
 		// Get the number of months to look in the future
-		$date = $this->input->post('date') ? $this->input->post('date') : output_date('now', TRUE);
+		$date = is_null($this->input->post('date')) ? $this->input->post('date') : output_date('now', TRUE);
 
 		// Set up the table 
 		base_table();
@@ -612,11 +612,11 @@ class Participant extends CI_Controller
 			$this->email->subject(lang('dereg_pp_subject'));
 
 			$message = sprintf(lang('mail_heading'), $user->username);
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= sprintf(lang('deac_pp_body'), name($p), $p->phone, current_username(), $url, $url);
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= lang('mail_ending');
-			$message .= br(2);
+			$message .= '<br /><br />';
 			$message .= lang('mail_disclaimer');
 
 			$this->email->message($message);
@@ -800,7 +800,7 @@ class Participant extends CI_Controller
 	public function sum_percentage($percentage)
 	{
 		$multilingual = $this->input->post('multilingual');
-		if (!$multilingual) return TRUE;
+		if (is_null($multilingual)) return TRUE;
 
 		if ($percentage && array_sum($percentage) != 0 && array_sum($percentage) != 100)
 		{
@@ -818,6 +818,9 @@ class Participant extends CI_Controller
 	public function filter_participants()
 	{
 		$term = $this->input->get('term');
+		if(is_null($term))
+		    return json_encode([]);
+
 		$participants = $this->participantModel->find_participants_by_name($term);
 
 		echo json_encode($participants);

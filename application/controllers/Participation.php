@@ -680,7 +680,7 @@ class Participation extends CI_Controller
 			// If succeeded, insert data into database and send e-mail
 			$appointment = input_datetime($this->input->post('appointment'));
 			$this->participationModel->reschedule($participation_id, $appointment);
-			$flashdata = br() . $this->send_reschedule_email($participation_id);
+			$flashdata = '<br />' . $this->send_reschedule_email($participation_id);
 			flashdata(sprintf(lang('part_rescheduled'), name($participant), $experiment->name) . $flashdata);
 			redirect('/participation/experiment/' . $experiment->id, 'refresh');
 		}

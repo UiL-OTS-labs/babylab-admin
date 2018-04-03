@@ -81,7 +81,7 @@ if (!isset($id))
 			foreach ($filter_options as $f) 
 			{
 				echo form_single_checkbox_and_label($f['name'], '1', $f['checked'] ? '1' : '0', FALSE, '', '', TRUE);
-				echo br();
+				echo '<br />';
 			}
 			echo form_submit_only();
 			echo form_close();
