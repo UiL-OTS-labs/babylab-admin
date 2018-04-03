@@ -46,7 +46,7 @@ class TestSurveyModel extends CI_Model
 	}
 
 	/////////////////////////
-	// Tests
+	// tests
 	/////////////////////////
 
 	/** Returns the surveys for a test */

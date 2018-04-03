@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class SelfService extends CI_Controller
+class Selfservice extends CI_Controller
 {
     public function __construct()
     {
@@ -62,7 +62,7 @@ class SelfService extends CI_Controller
             $this->email->send();
 
             flashdata(sprintf(lang('selfservice_mail_sent'), $email));
-            redirect('selfservice');
+            redirect('Selfservice');
         }
     }
 
@@ -82,7 +82,7 @@ class SelfService extends CI_Controller
                     'email'             => $participants[0]->email,
                     'participant_id'    => $participants[0]->id,
                     'language'          => $language,
-                    'selfservice'       => TRUE,
+                    'Selfservice' => TRUE,
             );
             $this->session->set_userdata($session_data);
 
@@ -93,17 +93,17 @@ class SelfService extends CI_Controller
         else
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
-            redirect('selfservice');
+            redirect('Selfservice');
         }
     }
 
     /** Shows the welcome page with actions to change participants. */
     public function welcome() 
     {
-        if (is_null($this->session->userdata('selfservice')))
+        if (is_null($this->session->userdata('Selfservice')))
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
-            redirect('selfservice');
+            redirect('Selfservice');
         }
 
         $participants = $this->participantModel->get_participants_by_email(current_email());
@@ -124,10 +124,10 @@ class SelfService extends CI_Controller
     /** Submits the username and password and redirects based on validation. */
     public function welcome_submit()
     {
-        if (is_null($this->session->userdata('selfservice')))
+        if (is_null($this->session->userdata('Selfservice')))
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
-            redirect('selfservice');
+            redirect('Selfservice');
         }
         
         // If register button is clicked, go to registration
