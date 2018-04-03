@@ -267,22 +267,22 @@ class Appointment extends CI_Controller
 	{
 		$exp_link = lang('experiment') . ': ';
 		$exp_link .= experiment_get_link($experiment);
-		$exp_link .= br();
+		$exp_link .= '<br />';
 
 		$part_link = lang('participant') . ': ';
 		$part_link .= participant_get_link($participant);
-		$part_link .= br();
+		$part_link .= '<br />';
 
 		$loc_link = lang('location') . ': ';
 		$loc_link .= location_get_link_by_id($experiment->location_id);
-		$loc_link .= br();
+		$loc_link .= '<br />';
 
 		$user_link = '';
 		if ($participation->user_id_leader)
 		{
 			$user_link .= lang('leader') . ': ';
 			$user_link .= user_get_link_by_id($participation->user_id_leader);
-			$user_link .= br();
+			$user_link .= '<br />';
 		}
 
 		$comment = '';
@@ -290,7 +290,7 @@ class Appointment extends CI_Controller
 		{
 			$comment .= lang('comment') . ': '; 
 			$comment .= $participation->calendar_comment;
-			$comment .= br(); 
+			$comment .= '<br />';
 		}
 
 		// Show actions only if user the leader of this participation (or if user is admin/caller)

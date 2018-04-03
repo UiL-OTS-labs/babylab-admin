@@ -143,7 +143,7 @@ class Call extends CI_Controller
 			if ($this->input->post('send_anamnese'))
 			{
 				$invites = $this->create_test_invitations($participant);
-				$flashdata .= br() . $invites[0];
+				$flashdata .= '<br />' . $invites[0];
 				$testinvites = $invites[1];
 				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
 			}
@@ -156,21 +156,21 @@ class Call extends CI_Controller
 				$comb_appointment = input_datetime($this->input->post('comb_appointment'));
 				$comb_participation_id = $this->participationModel->get_or_create_participation($comb_experiment, $participant);
 				$this->participationModel->confirm($comb_participation_id, $comb_appointment, $comb_leader);
-				$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email, $comb_experiment);
+				$flashdata .= '<br />' . $this->send_confirmation_email($participation->id, $testinvite, $email, $comb_experiment);
 			}
 			// Else we can send a simple confirmation e-mail
 			else
 			{
 				if (!$ad_hoc)
 				{
-					$flashdata .= br() . $this->send_confirmation_email($participation->id, $testinvite, $email);
+					$flashdata .= '<br />' . $this->send_confirmation_email($participation->id, $testinvite, $email);
 				}
 			}
 
 			// If we send a concept, add that to the confirmation message
 			if ($this->input->post('concept'))
 			{
-				$flashdata .= br(2) . sprintf(lang('concept_send'), $email, $participant->email);
+				$flashdata .= '<br /><br />' . sprintf(lang('concept_send'), $email, $participant->email);
 			}
 
 			// Return to the find participants page with a success message
@@ -223,7 +223,7 @@ class Call extends CI_Controller
 
 			if (!$email_sent && $participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
 			{
-				$flashdata = br() . $this->send_request_participation_email($participation->id);
+				$flashdata = '<br />' . $this->send_request_participation_email($participation->id);
 				$this->callModel->update_call($call_id, CallStatus::Email);
 			}
 

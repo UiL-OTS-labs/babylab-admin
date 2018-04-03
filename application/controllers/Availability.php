@@ -139,8 +139,6 @@ class Availability extends CI_Controller
 
 	public function table($include_past = FALSE)
 	{
-		$id = $this->session->userdata('user_id');
-
 		$this->datatables->select('from, comment, id');
 		$this->datatables->from('availability');
 		$this->datatables->where("`user_id` = '" . $this->session->userdata('user_id') . "'");

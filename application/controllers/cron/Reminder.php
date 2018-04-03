@@ -18,7 +18,7 @@ class Reminder extends CI_Controller
 	 */
 	public function appointments()
 	{
-		if (!$this->input->is_cli_request())
+		if (!is_cli())
 		{
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
@@ -52,7 +52,7 @@ class Reminder extends CI_Controller
 	 */
 	public function callers()
 	{
-		if (!$this->input->is_cli_request())
+		if (!is_cli())
 		{
 			echo "This script can only be accessed via the command line" . PHP_EOL;
 			return;
@@ -82,12 +82,12 @@ class Reminder extends CI_Controller
 			if ($call_messages)
 			{
 				$message = sprintf(lang('mail_heading'), $user->username);
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('rem_body');
-				$message .= br(1);
+				$message .= '<br />';
 				$message .= ul($call_messages);
 				$message .= lang('mail_ending');
-				$message .= br(2);
+				$message .= '<br /><br />';
 				$message .= lang('mail_disclaimer');
 
 				$this->email->message($message);
@@ -98,5 +98,5 @@ class Reminder extends CI_Controller
 	}
 }
 
-/* End of file reminder.php */
-/* Location: ./application/controllers/cron/reminder.php */
+/* End of file Reminder.php */
+/* Location: ./application/controllers/cron/Reminder.php */

@@ -100,7 +100,7 @@ class SelfService extends CI_Controller
     /** Shows the welcome page with actions to change participants. */
     public function welcome() 
     {
-        if (!$this->session->userdata('selfservice'))
+        if (is_null($this->session->userdata('selfservice')))
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
             redirect('selfservice');
@@ -124,7 +124,7 @@ class SelfService extends CI_Controller
     /** Submits the username and password and redirects based on validation. */
     public function welcome_submit()
     {
-        if (!$this->session->userdata('selfservice'))
+        if (is_null($this->session->userdata('selfservice')))
         {
             flashdata(lang('selfservice_incorrect_url'), FALSE);
             redirect('selfservice');

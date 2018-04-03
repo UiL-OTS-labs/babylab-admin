@@ -12,9 +12,9 @@
 <?=form_input('to', '', 'id="to" readonly placeholder="'. lang('to_date') . '"'); ?>
 <?=form_input('comment', '', 'placeholder="' . lang('comment') . '"'); ?>
 <?php if (isset($participants)) {
-	echo br(2);
+	echo '<br /><br />';
 	echo form_dropdown_and_label('participant', $participants, array(), 'class="chosen-select"');
-	echo br(2);
+	echo '<br /><br />';
 } ?>
 
 <?=form_submit_only(); ?>

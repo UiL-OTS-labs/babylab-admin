@@ -215,7 +215,7 @@
 			<?php 
 				if ($verify_languages || $verify_dyslexia) 
 				{ 
-					echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+					echo '<p class="warning">'. implode('<br />', array_merge($verify_languages, $verify_dyslexia)) . '</p>';
 				} 
 			?>
 	
