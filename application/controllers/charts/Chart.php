@@ -251,7 +251,7 @@ class Chart extends CI_Controller
 
 	/**
 	 * Adds scores to a testInvite and sets it as completed.
-	 * @param testInvite $testinvite
+	 * @param Testinvite $testinvite
 	 * @param array $result
 	 * @param date $date_completed
 	 */

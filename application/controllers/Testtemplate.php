@@ -3,7 +3,7 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 
-class TestTemplate extends CI_Controller
+class Testtemplate extends CI_Controller
 {
 
 	public function __construct()

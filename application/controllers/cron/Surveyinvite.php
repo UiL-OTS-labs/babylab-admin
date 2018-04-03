@@ -1,5 +1,5 @@
 <?php
-class SurveyInvite extends CI_Controller
+class Surveyinvite extends CI_Controller
 {
 	// cron job (crontab -e):
 	// 0 9 *   *   *     php /var/www/babylab/index.php cron/surveyinvite invite
@@ -191,5 +191,5 @@ class SurveyInvite extends CI_Controller
 	}
 }
 
-/* End of file SurveyInvite.php */
-/* Location: ./application/controllers/cron/SurveyInvite.php */
+/* End of file Surveyinvite.php */
+/* Location: ./application/controllers/cron/Surveyinvite.php */

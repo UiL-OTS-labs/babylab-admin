@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class TestSurvey extends CI_Controller
+class Testsurvey extends CI_Controller
 {
 	public function __construct()
 	{
