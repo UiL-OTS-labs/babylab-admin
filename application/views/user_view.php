@@ -41,7 +41,7 @@ if (is_admin())
 	create_experiment_table('experiments');
 	$experiments['id'] = 'experiments';
 	$experiments['ajax_source'] = 'experiment/table_by_user/' . $user->id;
-	echo $this->load->view('templates/list_view', $experiments);
+	echo $this->load->view('templates/list_view', $experiments, true);
 }
 ?>
 
@@ -51,7 +51,7 @@ if (is_admin())
 	create_comment_table('comments');
 	$comments['id'] = 'comments';
 	$comments['ajax_source'] = 'comment/table_by_user/' . $user->id;
-	echo $this->load->view('templates/list_view', $comments);
+	echo $this->load->view('templates/list_view', $comments, true);
 ?>
 
 <!-- Calls -->
@@ -64,6 +64,6 @@ if (is_admin())
 		$calls['sort_column'] = 4;
 		$calls['sort_order'] = 'desc';
 		$calls['ajax_source'] = 'call/table_by_user/' . $user->id;
-		echo $this->load->view('templates/list_view', $calls);
+		echo $this->load->view('templates/list_view', $calls, true);
 	}
 ?>
