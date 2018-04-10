@@ -418,8 +418,8 @@
 			create_impediment_table('impediments');
 			$impediments['id'] = 'impediments';
 			$impediments['ajax_source'] = 'impediment/table/1/' . $participant->id;
-			echo $this->load->view('templates/list_view', $impediments);
-			echo $this->load->view('impediment_add_view', $impediments);
+			echo $this->load->view('templates/list_view', $impediments, true);
+			echo $this->load->view('impediment_add_view', $impediments, true);
 		?>
 	</div>
 
@@ -430,8 +430,8 @@
 			create_comment_table('comments');
 			$comments['id'] = 'comments';
 			$comments['ajax_source'] = 'comment/table/0/0/' . $participant->id;
-			echo $this->load->view('templates/list_view', $comments);
-			echo $this->load->view('comment_add_view'); 
+			echo $this->load->view('templates/list_view', $comments, true);
+			echo $this->load->view('comment_add_view', '', true);
 		?>
 	</div>
 
@@ -442,7 +442,7 @@
 			create_participation_table('participations');
 			$participations['id'] = 'participations';
 			$participations['ajax_source'] = 'participation/table/' . $participant->id;
-			echo $this->load->view('templates/list_view', $participations); 
+			echo $this->load->view('templates/list_view', $participations, true);
 		?>
 	</div>
 </div>
