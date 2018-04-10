@@ -1,7 +1,7 @@
 <html>
 <body>
 <p>Dear lab staff,</p>
-<p>A technical report was just filed by <em><?=$user_username; ?></em> at <a href="https://babylab-admin.hum.uu.nl">the Babylab admin interface</a>. 
+<p>A technical report was just filed by <em><?=$user_username; ?></em> at <a href="https://babylab-admin2.hum.uu.nl">the Babylab admin interface</a>.
 The following problem was reported:</p>
 <p><em><?=$message; ?></em></p>
 <p>Details of the participation:</p>
