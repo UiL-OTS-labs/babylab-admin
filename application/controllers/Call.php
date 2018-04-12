@@ -382,15 +382,15 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
-		$this->email->bcc(in_development() ? TO_EMAIL_OVERRIDE : $leader_emails);
+		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $email);
+		$this->email->bcc(in_development() ? TO_EMAIL_DEV_MODE : $leader_emails);
 		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		$this->add_attachments($experiment, $comb_exp);
 
 		$this->email->send();
 
-		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $email);
+		return sprintf(lang('confirmation_sent'), in_development() ? TO_EMAIL_DEV_MODE : $email);
 	}
 
 	/** Adds the correct attachments for an experiment and possibly a combination experiment */
@@ -431,7 +431,7 @@ class Call extends CI_Controller
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-		$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
 		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
 		// Add attachment
@@ -441,7 +441,7 @@ class Call extends CI_Controller
 		}
 		$this->email->send();
 
-		return sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+		return sprintf(lang('request_participation_sent'), in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
 	}
 
 	/** Create test invitations (based on number of participations), 

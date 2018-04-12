@@ -234,7 +234,7 @@ class Participant extends CI_Controller
 			// Send confirmation e-mail to participant
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $p->email);
+			$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $p->email);
 			$this->email->subject(lang('reg_subject'));
 
 			$message = '<p>' . sprintf(lang('mail_heading'), parent_name($p)) . '</p>';
@@ -255,7 +255,7 @@ class Participant extends CI_Controller
 
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
+				$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $user->email);
 				$this->email->subject(lang('reg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
@@ -338,7 +338,7 @@ class Participant extends CI_Controller
 
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
+				$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $user->email);
 				$this->email->subject(lang('dereg_pp_subject'));
 
 				$message = sprintf(lang('mail_heading'), $user->username);
@@ -608,7 +608,7 @@ class Participant extends CI_Controller
 
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
+			$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $user->email);
 			$this->email->subject(lang('dereg_pp_subject'));
 
 			$message = sprintf(lang('mail_heading'), $user->username);
