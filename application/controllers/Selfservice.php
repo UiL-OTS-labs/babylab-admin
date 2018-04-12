@@ -56,7 +56,7 @@ class Selfservice extends CI_Controller
 
             $this->email->clear();
             $this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-            $this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $email);
+            $this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $email);
             $this->email->subject(lang('selfservice_mail_subject'));
             $this->email->message($message);
             $this->email->send();

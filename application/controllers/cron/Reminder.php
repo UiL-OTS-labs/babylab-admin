@@ -38,7 +38,7 @@ class Reminder extends CI_Controller
 		
 				$this->email->clear();
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-				$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $participant->email);
+				$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
 				$this->email->subject('Babylab Utrecht: Herinnering deelname');
 				$this->email->message($message);
 				$this->email->send();
@@ -65,7 +65,7 @@ class Reminder extends CI_Controller
 
 			$this->email->clear();
 			$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
-			$this->email->to(in_development() ? TO_EMAIL_OVERRIDE : $user->email);
+			$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $user->email);
 			$this->email->subject(lang('rem_subject'));
 
 			$call_messages = array();
