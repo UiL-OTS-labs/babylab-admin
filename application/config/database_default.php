@@ -48,11 +48,11 @@
 $active_group = 'default';
 $query_builder = TRUE;
 
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'mysql:host=localhost;dbname=babylab';
 $db['default']['username'] = '';
 $db['default']['password'] = '';
 $db['default']['database'] = '';
-$db['default']['dbdriver'] = 'mysqli';
+$db['default']['dbdriver'] = 'pdo';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
