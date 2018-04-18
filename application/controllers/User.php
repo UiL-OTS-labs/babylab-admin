@@ -696,7 +696,7 @@ class User extends CI_Controller
 		$user = $this->userModel->get_user_by_email($email);
 		if ($user != NULL && $user->id != $user_id)
 		{
-			$this->form_validation->set_message('unique_email', lang('is_unique'));
+			$this->form_validation->set_message('unique_email', lang('form_validation_is_unique'));
 			return FALSE;
 		}
 		return TRUE;

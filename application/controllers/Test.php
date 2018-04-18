@@ -222,7 +222,7 @@ class Test extends CI_Controller
 		$test = $this->testModel->get_test_by_code($code);
 		if ($test && $test->id != $test_id)
 		{
-			$this->form_validation->set_message('unique_code', lang('is_unique'));
+			$this->form_validation->set_message('unique_code', lang('form_validation_is_unique'));
 			return FALSE;
 		}
 		return TRUE;

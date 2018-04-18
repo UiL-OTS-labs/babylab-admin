@@ -193,7 +193,7 @@ class Testcat extends CI_Controller
 	{
 		if (intval($value) < 0)
 		{
-			$this->form_validation->set_message('not_zero', lang('isset'));
+			$this->form_validation->set_message('not_zero', lang('form_validation_isset'));
 			return FALSE;
 		}
 		return TRUE;

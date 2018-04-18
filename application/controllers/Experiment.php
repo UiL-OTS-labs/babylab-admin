@@ -577,7 +577,7 @@ class Experiment extends CI_Controller
 		$pattern = "/^[a-zA-Z]{2}\.?\d{6}\.?\d$/";
 		if (!preg_match($pattern, $str))
 		{
-			$this->form_validation->set_message('wbs_check', lang('wbs_check'));
+			$this->form_validation->set_message('wbs_check', lang('form_validation_wbs_check'));
 			return FALSE;
 		} 
 		return TRUE;
