@@ -152,11 +152,8 @@ class Login extends CI_Controller
 			}
 			else
 			{
-				// Destroy old session
-				$this->session->sess_destroy();
-
-				// Create a fresh, brand new session
-				$this->session->sess_create();
+				// Regenerate session
+				$this->session->sess_regenerate();
 
 				// Remove the password field
 				unset($user->password);
