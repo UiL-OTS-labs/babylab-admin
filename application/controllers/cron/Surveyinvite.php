@@ -25,10 +25,10 @@ class Surveyinvite extends CI_Controller
 		}
 
 		// Set the language to Dutch (TODO: set to language of participant?)
-		reset_language(L::Dutch);
+		reset_language(L::DUTCH);
 
 		// Get all age-based testsurveys (definitions of when tests should be sent)
-		$testsurveys = $this->testSurveyModel->get_testsurveys_by_when(TestWhenSent::Months);
+		$testsurveys = $this->testSurveyModel->get_testsurveys_by_when(TestWhenSent::MONTHS);
 		foreach ($testsurveys as $testsurvey)
 		{
 			// Find all participants of the correct age
@@ -72,7 +72,7 @@ class Surveyinvite extends CI_Controller
 		}
 
 		// Set the language to Dutch (TODO: set to language of participant?)
-		reset_language(L::Dutch);
+		reset_language(L::DUTCH);
 
 		// Get all testinvites that have not yet been reminded
 		$testinvites = $this->testInviteModel->get_not_reminded_testinvites(); 
@@ -95,7 +95,7 @@ class Surveyinvite extends CI_Controller
 			if ($diff_days >= SEND_REMINDER_AFTER_DAYS)
 			{
 				$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-				$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
+				$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::DUTCH);
 				$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 
 				$message = email_replace($template->template . '_reminder', $participant, NULL, NULL, $testinvite);
@@ -124,7 +124,7 @@ class Surveyinvite extends CI_Controller
 		}
 
 		// Set the language to Dutch (TODO: set to language of participant?)
-		reset_language(L::Dutch);
+		reset_language(L::DUTCH);
 
 		// Get all testinvites that have not yet been completed
 		$testinvites = $this->testInviteModel->get_not_completed_testinvites(); 

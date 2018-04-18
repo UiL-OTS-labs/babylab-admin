@@ -6,7 +6,7 @@ if (!function_exists('email_testinvite'))
 	{
 		$CI =& get_instance();
 		$test = $CI->testInviteModel->get_test_by_testinvite($testinvite);
-		$template = $CI->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch); // TODO: set to current language?
+		$template = $CI->testTemplateModel->get_testtemplate_by_test($test->id, L::DUTCH); // TODO: set to current language?
 		$email = $concept ? TO_EMAIL_OVERRIDE : $participant->email;
 
 		$message = email_replace($template->template, $participant, NULL, NULL, $testinvite, NULL, $auto);
@@ -29,7 +29,7 @@ if (!function_exists('email_replace'))
 	 * TODO: refactor to use less parameters (all in one array)?
 	 */
 	function email_replace($view, $participant = NULL, $participation = NULL, $experiment = NULL, 
-		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "", $language = L::Dutch)
+		$testinvite = NULL, $comb_experiment = NULL, $auto = FALSE, $message = "", $language = L::DUTCH)
 	{
 		$CI =& get_instance();
 		$user = $CI->userModel->get_user_by_id(current_user_id());
@@ -91,8 +91,8 @@ if (!function_exists('email_replace'))
 			$comb_participation = $CI->participationModel->get_participation($comb_experiment->id, $participant->id);
 			$relation = $CI->relationModel->get_relation_by_experiments($experiment->id, $comb_experiment->id);
 
-			$message_data['combination']		= $relation->relation === RelationType::Combination;
-			$message_data['longitudinal']		= $relation->relation === RelationType::Prerequisite;
+			$message_data['combination']		= $relation->relation === RelationType::COMBINATION;
+			$message_data['longitudinal']		= $relation->relation === RelationType::PREREQUISITE;
 			$message_data['comb_exp_name']		= $comb_experiment->name;
 			$message_data['comb_type'] 			= $comb_experiment->type;
 			$message_data['comb_duration'] 		= $comb_experiment->duration;

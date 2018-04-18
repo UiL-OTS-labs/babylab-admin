@@ -26,7 +26,7 @@ class Test extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -185,7 +185,7 @@ class Test extends CI_Controller
 			$data['test'] = $test;
 
 			$this->load->view('templates/header', $data);
-			$this->authenticate->authenticate_redirect('test_results_view', $data, UserRole::Leader);
+			$this->authenticate->authenticate_redirect('test_results_view', $data, UserRole::LEADER);
 			$this->load->view('templates/footer');
 		}
 	}

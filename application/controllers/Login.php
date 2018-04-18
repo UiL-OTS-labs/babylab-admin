@@ -20,7 +20,7 @@ class Login extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the default page. */
-	public function index($language = L::Dutch)
+	public function index($language = L::DUTCH)
 	{
 		// If logged in, redirect to the home pages per role
 		if (current_user_id() > 0)
@@ -47,7 +47,7 @@ class Login extends CI_Controller
 	}
 
 	/** Submits the username and password and redirects based on validation. */
-	public function submit($language = L::Dutch)
+	public function submit($language = L::DUTCH)
 	{
 		// Login = NOT OK -> destroy session and return to login form
 		if (!$this->validate($language))
@@ -90,18 +90,18 @@ class Login extends CI_Controller
 		$language = current_language();
 		if(session_exists())
 		    $this->session->sess_destroy();
-		redirect($language == L::Dutch ? 'inloggen' : 'login');
+		redirect($language == L::DUTCH ? 'inloggen' : 'login');
 	}
 
 	/** Switches the role of the current user, if he has that privilege. Returns to the welcome page. */
 	public function switch_to($role)
 	{
-		if (user_role() === UserRole::Admin && in_array($role, array(UserRole::Admin, UserRole::Leader, UserRole::Caller)))
+		if (user_role() === UserRole::ADMIN && in_array($role, array(UserRole::ADMIN, UserRole::LEADER, UserRole::CALLER)))
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
 		}
-		else if (user_role() === UserRole::Leader && in_array($role, array(UserRole::Leader, UserRole::Caller)))
+		else if (user_role() === UserRole::LEADER && in_array($role, array(UserRole::LEADER, UserRole::CALLER)))
 		{
 			$this->session->set_userdata(array('role' => $role));
 			redirect('welcome');
@@ -164,7 +164,7 @@ class Login extends CI_Controller
 				unset($user->password);
 
 				// Set role to leader if researcher (to simplify checking later on)
-				$role = $user->role === UserRole::Researcher ? UserRole::Leader : $user->role;
+				$role = $user->role === UserRole::RESEARCHER ? UserRole::LEADER : $user->role;
 
 				// Set session data
 				$session_data = array(

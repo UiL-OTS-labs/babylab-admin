@@ -17,7 +17,7 @@
 <!-- Date / Timepicker -->
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if (current_language() === L::DUTCH) { ?>
 	<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
 	<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
 <?php } else { ?>
@@ -25,7 +25,7 @@
 <?php } ?>
 <!-- Validate -->
 <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if (current_language() === L::DUTCH) { ?>
 	<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_nl.js"></script>
 <?php } ?>
 <script type="text/javascript">$(function() {$('form').validate();});</script>
@@ -168,17 +168,17 @@ $(function() {
 			echo " | ";
 			echo anchor('user/change_password/' . current_user_id(), lang('change_password'));
 			echo " | ";
-			if (user_role() === UserRole::Admin && !is_admin()) 
+			if (user_role() === UserRole::ADMIN && !is_admin())
 			{
 				echo anchor('login/switch_to/admin', lang('login_admin'));
 				echo " | ";
 			}
-			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_leader()) 
+			if ((user_role() === UserRole::ADMIN || user_role() === UserRole::LEADER) && !is_leader())
 			{
 				echo anchor('login/switch_to/leader', lang('login_leader'));
 				echo " | ";
 			}
-			if ((user_role() === UserRole::Admin || user_role() === UserRole::Leader) && !is_caller())
+			if ((user_role() === UserRole::ADMIN || user_role() === UserRole::LEADER) && !is_caller())
 			{
 				echo anchor('login/switch_to/caller', lang('login_caller'));
 				echo " | ";
@@ -193,7 +193,7 @@ $(function() {
 			class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-custom">
 			<a href="" class="pure-menu-heading"><?=lang('babylab'); ?> </a>
 			<?php
-			$english = !isset($language) || $language === L::English;
+			$english = !isset($language) || $language === L::ENGLISH;
 			$menu = array(
 			anchor($english ? 'login' : 'inloggen', lang('login')),
 			anchor($english ? 'forgot_password' : 'wachtwoord_vergeten', lang('forgot_password')),

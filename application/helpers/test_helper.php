@@ -57,7 +57,7 @@ if (!function_exists('test_when'))
 	/** Returns an option list of tests */
 	function test_when($whensent, $whennr)
 	{
-		$nr = $whensent === TestWhenSent::Participation ? $whennr . 'e' : $whennr;
+		$nr = $whensent === TestWhenSent::PARTICIPATION ? $whennr . 'e' : $whennr;
 		return $nr . ' ' . lcfirst(lang($whensent));
 	}
 }

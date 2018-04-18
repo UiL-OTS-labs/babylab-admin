@@ -10,7 +10,7 @@ class Calculator extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		reset_language(L::Dutch);
+		reset_language(L::DUTCH);
 		$this->load->model('NCDICheckModel');
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -104,7 +104,7 @@ class Calculator extends CI_Controller
 							'p_number' 		=> $data[0],
 							'ageinmonths' 	=> $ageinmonths,
 							'ageinmonthsdays' 	=> $ageinmonthsdays,
-							'gender'		=> $data[3] === 'M' ? Gender::Male : Gender::Female,
+							'gender'		=> $data[3] === 'M' ? Gender::MALE : Gender::FEMALE,
 							'b_score'		=> intval($data[4]),
 							'p_score'		=> intval($data[5]),
 							'w_score'		=> intval($data[6]),

@@ -130,7 +130,7 @@ class Call extends CI_Controller
 			}
 
 			// End the call, confirm the participation
-			$this->callModel->end_call($call_id, CallStatus::Confirmed);
+			$this->callModel->end_call($call_id, CallStatus::CONFIRMED);
 			$this->participationModel->confirm($participation->id, $appointment, $leader_id);
 			$this->participationModel->release_lock($participation->id);
 
@@ -201,7 +201,7 @@ class Call extends CI_Controller
 		{
 			// If succeeded, insert data into database
 			$message = $this->input->post('message');
-			$message = $message === 'none' ? CallStatus::NoReply : $message;
+			$message = $message === 'none' ? CallStatus::NO_REPLY : $message;
 
 			$this->callModel->end_call($call_id, $message);
 			$this->participationModel->no_reply($participation->id);
@@ -218,13 +218,13 @@ class Call extends CI_Controller
 			$email_sent = FALSE;
 			foreach ($calls as $call)
 			{
-				$email_sent |= $call->status == CallStatus::Email;
+				$email_sent |= $call->status == CallStatus::EMAIL;
 			}
 
 			if (!$email_sent && $participation->nrcalls == SEND_REQUEST_AFTER_CALLS)
 			{
 				$flashdata = '<br />' . $this->send_request_participation_email($participation->id);
-				$this->callModel->update_call($call_id, CallStatus::Email);
+				$this->callModel->update_call($call_id, CallStatus::EMAIL);
 			}
 
 			// Set the flashdata and redirect
@@ -256,13 +256,13 @@ class Call extends CI_Controller
 		{
 			// If succeeded, insert data into database
 			$p = array(
-				'status' => ParticipationStatus::Unconfirmed,
+				'status' => ParticipationStatus::UNCONFIRMED,
 				'call_back_date' => input_date($this->input->post('call_back_date')),
 				'call_back_comment' => $this->input->post('call_back_comment'),
 				'lastcalled' => input_datetime(),
 			);
 
-			$this->callModel->end_call($call_id, CallStatus::CallBack);
+			$this->callModel->end_call($call_id, CallStatus::CALL_BACK);
 			$this->participationModel->update_participation($participation->id, $p);
 			$this->participationModel->release_lock($participation->id);
 
@@ -281,7 +281,7 @@ class Call extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation->id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation->id);
 
-		$this->callModel->end_call($call_id, CallStatus::Email);
+		$this->callModel->end_call($call_id, CallStatus::EMAIL);
 		$this->participationModel->no_reply($participation->id);
 		$this->participationModel->release_lock($participation->id);
 
@@ -307,14 +307,14 @@ class Call extends CI_Controller
 		}
 
 		// End the call
-		$this->callModel->end_call($call_id, CallStatus::Cancelled);
+		$this->callModel->end_call($call_id, CallStatus::CANCELLED);
 		$this->participationModel->cancel($participation->id, TRUE);
 		$this->participationModel->release_lock($participation->id);
 
 		// Deactivate the participant
 		if ($this->input->post('never_again'))
 		{
-			$this->participantModel->deactivate($participant->id, DeactivateReason::DuringCall);
+			$this->participantModel->deactivate($participant->id, DeactivateReason::DURING_CALL);
 			flashdata(sprintf(lang('part_cancelled_complete'), name($participant), $experiment->name, name($participant)));
 		}
 		else

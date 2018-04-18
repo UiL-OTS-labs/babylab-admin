@@ -119,8 +119,8 @@ class ParticipantModel extends CI_Model
 			return array();
 		}
 
-		$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Prerequisite, TRUE);
-		$excludes = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Excludes, TRUE);
+		$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::PREREQUISITE, TRUE);
+		$excludes = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::EXCLUDES, TRUE);
 
 		$this->db->from('participant AS p', FALSE);
 		$this->db->where('activated', TRUE);
@@ -215,13 +215,13 @@ class ParticipantModel extends CI_Model
 					AND 	ti.testsurvey_id  = ' . $testsurvey->id . ')', NULL, FALSE);
 
 		// Check whether the age / the number of participations is according to the testsurvey
-		if ($testsurvey->whensent == TestWhenSent::Months)
+		if ($testsurvey->whensent == TestWhenSent::MONTHS)
 		{
 			$months = $testsurvey->whennr;
 			$this->db->where('TIMESTAMPDIFF(MONTH, dateofbirth, CURDATE()) >= ', $months - 1);
 			$this->db->where('TIMESTAMPDIFF(MONTH, dateofbirth, CURDATE()) <= ', $months);
 		}
-		else if ($testsurvey->whensent == TestWhenSent::Participation)
+		else if ($testsurvey->whensent == TestWhenSent::PARTICIPATION)
 		{
 			$count = $testsurvey->whennr;
 			$this->db->where('(SELECT COUNT(*)

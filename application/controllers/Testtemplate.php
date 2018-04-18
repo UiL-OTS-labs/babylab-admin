@@ -30,7 +30,7 @@ class Testtemplate extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -145,7 +145,7 @@ class Testtemplate extends CI_Controller
 		$testtemplate = array(
 			'test_id' => $this->input->post('test'),
 			'template' => $this->input->post('template'),
-			'language' => L::Dutch, // TODO: actually use this field
+			'language' => L::DUTCH, // TODO: actually use this field
 		);
 
 		if (!$new_testtemplate)

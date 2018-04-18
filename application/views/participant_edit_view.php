@@ -13,8 +13,8 @@
 <?=form_input_and_label('lastname', $lastname, 'required'); ?>
 <div class="pure-control-group">
 <?=form_label(lang('gender'), 'gender'); ?>
-<?=form_radio_and_label('gender', Gender::Female, $gender, lang('girl')); ?>
-<?=form_radio_and_label('gender', Gender::Male, $gender, lang('boy')); ?>
+<?=form_radio_and_label('gender', Gender::FEMALE, $gender, lang('girl')); ?>
+<?=form_radio_and_label('gender', Gender::MALE, $gender, lang('boy')); ?>
 <?=form_error('gender'); ?>
 </div>
 <?=form_input_and_label('dob', $dob, 'id="birth_datepicker" required'); ?>
@@ -43,17 +43,17 @@
 <?=form_fieldset(lang('data_language')); ?>
 <div class="pure-control-group">
 <?=form_label(lang('dyslexic_q'), 'dyslexicparent'); ?>
-<?=form_radio_and_label('dyslexicparent', Gender::Female, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-<?=form_radio_and_label('dyslexicparent', Gender::Male, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-<?=form_radio_and_label('dyslexicparent', Gender::Both, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-<?=form_radio_and_label('dyslexicparent', Gender::None, $dyslexicparent, lang('no'), TRUE); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::FEMALE, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::MALE, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::BOTH, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::NONE, $dyslexicparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('problems_q'), 'problemsparent'); ?>
-<?=form_radio_and_label('problemsparent', Gender::Female, $problemsparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::Male, $problemsparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::Both, $problemsparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::None, $problemsparent, lang('no'), TRUE); ?>
+<?=form_radio_and_label('problemsparent', Gender::FEMALE, $problemsparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::MALE, $problemsparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::BOTH, $problemsparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('problemsparent', Gender::NONE, $problemsparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('multilingual_q'), 'multilingual'); ?>

@@ -15,7 +15,7 @@ class Selfservice extends CI_Controller
     /////////////////////////
 
     /** Specifies the contents of the default page. */
-    public function index($language = L::Dutch)
+    public function index($language = L::DUTCH)
     {
         reset_language($language);
 
@@ -28,7 +28,7 @@ class Selfservice extends CI_Controller
     }
 
     /** Submits the e-mail and redirects based on validation. */
-    public function submit($language = L::Dutch)
+    public function submit($language = L::DUTCH)
     {
         // E-mail = NOT OK -> return to index with error message
         if (!$this->validate_email($language))
@@ -134,7 +134,7 @@ class Selfservice extends CI_Controller
         // If register button is clicked, go to registration
         if ($this->input->post('register'))
         {
-            redirect(current_language() == L::Dutch ? 'aanmelden' : 'signup', 'refresh');
+            redirect(current_language() == L::DUTCH ? 'aanmelden' : 'signup', 'refresh');
         }
         // Else, run validation
         else 
@@ -155,7 +155,7 @@ class Selfservice extends CI_Controller
                     $activate = $this->input->post('active_' . $p->id); 
                     if ($p->activated && !$activate)
                     {
-                        $this->participantModel->deactivate($p->id, DeactivateReason::SelfService);
+                        $this->participantModel->deactivate($p->id, DeactivateReason::SELF_SERVICE);
                     }
                     else if (!$p->activated && $activate)
                     {
@@ -179,7 +179,7 @@ class Selfservice extends CI_Controller
         $language = current_language();
         if(session_exists()) // This is probably redundant.... Better safe than sorry?
             $this->session->sess_destroy();
-        redirect($language == L::Dutch ? 'inloggen' : 'login');
+        redirect($language == L::DUTCH ? 'inloggen' : 'login');
     }
 
     /////////////////////////

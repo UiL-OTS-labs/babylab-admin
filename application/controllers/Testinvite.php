@@ -116,7 +116,7 @@ class Testinvite extends CI_Controller
 		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 		$testsurvey = $this->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
+		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::DUTCH);
 
 		// Email to participant
 		$message = email_replace($template->template . '_reminder', $participant, NULL, NULL, $testinvite);

@@ -40,12 +40,12 @@ class Participation extends CI_Controller
 
 		switch (current_role())
 		{
-			case UserRole::Admin:
+			case UserRole::ADMIN:
 				create_participation_table();
 				$source = 'participation/table/';
 				$actions = array($add_url);
 				break;
-			case UserRole::Leader:
+			case UserRole::LEADER:
 				create_participation_leader_table();
 				$source = 'participation/table_by_leader/';
 				$actions = array();
@@ -104,7 +104,7 @@ class Participation extends CI_Controller
 	/** Restrict acces to admin only */
 	private function admin_only()
 	{
-		if (current_role() != UserRole::Admin)
+		if (current_role() != UserRole::ADMIN)
 		{
 			flashdata(lang('not_authorized'));
 			redirect('/participation/', 'refresh');
@@ -157,7 +157,7 @@ class Participation extends CI_Controller
 				// No participation exists yet, create a new one
 				$participation_id = $this->participationModel->create_participation($experiment, $participant);
 			}
-			else if ($participation->status == ParticipationStatus::Unconfirmed)
+			else if ($participation->status == ParticipationStatus::UNCONFIRMED)
 			{
 				// A non-completed participation exists, use this one
 				$participation_id = $participation->id;
@@ -321,7 +321,7 @@ class Participation extends CI_Controller
 	{
 		switch (current_role())
 		{
-			case UserRole::Leader:
+			case UserRole::LEADER:
 				create_participation_leader_table();
 				$source = 'participation/table_by_leader/' . $experiment_id;
 				break;
@@ -477,12 +477,12 @@ class Participation extends CI_Controller
 		$call_id = $this->callModel->create_call($participation_id);
 
 		// Find possible combined experiment, first check combinations
-		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Combination);
+		$combinations = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::COMBINATION);
 		$comb_exp = $combinations ? $this->experimentModel->get_experiment_by_id($combinations[0]) : FALSE;
 		if (!$comb_exp)
 		{
 			// Then check prerequisites
-			$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::Prerequisite);
+			$prereqs = $this->relationModel->get_relation_ids_by_experiment($experiment->id, RelationType::PREREQUISITE);
 			$comb_exp = $prereqs ? $this->experimentModel->get_experiment_by_id($prereqs[0]) : FALSE;
 		}
 
@@ -580,7 +580,8 @@ class Participation extends CI_Controller
 	 */
 	public function show_calendar()
 	{
-		$this->load->view('participation_call', $data);
+	    // Not sure if this is used, as the popup actually uses a different URL
+		//$this->load->view('participation_call', $data);
 	}
 
 	/** Shows an overview of the no-shows per participant */
@@ -805,7 +806,7 @@ class Participation extends CI_Controller
 			// Deactivate participant (possibly)
 			if ($this->input->post('cancelled_complete') === '1')
 			{
-				$this->participantModel->deactivate($participant->id, DeactivateReason::AfterExp);
+				$this->participantModel->deactivate($participant->id, DeactivateReason::AFTER_EXP);
 			}
 
 			flashdata(sprintf(lang('part_completed'), name($participant), $experiment->name));
@@ -863,7 +864,7 @@ class Participation extends CI_Controller
 		$participant = $this->participationModel->get_participant_by_participation($participation_id);
 		$experiment = $this->participationModel->get_experiment_by_participation($participation_id);
 
-		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, NULL, FALSE, $tech_comment, L::English);
+		$message = email_replace('mail/tech_comment', $participant, $participation, $experiment, NULL, NULL, FALSE, $tech_comment, L::ENGLISH);
 
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
@@ -1015,7 +1016,7 @@ class Participation extends CI_Controller
 		$this->datatables->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
 
 		// Filter on call status
-		$this->datatables->where('call.status', CallStatus::CallBack);
+		$this->datatables->where('call.status', CallStatus::CALL_BACK);
 		// Show experiments where the current user is a caller (or none if there are no experiments where he is caller)
 		if ($experiment_ids)
 		{

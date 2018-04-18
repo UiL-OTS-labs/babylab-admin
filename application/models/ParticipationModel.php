@@ -219,7 +219,7 @@ class ParticipationModel extends CI_Model
 			'confirmed' => 1,
 			'appointment' => $appointment,
 			'user_id_leader' => $leader_id,
-			'status' => ParticipationStatus::Confirmed));
+			'status' => ParticipationStatus::CONFIRMED));
 
 		$this->update_nr_calls($participation_id);
 	}
@@ -230,7 +230,7 @@ class ParticipationModel extends CI_Model
 		$this->db->where('id', $participation_id);
 		$this->db->update('participation', array(
 			'appointment' => $appointment,
-			'status' => ParticipationStatus::Rescheduled));
+			'status' => ParticipationStatus::RESCHEDULED));
 	}
 
 	/** Cancels the specified participation */
@@ -242,7 +242,7 @@ class ParticipationModel extends CI_Model
 			'noshow' => 0,
 			'completed' => 0,
 			'appointment' => NULL,
-			'status' => ParticipationStatus::Cancelled));
+			'status' => ParticipationStatus::CANCELLED));
 
 		if ($called)
 			$this->update_nr_calls($participation_id);
@@ -254,7 +254,7 @@ class ParticipationModel extends CI_Model
 		$this->update_nr_calls($participation_id);
 
 		$this->db->where('id', $participation_id);
-		$this->db->update('participation', array('status' => ParticipationStatus::Unconfirmed));
+		$this->db->update('participation', array('status' => ParticipationStatus::UNCONFIRMED));
 	}
 
 	/** Updates the number of calls for the participation, returns the current number of calls. */
@@ -283,7 +283,7 @@ class ParticipationModel extends CI_Model
 			'cancelled' => 0,
 			'noshow' => 1,
 			'completed' => 0,
-			'status' => ParticipationStatus::NoShow));
+			'status' => ParticipationStatus::NO_SHOW));
 	}
 
 	/** Completes the specified participation */
@@ -294,7 +294,7 @@ class ParticipationModel extends CI_Model
 			'cancelled' => 0,
 			'noshow' => 0,
 			'completed' => 1,
-			'status' => ParticipationStatus::Completed)));
+			'status' => ParticipationStatus::COMPLETED)));
 	}
 
 	/** Adds a technical message to the specified participation */
@@ -366,7 +366,7 @@ class ParticipationModel extends CI_Model
 		$this->db->join('participant', 'participant.id = participation.participant_id');
 		$this->db->join('experiment', 'experiment.id = participation.experiment_id');
 		$this->db->join('call', 'call.participation_id = participation.id AND TIMESTAMPDIFF(MINUTE, call.timeend, participation.lastcalled) <= 1');
-		$this->db->where('call.status', CallStatus::CallBack);
+		$this->db->where('call.status', CallStatus::CALL_BACK);
 		if ($experiment_ids)
 		{
 			$this->db->where('experiment_id IN (' . implode(',', $experiment_ids) . ')');

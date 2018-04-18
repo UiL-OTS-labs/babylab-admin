@@ -26,7 +26,7 @@ class Testsurvey extends CI_Controller
 		$data['action_urls'] = array($add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -145,7 +145,7 @@ class Testsurvey extends CI_Controller
 		$data['page_title'] = lang('participants');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -198,7 +198,7 @@ class Testsurvey extends CI_Controller
 		{
 			$this->form_validation->set_rules('test', lang('test'), 'callback_not_zero');
 		}
-		$whennr_validation = $this->input->post('whensent') === TestWhenSent::Manual ? 'trim' : 'trim|required|is_natural_no_zero';
+		$whennr_validation = $this->input->post('whensent') === TestWhenSent::MANUAL ? 'trim' : 'trim|required|is_natural_no_zero';
 
 		$this->form_validation->set_rules('limesurvey_id', lang('limesurvey_id'), 'trim|required|is_natural_no_zero|callback_survey_exists');
 		$this->form_validation->set_rules('whensent', lang('whensent'), 'trim|required');
@@ -213,7 +213,7 @@ class Testsurvey extends CI_Controller
 	{
 		$surveyid = $this->input->post('limesurvey_id');
 		$surveyid = empty($surveyid) ? NULL : $surveyid;
-		$whennr = $this->input->post('whensent') === TestWhenSent::Manual ? NULL : $this->input->post('whennr');
+		$whennr = $this->input->post('whensent') === TestWhenSent::MANUAL ? NULL : $this->input->post('whennr');
 
 		$testsurvey = array(
 				'test_id'		=> $this->input->post('test'),

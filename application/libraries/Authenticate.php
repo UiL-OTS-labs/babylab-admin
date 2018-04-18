@@ -20,7 +20,7 @@ class Authenticate
 	 * @param string $param4 message to be displayed when not authenticated
 	 * @return boolean
 	 */
-	public function authenticate_redirect($url, $data = '', $role = UserRole::Caller, $message_login_failed = '')
+	public function authenticate_redirect($url, $data = '', $role = UserRole::CALLER, $message_login_failed = '')
 	{
 		// if authentication succes, load view, otherwise show message not authorized
 		if ($this->CI->authenticate->authenticate_session($role) == TRUE) 
@@ -38,8 +38,8 @@ class Authenticate
 	{
 		$session_role = $this->CI->session->userdata('role');
 
-		$correct_role = $role === UserRole::Admin ? $session_role === UserRole::Admin : TRUE;
-		$correct_role &= $role === UserRole::Leader ? in_array($session_role, array(UserRole::Admin, UserRole::Leader)) : TRUE;
+		$correct_role = $role === UserRole::ADMIN ? $session_role === UserRole::ADMIN : TRUE;
+		$correct_role &= $role === UserRole::LEADER ? in_array($session_role, array(UserRole::ADMIN, UserRole::LEADER)) : TRUE;
 
 		return $this->logged_in() && $correct_role;
 	}

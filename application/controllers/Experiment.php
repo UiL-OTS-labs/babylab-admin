@@ -34,7 +34,7 @@ class Experiment extends CI_Controller
 		$data['action_urls'] = array($add_url, experiment_archive_link($include_archived));
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Leader);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::LEADER);
 		$this->load->view('templates/footer');
 	}
 
@@ -188,9 +188,9 @@ class Experiment extends CI_Controller
 		$data['location_id'] = $this->locationModel->get_location_by_experiment($experiment)->id;
 		$data['current_caller_ids'] = $this->callerModel->get_caller_ids_by_experiment($experiment_id);
 		$data['current_leader_ids'] = $this->leaderModel->get_leader_ids_by_experiment($experiment_id);
-		$data['current_prerequisite_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Prerequisite);
-		$data['current_exclude_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Excludes);
-		$data['current_combination_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::Combination);
+		$data['current_prerequisite_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::PREREQUISITE);
+		$data['current_exclude_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::EXCLUDES);
+		$data['current_combination_ids'] = $this->relationModel->get_relation_ids_by_experiment($experiment_id, RelationType::COMBINATION);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_edit_view', $data);
@@ -349,7 +349,7 @@ class Experiment extends CI_Controller
 		$data['page_title'] = lang('experiments');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -363,7 +363,7 @@ class Experiment extends CI_Controller
 		$data['page_title'] = lang('experiments');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -544,13 +544,13 @@ class Experiment extends CI_Controller
 		$this->leaderModel->update_leaders($experiment_id, $leaders);
 		// Update references to prerequisites
 		$prerequisites = $this->input->post('prerequisite');
-		$this->relationModel->update_relations($experiment_id, $prerequisites, RelationType::Prerequisite);
+		$this->relationModel->update_relations($experiment_id, $prerequisites, RelationType::PREREQUISITE);
 		// Update references to excludes
 		$excludes = $this->input->post('excludes');
-		$this->relationModel->update_relations($experiment_id, $excludes, RelationType::Excludes);
+		$this->relationModel->update_relations($experiment_id, $excludes, RelationType::EXCLUDES);
 		// Update references to combination
 		$combination = $this->input->post('combination') === '-1' ? array(): array($this->input->post('combination'));
-		$this->relationModel->update_relations($experiment_id, $combination, RelationType::Combination);
+		$this->relationModel->update_relations($experiment_id, $combination, RelationType::COMBINATION);
 	}
 
 	/////////////////////////

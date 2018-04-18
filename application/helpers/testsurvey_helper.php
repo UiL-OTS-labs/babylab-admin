@@ -26,7 +26,7 @@ if (!function_exists('testsurvey_get_link'))
 	/** Returns the get link for a testsurvey */
 	function testsurvey_get_link($testsurvey)
 	{
-		if (current_role() === UserRole::Caller) return testsurvey_name($testsurvey);
+		if (current_role() === UserRole::CALLER) return testsurvey_name($testsurvey);
 
 		return anchor('testsurvey/get/' . $testsurvey->id, testsurvey_name($testsurvey));
 	}
@@ -78,7 +78,7 @@ if (!function_exists('testsurvey_when'))
 	/** Returns an option list of testsurveys */
 	function testsurvey_when($whensent, $whennr)
 	{
-		if ($whensent === TestWhenSent::Manual) 
+		if ($whensent === TestWhenSent::MANUAL)
 		{
 			return lang($whensent);
 		}
@@ -172,7 +172,7 @@ if (!function_exists('testsurvey_whensent_options'))
 	/** Returns an option list of testsurveys */
 	function testsurvey_whensent_options()
 	{
-		return array(TestWhenSent::Participation => lcfirst(lang(TestWhenSent::Participation)),
-		TestWhenSent::Months => lang(TestWhenSent::Months));
+		return array(TestWhenSent::PARTICIPATION => lcfirst(lang(TestWhenSent::PARTICIPATION)),
+		TestWhenSent::MONTHS => lang(TestWhenSent::MONTHS));
 	}
 }
