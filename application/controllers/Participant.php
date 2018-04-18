@@ -790,7 +790,7 @@ class Participant extends CI_Controller
 	{
 		if ($value === '0')
 		{
-			$this->form_validation->set_message('not_empty', lang('isset'));
+			$this->form_validation->set_message('not_empty', lang('form_validation_isset'));
 			return FALSE;
 		}
 		return TRUE;

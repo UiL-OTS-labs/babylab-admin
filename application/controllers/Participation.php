@@ -290,7 +290,7 @@ class Participation extends CI_Controller
 	{
 		if ($value == -1)
 		{
-			$this->form_validation->set_message('not_default', lang('isset'));
+			$this->form_validation->set_message('not_default', lang('form_validation_isset'));
 			return FALSE;
 		}
 		else
