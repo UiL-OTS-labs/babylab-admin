@@ -170,7 +170,7 @@
 	$comments['id'] = 'comments';
 	$comments['ajax_source'] = 'comment/table/0/0/' . $participant->id;
 	echo $this->load->view('templates/list_view', $comments, true);
-	echo $this->load->view('comment_add_view', true);
+	echo $this->load->view('comment_add_view', '', true);
 	?>
 	</div>
 
@@ -192,7 +192,7 @@
 		create_testinvite_participant_table('testinvites');
 		$testinvites['id'] = 'testinvites';	
 		$testinvites['ajax_source'] = 'testinvite/table_by_participant/' . $participant->id;
-		$this->load->view('templates/list_view', $testinvites); 
+		$this->load->view('templates/list_view', $testinvites);
 	?>
 	</div>
 </div>
