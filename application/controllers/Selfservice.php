@@ -74,8 +74,9 @@ class Selfservice extends CI_Controller
         // If there are participants found, and request is not too old... 
         if ($participants && $participants[0]->selfservicetime > input_datetime())
         {
-            // Create a fresh, brand new session
-            $this->session->sess_create();
+            // Create a fresh, brand new session, if one already exists
+            if(session_exists())
+                $this->session->sess_regenerate();
 
             // Set session data
             $session_data = array(
@@ -176,7 +177,8 @@ class Selfservice extends CI_Controller
     public function logout()
     {
         $language = current_language();
-        $this->session->sess_destroy();
+        if(session_exists()) // This is probably redundant.... Better safe than sorry?
+            $this->session->sess_destroy();
         redirect($language == L::Dutch ? 'inloggen' : 'login');
     }
 
