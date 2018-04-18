@@ -33,7 +33,7 @@ if (!function_exists('user_language'))
 	/** Returns the preferred language of the user */
 	function user_language($user)
 	{
-		return $user->preferredlanguage === 'nl' ? L::Dutch : L::English;
+		return $user->preferredlanguage === 'nl' ? L::DUTCH : L::ENGLISH;
 	}
 }
 

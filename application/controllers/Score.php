@@ -27,7 +27,7 @@ class Score extends CI_Controller
 		$data['action_urls'] = array($edit_all_url, $add_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 

@@ -125,7 +125,7 @@ class Dyslexia extends CI_Controller
 	 */
 	public function download()
 	{
-		if (current_role() !== UserRole::Admin)
+		if (current_role() !== UserRole::ADMIN)
 		{
 			flashdata(lang('not_authorized'));
 			redirect('/dyslexia/', 'refresh');

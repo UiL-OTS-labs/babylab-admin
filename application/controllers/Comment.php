@@ -28,7 +28,7 @@ class Comment extends CI_Controller
 			);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 

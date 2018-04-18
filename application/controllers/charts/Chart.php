@@ -5,7 +5,7 @@ class Chart extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		reset_language(L::Dutch);
+		reset_language(L::DUTCH);
 
 		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
 	}
@@ -213,7 +213,7 @@ class Chart extends CI_Controller
 					'autisticparent'			=> $a,
 					'attentiondisorderparent'	=> $at,
 					'deactivated'				=> input_datetime(),
-					'deactivated_reason'		=> DeactivateReason::FromSurvey,
+					'deactivated_reason'		=> DeactivateReason::FROM_SURVEY,
 				);
 				$participant_id = $this->participantModel->add_participant($participant);
 			}
@@ -236,7 +236,7 @@ class Chart extends CI_Controller
 	{
 		$participant = $this->testInviteModel->get_participant_by_testinvite($testinvite);
 		$test = $this->testInviteModel->get_test_by_testinvite($testinvite);
-		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::Dutch);
+		$template = $this->testTemplateModel->get_testtemplate_by_test($test->id, L::DUTCH);
 
 		// Email to participant
 		$message = email_replace($template->template . '_completion', $participant, NULL, NULL, $testinvite);
@@ -464,7 +464,7 @@ class Chart extends CI_Controller
 		// Default values
 		$data['valid_token'] = FALSE;
 		$data['participant_id'] = 0;
-		$data['gender'] = gender_sex(Gender::Male);
+		$data['gender'] = gender_sex(Gender::MALE);
 
 		return $data;
 	}

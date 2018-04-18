@@ -20,16 +20,16 @@ class Welcome extends CI_Controller
 	{
 		switch (current_role())
 		{
-			case UserRole::Caller:
+			case UserRole::CALLER:
 				$this->caller_interface(current_user_id());
 				break;
-			case UserRole::Leader:
+			case UserRole::LEADER:
 				$this->leader_interface(current_user_id());
 				break;
-			case UserRole::Admin:
+			case UserRole::ADMIN:
 				$this->admin_interface();
 				break;
-			case UserRole::System:
+			case UserRole::SYSTEM:
 				redirect('appointment');
 				break;
 			default:
@@ -51,7 +51,7 @@ class Welcome extends CI_Controller
 		$data['leader_min_exp'] = count($this->leaderModel->get_experiments_without_leaders());
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('admin_interface', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('admin_interface', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -76,7 +76,7 @@ class Welcome extends CI_Controller
 			$n = count($this->participantModel->find_participants($e));
 			$nr_participants += $n;
 
-			$prereqs = $this->relationModel->get_relation_ids_by_experiment($e->id, RelationType::Prerequisite, TRUE);
+			$prereqs = $this->relationModel->get_relation_ids_by_experiment($e->id, RelationType::PREREQUISITE, TRUE);
 			if ($prereqs && $n > 0)
 			{
 				$longitudinal[$e->name] = $n;
@@ -105,7 +105,7 @@ class Welcome extends CI_Controller
 		$data['action_urls'] = array($testinvite_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Caller);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::CALLER);
 		$this->load->view('templates/footer');
 	}
 
@@ -147,7 +147,7 @@ class Welcome extends CI_Controller
 		$data['action_urls'] = array($conf_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Leader);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::LEADER);
 		$this->load->view('templates/footer');
 	}
 }

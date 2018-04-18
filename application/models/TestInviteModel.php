@@ -203,7 +203,7 @@ class TestInviteModel extends CI_Model
 	public function create_testinvites_by_participation($participant)
 	{
 		$participations = $this->participationModel->get_participations_by_participant($participant->id, TRUE);
-		$surveys = $this->testSurveyModel->get_testsurveys_by_when(TestWhenSent::Participation, count($participations));
+		$surveys = $this->testSurveyModel->get_testsurveys_by_when(TestWhenSent::PARTICIPATION, count($participations));
 
 		$result = array();
 		foreach ($surveys AS $survey)

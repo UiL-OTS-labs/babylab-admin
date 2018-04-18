@@ -171,7 +171,7 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the register page */
-	public function register($language = L::English)
+	public function register($language = L::ENGLISH)
 	{
 		reset_language($language);
 
@@ -179,7 +179,7 @@ class Participant extends CI_Controller
 		$participant = !is_null($participant_id) ? $this->participantModel->get_participant_by_id($participant_id) : NULL;
 
 		$data['page_title'] = lang('reg_pp');
-		$data['action'] = $language === L::English ? '/signup_submit/' : '/aanmelden_versturen/';
+		$data['action'] = $language === L::ENGLISH ? '/signup_submit/' : '/aanmelden_versturen/';
 		$data['current_language'] = $language;
 		$data = add_fields($data, 'participant', $participant);
 
@@ -228,7 +228,7 @@ class Participant extends CI_Controller
 			if ($comment) $this->commentModel->add_comment($comment);
 
 			// Don't activate on registration (let admins decide) 
-			$this->participantModel->deactivate($participant_id, DeactivateReason::NewParticipant);
+			$this->participantModel->deactivate($participant_id, DeactivateReason::NEW_PARTICIPANT);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
 
 			// Send confirmation e-mail to participant
@@ -271,13 +271,13 @@ class Participant extends CI_Controller
 			}
 
 			// Display success
-			$url = $language === L::English ? '/signup_finished/' : '/aanmelden_afgerond/';
+			$url = $language === L::ENGLISH ? '/signup_finished/' : '/aanmelden_afgerond/';
 			redirect($url, 'refresh');
 		}
 	}
 
 	/** Specifies the contents of the finish registration page */
-	public function register_finish($language = L::English)
+	public function register_finish($language = L::ENGLISH)
 	{
 		reset_language($language);
 		$data['current_language'] = $language;
@@ -294,12 +294,12 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the register page */
-	public function deregister($language = L::English)
+	public function deregister($language = L::ENGLISH)
 	{
 		reset_language($language);
 
 		$data['page_title'] = lang('dereg_pp');
-		$data['action'] = $language === L::English ? '/deregister_submit/' : '/afmelden_versturen/';
+		$data['action'] = $language === L::ENGLISH ? '/deregister_submit/' : '/afmelden_versturen/';
 		$data['current_language'] = $language;
 		$data = add_fields($data, 'participant');
 
@@ -354,13 +354,13 @@ class Participant extends CI_Controller
 			}
 
 			// Finish registration
-			$url = $language === L::English ? '/deregister_finished/' : '/afmelden_afgerond/';
+			$url = $language === L::ENGLISH ? '/deregister_finished/' : '/afmelden_afgerond/';
 			redirect($url, 'refresh');
 		}
 	}
 
 	/** Specifies the contents of the finish registration page */
-	public function deregister_finish($language = L::English)
+	public function deregister_finish($language = L::ENGLISH)
 	{
 		reset_language($language);
 		$data['current_language'] = $language;
@@ -596,7 +596,7 @@ class Participant extends CI_Controller
 	/** Deactivates the specified participant */
 	public function deactivate($participant_id)
 	{
-		$this->participantModel->deactivate($participant_id, DeactivateReason::Manual);
+		$this->participantModel->deactivate($participant_id, DeactivateReason::MANUAL);
 		$p = $this->participantModel->get_participant_by_id($participant_id);
 
 		// Inform all admins of this deactivation
@@ -686,8 +686,8 @@ class Participant extends CI_Controller
 				'birthweight' 			=> $this->input->post('birthweight'),
 				'pregnancyweeks' 		=> $this->input->post('pregnancyweeks'),
 				'pregnancydays' 		=> $this->input->post('pregnancydays'),
-				'dyslexicparent' 		=> $dyslexicparent === Gender::None ? NULL : $dyslexicparent,
-				'problemsparent' 		=> $problemsparent === Gender::None ? NULL : $problemsparent,
+				'dyslexicparent' 		=> $dyslexicparent === Gender::NONE ? NULL : $dyslexicparent,
+				'problemsparent' 		=> $problemsparent === Gender::NONE ? NULL : $problemsparent,
 				'multilingual' 			=> $this->input->post('multilingual'),
 				'parentfirstname' 		=> $this->input->post('parentfirstname'),
 				'parentlastname' 		=> $this->input->post('parentlastname'),
@@ -833,7 +833,7 @@ class Participant extends CI_Controller
 	public function table()
 	{
 		$participant_ids = array();
-		if (current_role() == UserRole::Caller)
+		if (current_role() == UserRole::CALLER)
 		{
 			$experiments = $this->callerModel->get_experiments_by_caller(current_user_id());
 			foreach ($experiments as $experiment) 
@@ -845,7 +845,7 @@ class Participant extends CI_Controller
 				$participant_ids = array_merge($participant_ids, get_object_ids($part_p));
 			}
 		}
-		if (current_role() == UserRole::Leader)
+		if (current_role() == UserRole::LEADER)
 		{
 			$experiments = $this->leaderModel->get_experiments_by_leader(current_user_id());
 			foreach ($experiments as $experiment) 
@@ -878,7 +878,7 @@ class Participant extends CI_Controller
 	public function table_registered()
 	{
 		$this->datatables->where('deactivated IS NOT NULL');
-		$this->datatables->where('deactivated_reason', DeactivateReason::NewParticipant);
+		$this->datatables->where('deactivated_reason', DeactivateReason::NEW_PARTICIPANT);
 		$this->table();
 	}
 

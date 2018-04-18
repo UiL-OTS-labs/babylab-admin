@@ -13,8 +13,8 @@
 
 <div class="pure-control-group">
 <?=form_label(lang('parent'), 'gender'); ?>
-<?=form_radio_and_label('gender', Gender::Female, $gender, gender_parent(Gender::Female)); ?>
-<?=form_radio_and_label('gender', Gender::Male, $gender, gender_parent(Gender::Male)); ?>
+<?=form_radio_and_label('gender', Gender::FEMALE, $gender, gender_parent(Gender::FEMALE)); ?>
+<?=form_radio_and_label('gender', Gender::MALE, $gender, gender_parent(Gender::MALE)); ?>
 <?=form_error('gender'); ?>
 </div>
 <?=form_single_checkbox_and_label('statement', '1', $statement); ?>

@@ -30,7 +30,7 @@ class Reminder extends CI_Controller
 			$appointment = strtotime($participation->appointment); 
 			if ($appointment > strtotime('tomorrow') && $appointment <= strtotime('tomorrow + 1 day')) 
 			{					
-				reset_language(L::Dutch);
+				reset_language(L::DUTCH);
 				
 				$participant = $this->participationModel->get_participant_by_participation($participation->id);
 				$experiment = $this->participationModel->get_experiment_by_participation($participation->id);

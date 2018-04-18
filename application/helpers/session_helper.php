@@ -110,7 +110,7 @@ if (!function_exists('is_admin'))
 	/** Returns whether or not the current user is an admin */
 	function is_admin()
 	{
-		return current_role() === UserRole::Admin;
+		return current_role() === UserRole::ADMIN;
 	}
 }
 
@@ -119,7 +119,7 @@ if (!function_exists('is_leader'))
 	/** Returns whether or not the current user is a leader */
 	function is_leader()
 	{
-		return in_array(current_role(), array(UserRole::Leader, UserRole::Researcher));
+		return in_array(current_role(), array(UserRole::LEADER, UserRole::RESEARCHER));
 	}
 }
 
@@ -128,7 +128,7 @@ if (!function_exists('is_caller'))
 	/** Returns whether or not the current user is a caller */
 	function is_caller()
 	{
-		return current_role() === UserRole::Caller;
+		return current_role() === UserRole::CALLER;
 	}
 }
 

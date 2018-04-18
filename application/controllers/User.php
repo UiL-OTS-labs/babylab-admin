@@ -38,7 +38,7 @@ class User extends CI_Controller
 		$data['action_urls'] = array($add_url, $active_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -205,7 +205,7 @@ class User extends CI_Controller
 	 * Specifies the contents of the register page
 	 * @param $language The language for this page
 	 */
-	public function register($language = L::English)
+	public function register($language = L::ENGLISH)
 	{
 		reset_language($language);
 
@@ -226,7 +226,7 @@ class User extends CI_Controller
 	 * Submits the registration of a user
 	 * @param $language The language for this page
 	 */
-	public function register_submit($language = L::English)
+	public function register_submit($language = L::ENGLISH)
 	{
 		// Reset the language
 		reset_language($language);
@@ -286,7 +286,7 @@ class User extends CI_Controller
 	 * Specifies the contents of the finish registration page
 	 * @param $language The language for this page
 	 */
-	public function register_finish($language = L::English)
+	public function register_finish($language = L::ENGLISH)
 	{
 		reset_language($language);
 
@@ -418,7 +418,7 @@ class User extends CI_Controller
 	 * Specifies the contents of the forgot password page
 	 * @param $language
 	 */
-	public function forgot_password($language = L::English)
+	public function forgot_password($language = L::ENGLISH)
 	{
 		reset_language($language);
 
@@ -436,7 +436,7 @@ class User extends CI_Controller
 	 * Submits the password reset request
 	 * @param $language
 	 */
-	public function forgot_password_submit($language = L::English)
+	public function forgot_password_submit($language = L::ENGLISH)
 	{
 		reset_language($language);
 
@@ -638,7 +638,7 @@ class User extends CI_Controller
 			// and then also make them sign the contract.
 			if (!$role)
 			{
-				$role = UserRole::Caller;
+				$role = UserRole::CALLER;
 				$user['needssignature'] = TRUE;
 			}
 			$user['role'] = $role;

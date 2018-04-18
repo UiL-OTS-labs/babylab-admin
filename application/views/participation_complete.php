@@ -32,12 +32,12 @@ $(function()
 <?=form_radio_and_label('excluded', '0', $excluded, lang('no'), TRUE); ?>
 </div>
 <?=form_dropdown_and_label('excluded_reason', array(
-    ExcludedReason::Crying                  => 'Huilen',
-    ExcludedReason::FussyOrRestless         => 'Onrustig gedrag', 
-    ExcludedReason::ParentalInterference    => 'Inmenging ouder',
-    ExcludedReason::TechnicalProblems       => 'Technische problemen',
-    ExcludedReason::Interrupted             => lang('interrupted_long'),
-    ExcludedReason::Other                   => 'Anders',
+    ExcludedReason::CRYING                  => 'Huilen',
+    ExcludedReason::FUSSY_OR_RESTLESS         => 'Onrustig gedrag', 
+    ExcludedReason::PARENTAL_INTERFERENCE    => 'Inmenging ouder',
+    ExcludedReason::TECHNICAL_PROBLEMS       => 'Technische problemen',
+    ExcludedReason::INTERRUPTED             => lang('interrupted_long'),
+    ExcludedReason::OTHER                   => 'Anders',
     ), $excluded_reason); ?>
 
 <?=form_fieldset(lang('comments')); ?>

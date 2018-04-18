@@ -23,7 +23,7 @@ class Relation extends CI_Controller
 		$data['page_title'] = lang('relations');
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Leader);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::LEADER);
 		$this->load->view('templates/footer');
 	}
 

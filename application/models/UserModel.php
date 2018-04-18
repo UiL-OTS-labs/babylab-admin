@@ -19,7 +19,7 @@ class UserModel extends CI_Model
 		{
 			$this->db->where('activated IS NOT NULL');
 		}
-		$this->db->where('role !=', UserRole::System);
+		$this->db->where('role !=', UserRole::SYSTEM);
 		return $this->db->get('user')->result();
 	}
 
@@ -36,12 +36,12 @@ class UserModel extends CI_Model
 		$u = $this->get_user_by_id($user_id);
 		if (isset($user['role']) && $user['role'] != $u->role)
 		{
-			if ($u->role === UserRole::Caller)
+			if ($u->role === UserRole::CALLER)
 			{
 				$this->callerModel->delete_callers_by_user($user_id);
 			}
 
-			if ($u->role === UserRole::Leader)
+			if ($u->role === UserRole::LEADER)
 			{
 				$this->leaderModel->delete_leaders_by_user($user_id);
 			}
@@ -97,7 +97,7 @@ class UserModel extends CI_Model
 	public function get_all_callers()
 	{
 		$this->db->where('activated IS NOT NULL');
-		$this->db->where('role', UserRole::Caller);
+		$this->db->where('role', UserRole::CALLER);
 		return $this->db->get('user')->result();
 	}
 
@@ -105,7 +105,7 @@ class UserModel extends CI_Model
 	public function get_all_leaders()
 	{
 		$this->db->where('activated IS NOT NULL');
-		$this->db->where_in('role', array(UserRole::Leader, UserRole::Researcher));
+		$this->db->where_in('role', array(UserRole::LEADER, UserRole::RESEARCHER));
 		return $this->db->get('user')->result();
 	}
 
@@ -113,7 +113,7 @@ class UserModel extends CI_Model
 	public function get_all_admins()
 	{
 		$this->db->where('activated IS NOT NULL');
-		$this->db->where('role', UserRole::Admin);
+		$this->db->where('role', UserRole::ADMIN);
 		return $this->db->get('user')->result();
 	}
 

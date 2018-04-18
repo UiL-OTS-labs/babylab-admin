@@ -29,9 +29,9 @@ else
 <?=form_input_and_label('limesurvey_id', $limesurvey_id, 'required class="positive-integer"'); ?>
 <div class="pure-control-group">
 <?=form_label(lang('whensent'), 'whensent'); ?>
-<?=form_radio_and_label('whensent', TestWhenSent::Participation, $whensent, lcfirst(lang(TestWhenSent::Participation))); ?>
-<?=form_radio_and_label('whensent', TestWhenSent::Months, $whensent, lang(TestWhenSent::Months)); ?>
-<?=form_radio_and_label('whensent', TestWhenSent::Manual, $whensent, lang(TestWhenSent::Manual)); ?>
+<?=form_radio_and_label('whensent', TestWhenSent::PARTICIPATION, $whensent, lcfirst(lang(TestWhenSent::PARTICIPATION))); ?>
+<?=form_radio_and_label('whensent', TestWhenSent::MONTHS, $whensent, lang(TestWhenSent::MONTHS)); ?>
+<?=form_radio_and_label('whensent', TestWhenSent::MANUAL, $whensent, lang(TestWhenSent::MANUAL)); ?>
 </div>
 <?=form_input_and_label('whennr', $whennr, 'required class="positive-integer"'); ?>
 <?=form_textarea_and_label('description', $description, lang('survey_description')); ?>

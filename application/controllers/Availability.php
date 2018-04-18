@@ -24,7 +24,7 @@ class Availability extends CI_Controller
 		$data['action_urls'] = array($add_url, $past_url);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Leader);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::LEADER);
 		$this->load->view('templates/footer');
 	}
 
@@ -32,11 +32,11 @@ class Availability extends CI_Controller
 	public function add()
 	{
 		$data['page_title'] = lang('availability');
-		$data['lang'] = (current_language() == L::Dutch) ? 'nl' : 'en';
+		$data['lang'] = (current_language() == L::DUTCH) ? 'nl' : 'en';
 		$data['preselect'] = AVAILABILITY_DEFAULT_TIMES;
 
 		$this->load->view('templates/header');
-		$this->authenticate->authenticate_redirect('availability_add_view', $data, UserRole::Leader);
+		$this->authenticate->authenticate_redirect('availability_add_view', $data, UserRole::LEADER);
 		$this->load->view('templates/footer');
 	}
 

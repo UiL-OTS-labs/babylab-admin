@@ -26,7 +26,7 @@ class Caller extends CI_Controller
 		}
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 
@@ -55,7 +55,7 @@ class Caller extends CI_Controller
 		$data['page_info'] = sprintf(lang('add_callers_exp'), $experiment->id);
 
 		$this->load->view('templates/header', $data);
-		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::Admin);
+		$this->authenticate->authenticate_redirect('templates/list_view', $data, UserRole::ADMIN);
 		$this->load->view('templates/footer');
 	}
 

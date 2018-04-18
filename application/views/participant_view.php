@@ -86,7 +86,7 @@
 				if (!$participant->activated)
 				{
 					$reason = $participant->deactivated_reason;
-					$new = $reason == DeactivateReason::NewParticipant;
+					$new = $reason == DeactivateReason::NEW_PARTICIPANT;
 					$class = $new ? 'warning' : 'info';
 					echo '<div class="' . $class . '"';
 					echo "<p>" . lang('p_not_yet_active') . "</p>";

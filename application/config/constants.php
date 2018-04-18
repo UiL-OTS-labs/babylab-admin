@@ -38,80 +38,80 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /** Roles */
 class UserRole {
-	const Admin 		= 'admin';
-	const Leader 		= 'leader';			// Has access to both leader and caller interface
-	const Researcher	= 'researcher';		// Only has access to leader interface
-	const Caller 		= 'caller';
-	const System 		= 'system';
+	const ADMIN 		= 'admin';
+	const LEADER 		= 'leader';			// Has access to both leader and caller interface
+	const RESEARCHER	= 'researcher';		// Only has access to leader interface
+	const CALLER 		= 'caller';
+	const SYSTEM 		= 'system';
 }
 
 /** Gender */
 class Gender {
-	const Male 			= 'm';
-	const Female 		= 'f';
-	const Both 			= 'mf';
-	const None 			= 'none';
+	const MALE 			= 'm';
+	const FEMALE 		= 'f';
+	const BOTH 			= 'mf';
+	const NONE 			= 'none';
 }
 
 /** Call status */
 class CallStatus {
-	const CallStarted	= 'call_started';
-	const NoReply 		= 'no_reply';
-	const CallBack 		= 'call_back';
-	const Voicemail 	= 'voicemail';
-	const Email 		= 'email';
-	const Confirmed 	= 'confirmed';
-	const Cancelled 	= 'cancelled';
+	const CALL_STARTED	= 'call_started';
+	const NO_REPLY 		= 'no_reply';
+	const CALL_BACK 	= 'call_back';
+	const VOICEMAIL 	= 'voicemail';
+	const EMAIL 		= 'email';
+	const CONFIRMED 	= 'confirmed';
+	const CANCELLED 	= 'cancelled';
 }
 
 /** Participation status */
 class ParticipationStatus {
-	const Unconfirmed 	= 'unconfirmed';
-	const Confirmed 	= 'confirmed';
-	const Rescheduled 	= 'rescheduled';
-	const Cancelled 	= 'cancelled';
-	const Completed 	= 'completed';
-	const NoShow 		= 'no_show';
+	const UNCONFIRMED 	= 'unconfirmed';
+	const CONFIRMED 	= 'confirmed';
+	const RESCHEDULED 	= 'rescheduled';
+	const CANCELLED 	= 'cancelled';
+	const COMPLETED 	= 'completed';
+	const NO_SHOW 		= 'no_show';
 }
 
 /** Relations */
 class RelationType {
-	const Prerequisite 	= 'prerequisite';
-	const Excludes 		= 'excludes';
-	const Combination	= 'combination';
+	const PREREQUISITE 	= 'prerequisite';
+	const EXCLUDES 		= 'excludes';
+	const COMBINATION	= 'combination';
 }
 
 /** When to sent tests */
 class TestWhenSent {
-	const Participation	= 'participation';
-	const Months		= 'months';
-	const Manual		= 'manual';
+	const PARTICIPATION	= 'participation';
+	const MONTHS		= 'months';
+	const MANUAL		= 'manual';
 }
 
 /** Languages */
 class L {
-	const English 		= 'english';
-	const Dutch 		= 'dutch';
+	const ENGLISH 		= 'english';
+	const DUTCH 		= 'dutch';
 }
 
 /** Deactivation reasons */
 class DeactivateReason {
-	const NewParticipant = 'new';
-	const DuringCall	= 'call';
-	const AfterExp		= 'exp';
-	const Manual		= 'manual';
-	const SelfService	= 'selfservice';
-	const FromSurvey	= 'survey';
+	const NEW_PARTICIPANT   = 'new';
+	const DURING_CALL	    = 'call';
+	const AFTER_EXP		    = 'exp';
+	const MANUAL		    = 'manual';
+	const SELF_SERVICE	    = 'selfservice';
+	const FROM_SURVEY	    = 'survey';
 }
 
 /** Exclusion reasons */
 class ExcludedReason {
-	const Crying 				= 'crying';
-	const FussyOrRestless		= 'fussy';
-	const ParentalInterference	= 'parent';
-	const TechnicalProblems		= 'tech_problems';
-	const Interrupted			= 'interrupted';
-	const Other					= 'other';
+	const CRYING 				= 'crying';
+	const FUSSY_OR_RESTLESS		= 'fussy';
+	const PARENTAL_INTERFERENCE	= 'parent';
+	const TECHNICAL_PROBLEMS	= 'tech_problems';
+	const INTERRUPTED			= 'interrupted';
+	const OTHER					= 'other';
 }
 
 /** Number of weeks to look ahead */

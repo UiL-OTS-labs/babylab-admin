@@ -26,7 +26,7 @@ class CallModel extends CI_Model
 				'participation_id'	=> $participation_id,
 				'user_id'			=> current_user_id(),
 				'nr' 				=> $nr,
-				'status' 			=> CallStatus::CallStarted
+				'status' 			=> CallStatus::CALL_STARTED
 		);
 		$this->db->insert('call', $call);
 		return $this->db->insert_id();
