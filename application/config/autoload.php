@@ -53,8 +53,8 @@ $autoload['packages'] = array();
  */
 
 $autoload['libraries'] = array(
-    'database', 'form_validation', 'table', 'pagination', 'user_agent', 'email', 	// CI
-	'authenticate', 'datatables', 'phpass', 'MY_Session');							// Other
+    'database', 'form_validation', 'table', 'pagination', 'user_agent', 'email', 'session',	    // CI
+	'authenticate', 'datatables', 'phpass');							                        // Other
 
 
 /*
