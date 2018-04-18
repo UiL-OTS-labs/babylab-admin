@@ -149,9 +149,12 @@ class Closing extends CI_Controller
     /** Checks whether the given parameter is valid (if at least one location is set) */
     public function not_zero($values)
     {
-        if (!$values && $this->input->post('lockdown') !== '1')
+        # We get it from the postdata, as CI3 somehow doesn't provide the information as it should.
+        $locationData = $this->input->post('location');
+
+        if (!$locationData && $this->input->post('lockdown') !== '1')
         {
-            $this->form_validation->set_message('not_zero', lang('isset'));
+            $this->form_validation->set_message('not_zero', lang('form_validation_isset'));
             return FALSE;
         }
         return TRUE;
@@ -161,7 +164,7 @@ class Closing extends CI_Controller
     {
         if(!$values && $this->input->post('all_day') !== '1')
         {
-            $this->form_validation->set_message('daterange_required', lang('isset'));
+            $this->form_validation->set_message('daterange_required', lang('form_validation_isset'));
             return FALSE;
         }
         return TRUE;
@@ -171,7 +174,7 @@ class Closing extends CI_Controller
     {
         if(!$values && $this->input->post('all_day') === '1')
         {
-            $this->form_validation->set_message('date_required', lang('isset'));
+            $this->form_validation->set_message('date_required', lang('form_validation_isset'));
             return FALSE;
         }
         return TRUE;
