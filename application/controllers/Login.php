@@ -52,7 +52,8 @@ class Login extends CI_Controller
 		// Login = NOT OK -> destroy session and return to login form
 		if (!$this->validate($language))
 		{
-			$this->session->sess_destroy();
+		    if(session_exists())
+			    $this->session->sess_destroy();
 			$this->index($language);
 			return;
 		}
@@ -87,7 +88,8 @@ class Login extends CI_Controller
 	public function logout()
 	{
 		$language = current_language();
-		$this->session->sess_destroy();
+		if(session_exists())
+		    $this->session->sess_destroy();
 		redirect($language == L::Dutch ? 'inloggen' : 'login');
 	}
 
@@ -147,13 +149,16 @@ class Login extends CI_Controller
 			// Check against password and if activated
 			if (!$this->phpass->check($password, $user->password) || !is_activated($user))
 			{
-				$this->session->sess_destroy();
+			    if(session_exists())
+				    $this->session->sess_destroy();
+
 				return FALSE;
 			}
 			else
 			{
-				// Regenerate session
-				$this->session->sess_regenerate();
+				// Regenerate session, if one already exists. This will ensure a clean session
+                if(session_exists())
+				    $this->session->sess_regenerate();
 
 				// Remove the password field
 				unset($user->password);
@@ -179,7 +184,8 @@ class Login extends CI_Controller
 		// If there is no database result found, destroy the session
 		else
 		{
-			$this->session->sess_destroy();
+		    if(session_exists())
+			    $this->session->sess_destroy();
 			return FALSE;
 		}
 	}

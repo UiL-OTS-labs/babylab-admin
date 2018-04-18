@@ -4,6 +4,15 @@
 // Session-related
 /////////////////////////
 
+if (!function_exists('session_exists'))
+{
+    /** Returns if there is a session in use */
+    function session_exists()
+    {
+        return session_status() == PHP_SESSION_ACTIVE;
+    }
+}
+
 if (!function_exists('current_user_id'))
 {
 	/** Returns the user_id of the current user */
