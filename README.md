@@ -34,7 +34,7 @@ If you already have a database set up and up-to-date, you should be ready to go.
 - Import `babylab_schema_20140722.sql` into your database. (Skip this if you only need to update your database).
 - Enable the migrate controller by commenting out `show_error` in `application/controllers/migrate.php`.
 - Open your browser, and navigate to `$host/index.php/migrate/install`
-- - You might need to temporarily disable the session library. You can do this by removing `MY_Session` from 
+- - You might need to temporarily disable the session library. You can do this by removing `session` from 
 `application/config/autoload.php`. Remember to re-enable this library when you're done.
 - - If you still encounter errors, try to manually install each migration on it's own by navigating to 
 `$host/index.php/migrate/version/$id`
