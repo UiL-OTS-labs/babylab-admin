@@ -352,8 +352,11 @@ class Participation extends CI_Controller
 		$csv_array = array();
 		$csv_array[] = array(
 			lang('part_number'),
+			lang('reference_number'),
 			lang('gender'),
 			lang('age_at_participation'),
+			lang('birthweight'),
+			lang('pregnancy'),
 			lang('appointment'),
 			lang('dyslexic'),
 			lang('multilingual'),
@@ -372,8 +375,11 @@ class Participation extends CI_Controller
 			$participant = $this->participationModel->get_participant_by_participation($participation->id);
 			$csv_row = array(
 				$participation->part_number,
+				reference_number($participant),
 				$participant->gender,
 				age_in_months_and_days($participant->dateofbirth, $participation->appointment),
+				birthweight($participant),
+				pregnancy($participant),
 				output_datetime($participation->appointment, TRUE),
 				$participant->dyslexicparent ? $participant->dyslexicparent : lang('no'),
 				$participant->multilingual ? lang('yes') : lang('no'),
