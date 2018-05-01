@@ -141,7 +141,7 @@ if (!function_exists('in_development'))
 	/** Returns whether or we are in development mode */
 	function in_development()
 	{
-		return ENVIRONMENT === 'development';
+		return ENVIRONMENT !== 'production';
 	}
 }
 
