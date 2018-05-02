@@ -510,7 +510,6 @@ class Participation extends CI_Controller
 		$data['call_id'] = $call_id;
 		$data['previous_call'] = $previous_call;
 		$data['comment_size'] = count($comments);
-		$data['impediment_table'] = create_impediment_table($impediments);
 		$data['impediment_size'] = count($impediments);
 		$data['last_experiment'] = $this->participantModel->last_experiment($participant_id);
 		$data['last_called'] = $this->participantModel->last_called($participant_id);
