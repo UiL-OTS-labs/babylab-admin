@@ -141,7 +141,14 @@ class Login extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 
-		$user = $this->userModel->get_user_by_username($username);
+		try
+        {
+            $user = $this->userModel->get_user_by_username($username);
+        } catch (\Exception $e)
+        {
+            // If there was an error, we can assume it's a lost cause
+            return FALSE;
+        }
 
 		// If username found in DB...
 		if ($user)

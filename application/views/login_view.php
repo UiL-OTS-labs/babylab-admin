@@ -1,6 +1,6 @@
 <?=$this->session->flashdata('message'); ?>
 
-<?=form_open('login/submit/' . $language, array('class' => 'pure-form')); ?>
+<?=form_open('login/submit/' . $language, array('class' => 'pure-form', 'autocomplete' => 'off')); ?>
 <?=form_fieldset(lang('login')); ?>
 
 <?=form_input('username', '', 'placeholder = "' . lang('username') . '"'); ?>
