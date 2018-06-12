@@ -73,10 +73,12 @@
         <br/>
         Type:        <?php echo get_class($exception), "\n"; ?><br/>
         Message:     <?php echo $message, "\n"; ?><br/>
+        <?php if (in_development()): ?>
         Filename:    <?php echo $exception->getFile(), "\n"; ?><br/>
         Line Number: <?php echo $exception->getLine(); ?><br/>
+        <?php endif ?>
         <br/>
-        <?php if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE === TRUE): ?>
+        <?php if (defined('SHOW_DEBUG_BACKTRACE') && SHOW_DEBUG_BACKTRACE === TRUE && in_development()): ?>
             <br/>
             Backtrace:<br/>
             <?php	foreach ($exception->getTrace() as $error): ?>

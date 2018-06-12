@@ -11,6 +11,7 @@
 		Message:
 		<?php echo $message; ?>
 	</p>
+    <?php if(in_development()): ?>
 	<p>
 		Filename:
 		<?php echo $filepath; ?>
@@ -19,5 +20,5 @@
 		Line Number:
 		<?php echo $line; ?>
 	</p>
-
+    <?php endif ?>
 </div>
