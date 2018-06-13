@@ -69,6 +69,7 @@ $lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanm
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
+$lang['login_disabled']		= "Het limiet voor het aantal inlog pogingen is bereikt. Probeer het over 5 minuten opnieuw.";
 $lang['login_admin'] 		= "Login als admin";
 $lang['login_leader'] 		= "Login als leider";
 $lang['login_caller'] 		= "Login als beller";

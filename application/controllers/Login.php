@@ -12,7 +12,7 @@ class Login extends CI_Controller
 		$this->authenticate->redirect_except(array('index', 'submit'));
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<p class="error">', '</p>');
+        $this->form_validation->set_error_delimiters('<p class="error">', '</p>');
 	}
 
 	/////////////////////////
@@ -52,8 +52,6 @@ class Login extends CI_Controller
 		// Login = NOT OK -> destroy session and return to login form
 		if (!$this->validate($language))
 		{
-		    if(session_exists())
-			    $this->session->sess_destroy();
 			$this->index($language);
 			return;
 		}
@@ -147,6 +145,7 @@ class Login extends CI_Controller
         } catch (\Exception $e)
         {
             // If there was an error, we can assume it's a lost cause
+            $this->add_login_attempt();
             return FALSE;
         }
 
@@ -156,9 +155,7 @@ class Login extends CI_Controller
 			// Check against password and if activated
 			if (!$this->phpass->check($password, $user->password) || !is_activated($user))
 			{
-			    if(session_exists())
-				    $this->session->sess_destroy();
-
+                $this->add_login_attempt();
 				return FALSE;
 			}
 			else
@@ -191,10 +188,19 @@ class Login extends CI_Controller
 		// If there is no database result found, destroy the session
 		else
 		{
-		    if(session_exists())
-			    $this->session->sess_destroy();
-			return FALSE;
+            $this->add_login_attempt();
+            return FALSE;
 		}
 	}
+
+    /////////////////////////
+    // Helper functions
+    /////////////////////////
+
+    private function add_login_attempt()
+    {
+        $attempts = $this->session->tempdata('login_attempts') + 1;
+        $this->session->set_tempdata('login_attempts', $attempts);
+    }
 
 }
