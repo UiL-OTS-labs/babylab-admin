@@ -1,6 +1,8 @@
 <?=$this->session->flashdata('message'); ?>
 
-<?php if (null !== $this->session->tempdata('login_attempts') && $this->session->tempdata('login_attempts') > 0) {
+<?php
+// We do this check in the view, as flash-message can mess with navigating to other pages.
+if (null !== $this->session->tempdata('login_attempts') && $this->session->tempdata('login_attempts') > 4) {
     echo lang('login_disabled');
 } else {  ?>
     <?=form_open('login/submit/' . $language, array('class' => 'pure-form', 'autocomplete' => 'off')); ?>
