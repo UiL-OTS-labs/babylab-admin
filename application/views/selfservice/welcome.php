@@ -28,19 +28,18 @@ $(function() {
 
 <?=form_fieldset_close(); ?>
 <?=form_fieldset(lang('selfservice_pps_heading')); ?>
-<p><?=lang('selfservice_pps_help'); ?></p>
+<p><?=sprintf(lang('selfservice_pps_help'), mailto(BABYLAB_MANAGER_EMAIL))?></p>
 
 <?php
     $tmpl = array('table_open' => '<table class="pure-table">' );
 
     $this->table->set_template($tmpl);
-    $this->table->set_heading(ucfirst(lang('child')), lang('gender'), lang('dob'), 'Babylab Utrecht', lang('other_babylabs'));
+    $this->table->set_heading(ucfirst(lang('child')), lang('gender'), lang('dob'), 'Babylab Utrecht');
     foreach ($participants as $p)
     {
         $this->table->add_row(name($p), gender_sex($p->gender), output_date($p->dateofbirth), 
-            form_checkbox('active_' . $p->id, TRUE, $p->activated), 
-            form_checkbox('other_' . $p->id, TRUE, $p->otherbabylabs));
-    } 
+            form_checkbox('active_' . $p->id, TRUE, $p->activated));
+    }
     echo $this->table->generate();
 ?>
 
@@ -50,5 +49,3 @@ $(function() {
 </div>
 <?=form_fieldset_close(); ?>
 <?=form_close(); ?>
-
-<p><?=sprintf(lang('selfservice_mail_comments_to'), mailto(BABYLAB_MANAGER_EMAIL)); ?></p>
