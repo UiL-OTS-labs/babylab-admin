@@ -112,6 +112,7 @@ $lang['selfservice_incorrect_url'] = "Incorrect URL or request timed out. Please
 $lang['selfservice_mail_sent'] = "An email with access instructions for the self service portal was sent to %s";
 $lang['selfservice_welcome'] = "Selfservice Babylab Utrecht";
 $lang['selfservice_explanation'] = "On this page, you can change your personal contact information and (when necessary) unsubscribe your children from experiments of Babylab Utrecht or other babylabs";
+$lang['selfservice_explanation'] = "On this page, you can change your personal information and (when necessary) unsubscribe your children from experiments of Babylab Utrecht. You can also register new children here.";
 $lang['selfservice_contact_heading'] = "Your contact information";
 $lang['selfservice_pps_heading'] = "Participating children";
 $lang['child'] = "child";
@@ -120,10 +121,13 @@ $lang['save_changes'] = "Save changes";
 $lang['selfservice_mail_comments_to'] = "If you have other comments, remarks or alterations, you can also email %s.";
 $lang['selfservice_reg_pp'] = "Register a new child";
 $lang['selfservice_pps_help'] 			= "Below you are able to register and deregister your child(ren) for research of the Babylab Utrecht with the checkboxes. 
-											The checkbox below \"Other Babylabs\" allows you to signal whether you can be contacted by other Babylabs. 
 											A checked checkbox means your child is registered, an empty checkbox means your child is deregistered.<br>
 											If you deregister your child, you will not be contacted for any future research of the Babylab Utrecht.
-											If you do want to participate again, you can register your child again via this selfservice page.";
+											If you do want to participate again, you can register your child again via this selfservice page.<br>
+											When you unsubscribe all your children, the personal data as shown above will be removed from the system. 
+											However, this does not happen immediately. At the beginning of academic year, we clean up the system and delete the 
+											personal data from people who no longer want to be approached. If you want your data to be deleted immediately, 
+											please send an email to: %s";
 
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";
