@@ -25,6 +25,6 @@ if (!function_exists('reset_language'))
 		$CI->config->set_item('language', $language);
 
 		// Date/Time
-		setlocale(LC_TIME, $language === L::Dutch ? 'nl_NL.utf8' : 'C');
+		setlocale(LC_TIME, $language === L::DUTCH ? 'nl_NL.utf8' : 'C');
 	}
 }

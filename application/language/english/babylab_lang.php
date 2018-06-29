@@ -69,6 +69,7 @@ $lang['register_return']    = "You will receive an e-mail to confirm your regist
 
 /* Login page */
 $lang['login'] 				= "Log in";
+$lang['login_disabled']		= "Too many login attempts. Please try again in 5 minutes.";
 $lang['login_admin'] 		= "Log in as admin";
 $lang['login_leader'] 		= "Log in as leader";
 $lang['login_caller'] 		= "Log in as caller";

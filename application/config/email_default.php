@@ -19,10 +19,10 @@ $config['crlf'] 		= '\r\n';
 define('FROM_EMAIL',		'');
 /** Sender name */
 define('FROM_EMAIL_NAME',	'');
-/** Development override for recipient */
+/** In-interface override for recipient email */
 define('TO_EMAIL_OVERRIDE',	'');
-/** Development mode on or off */
-define('EMAIL_DEV_MODE',	TRUE);
+/** Development mode recipient address (requires environment == development) */
+define('TO_EMAIL_DEV_MODE',	'');
 /** Lab e-mail */
 define('LAB_EMAIL',			'');
 /** Babylab Manager / Team */ 

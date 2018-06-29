@@ -4,6 +4,15 @@
 // Session-related
 /////////////////////////
 
+if (!function_exists('session_exists'))
+{
+    /** Returns if there is a session in use */
+    function session_exists()
+    {
+        return session_status() == PHP_SESSION_ACTIVE;
+    }
+}
+
 if (!function_exists('current_user_id'))
 {
 	/** Returns the user_id of the current user */
@@ -101,7 +110,7 @@ if (!function_exists('is_admin'))
 	/** Returns whether or not the current user is an admin */
 	function is_admin()
 	{
-		return current_role() === UserRole::Admin;
+		return current_role() === UserRole::ADMIN;
 	}
 }
 
@@ -110,7 +119,7 @@ if (!function_exists('is_leader'))
 	/** Returns whether or not the current user is a leader */
 	function is_leader()
 	{
-		return in_array(current_role(), array(UserRole::Leader, UserRole::Researcher));
+		return in_array(current_role(), array(UserRole::LEADER, UserRole::RESEARCHER));
 	}
 }
 
@@ -119,7 +128,7 @@ if (!function_exists('is_caller'))
 	/** Returns whether or not the current user is a caller */
 	function is_caller()
 	{
-		return current_role() === UserRole::Caller;
+		return current_role() === UserRole::CALLER;
 	}
 }
 
@@ -132,7 +141,7 @@ if (!function_exists('in_development'))
 	/** Returns whether or we are in development mode */
 	function in_development()
 	{
-		return ENVIRONMENT === 'development';
+		return ENVIRONMENT !== 'production';
 	}
 }
 

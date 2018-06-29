@@ -14,10 +14,10 @@
 <?php if (is_admin()) { ?>
 <div class="pure-control-group">
     <?=form_label(lang('role'), 'role'); ?>
-    <?=form_radio_and_label('role', UserRole::Admin, $role); ?>
-    <?=form_radio_and_label('role', UserRole::Leader, $role); ?>
-    <?=form_radio_and_label('role', UserRole::Researcher, $role); ?>
-    <?=form_radio_and_label('role', UserRole::Caller, $role); ?>
+    <?=form_radio_and_label('role', UserRole::ADMIN, $role); ?>
+    <?=form_radio_and_label('role', UserRole::LEADER, $role); ?>
+    <?=form_radio_and_label('role', UserRole::RESEARCHER, $role); ?>
+    <?=form_radio_and_label('role', UserRole::CALLER, $role); ?>
 </div>
 <div class="pure-control-group">
 	<?=form_label(lang('needssignature'), 'needssignature'); ?>
@@ -32,8 +32,8 @@
 <?=form_input_and_label('mobile', $mobile); ?>
 <div class="pure-control-group">
     <?=form_label(lang('preferredlanguage'), 'preferredlanguage'); ?>
-    <?=form_radio_and_label('preferredlanguage', 'en', $preferredlanguage, lang(L::English)); ?>
-    <?=form_radio_and_label('preferredlanguage', 'nl', $preferredlanguage, lang(L::Dutch)); ?>
+    <?=form_radio_and_label('preferredlanguage', 'en', $preferredlanguage, lang(L::ENGLISH)); ?>
+    <?=form_radio_and_label('preferredlanguage', 'nl', $preferredlanguage, lang(L::DUTCH)); ?>
 </div>
 <?=form_hidden('referrer', $referrer); ?>
 

@@ -176,10 +176,10 @@ if (!function_exists('experiment_actions'))
 
 		switch (current_role())
 		{
-			case UserRole::Admin:
+			case UserRole::ADMIN:
 				$actions = array($edit_link, $part_link, $call_link, $archive_link);
 				break;
-			case UserRole::Leader:
+			case UserRole::LEADER:
 				$actions = array($part_link);
 				break;
 			default:
