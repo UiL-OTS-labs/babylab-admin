@@ -49,7 +49,7 @@
 		<?=heading(lang('babylab'), 1); ?>
 		<hr>
         <?php
-            if($is_registration) {
+            if(isset($is_registration) && $is_registration) {
                 echo lang('register_info');
             }
         ?>
