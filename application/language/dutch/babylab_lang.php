@@ -127,6 +127,16 @@ $lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw ki
 											Dit gebeurt echter niet direct. Aan het begin van academisch jaar schonen wij het bestand op en verwijderen wij de persoonsgegevens 
 											van mensen die niet meer benaderd willen worden. Wilt u dat uw gegevens direct verwijderd worden, mail dan naar: %s";
 
+/* Register page */
+$lang['register_info'] = "De onderstaande persoonsgegevens zullen worden gebruikt om contact met u op te nemen wanneer 
+uw kind mee kan doen met een experiment.  Deze gegevens zullen 10 jaar lang bewaard worden op een beveiligde server 
+van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u hiermee akkoord.<br/>
+<br/>
+Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
+<a href='https://babylab-admin.hum.uu.nl/selfservice'/>
+selfservice pagina (https://babylab-admin.hum.uu.nl/selfservice)
+</a> 
+met behulp van het e-mailadres dat u hieronder opgeeft. ";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab Utrecht:";

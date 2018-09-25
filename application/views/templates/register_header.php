@@ -48,3 +48,8 @@
 		<img id="header-img" src="images/uu-header.png">
 		<?=heading(lang('babylab'), 1); ?>
 		<hr>
+        <?php
+            if($is_registration) {
+                echo lang('register_info');
+            }
+        ?>

@@ -129,6 +129,15 @@ $lang['selfservice_pps_help'] 			= "Below you are able to register and deregiste
 											personal data from people who no longer want to be approached. If you want your data to be deleted immediately, 
 											please send an email to: %s";
 
+/* Register page */
+$lang['register_info'] = "The personal information asked below will be used to contact you when your child can 
+participate in an experiment. This data will be stored for a period of 10 years on a secure server at Utrecht University. 
+By entering the information below you agree with this.<br/>
+<br/>
+If you want to change or delete your information, you can do so via the 
+<a href='https://babylab-admin.hum.uu.nl/selfservice'/>selfservice (https://babylab-admin.hum.uu.nl/selfservice)</a> 
+using the e-mail address supplied below. ";
+
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Call reminder";
 $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:";
