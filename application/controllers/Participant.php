@@ -695,7 +695,8 @@ class Participant extends CI_Controller
 				'phone' 				=> $this->input->post('phone'),
 				'phonealt' 				=> $this->input->post('phonealt'),
 				'email'					=> $this->input->post('email'),
-				'origin'				=> $this->input->post('origin')
+				'origin'				=> $this->input->post('origin'),
+                'newsletter'            => $this->input->post('newsletter'),
 		);
 	}
 

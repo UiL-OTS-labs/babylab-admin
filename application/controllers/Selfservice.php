@@ -220,6 +220,7 @@ class Selfservice extends CI_Controller
                 'phone'                 => $this->input->post('phone'),
                 'phonealt'              => $this->input->post('phonealt'),
                 'email'                 => $this->input->post('email'),
+                'newsletter'            => $this->input->post('newsletter'),
         );
     }
 
