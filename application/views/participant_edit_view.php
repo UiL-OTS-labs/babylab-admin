@@ -39,6 +39,12 @@
 <?=form_input_and_label('phone', $phone, 'required'); ?>
 <?=form_input_and_label('phonealt', $phonealt); ?>
 <?=form_input_and_label('email', $email, 'required email="true"'); ?>
+<div class="pure-control-group">
+    <?=form_label(lang('newsletter').'*', 'newsletter'); ?>
+    <?=form_radio_and_label('newsletter', '1', $newsletter, lang('yes')); ?>
+    <?=form_radio_and_label('newsletter', '0', $newsletter, lang('no'), TRUE); ?>
+</div>
+<p>* <?=lang('newsletter_q')?></p>
 
 <?=form_fieldset(lang('data_language')); ?>
 <div class="pure-control-group">
