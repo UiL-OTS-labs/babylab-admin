@@ -480,6 +480,7 @@ $config['csrf_exclude_uris'] = array( // Pretty long list, as there are A LOT of
 	'leader/table',
 	'leader/table_by_experiment/\d+',
 	'location/table',
+	'newsletter/table',
 	'participant/table',
 	'participant/table_by_age/\d+/\d+',
 	'participant/table_by_experiment/\d+/\d+',
