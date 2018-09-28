@@ -17,7 +17,7 @@
 <!-- Date / Timepicker -->
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <?=link_tag('css/timepicker.css'); ?>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if (current_language() === L::DUTCH) { ?>
 	<script type="text/javascript" src="js/jquery.ui.datepicker-nl.js"></script>
 	<script type="text/javascript" src="js/jquery.ui.timepicker-nl.js"></script>
 <?php } else { ?>
@@ -25,7 +25,7 @@
 <?php } ?>
 <!-- Validate -->
 <script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
-<?php if (current_language() === L::Dutch) { ?>
+<?php if (current_language() === L::DUTCH) { ?>
 	<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/localization/messages_nl.js"></script>
 <?php } ?>
 <script type="text/javascript">$(function() {$('form').validate();});</script>

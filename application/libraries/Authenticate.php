@@ -20,7 +20,7 @@ class Authenticate
 	 * @param string $param4 message to be displayed when not authenticated
 	 * @return boolean
 	 */
-	public function authenticate_redirect($url, $data = '', $role = UserRole::Caller, $message_login_failed = '')
+	public function authenticate_redirect($url, $data = '', $role = UserRole::CALLER, $message_login_failed = '')
 	{
 		// if authentication succes, load view, otherwise show message not authorized
 		if ($this->CI->authenticate->authenticate_session($role) == TRUE) 
@@ -38,8 +38,8 @@ class Authenticate
 	{
 		$session_role = $this->CI->session->userdata('role');
 
-		$correct_role = $role === UserRole::Admin ? $session_role === UserRole::Admin : TRUE;
-		$correct_role &= $role === UserRole::Leader ? in_array($session_role, array(UserRole::Admin, UserRole::Leader)) : TRUE;
+		$correct_role = $role === UserRole::ADMIN ? $session_role === UserRole::ADMIN : TRUE;
+		$correct_role &= $role === UserRole::LEADER ? in_array($session_role, array(UserRole::ADMIN, UserRole::LEADER)) : TRUE;
 
 		return $this->logged_in() && $correct_role;
 	}
@@ -49,7 +49,9 @@ class Authenticate
 	 */
 	public function logged_in()
 	{
-		return $this->CI->session->userdata('logged_in');
+	    $logged_in = $this->CI->session->userdata('logged_in');
+
+		return !is_null($logged_in) && $logged_in;
 	}
 
 	/**
@@ -59,7 +61,7 @@ class Authenticate
 	 */
 	public function redirect_except($exceptions = array())
 	{
-		$method = $this->CI->router->fetch_method();
+		$method = $this->CI->router->method;
 		
 		if (!$this->logged_in())
 		{

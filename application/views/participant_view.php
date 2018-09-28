@@ -24,7 +24,7 @@
 			<?php 
 				if ($verify_languages || $verify_dyslexia) 
 				{ 
-					echo '<p class="warning">'. implode(br(), array_merge($verify_languages, $verify_dyslexia)) . '</p>';
+					echo '<p class="warning">'. implode('<br />', array_merge($verify_languages, $verify_dyslexia)) . '</p>';
 				} 
 			?>
 			<table class="pure-table">
@@ -86,11 +86,11 @@
 				if (!$participant->activated)
 				{
 					$reason = $participant->deactivated_reason;
-					$new = $reason == DeactivateReason::NewParticipant;
+					$new = $reason == DeactivateReason::NEW_PARTICIPANT;
 					$class = $new ? 'warning' : 'info';
 					echo '<div class="' . $class . '"';
 					echo "<p>" . lang('p_not_yet_active') . "</p>";
-					echo "<p>" . lang('reason') . br(); 
+					echo "<p>" . lang('reason') . '<br />';
 					echo lang('reason_' . $reason) . ' (' . output_datetime($participant->deactivated) . ")</p>";
 					if ($new) echo participant_activate_link($participant, lang('activate'));
 					echo "</div>";
@@ -157,8 +157,8 @@
 	create_impediment_table('impediments');
 	$impediments['id'] = 'impediments';
 	$impediments['ajax_source'] = 'impediment/table/1/' . $participant->id;
-	echo $this->load->view('templates/list_view', $impediments);
-	echo $this->load->view('impediment_add_view', $impediments);
+	echo $this->load->view('templates/list_view', $impediments, true);
+	echo $this->load->view('impediment_add_view', $impediments, true);
 	?>
 	</div>
 
@@ -169,8 +169,8 @@
 	create_comment_table('comments');
 	$comments['id'] = 'comments';
 	$comments['ajax_source'] = 'comment/table/0/0/' . $participant->id;
-	echo $this->load->view('templates/list_view', $comments);
-	echo $this->load->view('comment_add_view');
+	echo $this->load->view('templates/list_view', $comments, true);
+	echo $this->load->view('comment_add_view', '', true);
 	?>
 	</div>
 
@@ -192,7 +192,7 @@
 		create_testinvite_participant_table('testinvites');
 		$testinvites['id'] = 'testinvites';	
 		$testinvites['ajax_source'] = 'testinvite/table_by_participant/' . $participant->id;
-		$this->load->view('templates/list_view', $testinvites); 
+		$this->load->view('templates/list_view', $testinvites);
 	?>
 	</div>
 </div>

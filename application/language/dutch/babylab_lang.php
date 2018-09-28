@@ -69,6 +69,7 @@ $lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanm
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
+$lang['login_disabled']		= "Het limiet voor het aantal inlog pogingen is bereikt. Probeer het over 5 minuten opnieuw.";
 $lang['login_admin'] 		= "Login als admin";
 $lang['login_leader'] 		= "Login als leider";
 $lang['login_caller'] 		= "Login als beller";
@@ -126,6 +127,16 @@ $lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw ki
 											Dit gebeurt echter niet direct. Aan het begin van academisch jaar schonen wij het bestand op en verwijderen wij de persoonsgegevens 
 											van mensen die niet meer benaderd willen worden. Wilt u dat uw gegevens direct verwijderd worden, mail dan naar: %s";
 
+/* Register page */
+$lang['register_info'] = "De onderstaande persoonsgegevens zullen worden gebruikt om contact met u op te nemen wanneer 
+uw kind mee kan doen met een experiment.  Deze gegevens zullen 10 jaar lang bewaard worden op een beveiligde server 
+van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u hiermee akkoord.<br/>
+<br/>
+Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
+<a href='https://babylab-admin.hum.uu.nl/selfservice'/>
+selfservice pagina (https://babylab-admin.hum.uu.nl/selfservice)
+</a> 
+met behulp van het e-mailadres dat u hieronder opgeeft. ";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab Utrecht:";
@@ -303,6 +314,8 @@ $lang['data_end']			= "Tot slot";
 $lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de ouders <b>dyslectisch</b> is?";
 $lang['problems_q']			= "Heeft &#233;&#233;n van de ouders (ernstige) <b>motorische problemen</b> (gehad)?";
 $lang['multilingual_q']		= "Komt uw kind regelmatig in aanraking met <b>andere talen</b> dan het Nederlands?";
+$lang['newsletter']         = "Nieuwsbrief";
+$lang['newsletter_q']       = "Ongeveer 1x per jaar brengen wij een nieuwsbrief uit. Als u deze wil ontvangen kunt u dat hier aangeven.";
 $lang['parent']				= "Ouder";
 $lang['father']				= "Vader";
 $lang['mother']				= "Moeder";

@@ -102,10 +102,10 @@ if (!function_exists('participation_actions'))
 
 		switch (current_role())
 		{
-			case UserRole::Admin:
+			case UserRole::ADMIN:
 				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $comment_link, $delete_link);
 				break;
-			case UserRole::Leader:
+			case UserRole::LEADER:
 				$actions = array($get_link, $cancel_link, $reschedule_link, $noshow_link, $completed_link, $comment_link);
 				break;
 			default:

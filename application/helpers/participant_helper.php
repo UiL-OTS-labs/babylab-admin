@@ -47,11 +47,11 @@ if (!function_exists('gender'))
 	/** Returns the gender of the participant in html */
 	function gender($gender)
 	{
-		if (strcasecmp($gender, Gender::Male) == 0)
+		if (strcasecmp($gender, Gender::MALE) == 0)
 		{
 			return '<font color="blue">&#9794</font>';
 		}
-		else if (strcasecmp($gender, Gender::Female) == 0)
+		else if (strcasecmp($gender, Gender::FEMALE) == 0)
 		{
 			return '<font color="pink">&#9792</font>';
 		}
@@ -69,8 +69,8 @@ if (!function_exists('gender_sex'))
 	{
 		switch ($gender)
 		{
-			case Gender::Male: 		$result = lang('boy');		break;
-			case Gender::Female: 	$result = lang('girl');		break;
+			case Gender::MALE: 		$result = lang('boy');		break;
+			case Gender::FEMALE: 	$result = lang('girl');		break;
 			default: 				$result = lang('none');		break;
 		}
 		return strtolower($result);
@@ -84,8 +84,8 @@ if (!function_exists('gender_child'))
 	{
 		switch ($gender)
 		{
-			case Gender::Male: 		$result = lang('son');		break;
-			case Gender::Female: 	$result = lang('daughter');	break;
+			case Gender::MALE: 		$result = lang('son');		break;
+			case Gender::FEMALE: 	$result = lang('daughter');	break;
 			default: 				$result = lang('none');		break;
 		}
 		return strtolower($result);
@@ -99,8 +99,8 @@ if (!function_exists('gender_pos'))
 	{
 		switch ($gender)
 		{
-			case Gender::Male: 		$result = lang('his');		break;
-			case Gender::Female: 	$result = lang('her');		break;
+			case Gender::MALE: 		$result = lang('his');		break;
+			case Gender::FEMALE: 	$result = lang('her');		break;
 			default: 				$result = lang('none');		break;
 		}
 		return strtolower($result);
@@ -114,9 +114,9 @@ if (!function_exists('gender_parent'))
 	{
 		switch ($gender)
 		{
-			case Gender::Male: 		$result = lang('father');	break;
-			case Gender::Female: 	$result = lang('mother');	break;
-			case Gender::Both: 		$result = lang('both'); 	break;
+			case Gender::MALE: 		$result = lang('father');	break;
+			case Gender::FEMALE: 	$result = lang('mother');	break;
+			case Gender::BOTH: 		$result = lang('both'); 	break;
 			default: 				$result = lang('none');		break;
 		}
 		return $result;
@@ -221,7 +221,7 @@ if (!function_exists('last_called'))
 			if ($call && $call->timeend)
 			{
 				$msg = '';
-				if ($call->status == CallStatus::CallBack)
+				if ($call->status == CallStatus::CALL_BACK)
 				{
 					$msg = sprintf(lang('call_back_on'), format_date($participation->call_back_date));
 					if ($participation->call_back_comment)
@@ -304,7 +304,7 @@ if (!function_exists('participant_activate_link'))
 		if (!$participant->activated) 
 		{
 			$activate_link = anchor('participant/activate/' . $participant->id, $text ? $text : img_active(FALSE));
-			if ($participant->deactivated_reason == DeactivateReason::NewParticipant)
+			if ($participant->deactivated_reason == DeactivateReason::NEW_PARTICIPANT)
 			{
 				return $activate_link;
 			}

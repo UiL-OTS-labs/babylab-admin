@@ -78,7 +78,7 @@
 			$calls['sort_column'] = 5;
 			$calls['sort_order'] = 'desc';
 			$calls['ajax_source'] = 'call/table_by_participation/' . $participation->id;
-			echo $this->load->view('templates/list_view', $calls);
+			echo $this->load->view('templates/list_view', $calls, true);
 		?>
 	</div>
 <?php } ?>
@@ -90,6 +90,6 @@
 		create_result_table('results');
 		$results['id'] = 'results';
 		$results['ajax_source'] = 'result/table_by_participation/' . $participation->id;
-		echo $this->load->view('templates/list_view', $results);
+		echo $this->load->view('templates/list_view', $results, true);
 	?>
 </div>

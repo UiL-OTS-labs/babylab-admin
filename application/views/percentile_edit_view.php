@@ -24,8 +24,8 @@ else {
 ?>
 <div class="pure-control-group">
 <?=form_label(lang('gender'), 'gender'); ?>
-<?=form_radio_and_label('gender', Gender::Female, $gender, gender(Gender::Female)); ?>
-<?=form_radio_and_label('gender', Gender::Male, $gender, gender(Gender::Male)); ?>
+<?=form_radio_and_label('gender', Gender::FEMALE, $gender, gender(Gender::FEMALE)); ?>
+<?=form_radio_and_label('gender', Gender::MALE, $gender, gender(Gender::MALE)); ?>
 </div>
 <?=form_input_and_label('age', $age, 'class="positive-integer"'); ?>
 <?=form_input_and_label('score', $score, 'required="true" class="positive-integer"'); ?>
