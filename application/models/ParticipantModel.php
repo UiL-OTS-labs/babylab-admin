@@ -67,6 +67,14 @@ class ParticipantModel extends CI_Model
 		return $this->db->get('participant')->result();
 	}
 
+    /** Returns the participant that have subscribed to the newsletter */
+    public function get_participants_with_newsletter()
+    {
+        $this->db->where('newsletter = true');
+        $this->db->group_by('parentfirstname, parentlastname, email');
+        return $this->db->get('participant')->result();
+    }
+
 	/** Returns the participant for an selfservicecode */
 	public function get_participants_by_selfservicecode($selfservicecode)
 	{

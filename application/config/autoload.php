@@ -78,7 +78,7 @@ $autoload['helper'] = array(
 	'testsurvey', 'testinvite', 'testtemplate', 
     'availability', 'closing',
     // Other
-	'session', 'table', 'image', 'debug');
+	'session', 'table', 'image', 'debug', 'newsletter');
 
 
 /*
