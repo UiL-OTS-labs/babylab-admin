@@ -342,6 +342,8 @@ $lang['registered']			= "Registration date";
 $lang['registered_before_birth'] = "Registered before birth!";
 $lang['specific_info']		= "Specific information";
 $lang['graph_show_by']		= "Show property";
+$lang['download_newsletter']= "Download all newsletter data";
+
 
 /* Participations */
 $lang['participation']	 	= "Appointment";

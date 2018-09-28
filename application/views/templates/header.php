@@ -97,6 +97,7 @@ $(function() {
 				<li class="has-sub"><a href="javascript:void(0)"><?=lang('participants'); ?></a>
 					<ul>
 						<li><?=anchor('participant', lang('overview')); ?></li>
+						<li><?=anchor('newsletter', lang('newsletter')); ?></li>
 						<li><?=anchor('language', lang('languages')); ?></li>
 						<li><?=anchor('dyslexia', lang('dyslexia')); ?></li>
 						<li><?=anchor('impediment', lang('impediments')); ?></li>

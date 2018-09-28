@@ -340,6 +340,8 @@ $lang['registered']			= "Aanmelddatum";
 $lang['registered_before_birth'] = "Aangemeld vóór geboorte!";
 $lang['specific_info']		= "Bijzondere gegevens";
 $lang['graph_show_by']		= "Toon kenmerk";
+$lang['download_newsletter']= "Download alle nieuwsbrief data";
+
 
 /* Participations */
 $lang['participation']	 	= "Deelname";
