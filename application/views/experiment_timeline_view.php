@@ -24,7 +24,7 @@
 	</thead>
 	<tbody>
 	<?php
-		$totals = '';
+		$totals = [];
 		foreach ($tested as $experiment => $month_counts)
 		{
 			echo '<tr>';
