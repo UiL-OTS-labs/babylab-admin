@@ -45,6 +45,14 @@
 $(function() {
 	$(".chosen-select").chosen({width: "350px"});
 });
+    $.ajaxSetup({
+        beforeSend:function(jqXHR, Obj){
+            var key = "<?=$this->security->get_csrf_token_name()?>";
+            var value = "<?=$this->security->get_csrf_hash()?>";
+            if(value)
+            Obj.data += '&' + key + '=' + value;
+        }
+    });
 </script>
 
 <!-- Auto tabindex for inputs TODO: exclude hidden inputs -->
