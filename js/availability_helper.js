@@ -1,7 +1,7 @@
 var counter = 0;
 
 $("#timeselector").selectorTable({
-	resolution: 5,
+	resolution: 15,
 	tableClass: 'pure-table',
 	selected: [
 		preselectedTimes,
