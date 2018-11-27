@@ -31,9 +31,6 @@ class phpass {
 
 	protected $PasswordHash;
 
-	// default values if config was not found
-	protected $iteration_count_log2 = 8;
-	protected $portable_hashes = FALSE;
 
 	/**
 	 * Construct with configuration array
@@ -48,25 +45,18 @@ class phpass {
 
 		include ($path);
 
-		if (!empty($config)) {
-			$this->initialize($config);
-		}
-
 		// create phpass object
-		$this->PasswordHash = new PasswordHash($this->iteration_count_log2, $this->portable_hashes);
+		$this->PasswordHash = new PasswordHash();
 	}
 
 	/**
 	 * Initialize with configuration array
 	 *
+     * @deprecated
 	 * @param array $config
 	 */
 	public function initialize($config = array()) {
-		foreach ($config as $key => $val) {
-			if ($key != 'PasswordHash') {
-				$this->{$key} = $val;
-			}
-		}
+
 	}
 
 	/**
@@ -82,6 +72,14 @@ class phpass {
 	public function check($password, $stored_hash) {
 		return $this->PasswordHash->CheckPassword($password, $stored_hash);
 	}
+
+    /**
+     * Alias method for PasswordNeedsRehash
+     */
+	public function needs_rehash($hash)
+    {
+        return $this->PasswordHash->PasswordNeedsRehash($hash);
+    }
 
 	/**
 	 * Magic call method that passes every call to the phpass object

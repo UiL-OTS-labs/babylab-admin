@@ -541,7 +541,7 @@ class Participant extends CI_Controller
 	public function age_overview()
 	{
 		// Get the number of months to look in the future
-		$date = is_null($this->input->post('date')) ? $this->input->post('date') : output_date('now', TRUE);
+		$date = is_null($this->input->post('date')) ? output_date('now', TRUE) : $this->input->post('date');
 
 		// Set up the table 
 		base_table();

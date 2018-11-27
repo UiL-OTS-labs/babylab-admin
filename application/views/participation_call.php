@@ -186,6 +186,21 @@
 					<th><?=lang('email'); ?></th>
 					<td><?=mailto($participant->email); ?></td>
 				</tr>
+                <tr>
+                    <th><?=lang('city')?></th>
+                    <td>
+                        <?=$participant->city?>
+                        <?php
+                            if(trim(strtolower($participant->city)) != 'utrecht')
+                            {
+                                echo ' ';
+                                echo '<span class="warning">';
+                                echo lang('outside_utrecht_int');
+                                echo '</span>';
+                            }
+                            ?>
+                    </td>
+                </tr>
 				<tr>
 					<th><?=lang('registered'); ?></th>
 					<td>

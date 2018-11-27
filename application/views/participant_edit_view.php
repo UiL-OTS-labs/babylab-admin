@@ -1,4 +1,5 @@
 <script type="text/javascript" src="js/dob.js"></script>
+<script type="text/javascript" src="js/travelexpenses.js"></script>
 <script type="text/javascript" src="js/languages_toggle.js"></script>
 <?php if (!$is_registration) { ?>
 <script type="text/javascript" src="js/languages_add.js"></script>
@@ -36,6 +37,9 @@
 <?=form_input_and_label('parentfirstname', $parentfirstname, 'required'); ?>
 <?=form_input_and_label('parentlastname', $parentlastname, 'required'); ?>
 <?=form_input_and_label('city', $city); ?>
+<div style="margin-bottom: 10px;padding-left: 26em;display:none;" id="travel_expenses_warning">
+    <?=lang('outside_utrecht')?>
+</div>
 <?=form_input_and_label('phone', $phone, 'required'); ?>
 <?=form_input_and_label('phonealt', $phonealt); ?>
 <?=form_input_and_label('email', $email, 'required email="true"'); ?>

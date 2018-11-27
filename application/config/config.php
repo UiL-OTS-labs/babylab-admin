@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://vm-uilots-babylab-dev.soliscom.uu.nl/';
+$config['base_url'] = 'https://vm-uilots-babylab-php7.soliscom.uu.nl/';
 
 /*
 |--------------------------------------------------------------------------
@@ -453,69 +453,7 @@ $config['csrf_token_name'] = 'csrf_token';
 $config['csrf_cookie_name'] = 'csrf_ck';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array( // Pretty long list, as there are A LOT of ajax POST requests. 
-	'(?:caller|leader)/table_by_experiment/\d+',
-	'appointment/appointments',
-	'appointment/availabilities',
-	'appointment/closings',
-	'availability/table(?:/\d+)?',
-	'call/table',
-	'call/table_by_participation/\d+',
-	'call/table_by_user/\d+',
-	'caller/table',
-	'caller/table_by_experiment/\d+',
-	'charts/calculator/table',
-	'closing/table(?:/\d+)?',
-	'comment/table(?:/[0-9]+/[0-9]+/?(?:/\d+)?)?',
-	'comment/table_by_user/\d+',
-	'dyslexia/table',
-	'dyslexia/table_by_participant/\d+',
-	'experiment/table(?:/\d+){0,3}',
-	'experiment/table_by_user/\d+',
-	'experiment/table_without_caller',
-	'experiment/table_without_leader',
-	'impediment/table(?:/\d+){0,2}/?',
-	'language/table',
-	'language/table_by_participant/\d+',
-	'leader/table',
-	'leader/table_by_experiment/\d+',
-	'location/table',
-	'newsletter/table',
-	'participant/table',
-	'participant/table_by_age/\d+/\d+',
-	'participant/table_by_experiment/\d+/\d+',
-	'participant/table_by_testsurvey/\d+',
-	'participant/table_registered',
-	'participation/risks_table/\d+/\d+',
-	'participation/table(?:/\d+){0,2}',
-	'participation/table_by_caller',
-	'participation/table_by_leader(?:/\d+)?',
-	'participation/table_callback',
-	'percentile/table',
-	'percentile/table_by_testcat/\d+',
-	'relation/table',
-	'relation/table_by_experiment/\d+',
-	'result/table',
-	'result/table_by_participation/\d+',
-	'score/show_all_testcats',
-	'score/table',
-	'score/table_by_participant/\d+',
-	'score/table_by_testcat/\d+',
-	'score/table_by_testinvite/\d+',
-	'score/table_by_testsurvey/\d+',
-	'test/table',
-	'testcat/table_children/\d+',
-	'testcat/table_roots',
-	'testinvite/table(?:/\d+)?',
-	'testinvite/table_by_experiment/\d+',
-	'testinvite/table_by_participant/\d+',
-	'testinvite/table_by_test/\d+',
-	'testinvite/table_by_testsurvey/\d+',
-	'testsurvey/table',
-	'testsurvey/table_by_test/\d+',
-	'testtemplate/table',
-	'user/table(?:/\d+)?',
-	);
+$config['csrf_exclude_uris'] = array();
 
 /*
 |--------------------------------------------------------------------------

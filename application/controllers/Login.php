@@ -164,6 +164,20 @@ class Login extends CI_Controller
                 if(session_exists())
 				    $this->session->sess_regenerate();
 
+                // Check if the password needs to be rehashed
+                if($this->phpass->needs_rehash($user->password))
+                {
+                    $update_user = [];
+                    $update_user['password'] = $this->phpass->hash($password);
+                    try
+                    {
+                        $this->userModel->update_user($user->id, $update_user);
+                    } catch (\Exception $e)
+                    {
+                        // If there was an error, ignore it
+                    }
+                }
+
 				// Remove the password field
 				unset($user->password);
 
