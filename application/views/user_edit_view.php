@@ -21,8 +21,8 @@
 </div>
 <div class="pure-control-group">
 	<?=form_label(lang('needssignature'), 'needssignature'); ?>
-	<?=form_radio_and_label('needssignature', '1', $needssignature, lang('yes')); ?>
-	<?=form_radio_and_label('needssignature', '0', $needssignature, lang('no'), TRUE); ?>
+	<?=form_radio_and_label('needssignature', '1', $needssignature, lang('yes'), TRUE); ?>
+	<?=form_radio_and_label('needssignature', '0', $needssignature, lang('no')); ?>
 </div>
 <?php } ?>
 <?=form_input_and_label('firstname', $firstname, 'required'); ?>
