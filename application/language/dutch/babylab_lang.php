@@ -432,6 +432,8 @@ $lang['interruptions_for']	= "Afgebroken deelnames voor %s";
 $lang['interruptions_info'] = "Dit overzicht toont de afgebroken deelnames per proefpersoon. 
                                 Bij veel afgebroken deelnames kan overwogen worden deze proefpersoon uit het bestand te halen. 
                                 Dat kan hier direct met de deactiveer-knop.";
+$lang['condition_1']        = "Conditie 1";
+$lang['condition_2']        = "Conditie 2";
 $lang['part_comment']		= "Opmerking bij deelname";
 $lang['part_comment_info']	= "Deze (verplichte) opmerking wordt alleen opgeslagen bij deze deelname. <em>(voorbeeld: zat niet stil)</em>";
 $lang['pp_comment']			= "Opmerking bij proefpersoon";

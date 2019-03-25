@@ -63,7 +63,20 @@
 			<th><?=lang('part_number'); ?></th>
 			<td><?=$participation->part_number; ?></td>
 		</tr>
-		<?php } ?>
+            <?php if (!empty($participation->condition_1)) { ?>
+            <tr>
+                <th><?=lang('condition_1'); ?></th>
+                <td><?=$participation->condition_1; ?></td>
+            </tr>
+            <?php } ?>
+
+            <?php if (!empty($participation->condition_2)) { ?>
+            <tr>
+                <th><?=lang('condition_2'); ?></th>
+                <td><?=$participation->condition_2; ?></td>
+            </tr>
+            <?php } ?>
+        <?php } ?>
 	</table>
 	
 </div>
