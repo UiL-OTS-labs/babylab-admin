@@ -364,7 +364,10 @@ class Participation extends CI_Controller
 			lang('excluded'),
 			lang('completed'),
 			lang('no_show'),
-			lang('comment'));
+			lang('comment'),
+			lang('condition_1'),
+			lang('condition_2'),
+        );
 
 		// Generate array for each row and put in total array
 		foreach ($participations as $participation)
@@ -387,7 +390,10 @@ class Participation extends CI_Controller
 				$participation->excluded ? lang('yes') : lang('no'),
 				$participation->completed ? lang('yes') : lang('no'),
 				$participation->noshow ? lang('yes') : lang('no'),
-				$participation->comment);
+				$participation->comment,
+				$participation->condition_1,
+				$participation->condition_2,
+            );
 
 			// Add row to csv array
 			$csv_array[] = $csv_row;
@@ -773,6 +779,8 @@ class Participation extends CI_Controller
 		$this->form_validation->set_rules('comment', lang('comment'), 'trim|required|max_length[500]');
 		$this->form_validation->set_rules('pp_comment', lang('pp_comment'), 'trim|max_length[2000]');
 		$this->form_validation->set_rules('tech_comment', lang('tech_comment'), 'trim|max_length[500]');
+		$this->form_validation->set_rules('condition_1', lang('tech_comment'), 'trim');
+		$this->form_validation->set_rules('condition_2', lang('tech_comment'), 'trim');
 
 		// Run validation
 		if (!$this->form_validation->run())
@@ -791,7 +799,9 @@ class Participation extends CI_Controller
 				'interrupted' => $this->input->post('interrupted'),
 				'excluded' => $this->input->post('excluded'),
 				'excluded_reason' => $r == '-1' ? NULL : $r,
-				'comment' => $this->input->post('comment')
+				'comment' => $this->input->post('comment'),
+				'condition_1' => $this->input->post('condition_1'),
+				'condition_2' => $this->input->post('condition_2'),
 			);
 			$this->participationModel->completed($participation_id, $participation);
 

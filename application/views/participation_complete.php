@@ -31,6 +31,8 @@ $(function()
 <?=form_radio_and_label('excluded', '1', $excluded, lang('yes')); ?>
 <?=form_radio_and_label('excluded', '0', $excluded, lang('no'), TRUE); ?>
 </div>
+<?=form_input_and_label('condition_1', $condition_1); ?>
+<?=form_input_and_label('condition_2', $condition_2); ?>
 <?=form_dropdown_and_label('excluded_reason', array(
     ExcludedReason::CRYING                  => 'Huilen',
     ExcludedReason::FUSSY_OR_RESTLESS         => 'Onrustig gedrag', 
