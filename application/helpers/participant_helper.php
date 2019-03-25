@@ -257,8 +257,9 @@ if (!function_exists('reference_number'))
 		$first = strtolower(substr(str_replace(' ', '', $participant->firstname), 0, 3));
 		$last = strtolower(substr(str_replace(' ', '', $participant->lastname), 0, 3));
 		$dob = strftime('%d%m%Y', strtotime($participant->dateofbirth));
+		$id = $participant->id;
 
-		return $first . $last . '.' . $dob;
+		return $first . $last . '.' . $dob . '.' . $id;
 	}
 }
 
