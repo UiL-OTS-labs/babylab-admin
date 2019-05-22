@@ -141,7 +141,7 @@ class Appointment extends CI_Controller
 
 			$event = array(
 				'title' 	=> $title,
-				'allDay'	=> $from->diff($to)->format('%a') > 1,
+				'allDay'	=> false,
 				'start' 	=> $from->format(DateTime::ISO8601),
 				'end'		=> $to->format(DateTime::ISO8601),
 				'tooltip'	=> $closing->comment,
