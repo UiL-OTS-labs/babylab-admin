@@ -1,9 +1,7 @@
 <script type="text/javascript" src="js/dob.js"></script>
 <script type="text/javascript" src="js/travelexpenses.js"></script>
 <script type="text/javascript" src="js/languages_toggle.js"></script>
-<?php if (!$is_registration) { ?>
 <script type="text/javascript" src="js/languages_add.js"></script>
-<?php } ?>
 
 <?=heading($page_title, 2); ?>
 
@@ -72,27 +70,31 @@
 </div>
 
 <div id="languages">
-<?php if (!$is_registration) { ?>
-	<p>
-		<em>Vul hieronder in met welke talen het kind in aanraking komt en de (geschatte) percentages van blootstelling aan deze talen. 
-			Als je deze velden invult (je kunt de velden ook leeg laten), moeten de percentages optellen tot 100.</em>
-	</p>
-	<?=form_error('percentage'); ?>
-	<?php
-	$i = 1;
-	foreach ($languages AS $language)
-	{
-		echo '<div class="pure-control-group">';
-		echo ' <label for="language">Taal ' . $i . '</label>';
-		echo ' <input type="text" name="language[]" value="' . $language->language . '" placeholder="Taal">';
-		echo ' <input type="text" name="percentage[]" value="' . $language->percentage . '" placeholder="Percentage" class="positive-integer">';
-		if ($i == 1) echo ' <a class="add_l">+ voeg taal toe</a>';
-		else echo ' <a class="del_l">x verwijder taal</a>';
-		echo '</div>';
-		$i++;
-	}
-	?>
-	<?php } ?>
+<p>
+    <em>
+        <?php
+        if ($is_registration)
+            echo lang('lang_instructions_parent');
+        else
+            echo lang('lang_instructions');
+        ?>
+    </em>
+</p>
+<?=form_error('percentage'); ?>
+<?php
+$i = 1;
+foreach ($languages AS $language)
+{
+    echo '<div class="pure-control-group">';
+    echo ' <label for="language">Taal ' . $i . '</label>';
+    echo ' <input type="text" name="language[]" value="' . $language->language . '" placeholder="Taal">';
+    echo ' <input type="text" name="percentage[]" value="' . $language->percentage . '" placeholder="Percentage" class="positive-integer">';
+    if ($i == 1) echo ' <a class="add_l">+ voeg taal toe</a>';
+    else echo ' <a class="del_l">x verwijder taal</a>';
+    echo '</div>';
+    $i++;
+}
+?>
 </div>
 
 	<?=form_fieldset(lang('data_end')); ?>

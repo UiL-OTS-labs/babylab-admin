@@ -183,3 +183,7 @@ a {
 	height: 24px;
 	background: url("images/select.png") repeat scroll center center transparent;
 }
+
+.del_l, .add_l {
+	cursor: pointer;
+}
