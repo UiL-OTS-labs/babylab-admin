@@ -9,10 +9,10 @@ $lang['verify_languages']		  = "%s is registered as multilingual, but a distribu
 									 Click on %s to create that distribution (opens in new tab).";
 
 $lang['lang_instructions']        = "Please fill in which languages the child is exposed to and the (estimated) 
-                                     percentage of the exposure to these languages. The percentages must add up to 
-                                     100.";
+                                     percentage of the exposure to these languages. 
+                                     If you fill in these percentages (you don't have to), they must add up to 100";
 
 $lang['lang_instructions_parent'] = "Please fill in which languages your child is exposed to and the (estimated) 
-                                     percentage of the exposure to these languages. The percentages must add up to 
-                                     100.";
+                                     percentage of the exposure to these languages. 
+                                     If you fill in these percentages (you don't have to), they must add up to 100";
 ?>

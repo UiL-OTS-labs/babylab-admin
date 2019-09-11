@@ -11,10 +11,12 @@ $lang['verify_languages']		  = "%s staat gemarkeerd als multilinguaal, maar een 
 
 $lang['lang_instructions']        = "Vul hieronder in met welke talen het kind in aanraking komt en de (geschatte)
                                      percentages van blootstelling aan deze talen.
-                                     Deze percentages moeten optellen tot 100.";
+                                     Als je deze percentages invult (je kunt de velden ook leeg laten), moeten de 
+                                     percentages optellen tot 100.";
 
 $lang['lang_instructions_parent'] = "Vul hieronder in met welke talen uw kind in aanraking komt en de (geschatte)
                                      percentages van blootstelling aan deze talen.
-                                     Deze percentages moeten optellen tot 100.";
+                                     Als je deze percentages invult (je kunt de velden ook leeg laten), moeten de 
+                                     percentages optellen tot 100.";
 ?>
 

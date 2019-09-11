@@ -207,7 +207,7 @@ class Participant extends CI_Controller
 	}
 
 	/** Submits the registration of a participant */
-	public function register_submit($language)
+	public function register_submit($language = L::ENGLISH)
 	{
 		// Reset the language
 		reset_language($language);
@@ -733,8 +733,11 @@ class Participant extends CI_Controller
 		$language_array = array();
 		for ($i = 0; $i < count($languages); $i++)
 		{
-			if ($languages[$i] && $percentages[$i])
+			if ($languages[$i])
 			{
+			    if(!$percentages[$i])
+			         $percentages[$i] = null;
+
 				$l = array(
 					'language'			=> $languages[$i],
 					'percentage'		=> $percentages[$i]
@@ -756,6 +759,10 @@ class Participant extends CI_Controller
 		foreach ($language_array as $l)
 		{
 			$l['participant_id'] = $participant_id;
+
+			if(!array_key_exists('percentage', $l) || $l['percentage'] == null)
+			    $l['percentage'] = 0;
+
 			$this->languageModel->add_language($l);
 		}
 	}
