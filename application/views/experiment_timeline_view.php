@@ -14,11 +14,12 @@
 	<?php
 		echo '<tr>';
 		echo '<th style="min-width: 200px; text-align: center;">' . lang('experiment') . '</th>';
-		foreach (array_keys(reset($tested)) as $month) {
-			echo '<th style="min-width: 45px; text-align: center;">';
-			echo $month;
-			echo '</th>';
-		}
+		if(!empty($tested))
+            foreach (array_keys(reset($tested)) as $month) {
+                echo '<th style="min-width: 45px; text-align: center;">';
+                echo $month;
+                echo '</th>';
+            }
 		echo '</tr>';
 	?>
 	</thead>

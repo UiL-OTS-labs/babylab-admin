@@ -8,7 +8,7 @@ babylab, part of the UiL OTS Labs.
 
 ## Requirements
 
-- PHP 5.6+ 
+- PHP 7.1+ 
 - PHP PDO (mysql) extension
 - Apache 2
 - MySQL(-like) database

@@ -171,7 +171,7 @@ class Participant extends CI_Controller
 	/////////////////////////
 
 	/** Specifies the contents of the register page */
-	public function register($language = L::ENGLISH)
+	public function register($language = L::ENGLISH, $language_array = [])
 	{
 		reset_language($language);
 
@@ -193,20 +193,21 @@ class Participant extends CI_Controller
 			$data['birthweight'] = '';
 			$data['pregnancyweeks'] = '';
 			$data['pregnancydays'] = '';
-		}
+        }
 
 		// Set standard fields
 		$data['dob'] = '';
 		$data['comment'] = $this->input->post('comment');
 		$data['is_registration'] = TRUE;
+        $data['languages'] = $this->create_language_objects($language_array);
 
-		$this->load->view('templates/register_header', $data);
+        $this->load->view('templates/register_header', $data);
 		$this->load->view('participant_edit_view', $data);
 		$this->load->view('templates/footer');
 	}
 
 	/** Submits the registration of a participant */
-	public function register_submit($language)
+	public function register_submit($language = L::ENGLISH)
 	{
 		// Reset the language
 		reset_language($language);
@@ -215,7 +216,8 @@ class Participant extends CI_Controller
 		if (!$this->validate_participant(TRUE))
 		{
 			// If not succeeded, show form again with error messages
-			$this->register($language);
+            $language_array = $this->create_language_array();
+            $this->register($language, $language_array);
 		}
 		else
 		{
@@ -226,6 +228,9 @@ class Participant extends CI_Controller
 			// Add the (possible) comment
 			$comment = $this->post_comment($participant_id);
 			if ($comment) $this->commentModel->add_comment($comment);
+
+            // Create the languages
+            $this->create_languages($participant_id);
 
 			// Don't activate on registration (let admins decide) 
 			$this->participantModel->deactivate($participant_id, DeactivateReason::NEW_PARTICIPANT);
@@ -728,8 +733,11 @@ class Participant extends CI_Controller
 		$language_array = array();
 		for ($i = 0; $i < count($languages); $i++)
 		{
-			if ($languages[$i] && $percentages[$i])
+			if ($languages[$i])
 			{
+			    if(!$percentages[$i])
+			         $percentages[$i] = null;
+
 				$l = array(
 					'language'			=> $languages[$i],
 					'percentage'		=> $percentages[$i]
@@ -751,6 +759,10 @@ class Participant extends CI_Controller
 		foreach ($language_array as $l)
 		{
 			$l['participant_id'] = $participant_id;
+
+			if(!array_key_exists('percentage', $l) || $l['percentage'] == null)
+			    $l['percentage'] = 0;
+
 			$this->languageModel->add_language($l);
 		}
 	}
