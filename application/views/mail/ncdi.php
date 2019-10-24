@@ -2,9 +2,9 @@
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
 <?php if ($auto) { ?>
-<p>Enige tijd geleden heeft u met uw <?=$gender; ?> <?=$name; ?> deelgenomen aan onderzoek aan het BabyLab van de Universiteit Utrecht. 
+<p>Enige tijd geleden heeft u met uw <?=$gender; ?> <?=$name; ?> deelgenomen aan onderzoek aan het Babylab van de Universiteit Utrecht.
 <?php } else { ?>
-<p>U ontvangt deze mail omdat u met uw <?=$gender; ?> <?=$name_first; ?> gaat deelnemen.of heeft deelgenomen aan een onderzoek van het Babylab van de Universiteit Utrecht.
+<p>U ontvangt deze mail omdat u met uw <?=$gender; ?> <?=$name_first; ?> gaat deelnemen of heeft deelgenomen aan een onderzoek van het Babylab van de Universiteit Utrecht.
 <?php } ?>
 Hier zijn we heel blij mee, zo kunnen vragen op het gebied van taalverwerving bij kinderen beantwoord worden.</p>
 <p>Een deel van het onderzoek bestaat uit het in verband brengen van de taak waarvoor u met <?=$name_first; ?> bent gekomen en <?=$gender_pos; ?> taalvaardigheid op dit moment. 
