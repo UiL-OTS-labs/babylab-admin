@@ -2,7 +2,7 @@
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
 <?php if ($auto) { ?>
-<p>Enige tijd geleden heeft u met uw <?=$gender; ?> <?=$name; ?> deelgenomen aan onderzoek aan het BabyLab van de Universiteit Utrecht. 
+<p>Enige tijd geleden heeft u met uw <?=$gender; ?> <?=$name; ?> deelgenomen aan onderzoek aan het Babylab van de Universiteit Utrecht.
 <?php } else { ?>
 <p>U ontvangt deze mail omdat u met uw <?=$gender; ?> <?=$name_first; ?> gaat deelnemen of heeft deelgenomen aan een onderzoek van het Babylab van de Universiteit Utrecht.
 <?php } ?>

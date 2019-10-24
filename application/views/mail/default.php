@@ -1,7 +1,7 @@
 <html>
 <body>
 <p>Beste <?=$name_parent; ?>,</p>
-<p>Binnenkort gaat u met uw <?=$gender; ?> <?=$name_first; ?> deelnemen aan een onderzoek aan het BabyLab van de Universiteit Utrecht.
+<p>Binnenkort gaat u met uw <?=$gender; ?> <?=$name_first; ?> deelnemen aan een onderzoek aan het Babylab van de Universiteit Utrecht.
 Hier zijn we heel blij mee, zo kunnen vragen op het gebied van taalverwerving bij kinderen beantwoord worden.</p>
 <p>Bij het onderzoek waar u aan mee gaat doen, hoort ook het invullen van een vragenlijst over de achtergrond en ontwikkeling van <?=$name_first; ?>.
 Om deze reden sturen wij u deze e-mail.
