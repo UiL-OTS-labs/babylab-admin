@@ -57,11 +57,11 @@
 <?=form_radio_and_label('dyslexicparent', Gender::NONE, $dyslexicparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
-<?=form_label(lang('problems_q'), 'problemsparent'); ?>
-<?=form_radio_and_label('problemsparent', Gender::FEMALE, $problemsparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::MALE, $problemsparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::BOTH, $problemsparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-<?=form_radio_and_label('problemsparent', Gender::NONE, $problemsparent, lang('no'), TRUE); ?>
+<?=form_label(lang('languagedisorderparent_q'), 'languagedisorderparent'); ?>
+<?=form_radio_and_label('languagedisorderparent', Gender::FEMALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('languagedisorderparent', Gender::MALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('languagedisorderparent', Gender::BOTH, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('languagedisorderparent', Gender::NONE, $languagedisorderparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('multilingual_q'), 'multilingual'); ?>
@@ -97,14 +97,6 @@ foreach ($languages AS $language)
 ?>
 </div>
 
-	<?=form_fieldset(lang('data_end')); ?>
-	<?=form_dropdown_and_label('origin', array(
-	'letter' 	=> lang('origin_letter'),
-	'zwazat' 	=> lang('origin_zwazat'), 
-	'mouth' 	=> lang('origin_mouth'),
-	'info' 		=> lang('origin_info'),
-	'other' 	=> lang('origin_other')), $origin); ?>
-	<?=form_textarea_and_label('comment', $comment, lang('comment_space')); ?>
 
 	<?=form_controls(); ?>
 	<?=form_fieldset_close(); ?>

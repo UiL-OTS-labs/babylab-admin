@@ -650,7 +650,7 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('phonealt', lang('phonealt'), 'trim');
 		$this->form_validation->set_rules('email', lang('email'), 'trim|valid_email');
 		$this->form_validation->set_rules('dyslexicparent', lang('dyslexicparent'), 'required');
-		$this->form_validation->set_rules('problemsparent', lang('problemsparent'), 'required');
+		$this->form_validation->set_rules('languagedisorderparent', lang('languagedisorderparent'), 'required');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), 'required');
 		$this->form_validation->set_rules('percentage', lang('percentage'), 'callback_sum_percentage');
 		$this->form_validation->set_rules('origin', lang('origin'), 'callback_not_empty');
@@ -681,7 +681,7 @@ class Participant extends CI_Controller
 	private function post_participant()
 	{
 		$dyslexicparent = $this->input->post('dyslexicparent');
-		$problemsparent = $this->input->post('problemsparent');
+		$languagedisorderparent = $this->input->post('languagedisorderparent');
 
 		return array(
 				'firstname' 			=> $this->input->post('firstname'),
@@ -692,7 +692,7 @@ class Participant extends CI_Controller
 				'pregnancyweeks' 		=> $this->input->post('pregnancyweeks'),
 				'pregnancydays' 		=> $this->input->post('pregnancydays'),
 				'dyslexicparent' 		=> $dyslexicparent === Gender::NONE ? NULL : $dyslexicparent,
-				'problemsparent' 		=> $problemsparent === Gender::NONE ? NULL : $problemsparent,
+				'languagedisorderparent'=> $languagedisorderparent === Gender::NONE ? NULL : $languagedisorderparent,
 				'multilingual' 			=> $this->input->post('multilingual'),
 				'parentfirstname' 		=> $this->input->post('parentfirstname'),
 				'parentlastname' 		=> $this->input->post('parentlastname'),
@@ -700,7 +700,7 @@ class Participant extends CI_Controller
 				'phone' 				=> $this->input->post('phone'),
 				'phonealt' 				=> $this->input->post('phonealt'),
 				'email'					=> $this->input->post('email'),
-				'origin'				=> $this->input->post('origin'),
+				'origin'				=> '',
                 'newsletter'            => $this->input->post('newsletter'),
 		);
 	}
