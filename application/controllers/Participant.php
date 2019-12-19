@@ -815,12 +815,15 @@ class Participant extends CI_Controller
 		$multilingual = $this->input->post('multilingual');
 		if (is_null($multilingual)) return TRUE;
 
-		if ($percentage && array_sum($percentage) != 0 && array_sum($percentage) != 100)
+		$percentage = $this->input->post('percentage');
+
+		if ($percentage && array_sum($percentage) != 100)
 		{
 			$this->form_validation->set_message('sum_percentage', lang('sum_percentage_wrong'));
 			return FALSE;
 		}
-		return TRUE;
+
+        return TRUE;
 	}
 
 	/////////////////////////
