@@ -813,7 +813,7 @@ class Participant extends CI_Controller
 	public function sum_percentage($percentage)
 	{
 		$multilingual = $this->input->post('multilingual');
-		if (is_null($multilingual)) return TRUE;
+		if (empty($multilingual)) return TRUE;
 
 		$percentage = $this->input->post('percentage');
 
