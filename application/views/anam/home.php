@@ -9,7 +9,7 @@
 	</p>
 	<p>
 		U kunt het scherm nu afsluiten of doorklikken naar onze website:
-		<?=anchor('http://babylab.wp.hum.uu.nl', 'http://babylab.wp.hum.uu.nl'); ?>.
+		<?=anchor('https://babylab.wp.hum.uu.nl', 'https://babylab.wp.hum.uu.nl'); ?>.
 	</p>
 <?php 
 } 
