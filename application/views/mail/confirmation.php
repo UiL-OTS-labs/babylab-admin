@@ -47,7 +47,7 @@ Mocht u verder nog vragen hebben dan kunt u contact opnemen met:</p>
 <?php if ($survey_link) { ?>
 <p>De link naar de vragenlijst (<em>Anamnese 1ste bezoek</em>) vindt u hier: <?=$survey_link; ?>.</p>
 <?php } ?>
-<p>Meer informatie over het Babylab en bijvoorbeeld hoe er te komen is beschikbaar op <?=anchor('http://babylab.wp.hum.uu.nl'); ?>.</p>
+<p>Meer informatie over het Babylab en bijvoorbeeld hoe er te komen is beschikbaar op <?=anchor('https://babylab.wp.hum.uu.nl'); ?>.</p>
 <p>Wij danken u alvast hartelijk voor uw medewerking, zonder uw deelname kunnen wij geen onderzoek doen!</p>
 <p>Hartelijke groet,</p>
 <p><?=BABYLAB_TEAM; ?></p>

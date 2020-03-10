@@ -65,7 +65,7 @@ $lang['deregister_finish']	= "Bedankt voor uw afmelding";
 $lang['deregister_info']	= "Uw afmelding wordt verwerkt. Mochten we naar aanleiding van uw afmelding nog vragen hebben, dan nemen we contact met u op.";
 $lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.";
 
-$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('https://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
@@ -316,7 +316,7 @@ $lang['data_end']			= "Tot slot";
 $lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de ouders <b>dyslectisch</b> is?";
 $lang['problems_q']			= "Heeft &#233;&#233;n van de ouders (ernstige) <b>motorische problemen</b> (gehad)?";
 $lang['languagedisorderparent_q'] = "Heeft &#233;&#233;n van de ouders een <b>taalontwikkelingsstoornis</b> (TOS voorheen ESM) of <b>spraakontwikkelingsproblemen</b> <gehad></gehad>?";
-$lang['multilingual_q']		= "Komt uw kind regelmatig in aanraking met <b>andere talen</b> dan het Nederlands?";
+$lang['multilingual_q']		= "Komt uw kind (regelmatig) in aanraking met meerdere talen?";
 $lang['newsletter']         = "Nieuwsbrief";
 $lang['newsletter_q']       = "Ongeveer 1x per jaar brengen wij een nieuwsbrief uit. Als u deze wil ontvangen kunt u dat hier aangeven.";
 $lang['parent']				= "Ouder";

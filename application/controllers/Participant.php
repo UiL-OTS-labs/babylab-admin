@@ -659,7 +659,7 @@ class Participant extends CI_Controller
 		{
 			$this->form_validation->set_rules('birthweight', lang('birthweight'), 'trim|required|greater_than[500]|less_than[6000]');
 			$this->form_validation->set_rules('pregnancyweeks', lang('pregnancyweeks'), 'trim|required|greater_than[20]|less_than[50]');
-			$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[8]');
+			$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[7]');
 		}
 
 		return $this->form_validation->run();
