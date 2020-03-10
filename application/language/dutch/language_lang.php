@@ -9,14 +9,14 @@ $lang['verify_languages']		  = "%s staat gemarkeerd als multilinguaal, maar een 
 							 	     Klik %s om die verdeling aan te maken (opent in een nieuw venster).";
 
 
-$lang['lang_instructions']        = "Vul hieronder in met welke talen het kind in aanraking komt en de (geschatte)
-                                     percentages van blootstelling aan deze talen.
-                                     Als je deze percentages invult (je kunt de velden ook leeg laten), moeten de 
-                                     percentages optellen tot 100.";
+$lang['lang_instructions']        = "Hieronder kunt u aangeven om welke talen het gaat.
+                                     In de kolom ernaast kunt u aangeven wat ongeveer het percentage is waarmee uw
+                                     kind met die taal in aanraking komt. NB: Nederlands moet, indien van toepassing,
+                                     ook vermeld worden.";
 
-$lang['lang_instructions_parent'] = "Vul hieronder in met welke talen uw kind in aanraking komt en de (geschatte)
-                                     percentages van blootstelling aan deze talen.
-                                     Als je deze percentages invult (je kunt de velden ook leeg laten), moeten de 
-                                     percentages optellen tot 100.";
+$lang['lang_instructions_parent'] = "Hieronder kunt u aangeven om welke talen het gaat.
+                                     In de kolom ernaast kunt u aangeven wat ongeveer het percentage is waarmee uw
+                                     kind met die taal in aanraking komt. NB: Nederlands moet, indien van toepassing,
+                                     ook vermeld worden.";
 ?>
 
