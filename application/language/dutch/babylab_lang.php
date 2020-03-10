@@ -231,6 +231,7 @@ $lang['sure_delete_relation']	= "Weet u zeker dat u dit verband wilt verwijderen
 $lang['prerequisite']		= "Is voorwaarde voor deelname aan";
 $lang['excludes']			= "Sluit deelname uit aan";
 $lang['combination']		= "Is (mogelijk) gecombineerd met";
+$lang['risk_info']          = "Dit zal bepalen welke deelnemers kunnen worden uitgenodigd. Als u zowel dyslectisch als meertalig niet aan vinkt, kunt u alleen niet-dyslectische en niet-meertalige deelnemers uitnodigen. Als u dyslexie selecteert, worden alle meertalige deelnemers uitgefilterd en vice versa. Door zowel dyslexie als meertalig te selecteren, kunnen alle deelnemers worden uitgenodigd.";
 $lang['prerequisite_info']	= "Selecteer hieronder experimenten aan welke de proefpersoon moet hebben deelgenomen voordat hij deelneemt aan dit experiment. Dit kun je gebruiken voor longitudinale experimenten of experimenten die uit twee sessies op twee verschillende tijdstippen bestaan.";
 $lang['excludes_info']		= "Selecteer hieronder experimenten aan welke de proefpersoon niet meer mag deelnemen als deze aan dit experiment heeft deelgenomen.";
 $lang['combination_info']	= "Selecteer hieronder een experiment met welke dit experiment mogelijk gecombineerd wordt. Een combinatie betekent dat de experimenten direct achter elkaar worden uitgevoerd.";

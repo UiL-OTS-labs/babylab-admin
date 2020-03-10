@@ -166,11 +166,11 @@ class ParticipantModel extends CI_Model
 					WHERE	imp.participant_id = p.id
 					AND 	(NOW() BETWEEN imp.from AND imp.to))', NULL, FALSE);
 		// not being risk (depending on the sort of experiment)
-		if ($experiment->dyslexic)
+		if ($experiment->dyslexic && !$experiment->multilingual)
 		{
 			$this->db->where('multilingual', FALSE);
 		}
-		if ($experiment->multilingual)
+		if ($experiment->multilingual && !$experiment->dyslexic)
 		{
 			$this->db->where('dyslexicparent IS NULL');
 		}
