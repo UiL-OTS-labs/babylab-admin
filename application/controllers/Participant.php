@@ -550,7 +550,7 @@ class Participant extends CI_Controller
 
 		// Set up the table 
 		base_table();
-		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal tweetalig', lang('actions'));
+		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal meertalig', lang('actions'));
 
 		// Calculate the number of participants per month, given the data 
 		foreach ($this->participantModel->get_participants_per_month($date) as $p)
