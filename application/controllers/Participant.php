@@ -53,7 +53,7 @@ class Participant extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_pp'), name($participant));
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
-		$data['languagedisorderparents'] = $this->participantModel->get_languagedisorderparent($participant_id);
+		$data['languagedisorderparents'] = $this->participantModel->get_languagedisorderparents($participant_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participant_view', $data);
