@@ -19,7 +19,6 @@ $lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown 
 							   	Choose one of the experiments below and click the phone icon to start calling.";
 $lang['info_leader']		= "You are enrolled as leader for %s experiment(s) (shown below).";
 
-
 $lang['error']				= "Whoops, something clearly went wrong here...";
 $lang['activate']			= "Activate";
 $lang['archive']			= "Archive";
@@ -311,6 +310,7 @@ $lang['pregnancydays']		= "Gestational age (days)";
 $lang['dyslexicparent']		= "Dyslexic parent";
 $lang['problemsparent']		= "Motorical problems parent";
 $lang['languagedisorderparent']= "Language/speech disorder parent";
+$lang['languagedisorderparent_short']= "TOS";
 $lang['no_languagedisorderparents']= "None.";
 $lang['data_child']			= "Details child";
 $lang['data_parent']		= "Details parent";

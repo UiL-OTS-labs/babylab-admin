@@ -11,7 +11,7 @@ if (!function_exists('create_participant_table'))
 	{
 		$CI =& get_instance();
 		base_table($id);
-		$heading = array(lang('name'), lang('dob'), lang('age'), lang('dyslexicparent'), lang('multilingual'), lang('phone'), lang('actions'));
+		$heading = array(lang('name'), lang('dob'), lang('age'), lang('dyslexicparent'), lang('multilingual'), lang('languagedisorderparent_short'), lang('phone'), lang('actions'));
 		if ($find)
 		{
 			array_splice($heading, -1, 1, array(lang('status'), lang('actions')));

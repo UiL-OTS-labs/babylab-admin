@@ -873,7 +873,7 @@ class Participant extends CI_Controller
 			}
 		}
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
 		$this->datatables->from('participant');
 
 		if (!is_admin()) 
