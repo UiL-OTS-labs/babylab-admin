@@ -58,7 +58,7 @@
 				</tr>
 				<tr>
 					<th><?=lang('languagedisorderparent'); ?></th>
-					<td><?=$languagedisorderparents; ?></td>
+					<td><?=tos($participant->languagedisorderparent); ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('registered'); ?></th>

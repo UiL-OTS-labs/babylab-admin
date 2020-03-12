@@ -123,6 +123,21 @@ if (!function_exists('gender_parent'))
 	}
 }
 
+if (!function_exists('tos'))
+{
+	function tos($languagedisorderparent)
+	{
+		switch ($languagedisorderparent)
+		{
+			case "m":    $result = lang('father');       break;
+			case "f":    $result = lang('mother');       break;
+			case "mf":   $result = lang('both');         break;
+			default:     $result = lang('none');         break;
+		}
+		return $result;
+	}
+}
+
 if (!function_exists('dob'))
 {
 	/** Returns the date of birth of the participant */
