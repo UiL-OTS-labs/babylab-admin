@@ -168,7 +168,7 @@ class SurveyModel extends CI_Model
 			'language'		=> 'nl',
 			'sent' 			=> 'Y');
 
-		if ($survey_id == 65377) // Anamnese (TODO: make this generic?)
+		if ($survey_id == 65377) // Vragenlijst eerste bezoek VEB (TODO: make this generic?)
 		{
 			$token_insert['attribute_1'] = strtoupper($participant->gender);
 			$token_insert['attribute_2'] = input_date($participant->dateofbirth);
@@ -187,7 +187,7 @@ class SurveyModel extends CI_Model
 				$token_insert['attribute_' . $n++] = $language->percentage;
 			}
 		}
-		if (in_array($survey_id, array(86644, 21825, 23863))) // NCDI-WG/WZ / Anam-short (TODO: make this generic?)
+		if (in_array($survey_id, array(86644, 21825, 23863))) // NCDI-WG/WZ / VEB-short (TODO: make this generic?)
 		{
 			$token_insert['attribute_1'] = strtoupper($participant->gender);
 			$token_insert['attribute_2'] = input_date($participant->dateofbirth);

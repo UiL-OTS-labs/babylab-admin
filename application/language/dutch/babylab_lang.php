@@ -585,8 +585,8 @@ $lang['date_text']			= "Ga naar datum";
 $lang['show_calendar']		= "Toon de agenda";
 $lang['show_availability']	= "Toon aanwezigheid voor onderzoeksleiders";
 
-/* Anamnese */
-$lang['send_anamnese'] 		= "Anamnese versturen?";
+/* VEB */
+$lang['send_veb'] 		= "Vragenlijst eerste bezoek versturen?";
 
 /* Availability view */
 $lang['availability']		= "Beschikbaarheid";

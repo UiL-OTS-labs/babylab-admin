@@ -586,8 +586,8 @@ $lang['date_text']			= "Jump to date";
 $lang['show_calendar']		= "Show the calendar";
 $lang['show_availability']	= "Show availability of research leaders";
 
-/* Anamnese */
-$lang['send_anamnese'] 		= "Send the anamnese?";
+/* VEB */
+$lang['send_veb'] 		= "Send the Questionaire first visit?";
 
 /* Availability view */
 $lang['availability']		= "Availability";
