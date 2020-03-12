@@ -57,6 +57,10 @@
 					<td><?=img_tick($participant->multilingual); ?></td>
 				</tr>
 				<tr>
+					<th><?=lang('languagedisorderparent'); ?></th>
+					<td><?=img_tick($participant->languagedisorderparent); ?></td>
+				</tr>
+				<tr>
 					<th><?=lang('registered'); ?></th>
 					<td>
 						<?php 

@@ -43,7 +43,7 @@ class Participant extends CI_Controller
 		$comments = $this->commentModel->get_comments_by_participant($participant_id);
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
 		$participations = $this->participationModel->get_participations_by_participant($participant_id, TRUE);
-		
+
 		$data['participant'] = $participant;
 		$data['last_called'] = $this->participantModel->last_called($participant_id);
 		$data['last_experiment'] = $this->participantModel->last_experiment($participant_id);
@@ -53,6 +53,8 @@ class Participant extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_pp'), name($participant));
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
+		$data['languagedisorderparent'] = $this->participantModel->last_called($participant_id);
+
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participant_view', $data);

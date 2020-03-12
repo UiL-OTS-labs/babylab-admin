@@ -255,6 +255,13 @@ class ParticipantModel extends CI_Model
 		return $this->db->get('participant')->result();
 	}
 
+	/** Returns all participants with languagedisorderparents */
+	public function get_multilingual_participants()
+	{
+		$this->db->where('languagedisorderparent IS NOT NULL');
+		return $this->db->get('participant')->result();
+	}
+
 	/** Returns all 'risk' participants for an experiment */
 	public function get_risk_participants($experiment)
 	{
@@ -354,4 +361,17 @@ class ParticipantModel extends CI_Model
 		return sprintf(lang('last_exp'), output_date($last_exp), $experiment->name);
 	}
 
+	/** Returns the date on and the experiment in the participant last participated */
+	public function get_languagedisorderparent($participant_id)
+	{
+		$this->db->where('participant_id', $participant_id);
+		$this->db->where('languagedisorderparent IS NOT NULL'); // only completed experiments
+		$languagedisorderparents = $this->db->get('participation')->row();
+
+		if (empty($languagedisorderparents)) {
+			return lang('no_languagedisorderparents');
+		}
+
+		return $languagedisorderparents->languagedisorderparent;
+	}
 }

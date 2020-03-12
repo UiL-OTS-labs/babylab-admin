@@ -309,6 +309,7 @@ $lang['pregnancydays']		= "Zwangerschapsduur (dagen)";
 $lang['dyslexicparent']		= "Dyslectische ouder";
 $lang['problemsparent']		= "Motorische problemen ouder";
 $lang['languagedisorderparent']= "Spraak/taal ontwikkeling problemen ouder";
+$lang['no_languagedisorderparents']= "Geen.";
 $lang['data_child']			= "Gegevens kind";
 $lang['data_parent']		= "Gegevens ouder";
 $lang['data_language']		= "Taalspecifieke vragen";
