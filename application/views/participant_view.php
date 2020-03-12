@@ -58,12 +58,12 @@
 				</tr>
 				<tr>
 					<th><?=lang('languagedisorderparent'); ?></th>
-					<td><?=img_tick($participant->languagedisorderparent); ?></td>
+					<td><?=$participant->languagedisorderparents; ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('registered'); ?></th>
 					<td>
-						<?php 
+						<?php
 							echo output_date($participant->created);
 							if ($participant->created < $participant->dateofbirth)
 							{

@@ -362,7 +362,7 @@ class ParticipantModel extends CI_Model
 	}
 
 	/** Returns the date on and the experiment in the participant last participated */
-	public function get_languagedisorderparent($participant_id)
+	public function get_languagedisorderparents($participant_id)
 	{
 		$this->db->where('participant_id', $participant_id);
 		$this->db->where('languagedisorderparent IS NOT NULL'); // only completed experiments
@@ -372,6 +372,15 @@ class ParticipantModel extends CI_Model
 			return lang('no_languagedisorderparents');
 		}
 
-		return $languagedisorderparents->languagedisorderparent;
+		switch ($languagedisorderparents->languagedisorderparent) {
+			case "m":
+				return lang('mother');
+			case "f":
+				return lang('father');
+			case "mf":
+				return lang('both');
+			default :
+				return lang('unknown');
+		}
 	}
 }
