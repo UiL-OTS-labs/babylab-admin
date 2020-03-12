@@ -256,7 +256,7 @@ class ParticipantModel extends CI_Model
 	}
 
 	/** Returns all participants with languagedisorderparents */
-	public function get_multilingual_participants()
+	public function get_languagedisorderparents_participants()
 	{
 		$this->db->where('languagedisorderparent IS NOT NULL');
 		return $this->db->get('participant')->result();
