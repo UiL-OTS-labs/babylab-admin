@@ -364,7 +364,8 @@ class ParticipantModel extends CI_Model
 	/** Returns the date on and the experiment in the participant last participated */
 	public function get_languagedisorderparents($participant_id)
 	{
-		$this->db->where('participant_id', $participant_id);
+		$this->db->from('participant', FALSE);
+		$this->db->where('id', $participant_id);
 		$this->db->where('languagedisorderparent IS NOT NULL'); // only completed experiments
 		$languagedisorderparents = $this->db->get('participation')->row();
 
