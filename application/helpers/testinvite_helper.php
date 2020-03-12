@@ -149,7 +149,14 @@ if (!function_exists('survey_results_link'))
 			$CI->load->model('surveyModel');
 			$result = $CI->surveyModel->get_result_by_token($testsurvey->limesurvey_id, $testinvite->token);
 
-			$url = LS_BASEURL . '/admin.php?action=browse&sid=';
+            $config =& get_config();
+            if (isset($config['ls_base_url'])) {
+                $url = $config['ls_base_url'] . 'survey/admin';
+            } else {
+                $url = base_url() . 'survey/admin';
+            }
+
+			$url .= '/admin.php?action=browse&sid=';
 			$url .= $testsurvey->limesurvey_id . '&subaction=id&id=' . $result->id;
 			return $url;
 		}

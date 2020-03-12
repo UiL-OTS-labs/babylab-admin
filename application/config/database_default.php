@@ -67,7 +67,6 @@ $db['default']['stricton'] = FALSE;
 /** Don't connect to LimeSurvey database when this is true */
 defined('SURVEY_DEV_MODE')	or define('SURVEY_DEV_MODE', TRUE);
 
-defined('LS_BASEURL')		or define('LS_BASEURL',		'');
 defined('LS_USER')			or define('LS_USER',		'');
 defined('LS_PASSWORD')		or define('LS_PASSWORD',	'');
 
