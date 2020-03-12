@@ -361,13 +361,13 @@ class ParticipantModel extends CI_Model
 		return sprintf(lang('last_exp'), output_date($last_exp), $experiment->name);
 	}
 
-	/** Returns the date on and the experiment in the participant last participated */
+	/** Returns the status of languageisordered parents for given participant */
 	public function get_languagedisorderparents($participant_id)
 	{
-		$this->db->from('participant', FALSE);
 		$this->db->where('id', $participant_id);
 		$this->db->where('languagedisorderparent IS NOT NULL'); // only completed experiments
-		$languagedisorderparents = $this->db->get('participation')->row();
+
+		$languagedisorderparents = $this->db->get('participant')->row();
 
 		if (empty($languagedisorderparents)) {
 			return lang('no_languagedisorderparents');

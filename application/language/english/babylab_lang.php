@@ -311,6 +311,7 @@ $lang['pregnancydays']		= "Gestational age (days)";
 $lang['dyslexicparent']		= "Dyslexic parent";
 $lang['problemsparent']		= "Motorical problems parent";
 $lang['languagedisorderparent']= "Language/speech disorder parent";
+$lang['no_languagedisorderparents']= "None.";
 $lang['data_child']			= "Details child";
 $lang['data_parent']		= "Details parent";
 $lang['data_language']		= "Language specific questions";

@@ -22,10 +22,10 @@
 		<div class="pure-u-3-5">
 			<!-- Languages/dyslexia confirmation -->
 			<?php 
-				if ($verify_languages || $verify_dyslexia) 
-				{ 
+				if ($verify_languages || $verify_dyslexia)
+				{
 					echo '<p class="warning">'. implode('<br />', array_merge($verify_languages, $verify_dyslexia)) . '</p>';
-				} 
+				}
 			?>
 			<table class="pure-table">
 				<tr>
@@ -58,7 +58,7 @@
 				</tr>
 				<tr>
 					<th><?=lang('languagedisorderparent'); ?></th>
-					<td><?=$participant->languagedisorderparents; ?></td>
+					<td><?=$languagedisorderparents; ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('registered'); ?></th>
