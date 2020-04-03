@@ -913,7 +913,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants_by_testsurvey($testsurvey);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone, id', FALSE);
 		$this->datatables->from('participant');
 
 		if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
@@ -936,7 +936,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone,
 			lastcalled, participant.id AS id', FALSE);
 		$this->datatables->from('participant');
 		// Don't split this in two lines, see https://github.com/EllisLab/CodeIgniter/pull/759
