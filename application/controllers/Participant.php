@@ -924,6 +924,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('id', '$1', 'testsurvey_participant_actions(' . $testsurvey_id . ', id)');
 
 		echo $this->datatables->generate();
@@ -949,6 +950,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('lastcalled', '$1', 'last_called(id, ' . $experiment_id . ')');
 		$this->datatables->edit_column('id', '$1', 'participant_call_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
 
