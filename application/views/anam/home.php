@@ -1,5 +1,5 @@
 <?php if ($valid_token) { ?>
-	<?=heading('Hartelijk bedankt!', 2); ?>
+	<?=heading('Hartelijk dank voor het invullen van deze vragenlijst.', 2); ?>
 	<p>
 		Hartelijk dank voor het invullen van de vragenlijst <em><?=$test_name; ?></em>. 
 		Uw antwoorden zijn opgeslagen en worden met de grootste zorg behandeld.
