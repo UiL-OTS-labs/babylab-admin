@@ -168,25 +168,51 @@ class SurveyModel extends CI_Model
 			'language'		=> 'nl',
 			'sent' 			=> 'Y');
 
+		// Aanpassingen aan overdragen van tokens in overleg met Desiree Capel
+		// 2020-08-28
+		//
+		// Attributen worden niet meer overgedragen naar de enquete. Bij invullen van
+		// de uiteindelijke scores werden deze vervolgens niet meegenomen. dit maakt
+		// data uit de score tabel onhandig om verder mee te werken. Voor een eventuele
+		// update van limesurvey is dit ook een onhandige feature.
+		//
+		// In limesurvey worden deze vooringevuld aan de hand van een kort script per
+		// checkbox.
+
 		if ($survey_id == 65377) // Vragenlijst eerste bezoek VEB (TODO: make this generic?)
 		{
-			$token_insert['attribute_1'] = strtoupper($participant->gender);
-			$token_insert['attribute_2'] = input_date($participant->dateofbirth);
-			$token_insert['attribute_3'] = $participant->birthweight;
-			$token_insert['attribute_4'] = $participant->pregnancyweeks;
-			$token_insert['attribute_5'] = $participant->pregnancydays;
-			$token_insert['attribute_6'] = $participant->dyslexicparent;
-			$token_insert['attribute_7'] = $participant->problemsparent;
-			$token_insert['attribute_8'] = $participant->multilingual;
+			// $token_insert['attribute_1'] = strtoupper($participant->gender);
+			// $token_insert['attribute_2'] = input_date($participant->dateofbirth);
+			// $token_insert['attribute_3'] = $participant->birthweight;
+			// $token_insert['attribute_4'] = $participant->pregnancyweeks;
+			// $token_insert['attribute_5'] = $participant->pregnancydays;
+			// $token_insert['attribute_6'] = $participant->dyslexicparent;
+			// $token_insert['attribute_7'] = $participant->problemsparent;
+			// $token_insert['attribute_8'] = $participant->multilingual;
+
+			// zet alle waarden op null zodat limesurvey ze negeert.
+			$token_insert['attribute_1'] = NULL;
+			$token_insert['attribute_2'] = NULL;
+			$token_insert['attribute_3'] = NULL;
+			$token_insert['attribute_4'] = NULL;
+			$token_insert['attribute_5'] = NULL;
+			$token_insert['attribute_6'] = NULL;
+			$token_insert['attribute_7'] = NULL;
+			$token_insert['attribute_8'] = NULL;
 
 			$languages = $this->languageModel->get_languages_by_participant($participant->id);
 			$n = 9;
 			foreach ($languages AS $language)
 			{
-				$token_insert['attribute_' . $n++] = $language->language;
-				$token_insert['attribute_' . $n++] = $language->percentage;
+				// $token_insert['attribute_' . $n++] = $language->language;
+				// $token_insert['attribute_' . $n++] = $language->percentage;
+
+				$token_insert['attribute_' . $n++] = NULL;
+				$token_insert['attribute_' . $n++] = NULL;
 			}
 		}
+
+		// andere enquetes. Blijf ik voorlopig van af.
 		if (in_array($survey_id, array(86644, 21825, 23863))) // NCDI-WG/WZ / VEB-short (TODO: make this generic?)
 		{
 			$token_insert['attribute_1'] = strtoupper($participant->gender);
