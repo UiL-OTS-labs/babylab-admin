@@ -45,7 +45,7 @@
     </p>
 
     <p>
-        <strong>Aankomst in het babylab</strong>
+        <strong>Aankomst in het Babylab</strong>
     </p>
     <p>
         Wij verzoeken u bij binnenkomst uw handen te desinfecteren. De onderzoeksmedewerker wacht op u vlak achter
@@ -70,7 +70,7 @@
         beschikbaar gesteld.
     </p>
     <p>
-        Tot slot: voorafgaand aan elk experiment worden zaken als pennen, deurklinken, en stoelleuningen afgenomen
+        Tot slot: voorafgaand aan elk experiment worden zaken als pennen, deurklinken en stoelleuningen afgenomen
         met desinfectiedoekjes.
     </p>
     <p>
@@ -126,7 +126,7 @@
     <?=ul($caller_contacts); ?>
 
     <p>
-        Meer informatie over het Babylab, bijvoorbeeld hoe er te komen is beschikbaar op
+        Meer informatie over het Babylab, bijvoorbeeld hoe er te komen, is beschikbaar op
         <?=anchor('https://babylab.wp.hum.uu.nl'); ?>.
         Wij danken u alvast hartelijk voor uw medewerking. Zonder uw deelname kunnen wij geen
         onderzoek doen!

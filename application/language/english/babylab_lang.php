@@ -102,7 +102,7 @@ $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Bab
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor een dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s.";
 $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
-$lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
+$lang['babylab_team'] = "Het Babylab team van het Utrechts Instituut voor Linguïstiek OTS, Universiteit Utrecht";
 
 /* Other Selfservice */
 $lang['selfservice'] = "Selfservice";
