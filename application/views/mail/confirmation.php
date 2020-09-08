@@ -109,7 +109,7 @@
         <?=$name_first; ?>.
         Het invullen van de vragenlijst duurt 5 tot 10 minuten.</p>
     <p>
-        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u <?=anchor( $survey_link, "hier" ); ?>.
+        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u <?php echo "<a href='$survey_link'>hier</a>" ?>.
     </p>
     <?php } ?>
     <p>
