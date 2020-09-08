@@ -1,5 +1,4 @@
 <html>
-
 <body>
     <p>
         Beste <?=$name_parent; ?>,
@@ -12,14 +11,13 @@
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> en op
         <strong><?=$comb_appointment; ?>.</strong>
         <?php } else { ?>
-        U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?>.</strong>
+        U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof 13a.
         <?php } ?>
-        op Janskerkhof 13a. Eventuele reis- en parkeerkosten worden vergoed.
+        Eventuele reis- en parkeerkosten worden vergoed.
     </p>
     <p>
-        Wij volgen de corona-richtlijnen van het RIVM (<a
-            href="https://www.rivm.nl/coronavirus-covid-19">https://www.rivm.nl/coronavirus-covid-19</a>, augustus
-        2020).
+        Wij volgen de corona-richtlijnen van het RIVM
+        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, augustus 2020).
         Daarom vragen wij uw aandacht voor de volgende punten.
     </p>
     <p>
@@ -56,7 +54,6 @@
         route naar de uitgang.
         Laat geen kostbaarheden achter in de kinderwagen.
     </p>
-
     <p>
         <strong>Voor en na het experiment</strong>
     </p>
@@ -101,19 +98,18 @@
     </p>
     <p>
         Het is belangrijk voor ons onderzoek dat er geen broertje of zusje meekomt tijdens het bezoek
-        aan het lab. Als u hierover van tevoren
-        een andere afspraak heeft gemaakt met de medewerker van het Babylab, dan geldt uiteraard die
-        afspraak.
+        aan het lab. Als u hierover van tevoren een andere afspraak heeft gemaakt met de medewerker van
+        het Babylab, dan geldt uiteraard die afspraak.
     </p>
     <?php if ($survey_link) { ?>
-    <p>Omdat u voor de eerste keer met <?=$name_first; ?> een bezoek brengt aan het Babylab, vragen wij
+    <p>
+        Omdat u voor de eerste keer met <?=$name_first; ?> een bezoek brengt aan het Babylab, vragen wij
         u om de onderstaande link te openen. U wordt dan doorgeleid
         naar een pagina met vragen over o.a. de gezinssamenstelling en medische achtergrond van
         <?=$name_first; ?>.
         Het invullen van de vragenlijst duurt 5 tot 10 minuten.</p>
     <p>
-        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u hier:
-        <?=anchor($survey_link); ?>.
+        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u <?=anchor( $survey_link, "hier" ); ?>.
     </p>
     <?php } ?>
     <p>
@@ -126,8 +122,8 @@
     <?=ul($caller_contacts); ?>
 
     <p>
-        Meer informatie over het Babylab, bijvoorbeeld hoe er te komen, is beschikbaar op
-        <?=anchor('https://babylab.wp.hum.uu.nl'); ?>.
+        Meer informatie over het Babylab, bijvoorbeeld hoe er te komen, is beschikbaar op de
+        <?=anchor( 'https://babylab.wp.hum.uu.nl' , 'website van het Babylab' ); ?>.
         Wij danken u alvast hartelijk voor uw medewerking. Zonder uw deelname kunnen wij geen
         onderzoek doen!
     </p>
