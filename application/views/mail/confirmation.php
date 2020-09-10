@@ -50,7 +50,7 @@
         de hal bij de lift
         en wijst u de weg. De éénrichtingsroute naar het lab is ook aangegeven met stickers.
         Wij raden u dringend aan geen kinderwagen mee te nemen. Als u (toch) een kinderwagen meeneemt, dan moet deze
-        op de begane grond achterblijven. Na afloop van uw bezoek kunt u uw kinderwagen dan weer oph alen op de
+        op de begane grond achterblijven. Na afloop van uw bezoek kunt u uw kinderwagen dan weer ophalen op de
         route naar de uitgang.
         Laat geen kostbaarheden achter in de kinderwagen.
     </p>
@@ -109,7 +109,7 @@
         <?=$name_first; ?>.
         Het invullen van de vragenlijst duurt 5 tot 10 minuten.</p>
     <p>
-        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u <?php echo "<a href='$survey_link'>hier</a>" ?>.
+        De link naar de vragenlijst (<em>Vragenlijst 1ste bezoek</em>) vindt u <?=$survey_link; ?>.
     </p>
     <?php } ?>
     <p>

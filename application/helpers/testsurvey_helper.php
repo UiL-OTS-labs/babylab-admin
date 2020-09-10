@@ -138,15 +138,20 @@ if (!function_exists('survey_by_id'))
 if (!function_exists('survey_link'))
 {
         /** Returns the URL to the survey */
-        function survey_link($survey_id, $token)
+        function survey_link($survey_id, $token, $title='')
         {
-                $config =& get_config();
+				$title = (string) $title;
+				$config =& get_config();
                 if (isset($config['ls_base_url'])) {
                   $link = $config['ls_base_url'] . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
                 } else {
                   $link = base_url() . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
                 }
-                return anchor($link, $link, 'target="_blank"');
+				/** if title set then use that for the anchor call **/
+				if ($title === '') { 
+					$title = $link; 
+				}
+				return anchor($link, $title, 'target="_blank"');
         }
 }
 
