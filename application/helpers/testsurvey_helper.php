@@ -143,9 +143,9 @@ if (!function_exists('survey_link'))
 				$title = (string) $title;
 				$config =& get_config();
                 if (isset($config['ls_base_url'])) {
-                  $link = $config['ls_base_url'] . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
+                  $link = $config['ls_base_url'] . 'survey/index.php/' . $survey_id . '/?token=' . $token;
                 } else {
-                  $link = base_url() . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
+                  $link = base_url() . 'survey/index.php/' . $survey_id . '/?token=' . $token;
                 }
 				/** if title set then use that for the anchor call **/
 				if ($title === '') { 
