@@ -29,7 +29,7 @@ class Participant extends CI_Controller
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
 		$data['action_urls'] = array($add_url, $new_url, $overview_url, $graph_url);
-		$data['hide_columns'] = '7';
+		$data['hide_columns'] = '8';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
