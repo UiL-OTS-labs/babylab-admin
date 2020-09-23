@@ -166,11 +166,11 @@ class ParticipantModel extends CI_Model
 					WHERE	imp.participant_id = p.id
 					AND 	(NOW() BETWEEN imp.from AND imp.to))', NULL, FALSE);
 		// not being risk (depending on the sort of experiment)
-		if ($experiment->dyslexic)
+		if ($experiment->dyslexic && !$experiment->multilingual)
 		{
 			$this->db->where('multilingual', FALSE);
 		}
-		if ($experiment->multilingual)
+		if ($experiment->multilingual && !$experiment->dyslexic)
 		{
 			$this->db->where('dyslexicparent IS NULL');
 		}
@@ -252,6 +252,13 @@ class ParticipantModel extends CI_Model
 	public function get_multilingual_participants()
 	{
 		$this->db->where('multilingual', TRUE);
+		return $this->db->get('participant')->result();
+	}
+
+	/** Returns all participants with languagedisorderparents */
+	public function get_languagedisorderparents_participants()
+	{
+		$this->db->where('languagedisorderparent IS NOT NULL');
 		return $this->db->get('participant')->result();
 	}
 
@@ -354,4 +361,27 @@ class ParticipantModel extends CI_Model
 		return sprintf(lang('last_exp'), output_date($last_exp), $experiment->name);
 	}
 
+	/** Returns the status of languageisordered parents for given participant */
+	public function get_languagedisorderparents($participant_id)
+	{
+		$this->db->where('id', $participant_id);
+		$this->db->where('languagedisorderparent IS NOT NULL'); // only completed experiments
+
+		$languagedisorderparents = $this->db->get('participant')->row();
+
+		if (empty($languagedisorderparents)) {
+			return lang('no_languagedisorderparents');
+		}
+
+		switch ($languagedisorderparents->languagedisorderparent) {
+			case "m":
+				return lang('mother');
+			case "f":
+				return lang('father');
+			case "mf":
+				return lang('both');
+			default :
+				return lang('unknown');
+		}
+	}
 }

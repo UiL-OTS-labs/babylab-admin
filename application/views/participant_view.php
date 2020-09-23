@@ -22,10 +22,10 @@
 		<div class="pure-u-3-5">
 			<!-- Languages/dyslexia confirmation -->
 			<?php 
-				if ($verify_languages || $verify_dyslexia) 
-				{ 
+				if ($verify_languages || $verify_dyslexia)
+				{
 					echo '<p class="warning">'. implode('<br />', array_merge($verify_languages, $verify_dyslexia)) . '</p>';
-				} 
+				}
 			?>
 			<table class="pure-table">
 				<tr>
@@ -57,9 +57,13 @@
 					<td><?=img_tick($participant->multilingual); ?></td>
 				</tr>
 				<tr>
+					<th><?=lang('languagedisorderparent'); ?></th>
+					<td><?=tos($participant->languagedisorderparent); ?></td>
+				</tr>
+				<tr>
 					<th><?=lang('registered'); ?></th>
 					<td>
-						<?php 
+						<?php
 							echo output_date($participant->created);
 							if ($participant->created < $participant->dateofbirth)
 							{

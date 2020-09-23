@@ -65,7 +65,7 @@ $lang['deregister_finish']	= "Bedankt voor uw afmelding";
 $lang['deregister_info']	= "Uw afmelding wordt verwerkt. Mochten we naar aanleiding van uw afmelding nog vragen hebben, dan nemen we contact met u op.";
 $lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.";
 
-$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('http://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('https://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
@@ -103,7 +103,8 @@ $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Bab
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor één dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s.";
 $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
-$lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
+$lang['babylab_team'] = "Het Babylab team van het Utrechts Instituut voor Linguïstiek OTS, Universiteit Utrecht";
+
 
 /* Other Selfservice */
 $lang['selfservice'] 					= "Selfservice";
@@ -185,7 +186,7 @@ $lang['duration'] 			= "Duur (minuten)";
 $lang['duration_additional'] = "Duur uitleg, vragen, uitloop (minuten)";
 $lang['duration_total'] 	= "%s min. (+ %s min. voor uitleg, vragen, uitloop)";
 $lang['duration_info']		= "Hieronder kun je de nettoduur (in minuten) van het experiment aangeven. Daarnaast kun je extra tijd reserveren (standaard: " . INSTRUCTION_DURATION . " minuten) voor uitleg van de procedure, vragen achteraf en uitloop.";
-$lang['multilingual']		= "Tweetalig";
+$lang['multilingual']		= "Meertalig";
 $lang['dyslexic']			= "Dyslectisch";
 $lang['age'] 				= "Leeftijd";
 $lang['age_md'] 			= "Leeftijd (maanden;dagen)";
@@ -231,6 +232,7 @@ $lang['sure_delete_relation']	= "Weet u zeker dat u dit verband wilt verwijderen
 $lang['prerequisite']		= "Is voorwaarde voor deelname aan";
 $lang['excludes']			= "Sluit deelname uit aan";
 $lang['combination']		= "Is (mogelijk) gecombineerd met";
+$lang['risk_info']          = "Dit zal bepalen welke deelnemers kunnen worden uitgenodigd. Als u zowel dyslectisch als meertalig niet aan vinkt, kunt u alleen niet-dyslectische en niet-meertalige deelnemers uitnodigen. Als u dyslexie selecteert, worden alle meertalige deelnemers uitgefilterd en vice versa. Door zowel dyslexie als meertalig te selecteren, kunnen alle deelnemers worden uitgenodigd.";
 $lang['prerequisite_info']	= "Selecteer hieronder experimenten aan welke de proefpersoon moet hebben deelgenomen voordat hij deelneemt aan dit experiment. Dit kun je gebruiken voor longitudinale experimenten of experimenten die uit twee sessies op twee verschillende tijdstippen bestaan.";
 $lang['excludes_info']		= "Selecteer hieronder experimenten aan welke de proefpersoon niet meer mag deelnemen als deze aan dit experiment heeft deelgenomen.";
 $lang['combination_info']	= "Selecteer hieronder een experiment met welke dit experiment mogelijk gecombineerd wordt. Een combinatie betekent dat de experimenten direct achter elkaar worden uitgevoerd.";
@@ -308,6 +310,8 @@ $lang['pregnancydays']		= "Zwangerschapsduur (dagen)";
 $lang['dyslexicparent']		= "Dyslectische ouder";
 $lang['problemsparent']		= "Motorische problemen ouder";
 $lang['languagedisorderparent']= "Spraak/taal ontwikkeling problemen ouder";
+$lang['languagedisorderparent_short']= "TOS";
+$lang['no_languagedisorderparents']= "Geen.";
 $lang['data_child']			= "Gegevens kind";
 $lang['data_parent']		= "Gegevens ouder";
 $lang['data_language']		= "Taalspecifieke vragen";
@@ -315,7 +319,7 @@ $lang['data_end']			= "Tot slot";
 $lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de ouders <b>dyslectisch</b> is?";
 $lang['problems_q']			= "Heeft &#233;&#233;n van de ouders (ernstige) <b>motorische problemen</b> (gehad)?";
 $lang['languagedisorderparent_q'] = "Heeft &#233;&#233;n van de ouders een <b>taalontwikkelingsstoornis</b> (TOS voorheen ESM) of <b>spraakontwikkelingsproblemen</b> <gehad></gehad>?";
-$lang['multilingual_q']		= "Komt uw kind regelmatig in aanraking met <b>andere talen</b> dan het Nederlands?";
+$lang['multilingual_q']		= "Komt uw kind (regelmatig) in aanraking met meerdere talen?";
 $lang['newsletter']         = "Nieuwsbrief";
 $lang['newsletter_q']       = "Ongeveer 1x per jaar brengen wij een nieuwsbrief uit. Als u deze wil ontvangen kunt u dat hier aangeven.";
 $lang['parent']				= "Ouder";
@@ -582,8 +586,8 @@ $lang['date_text']			= "Ga naar datum";
 $lang['show_calendar']		= "Toon de agenda";
 $lang['show_availability']	= "Toon aanwezigheid voor onderzoeksleiders";
 
-/* Anamnese */
-$lang['send_anamnese'] 		= "Anamnese versturen?";
+/* VEB */
+$lang['send_veb'] 		= "Vragenlijst eerste bezoek versturen?";
 
 /* Availability view */
 $lang['availability']		= "Beschikbaarheid";

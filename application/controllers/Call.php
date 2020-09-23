@@ -138,14 +138,14 @@ class Call extends CI_Controller
 			$flashdata = '';
 			$email = (bool) $this->input->post('concept') ? TO_EMAIL_OVERRIDE : $participant->email;
 
-			// Send the anamnese (or not, if checkbox is set)
+			// Send the veb (or not, if checkbox is set)
 			$testinvite = NULL;
-			if ($this->input->post('send_anamnese'))
+			if ($this->input->post('send_veb'))
 			{
 				$invites = $this->create_test_invitations($participant);
 				$flashdata .= '<br />' . $invites[0];
 				$testinvites = $invites[1];
-				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (Anamnese), but we don't check for that.
+				$testinvite = $testinvites[0]; // TODO: this is ugly. there should be only one (VEB), but we don't check for that.
 			}
 
 			// If there's a combination appointment made, create that participation as well, plus a confirmation e-mail 

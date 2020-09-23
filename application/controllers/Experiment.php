@@ -109,7 +109,7 @@ class Experiment extends CI_Controller
 		$data['nr_participations'] = count($participations);
 		$data['nr_included'] = $included;
 		$data['tested'] = $tested;
-		$data['downloadable_tests'] = $this->testModel->get_tests_by_codes(array('ncdi_wg', 'ncdi_wz', 'anamnese'));
+		$data['downloadable_tests'] = $this->testModel->get_tests_by_codes(array('ncdi_wg', 'ncdi_wz', 'veb'));
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('experiment_view', $data);

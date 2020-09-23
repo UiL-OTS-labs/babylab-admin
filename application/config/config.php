@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'https://vm-uilots-babylab.soliscom.uu.nl/';
+$config['ls_base_url'] = 'https://vm-uilots-babylab.soliscom.uu.nl/';
 
 /*
 |--------------------------------------------------------------------------

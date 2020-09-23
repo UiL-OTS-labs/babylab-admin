@@ -19,7 +19,6 @@ $lang['info_caller']		= "You are enrolled as caller for %s experiment(s) (shown 
 							   	Choose one of the experiments below and click the phone icon to start calling.";
 $lang['info_leader']		= "You are enrolled as leader for %s experiment(s) (shown below).";
 
-
 $lang['error']				= "Whoops, something clearly went wrong here...";
 $lang['activate']			= "Activate";
 $lang['archive']			= "Archive";
@@ -65,7 +64,7 @@ $lang['deregister_finish']	= "Thank you for your deregistration!";
 $lang['deregister_info']	= "Your request for deregistering will be processed. In case we have some questions for you regarding your deregistration, we may contact you.";
 $lang['deregister_pageintro'] = "You can use this form to deregister your child as participant of experiments of the Babylab Utrecht";
 
-$lang['register_return']    = "You will receive an e-mail to confirm your registration. Click " . anchor('http://babylab.wp.hum.uu.nl', 'here') . " to return to the Babylab Utrecht website.</p>";
+$lang['register_return']    = "You will receive an e-mail to confirm your registration. Click " . anchor('https://babylab.wp.hum.uu.nl', 'here') . " to return to the Babylab Utrecht website.</p>";
 
 /* Login page */
 $lang['login'] 				= "Log in";
@@ -103,7 +102,7 @@ $lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Bab
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor een dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s.";
 $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
-$lang['babylab_team'] = "Het Babylab team van de Universiteit Utrecht";
+$lang['babylab_team'] = "Het Babylab team van het Utrechts Instituut voor Linguïstiek OTS, Universiteit Utrecht";
 
 /* Other Selfservice */
 $lang['selfservice'] = "Selfservice";
@@ -233,6 +232,7 @@ $lang['sure_delete_relation']	= "Are you sure you want to remove this relation?"
 $lang['prerequisite']		= "Is a prerequisite for participation to";
 $lang['excludes']			= "Excludes participation to";
 $lang['combination']		= "Is (possibly) combined with";
+$lang['risk_info']          = "This will dictate which participants can be invited. When selecting neither dyslexic and multilingual, you can only invite non-dyslectic and non-multilingual participants. Selecting dyslexia will filter out all multilingual participants, and vice versa. Selecting both dyslexia and multilingual will allow all participants to be invited.";
 $lang['prerequisite_info']	= "Select experiments that are a requirement to participate in this experiment below. You can use this for longitudinal experiments or experiments that consist of two sessions on two different points in time.";
 $lang['excludes_info']		= "Select experiments below that a participant can't participate in if he participated in this experiment.";
 $lang['combination_info']	= "Select an experiment below that is possibly combined with this experiment. Combined experiments are performed directly after each other.";
@@ -310,6 +310,8 @@ $lang['pregnancydays']		= "Gestational age (days)";
 $lang['dyslexicparent']		= "Dyslexic parent";
 $lang['problemsparent']		= "Motorical problems parent";
 $lang['languagedisorderparent']= "Language/speech disorder parent";
+$lang['languagedisorderparent_short']= "TOS";
+$lang['no_languagedisorderparents']= "None.";
 $lang['data_child']			= "Details child";
 $lang['data_parent']		= "Details parent";
 $lang['data_language']		= "Language specific questions";
@@ -584,8 +586,8 @@ $lang['date_text']			= "Jump to date";
 $lang['show_calendar']		= "Show the calendar";
 $lang['show_availability']	= "Show availability of research leaders";
 
-/* Anamnese */
-$lang['send_anamnese'] 		= "Send the anamnese?";
+/* VEB */
+$lang['send_veb'] 		= "Send the Questionaire first visit?";
 
 /* Availability view */
 $lang['availability']		= "Availability";

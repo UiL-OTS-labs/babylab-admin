@@ -43,6 +43,7 @@ $(function() {
 </div>
 
 <?=form_fieldset('Eisen aan deelnemers'); ?>
+<p class="info"><?=lang('risk_info'); ?></p>
 <?=form_single_checkbox_and_label('dyslexic', '1', $dyslexic); ?>
 <?=form_single_checkbox_and_label('multilingual', '1', $multilingual); ?>
 <?=form_input_and_label('agefrommonths', $agefrommonths, 'required class="positive-integer"'); ?>

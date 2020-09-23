@@ -29,7 +29,7 @@ class Participant extends CI_Controller
 		$data['ajax_source'] = 'participant/table/';
 		$data['page_title'] = lang('participants');
 		$data['action_urls'] = array($add_url, $new_url, $overview_url, $graph_url);
-		$data['hide_columns'] = '7';
+		$data['hide_columns'] = '8';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);
@@ -43,7 +43,7 @@ class Participant extends CI_Controller
 		$comments = $this->commentModel->get_comments_by_participant($participant_id);
 		$impediments = $this->impedimentModel->get_impediments_by_participant($participant_id);
 		$participations = $this->participationModel->get_participations_by_participant($participant_id, TRUE);
-		
+
 		$data['participant'] = $participant;
 		$data['last_called'] = $this->participantModel->last_called($participant_id);
 		$data['last_experiment'] = $this->participantModel->last_experiment($participant_id);
@@ -53,6 +53,7 @@ class Participant extends CI_Controller
 		$data['page_title'] = sprintf(lang('data_for_pp'), name($participant));
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
+		$data['languagedisorderparents'] = $this->participantModel->get_languagedisorderparents($participant_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participant_view', $data);
@@ -550,7 +551,7 @@ class Participant extends CI_Controller
 
 		// Set up the table 
 		base_table();
-		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal tweetalig', lang('actions'));
+		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal meertalig', lang('actions'));
 
 		// Calculate the number of participants per month, given the data 
 		foreach ($this->participantModel->get_participants_per_month($date) as $p)
@@ -659,7 +660,7 @@ class Participant extends CI_Controller
 		{
 			$this->form_validation->set_rules('birthweight', lang('birthweight'), 'trim|required|greater_than[500]|less_than[6000]');
 			$this->form_validation->set_rules('pregnancyweeks', lang('pregnancyweeks'), 'trim|required|greater_than[20]|less_than[50]');
-			$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[8]');
+			$this->form_validation->set_rules('pregnancydays', lang('pregnancydays'), 'trim|required|less_than[7]');
 		}
 
 		return $this->form_validation->run();
@@ -872,7 +873,7 @@ class Participant extends CI_Controller
 			}
 		}
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
 		$this->datatables->from('participant');
 
 		if (!is_admin()) 
@@ -886,6 +887,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
 
 		echo $this->datatables->generate();
@@ -911,7 +913,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants_by_testsurvey($testsurvey);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone, id', FALSE);
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone, id', FALSE);
 		$this->datatables->from('participant');
 
 		if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
@@ -922,6 +924,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('id', '$1', 'testsurvey_participant_actions(' . $testsurvey_id . ', id)');
 
 		echo $this->datatables->generate();
@@ -933,7 +936,7 @@ class Participant extends CI_Controller
 		$participants = $this->participantModel->find_participants($experiment, $weeks_ahead);
 		$participant_ids = get_object_ids($participants);
 
-		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, phone,
+		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone,
 			lastcalled, participant.id AS id', FALSE);
 		$this->datatables->from('participant');
 		// Don't split this in two lines, see https://github.com/EllisLab/CodeIgniter/pull/759
@@ -947,6 +950,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('lastcalled', '$1', 'last_called(id, ' . $experiment_id . ')');
 		$this->datatables->edit_column('id', '$1', 'participant_call_actions(id, ' . $experiment_id . ', ' . $weeks_ahead . ')');
 

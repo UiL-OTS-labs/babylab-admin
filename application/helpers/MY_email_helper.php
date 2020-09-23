@@ -116,7 +116,8 @@ if (!function_exists('email_replace'))
 			$testsurvey = $CI->testInviteModel->get_testsurvey_by_testinvite($testinvite);
 			
 			$message_data['survey_name']	= testsurvey_name($testsurvey);
-			$message_data['survey_link'] 	= survey_link($testsurvey->limesurvey_id, $testinvite->token);
+			/** Added 'hier' to create a more friendly url for survey_link. @todo use a parameter to set/unset */
+			$message_data['survey_link'] 	= survey_link($testsurvey->limesurvey_id, $testinvite->token, 'hier');
 			$message_data['results_link'] 	= results_link($test->code, $testinvite->token);
 			$message_data['whennr'] 		= $testsurvey->whennr;
 		}

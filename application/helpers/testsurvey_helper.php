@@ -121,31 +121,53 @@ if (!function_exists('testsurvey_name'))
 
 if (!function_exists('survey_by_id'))
 {
-	/** Returns the URL to the survey */
-	function survey_by_id($survey_id)
-	{
-		return anchor(base_url() . 'survey/admin/admin.php?sid=' . $survey_id, $survey_id, 'target="_blank"');
-	}
+        /** Returns the URL to the survey */
+        function survey_by_id($survey_id)
+        {
+                $config =& get_config();
+                if (isset($config['ls_base_url'])) {
+                  $link = $config['ls_base_url'];
+                } else {
+                  $link = base_url();
+                }
+
+                return anchor($link . 'survey/admin/admin.php?sid=' . $survey_id, $survey_id, 'target="_blank"');
+        }
 }
 
 if (!function_exists('survey_link'))
 {
-	/** Returns the URL to the survey */
-	function survey_link($survey_id, $token)
-	{
-		$link = base_url() . 'survey/index.php?sid=' . $survey_id . '&token=' . $token;
-		return anchor($link, $link, 'target="_blank"');
-	}
+        /** Returns the URL to the survey */
+        function survey_link($survey_id, $token, $title='')
+        {
+				$title = (string) $title;
+				$config =& get_config();
+                if (isset($config['ls_base_url'])) {
+                  $link = $config['ls_base_url'] . 'survey/index.php/' . $survey_id . '/?token=' . $token;
+                } else {
+                  $link = base_url() . 'survey/index.php/' . $survey_id . '/?token=' . $token;
+                }
+				/** if title set then use that for the anchor call **/
+				if ($title === '') { 
+					$title = $link; 
+				}
+				return anchor($link, $title, 'target="_blank"');
+        }
 }
 
 if (!function_exists('results_link'))
 {
-	/** Returns the URL to the survey */
-	function results_link($test_code, $token)
-	{
-		$link = base_url() . 'c/' . $test_code . '/' . $token . '/home';
-		return anchor($link, $link, 'target="_blank"');
-	}
+        /** Returns the URL to the survey */
+        function results_link($test_code, $token)
+        {
+                $config =& get_config();
+                if (isset($config['ls_base_url'])) {
+                  $link = $config['ls_base_url'] . 'c/' . $test_code . '/' . $token . '/home';
+                } else {
+                  $link = base_url() . 'c/' . $test_code . '/' . $token . '/home';
+                }
+                return anchor($link, $link, 'target="_blank"');
+        }
 }
 
 /////////////////////////
