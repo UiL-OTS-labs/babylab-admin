@@ -129,8 +129,8 @@ $lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw ki
 											van mensen die niet meer benaderd willen worden. Wilt u dat uw gegevens direct verwijderd worden, mail dan naar: %s";
 
 /* Register page */
-$lang['register_info'] = "De onderstaande persoonsgegevens zullen worden gebruikt om contact met u op te nemen wanneer 
-uw kind mee kan doen met een experiment.  Deze gegevens zullen 10 jaar lang bewaard worden op een beveiligde server 
+$lang['register_info'] = "De onderstaande persoonsgegevens zullen worden gebruikt door de manager van het Babylab  en/of stagiaires of afstudeerstudenten 
+om contact met u op te nemen wanneer uw kind mee kan doen met een experiment. Uw gegevens zullen minstens 10 jaar lang bewaard worden op een beveiligde server 
 van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u hiermee akkoord.<br/>
 <br/>
 Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
@@ -312,9 +312,11 @@ $lang['problemsparent']		= "Motorische problemen ouder";
 $lang['languagedisorderparent']= "Spraak/taal ontwikkeling problemen ouder";
 $lang['languagedisorderparent_short']= "TOS";
 $lang['no_languagedisorderparents']= "Geen.";
+$lang['processing_agree']   = "Ja, ik ga ermee akkoord dat mijn gegevens worden verwerkt zoals hierboven beschreven.";
 $lang['data_child']			= "Gegevens kind";
 $lang['data_parent']		= "Gegevens ouder";
 $lang['data_language']		= "Taalspecifieke vragen";
+$lang['data_processing']    = "Data verwerking";
 $lang['data_end']			= "Tot slot";
 $lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de ouders <b>dyslectisch</b> is?";
 $lang['problems_q']			= "Heeft &#233;&#233;n van de ouders (ernstige) <b>motorische problemen</b> (gehad)?";

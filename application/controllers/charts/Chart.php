@@ -134,7 +134,7 @@ class Chart extends CI_Controller
 
 			$this->load->model('surveyModel');
 			$result = $this->surveyModel->get_result_array_by_token($testsurvey->limesurvey_id, $token);
-			$date = $this->surveyModel->get_submit_date($testsurvey->limesurvey_id, $token);
+            $date = date('Y-m-d H:i:s');
 
 			$this->add_scores($testinvite, $result, $date);
 

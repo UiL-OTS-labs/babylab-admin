@@ -388,7 +388,7 @@ class Participant extends CI_Controller
 		create_participant_table();
 		$data['ajax_source'] = 'participant/table_registered/';
 		$data['page_title'] = lang('participants');
-		$data['hide_columns'] = '7';
+		$data['hide_columns'] = '8';
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/list_view', $data);

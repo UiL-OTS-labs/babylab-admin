@@ -129,8 +129,8 @@ $lang['selfservice_pps_help'] 			= "Below you are able to register and deregiste
 											please send an email to: %s";
 
 /* Register page */
-$lang['register_info'] = "The personal information asked below will be used to contact you when your child can 
-participate in an experiment. This data will be stored for a period of 10 years on a secure server at Utrecht University. 
+$lang['register_info'] = "The personal information asked below will be used by the manager of the Babylab and/or interns or graduating students to contact you when your child can 
+participate in an experiment. This data will be stored for a period of at least 10 years on a secure server at Utrecht University. 
 By entering the information below you agree with this.<br/>
 <br/>
 If you want to change or delete your information, you can do so via the 
@@ -312,9 +312,11 @@ $lang['problemsparent']		= "Motorical problems parent";
 $lang['languagedisorderparent']= "Language/speech disorder parent";
 $lang['languagedisorderparent_short']= "TOS";
 $lang['no_languagedisorderparents']= "None.";
+$lang['processing_agree']   = "Yes, I agree to my data being processed as described above.";
 $lang['data_child']			= "Details child";
 $lang['data_parent']		= "Details parent";
 $lang['data_language']		= "Language specific questions";
+$lang['data_processing']    = "Data processing";
 $lang['data_end']			= "Finally";
 $lang['dyslexic_q']			= "Are there indications one of the parents may be <b>dyslectic</b>?";
 $lang['problems_q']			= "Has one of the parents (ever had) a <b>language and/or motorical problem</b>?";
