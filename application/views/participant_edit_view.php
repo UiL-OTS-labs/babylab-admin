@@ -96,7 +96,15 @@ foreach ($languages AS $language)
 }
 ?>
 </div>
-
+<?php if ($is_registration) { ?>
+    <?=form_fieldset(lang('data_processing')); ?>
+    <div class="pure-control-group">
+        <label for="agreeprocessing">
+            <input type="checkbox" required name="agreeprocessing">
+            <?=lang('processing_agree')?>
+        </label>
+    </div>
+<?php } ?>
 
 	<?=form_controls(); ?>
 	<?=form_fieldset_close(); ?>
