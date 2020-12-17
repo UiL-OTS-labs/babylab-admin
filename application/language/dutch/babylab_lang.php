@@ -130,8 +130,10 @@ $lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw ki
 
 /* Register page */
 $lang['register_info'] = "De onderstaande persoonsgegevens zullen worden gebruikt door de manager van het Babylab  en/of stagiaires of afstudeerstudenten 
-om contact met u op te nemen wanneer uw kind mee kan doen met een experiment. Uw gegevens zullen minstens 10 jaar lang bewaard worden op een beveiligde server 
-van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u hiermee akkoord.<br/>
+om contact met u op te nemen wanneer uw kind mee kan doen met een experiment. Wij willen u erop wijzen dat al uw antwoorden (in overeenstemming met de 
+gedragscode voor gebruik van persoonsgegevens in wetenschappelijk onderzoek, VSNU 2005) met de grootst mogelijke vertrouwelijkheid behandeld zullen worden. 
+Uw gegevens zullen minstens 10 jaar lang bewaard worden op een beveiligde server van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u 
+hiermee akkoord.<br/>
 <br/>
 Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
 <a href='https://babylab-admin.hum.uu.nl/selfservice'/>
