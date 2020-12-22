@@ -129,10 +129,10 @@ $lang['selfservice_pps_help'] 			= "Below you are able to register and deregiste
 											please send an email to: %s";
 
 /* Register page */
-$lang['register_info'] = "The personal information asked below will be used by the manager of the Babylab and/or interns or graduating students to contact you when your child can 
-participate in an experiment. We would like to point out that all your answers (in accordance with the code of conduct for the use of personal data in scientific research, VSNU 2005) 
-will be treated with the utmost confidentiality. This data will be stored for a period of at least 10 years on a secure server at Utrecht University. 
-By entering the information below you agree with this.<br/>
+$lang['register_info'] = "Thank you for registering your child to help us with our research! The personal data below will be used by the manager or 
+by students of the Babylab to see which experiment your child can participate in and to contact you. We would like to point out that all your answers 
+(in accordance with the code of conduct for the use of personal data in scientific research, VSNU 2005) will be treated with the utmost confidentiality. 
+This data will be stored for a period of at least 10 years on a secure server at Utrecht University. By entering the information below you agree with this.<br/>
 <br/>
 If you want to change or delete your information, you can do so via the 
 <a href='https://babylab-admin.hum.uu.nl/selfservice'/>selfservice (https://babylab-admin.hum.uu.nl/selfservice)</a> 
