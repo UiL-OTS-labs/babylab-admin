@@ -13,7 +13,7 @@
         <?php } else { ?>
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof 13a.
         <?php } ?>
-        Eventuele reis- en parkeerkosten worden vergoed.
+        Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
     <p>
         Wij volgen de corona-richtlijnen van het RIVM
