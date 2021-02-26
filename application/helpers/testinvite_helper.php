@@ -151,13 +151,13 @@ if (!function_exists('survey_results_link'))
 
             $config =& get_config();
             if (isset($config['ls_base_url'])) {
-                $url = $config['ls_base_url'] . 'survey/admin';
+                $url = $config['ls_base_url'] . 'survey/index.php/';
             } else {
-                $url = base_url() . 'survey/admin';
+                $url = base_url() . 'survey/index.php/';
             }
 
-			$url .= '/admin.php?action=browse&sid=';
-			$url .= $testsurvey->limesurvey_id . '&subaction=id&id=' . $result->id;
+			$url .= 'admin/responses/sa/view/surveyid/';
+			$url .= $testsurvey->limesurvey_id . '/id/417' . $result->id;
 			return $url;
 		}
 	}
