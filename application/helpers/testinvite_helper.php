@@ -157,7 +157,7 @@ if (!function_exists('survey_results_link'))
             }
 
 			$url .= 'admin/responses/sa/view/surveyid/';
-			$url .= $testsurvey->limesurvey_id . '/id/417' . $result->id;
+			$url .= $testsurvey->limesurvey_id . '/id/' . $result->id;
 			return $url;
 		}
 	}
