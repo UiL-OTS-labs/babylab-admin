@@ -11,7 +11,8 @@
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> en op
         <strong><?=$comb_appointment; ?>.</strong>
         <?php } else { ?>
-        U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof 13a.
+        U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof <strong>13a</strong>
+        (let op: dit is de voordeur met de helling ervoor).
         <?php } ?>
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
@@ -46,8 +47,8 @@
         <strong>Aankomst in het Babylab</strong>
     </p>
     <p>
-        Wij verzoeken u bij binnenkomst uw handen te desinfecteren. De onderzoeksmedewerker wacht op u vlak achter
-        de hal bij de lift
+        Wij verzoeken u bij binnenkomst, in de hal van Janskerkhof <strong>13a</strong>, uw handen te desinfecteren.
+        De onderzoeksmedewerker wacht op u vlak achter de hal bij de lift
         en wijst u de weg. De éénrichtingsroute naar het lab is ook aangegeven met stickers.
         Wij raden u dringend aan geen kinderwagen mee te nemen. Als u (toch) een kinderwagen meeneemt, dan moet deze
         op de begane grond achterblijven. Na afloop van uw bezoek kunt u uw kinderwagen dan weer ophalen op de
