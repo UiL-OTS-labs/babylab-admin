@@ -12,7 +12,8 @@
         <strong><?=$comb_appointment; ?>.</strong>
         <?php } else { ?>
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof <strong>13a</strong>
-        (let op: dit is de voordeur met de helling ervoor).
+        (let op: dit is de voordeur met de helling ervoor), zie
+        <?=anchor('https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/', 'https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/'); ?>.
         <?php } ?>
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
