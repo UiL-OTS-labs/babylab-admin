@@ -384,4 +384,28 @@ class ParticipantModel extends CI_Model
 				return lang('unknown');
 		}
 	}
+
+	/** Returns the status of languageisordered parents for given participant */
+	public function get_speechdisorderparents($participant_id)
+	{
+		$this->db->where('id', $participant_id);
+		$this->db->where('speechdisorderparent IS NOT NULL');
+
+		$speechdisorderparents = $this->db->get('participant')->row();
+
+		if (empty($speechdisorderparents)) {
+			return lang('no_languagedisorderparents');
+		}
+
+		switch ($speechdisorderparents->speechdisorderparent) {
+			case "m":
+				return lang('mother');
+			case "f":
+				return lang('father');
+			case "mf":
+				return lang('both');
+			default :
+				return lang('unknown');
+		}
+	}
 }

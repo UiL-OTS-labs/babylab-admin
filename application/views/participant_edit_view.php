@@ -2,6 +2,7 @@
 <script type="text/javascript" src="js/travelexpenses.js"></script>
 <script type="text/javascript" src="js/languages_toggle.js"></script>
 <script type="text/javascript" src="js/languages_add.js"></script>
+<script type="text/javascript" src="js/speechdisorderdetails.js"></script>
 
 <?=heading($page_title, 2); ?>
 
@@ -62,6 +63,16 @@
 <?=form_radio_and_label('languagedisorderparent', Gender::MALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::BOTH, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::NONE, $languagedisorderparent, lang('no'), TRUE); ?>
+</div>
+<div class="pure-control-group">
+<?=form_label(lang('speechdisorderparent_q'), 'speechdisorderparent'); ?>
+<?=form_radio_and_label('speechdisorderparent', Gender::FEMALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+<?=form_radio_and_label('speechdisorderparent', Gender::MALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+<?=form_radio_and_label('speechdisorderparent', Gender::BOTH, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+<?=form_radio_and_label('speechdisorderparent', Gender::NONE, $speechdisorderparent, lang('no'), TRUE); ?>
+</div>
+<div class="pure-control-group" id="speechdisorderparent_details_group">
+<?=form_textarea_and_label('speechdisorderparent_details', $speechdisorderparent_details, lang('speechdisorderparent_details_q')); ?>
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('multilingual_q'), 'multilingual'); ?>

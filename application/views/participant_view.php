@@ -61,6 +61,16 @@
 					<td><?=tos($participant->languagedisorderparent); ?></td>
 				</tr>
 				<tr>
+					<th><?=lang('speechdisorderparent'); ?></th>
+					<td><?=tos($participant->speechdisorderparent); ?></td>
+				</tr>
+                <?php if ($participant->speechdisorderparent) { ?>
+                    <tr>
+                        <th><?=lang('speechdisorderparent_details'); ?></th>
+                        <td><?=$participant->speechdisorderparent_details; ?></td>
+                    </tr>
+                <?php } ?>
+				<tr>
 					<th><?=lang('registered'); ?></th>
 					<td>
 						<?php

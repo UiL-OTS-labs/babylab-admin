@@ -54,6 +54,7 @@ class Participant extends CI_Controller
 		$data['verify_languages'] = language_check($participant);
 		$data['verify_dyslexia'] = dyslexia_check($participant);
 		$data['languagedisorderparents'] = $this->participantModel->get_languagedisorderparents($participant_id);
+		$data['speechdisorderparent'] = $this->participantModel->get_speechdisorderparents($participant_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('participant_view', $data);
@@ -652,6 +653,7 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('email', lang('email'), 'trim|valid_email');
 		$this->form_validation->set_rules('dyslexicparent', lang('dyslexicparent'), 'required');
 		$this->form_validation->set_rules('languagedisorderparent', lang('languagedisorderparent'), 'required');
+		$this->form_validation->set_rules('speechdisorderparent', lang('speechdisorderparent'), 'required');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), 'required');
 		$this->form_validation->set_rules('percentage', lang('percentage'), 'callback_sum_percentage');
 		$this->form_validation->set_rules('origin', lang('origin'), 'callback_not_empty');
@@ -683,26 +685,29 @@ class Participant extends CI_Controller
 	{
 		$dyslexicparent = $this->input->post('dyslexicparent');
 		$languagedisorderparent = $this->input->post('languagedisorderparent');
+		$speechdisorderparent = $this->input->post('speechdisorderparent');
 
 		return array(
-				'firstname' 			=> $this->input->post('firstname'),
-				'lastname' 				=> $this->input->post('lastname'),
-				'gender' 				=> $this->input->post('gender'),
-				'dateofbirth'			=> input_date($this->input->post('dob')),
-				'birthweight' 			=> $this->input->post('birthweight'),
-				'pregnancyweeks' 		=> $this->input->post('pregnancyweeks'),
-				'pregnancydays' 		=> $this->input->post('pregnancydays'),
-				'dyslexicparent' 		=> $dyslexicparent === Gender::NONE ? NULL : $dyslexicparent,
-				'languagedisorderparent'=> $languagedisorderparent === Gender::NONE ? NULL : $languagedisorderparent,
-				'multilingual' 			=> $this->input->post('multilingual'),
-				'parentfirstname' 		=> $this->input->post('parentfirstname'),
-				'parentlastname' 		=> $this->input->post('parentlastname'),
-				'city' 					=> $this->input->post('city'),
-				'phone' 				=> $this->input->post('phone'),
-				'phonealt' 				=> $this->input->post('phonealt'),
-				'email'					=> $this->input->post('email'),
-				'origin'				=> '',
-                'newsletter'            => $this->input->post('newsletter'),
+				'firstname' 			       => $this->input->post('firstname'),
+				'lastname' 				       => $this->input->post('lastname'),
+				'gender' 				       => $this->input->post('gender'),
+				'dateofbirth'			       => input_date($this->input->post('dob')),
+				'birthweight' 			       => $this->input->post('birthweight'),
+				'pregnancyweeks' 		       => $this->input->post('pregnancyweeks'),
+				'pregnancydays' 		       => $this->input->post('pregnancydays'),
+				'dyslexicparent' 		       => $dyslexicparent === Gender::NONE ? NULL : $dyslexicparent,
+				'languagedisorderparent'       => $languagedisorderparent === Gender::NONE ? NULL : $languagedisorderparent,
+				'speechdisorderparent'         => $speechdisorderparent === Gender::NONE ? NULL : $speechdisorderparent,
+				'speechdisorderparent_details' => $this->input->post('speechdisorderparent_details'),
+				'multilingual' 			       => $this->input->post('multilingual'),
+				'parentfirstname' 		       => $this->input->post('parentfirstname'),
+				'parentlastname' 		       => $this->input->post('parentlastname'),
+				'city' 					       => $this->input->post('city'),
+				'phone' 				       => $this->input->post('phone'),
+				'phonealt' 				       => $this->input->post('phonealt'),
+				'email'					       => $this->input->post('email'),
+				'origin'				       => '',
+                'newsletter'                   => $this->input->post('newsletter'),
 		);
 	}
 
