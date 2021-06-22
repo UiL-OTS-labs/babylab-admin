@@ -50,7 +50,7 @@
 				</tr>
 				<tr>
 					<th><?=lang('dyslexicparent'); ?></th>
-					<td><?=img_tick($participant->dyslexicparent); ?></td>
+					<td><?=tos($participant->dyslexicparent); ?></td>
 				</tr>
 				<tr>
 					<th><?=lang('multilingual'); ?></th>
