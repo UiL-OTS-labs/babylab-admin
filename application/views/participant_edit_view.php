@@ -72,7 +72,7 @@
 <?=form_radio_and_label('speechdisorderparent', Gender::NONE, $speechdisorderparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group" id="speechdisorderparent_details_group">
-<?=form_textarea_and_label('speechdisorderparent_details', $speechdisorderparent_details, lang('speechdisorderparent_details_q')); ?>
+<?=form_textarea_and_label('speechdisorderparent_details', $speechdisorderparent_details, lang('speechdisorderparent_details_q'), $placeholder=''); ?>
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('multilingual_q'), 'multilingual'); ?>

@@ -38,10 +38,11 @@ if (!function_exists('form_colorpicker'))
 
 if (!function_exists('form_textarea_and_label'))
 {
-	function form_textarea_and_label($name, $value = '', $label = '', $extra = '', $div = 'pure-control-group')
+	function form_textarea_and_label($name, $value = '', $label = '', $extra = '', $div = 'pure-control-group', $placeholder=null)
 	{
 		$label = empty($label) ? lang($name) : $label;
-		$extra = $extra . ' placeholder="' . $label . '" id="' . $name . '"';
+        $placeholder = is_null($placeholder) ? $label : $placeholder;
+		$extra = $extra . ' placeholder="' . $placeholder . '" id="' . $name . '"';
 		$value = $value || $value == 0 ? $value : '';
 
 		$div_start = empty($div) ? '' : '<div class="' . $div . '">';
