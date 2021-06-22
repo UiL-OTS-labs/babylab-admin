@@ -892,7 +892,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
 		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
-		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'img_tick(languagedisorderparent)');
 		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
 
 		echo $this->datatables->generate();
