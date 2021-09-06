@@ -146,6 +146,16 @@ a {
 	font-size: 0.9em;
 }
 
+.pure-form-aligned .pure-control-group.longer-labels {
+	max-width: 800px;
+}
+
+.pure-form-aligned .pure-control-group.longer-labels .pure-radio {
+	text-align: left;
+	width: 25%;
+	font-size: 0.9em;
+}
+
 .pure-form-aligned .pure-controls {
 	margin-left: 23.5em;
 }

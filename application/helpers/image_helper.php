@@ -133,6 +133,19 @@ if (!function_exists('img_tick'))
 	}
 }
 
+if (!function_exists('img_tick_null'))
+{
+	/** Returns a (centered) tick image if $value == 1, otherwise an empty string. */
+	function img_tick_null($value, $show_image = TRUE)
+	{
+	    if ($value == null)
+	        return "<div class='center'>?</div>";
+		return $value
+			? img(array('src' => 'images/tick.png', 'class' => 'center'))
+			: ($show_image ? img(array('src' => 'images/cross.png', 'class' => 'center')) : '');
+	}
+}
+
 if (!function_exists('img_accept'))
 {
 	/** Returns the accept image with the specified title. */
