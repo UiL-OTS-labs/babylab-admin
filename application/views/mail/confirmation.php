@@ -27,8 +27,7 @@
     </p>
     <p>
         Wij vragen u de afspraak af te zeggen wanneer u of uw kind op de dag van het experiment of in de dagen
-        daarvoor last
-        heeft (gehad) van:
+        daarvoor last heeft (gehad) van:
     </p>
     <p>
         <ul>
@@ -43,34 +42,16 @@
         Ook als iemand in uw gezin of huishouden koorts en/of benauwdheid heeft, vragen wij u de afspraak af te
         zeggen.
     </p>
-
+    <p>
+        Op dit moment is het gebruik van mondkapjes en andere persoonlijke beschermingsmiddelen tijdens uw bezoek
+        aan het Babylab niet meer nodig, maar wij zullen deze, indien gewenst, in overleg met u gebruiken.
+    </p>
     <p>
         <strong>Aankomst in het Babylab</strong>
     </p>
     <p>
-        Wij verzoeken u bij binnenkomst, in de hal van Janskerkhof <strong>13a</strong>, uw handen te desinfecteren.
-        De onderzoeksmedewerker wacht op u vlak achter de hal bij de lift
-        en wijst u de weg. De éénrichtingsroute naar het lab is ook aangegeven met stickers.
-        Wij raden u dringend aan geen kinderwagen mee te nemen. Als u (toch) een kinderwagen meeneemt, dan moet deze
-        op de begane grond achterblijven. Na afloop van uw bezoek kunt u uw kinderwagen dan weer ophalen op de
-        route naar de uitgang.
-        Laat geen kostbaarheden achter in de kinderwagen.
-    </p>
-    <p>
-        <strong>Voor en na het experiment</strong>
-    </p>
-    <p>
-        Wanneer het bij de voorbereiding of na afloop van een experiment niet mogelijk is om 1,5 meter afstand te
-        houden, zullen wij in overleg met u gebruik maken van mondkapjes en/of gezichtsschermen.
-        De onderzoeksmedewerker kan u in dat geval ook verzoeken een mondkapje te dragen. <em>Tijdens</em> een
-        experiment is het dragen van mondkapjes of gezichtsschermen niet nodig, omdat u en de onderzoeksmedewerker
-        zich dan in verschillende ruimtes
-        bevinden. Het eventueel dragen van bescherming is altijd van korte duur. Mondkapjes worden door ons
-        beschikbaar gesteld.
-    </p>
-    <p>
-        Tot slot: voorafgaand aan elk experiment worden zaken als pennen, deurklinken en stoelleuningen afgenomen
-        met desinfectiedoekjes.
+        Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
+        vindt u de wachtkamer, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
     </p>
     <p>
         <strong>Het experiment</strong>
