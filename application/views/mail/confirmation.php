@@ -19,7 +19,7 @@
     </p>
     <p>
         Wij volgen de corona-richtlijnen van het RIVM
-        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, augustus 2020).
+        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, september 2021).
         Daarom vragen wij uw aandacht voor de volgende punten.
     </p>
     <p>
