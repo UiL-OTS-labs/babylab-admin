@@ -19,7 +19,7 @@
     </p>
     <p>
         Wij volgen de corona-richtlijnen van het RIVM
-        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, september 2021).
+        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, november 2021).
         Daarom vragen wij uw aandacht voor de volgende punten.
     </p>
     <p>
@@ -51,7 +51,21 @@
     </p>
     <p>
         Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
-        vindt u de wachtkamer, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
+        vindt u in de gang een oranje stoel, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
+    </p>
+    <p>
+        <strong>Voor en na het experiment</strong>
+    </p>
+    <p>
+        Wanneer het bij de voorbereiding of na afloop van een experiment niet mogelijk is om 1,5 meter afstand te
+        houden, zullen wij in overleg met u gebruik maken van mondkapjes en/of gezichtsschermen. De onderzoeksmedewerker
+        kan u in dat geval ook verzoeken een mondkapje te dragen. Tijdens een experiment is het dragen van mondkapjes of
+        gezichtsschermen niet nodig, omdat u en de onderzoeksmedewerker zich dan in verschillende ruimtes bevinden. Het
+        eventueel dragen van bescherming is altijd van korte duur. Mondkapjes worden door ons beschikbaar gesteld.
+    </p>
+    <p>
+        Tot slot: voorafgaand aan elk experiment worden zaken als pennen, deurklinken en stoelleuningen afgenomen met
+        desinfectiedoekjes.
     </p>
     <p>
         <strong>Het experiment</strong>
