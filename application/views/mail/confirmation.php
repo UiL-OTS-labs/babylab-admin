@@ -52,6 +52,8 @@
     <p>
         Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
         vindt u in de gang een oranje stoel, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
+        Volgens de regels van de Universiteit Utrecht moet iedereen die zich in de universiteitsgebouwen verplaatst een
+        mondkapje dragen. Wij vragen u dat ook te doen.
     </p>
     <p>
         <strong>Voor en na het experiment</strong>
