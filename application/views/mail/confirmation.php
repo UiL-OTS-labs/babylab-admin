@@ -43,8 +43,10 @@
         zeggen.
     </p>
     <p>
-        Op dit moment is het gebruik van mondkapjes en andere persoonlijke beschermingsmiddelen tijdens uw bezoek
-        aan het Babylab niet meer nodig, maar wij zullen deze, indien gewenst, in overleg met u gebruiken.
+        Volgens de regels van de Universiteit Utrecht moet iedereen die zich in de universiteitsgebouwen verplaatst
+        een mondkapje dragen. Wij vragen u dat ook te doen. Ook als we tijdens het experiment geen 1,5 m afstand van
+        u en uw kind kunnen houden vragen wij u een mondkapje te gebruiken. Wij zullen dan eveneens een mondkapje
+        en eventueel andere persoonlijke beschermingsmiddelen gebruiken.
     </p>
     <p>
         <strong>Aankomst in het Babylab</strong>
@@ -52,8 +54,6 @@
     <p>
         Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
         vindt u in de gang een oranje stoel, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
-        Volgens de regels van de Universiteit Utrecht moet iedereen die zich in de universiteitsgebouwen verplaatst een
-        mondkapje dragen. Wij vragen u dat ook te doen.
     </p>
     <p>
         <strong>Voor en na het experiment</strong>
