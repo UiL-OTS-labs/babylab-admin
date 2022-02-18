@@ -12,14 +12,14 @@
         <strong><?=$comb_appointment; ?>.</strong>
         <?php } else { ?>
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof <strong>13a</strong>
-        (let op: dit is de voordeur met de helling ervoor), zie
+        (let op: dit is de groene voordeur met de helling ervoor), zie
         <?=anchor('https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/', 'https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/'); ?>.
         <?php } ?>
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
     <p>
         Wij volgen de corona-richtlijnen van het RIVM
-        (<?=anchor('https://www.rivm.nl/coronavirus-covid-19','www.rivm.nl/coronavirus-covid-19'); ?>, november 2021).
+        (<?=anchor('https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/algemene-coronaregels/basisregels','www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/algemene-coronaregels/basisregels'); ?>, november 2021).
         Daarom vragen wij uw aandacht voor de volgende punten.
     </p>
     <p>
@@ -43,31 +43,21 @@
         zeggen.
     </p>
     <p>
-        Volgens de regels van de Universiteit Utrecht moet iedereen die zich in de universiteitsgebouwen verplaatst
-        een mondkapje dragen. Wij vragen u dat ook te doen. Ook als we tijdens het experiment geen 1,5 m afstand van
-        u en uw kind kunnen houden vragen wij u een mondkapje te gebruiken. Wij zullen dan eveneens een mondkapje
-        en eventueel andere persoonlijke beschermingsmiddelen gebruiken.
-    </p>
-    <p>
         <strong>Aankomst in het Babylab</strong>
     </p>
     <p>
         Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
-        vindt u in de gang een oranje stoel, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
+        vindt u de wachtkamer, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
     </p>
     <p>
         <strong>Voor en na het experiment</strong>
     </p>
     <p>
-        Wanneer het bij de voorbereiding of na afloop van een experiment niet mogelijk is om 1,5 meter afstand te
-        houden, zullen wij in overleg met u gebruik maken van mondkapjes en/of gezichtsschermen. De onderzoeksmedewerker
-        kan u in dat geval ook verzoeken een mondkapje te dragen. Tijdens een experiment is het dragen van mondkapjes of
-        gezichtsschermen niet nodig, omdat u en de onderzoeksmedewerker zich dan in verschillende ruimtes bevinden. Het
-        eventueel dragen van bescherming is altijd van korte duur. Mondkapjes worden door ons beschikbaar gesteld.
-    </p>
-    <p>
-        Tot slot: voorafgaand aan elk experiment worden zaken als pennen, deurklinken en stoelleuningen afgenomen met
-        desinfectiedoekjes.
+        Wanneer het bij de voorbereiding of na afloop van een experiment niet mogelijk is om 1,5 meter afstand
+        van u en uw kind te houden, dan zullen wij gebruik maken van mondkapjes. Wij vragen u in dat geval om ook
+        een mondkapje te dragen. Tijdens een experiment is het dragen van mondkapjes niet nodig, omdat u en de
+        onderzoeksmedewerker zich dan in verschillende ruimtes bevinden. Het eventueel dragen van bescherming
+        is altijd van korte duur. Mondkapjes worden door ons beschikbaar gesteld.
     </p>
     <p>
         <strong>Het experiment</strong>
