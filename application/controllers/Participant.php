@@ -266,7 +266,7 @@ class Participant extends CI_Controller
 
 				$message = sprintf(lang('mail_heading'), $user->username);
 				$message .= '<br /><br />';
-				$message .= sprintf(lang('reg_pp_body'), name($p), $p->phone, $url, $url);
+				$message .= sprintf(lang('reg_pp_body'), $url, $url);
 				$message .= '<br /><br />';
 				$message .= lang('mail_ending');
 				$message .= '<br /><br />';
