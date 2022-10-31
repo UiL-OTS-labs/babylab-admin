@@ -146,7 +146,7 @@ $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor he
 $lang['rem_exp_call']		= "In experiment %s kunt u momenteel %s proefpersonen bellen.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab Utrecht: Aanmelding proefpersoon";
-$lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld: %s (tel.: %s). U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
+$lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 
 $lang['reg_subject'] 		= "Babylab Utrecht: Aanmelding";
 $lang['reg_thanks'] 		= "<p>Hartelijk dank voor het aanmelden van %s. Leuk dat jullie mee willen doen!</p>";

@@ -144,7 +144,7 @@ $lang['rem_body'] 			= "This is the weekly reminder for the Babylab call center:
 $lang['rem_exp_call']		= "In experiment %s, you can currently call %s participants.";
 /* Registration of participants */
 $lang['reg_pp_subject'] 	= "Babylab Utrecht: Participant registration";
-$lang['reg_pp_body'] 		= "<p>A new participant has been registered: %s (phone: %s). You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
+$lang['reg_pp_body'] 		= "<p>A new participant has been registered. You're able to activate or delete this participant in the administration interface, <a href=\"%s\">or you can click  click here</a> to view and activate this participant.</p><p>If this link does not work, copy the following link to your browser: <p>%s</p>";
 
 $lang['reg_subject'] 		= "Babylab Utrecht: Registration";
 $lang['reg_thanks'] 		= "<p>Thanks a lot for registering %s.</p>";
