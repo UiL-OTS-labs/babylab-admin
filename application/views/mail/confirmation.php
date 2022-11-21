@@ -4,7 +4,7 @@
         Beste <?=$name_parent; ?>,
     </p>
     <p>
-        U heeft zojuist een afspraak gemaakt met één van de medewerkers van het Babylab.
+        U heeft zojuist een afspraak gemaakt met één van de medewerkers van het Babylab van de Universiteit Utrecht.
     </p>
     <p>
         <?php if ($longitudinal) { ?>
@@ -13,14 +13,9 @@
         <?php } else { ?>
         U en <?=$name; ?> worden verwacht op <strong><?=$appointment; ?></strong> op Janskerkhof <strong>13a</strong>
         (let op: dit is de groene voordeur met de helling ervoor), zie
-        <?=anchor('https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/', 'https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/'); ?>.
+        <?=anchor('https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/', 'https://babylab.wp.hum.uu.nl/route-in-het-gebouw-13a/'); ?>. Als u aanbelt en via de intercom zegt dat u voor het Babylab komt, dan wordt de deur voor u geopend
         <?php } ?>
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
-    </p>
-    <p>
-        Wij volgen de corona-richtlijnen van het RIVM
-        (<?=anchor('https://www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/algemene-coronaregels/basisregels','www.rijksoverheid.nl/onderwerpen/coronavirus-covid-19/algemene-coronaregels/basisregels'); ?>, november 2021).
-        Daarom vragen wij uw aandacht voor de volgende punten.
     </p>
     <p>
         <strong>Gezondheidsklachten?</strong>
@@ -39,25 +34,11 @@
         </ul>
     </p>
     <p>
-        Ook als iemand in uw gezin of huishouden koorts en/of benauwdheid heeft, vragen wij u de afspraak af te
-        zeggen.
-    </p>
-    <p>
         <strong>Aankomst in het Babylab</strong>
     </p>
     <p>
         Wanneer u binnenkomt, kunt u gelijk na de hal met de lift (of met de trap) naar beneden. Aan uw rechterhand
         vindt u de wachtkamer, waar u plaats kunt nemen. De onderzoeksassistent zal u daar komen ophalen.
-    </p>
-    <p>
-        <strong>Voor en na het experiment</strong>
-    </p>
-    <p>
-        Wanneer het bij de voorbereiding of na afloop van een experiment niet mogelijk is om 1,5 meter afstand
-        van u en uw kind te houden, dan zullen wij gebruik maken van mondkapjes. Wij vragen u in dat geval om ook
-        een mondkapje te dragen. Tijdens een experiment is het dragen van mondkapjes niet nodig, omdat u en de
-        onderzoeksmedewerker zich dan in verschillende ruimtes bevinden. Het eventueel dragen van bescherming
-        is altijd van korte duur. Mondkapjes worden door ons beschikbaar gesteld.
     </p>
     <p>
         <strong>Het experiment</strong>
@@ -67,21 +48,21 @@
         Het eerste experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten.
         Het tweede experiment is een <?=$comb_type; ?> en duurt maximaal <?=$comb_duration; ?> minuten.
         Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer
-        <?=$duration_total + $comb_duration; ?> minuten moeten reserveren voor uw bezoek aan het Babylab.</p>
+        <?=$duration_total + $comb_duration; ?> minuten moeten kwijt zijn aan uw bezoek aan het Babylab.</p>
     <?php } else if ($longitudinal && $duration == $comb_duration) { ?>
     <p>Het experiment is een <?=$type; ?>. Beide afspraken duren maximaal <?=$duration; ?> minuten.
         Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer
-        <?=$duration_total; ?> minuten moeten reserveren voor uw bezoek aan het Babylab.</p>
+        <?=$duration_total; ?> minuten kwijt zijn aan uw bezoek aan het Babylab.</p>
     <?php } else if ($longitudinal && $duration != $comb_duration) { ?>
     <p>Het experiment is een <?=$type; ?>. De eerste afspraak duurt maximaal <?=$duration; ?> minuten.
         De tweede afspraak duurt maximaal <?=$comb_duration; ?> minuten.
         Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer
         <?=$duration_total; ?> minuten voor de eerste afspraak,
-        en ongeveer <?=$comb_duration_total; ?> moeten reserveren voor uw tweede bezoek aan het Babylab.</p>
+        en ongeveer <?=$comb_duration_total; ?> kwijt zijn aan uw tweede bezoek aan het Babylab.</p>
     <?php } else { ?>
     <p>Het experiment is een <?=$type; ?> en duurt maximaal <?=$duration; ?> minuten.
         Omdat we ook de procedure uitleggen en er achteraf tijd is voor vragen, zult u ongeveer
-        <?=$duration_total; ?> minuten moeten reserveren voor uw bezoek aan het Babylab.
+        <?=$duration_total; ?> minuten kwijt zijn aan uw bezoek aan het Babylab.
         <?php } ?>
         In de bijlage van deze mail vindt u meer informatie over het experiment en onze werkwijze.
     </p>
