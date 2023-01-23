@@ -8,11 +8,10 @@ $(function() {
 	});
 
 	$('#wbs_number').mask(
-		'AA.000000.0E',
+		'AA.000000.0.0',
 		{'translation':
 			{
-				A: {pattern: /[A-Za-z]/},
-                E: {pattens: /\.\d/}
+				A: {pattern: /[A-Za-z]/}
 			},
 		 'placeholder': "__.______._"
 		}
