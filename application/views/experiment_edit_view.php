@@ -6,12 +6,13 @@ $(function() {
 	$("#wbs_number").on('keyup', function(e)  {
         $(this).val($(this).val().toUpperCase());
 	});
-	
+
 	$('#wbs_number').mask(
-		'AA.000000.0',
-		{'translation': 
+		'AA.000000.0E',
+		{'translation':
 			{
-				A: {pattern: /[A-Za-z]/}
+				A: {pattern: /[A-Za-z]/},
+                E: {pattens: /\.\d/}
 			},
 		 'placeholder': "__.______._"
 		}
@@ -67,7 +68,7 @@ $(function() {
 <?=form_fieldset(lang('attachments')); ?>
 <div class="pure-control-group">
 <?=form_label(lang('attachment'), 'attachment'); ?>
-<?php if ($attachment) { 
+<?php if ($attachment) {
     echo '<em>' . $attachment . '</em> ';
     echo anchor(array('experiment/download_attachment', $id, 'attachment'), lang('download'));
     echo ' ';
@@ -79,7 +80,7 @@ $(function() {
 </div>
 <div class="pure-control-group">
 <?=form_label(lang('informedconsent'), 'informedconsent'); ?>
-<?php if ($informedconsent) { 
+<?php if ($informedconsent) {
     echo '<em>' . $informedconsent . '</em> ';
     echo anchor(array('experiment/download_attachment', $id, 'informedconsent'), lang('download'));
     echo ' ';

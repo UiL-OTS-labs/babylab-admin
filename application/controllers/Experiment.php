@@ -2,7 +2,7 @@
 
 class Experiment extends CI_Controller
 {
-	private $attachment; 
+	private $attachment;
 	private $informedconsent;
 
 	public function __construct()
@@ -11,8 +11,8 @@ class Experiment extends CI_Controller
 		$this->authenticate->redirect_except();
 		reset_language(current_language());
 
-		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');  
-		
+		$this->form_validation->set_error_delimiters('<label class="error">', '</label>');
+
 		// Uploading experiment attachments
 		$config['upload_path'] = './uploads/';
 		$config['allowed_types'] = 'pdf';
@@ -147,7 +147,7 @@ class Experiment extends CI_Controller
 			// Show form again with error messages
 			$this->add();
 		}
-		else 
+		else
 		{
 			// Add experiment to database
 			$experiment = $this->post_experiment();
@@ -179,7 +179,7 @@ class Experiment extends CI_Controller
 
 		$data['date_start'] = output_date($experiment->date_start, TRUE);
 		$data['date_end'] = output_date($experiment->date_end, TRUE);
-		
+
 		$data['locations'] = $this->locationModel->get_all_locations();
 		$data['callers'] = caller_options($callers);
 		$data['leaders'] = leader_options($leaders);
@@ -199,9 +199,9 @@ class Experiment extends CI_Controller
 
 	/** Adds an experiment to the database */
 	public function edit_submit($experiment_id)
-	{        
+	{
 		$e = $this->experimentModel->get_experiment_by_id($experiment_id);
-		
+
 		// Validate experiment
 		if (!$this->validate_experiment($e->attachment, $e->informedconsent))
 		{
@@ -292,7 +292,7 @@ class Experiment extends CI_Controller
 						$tested[$experiment->name][$month] = array();
 						$tested[$experiment->name][$month]['count'] = 0;
 					}
-					$tested[$experiment->name][$month]['color'] = $experiment->experiment_color;					
+					$tested[$experiment->name][$month]['color'] = $experiment->experiment_color;
 				}
 			}
 		}
@@ -371,21 +371,21 @@ class Experiment extends CI_Controller
 	 * Removes the attachment for an experiment and returns to the edit view.
 	 * @param integer $experiment_id
 	 */
-	public function remove_attachment($experiment_id, $field) 
+	public function remove_attachment($experiment_id, $field)
 	{
 		$this->experimentModel->update_experiment($experiment_id, array($field => NULL));
 		redirect('experiment/edit/' . $experiment_id);
 	}
-	
+
 	/**
-	 * Downloads the attachment for an experiment. 
+	 * Downloads the attachment for an experiment.
 	 * @param integer $experiment_id
 	 */
-	public function download_attachment($experiment_id, $field) 
+	public function download_attachment($experiment_id, $field)
 	{
 		$experiment = $this->experimentModel->get_experiment_by_id($experiment_id);
-		
-		$data = file_get_contents('uploads/' . $experiment->$field); 
+
+		$data = file_get_contents('uploads/' . $experiment->$field);
 		$name = $experiment->attachment;
 
 		force_download($name, $data);
@@ -399,23 +399,23 @@ class Experiment extends CI_Controller
 	{
 		// Retrieve the scores and convert to .csv
 		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id, TRUE);
-		
+
 		$result = array();
 		foreach ($participants as $participant)
 		{
 			$result = array_merge($result, $this->dyslexiaModel->get_dyslexias_by_participant($participant->id));
 		}
 		$csv = dyslexia_to_csv($result, $experiment_id);
-		
+
 		// Generate filename
 		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
 		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
 		$filename = $escaped . '_dyslexia_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
-		
+
 		// Download the file
 		force_download($filename, $csv);
 	}
-	
+
 	/**
 	 * Downloads all scores of participants of an experiment as a .csv-file.
 	 * @param integer $experiment_id
@@ -426,25 +426,25 @@ class Experiment extends CI_Controller
 		// Retrieve the scores and convert to .csv
 		$table = $this->get_results_table($experiment_id, $test_code);
 		$csv = scores_to_csv($test_code, $table, $experiment_id);
-		
+
 		// Generate filename
 		$experiment_name = $this->experimentModel->get_experiment_by_id($experiment_id)->name;
 		$escaped = preg_replace('/[^A-Za-z0-9_\-]/', '_', $experiment_name);
 		$filename = $escaped . '_' . mdate("%Y%m%d_%H%i", time()) . '.csv';
-		
+
 		// Download the file
 		force_download($filename, $csv);
 	}
-	
+
 	/**
 	 * Returns all scores for participants of an experiment.
 	 * @param integer $experiment_id
 	 * @param string $test_code
 	 */
-	private function get_results_table($experiment_id, $test_code) 
+	private function get_results_table($experiment_id, $test_code)
 	{
 		$participants = $this->experimentModel->get_participants_by_experiment($experiment_id, TRUE);
-		
+
 		$result = array();
 		foreach ($participants as $participant)
 		{
@@ -455,7 +455,7 @@ class Experiment extends CI_Controller
 				if ($test->code === $test_code)
 				{
 					$scores = $this->scoreModel->get_scores_by_testinvite($testinvite->id);
-					
+
 					foreach ($scores as $score)
 					{
 						$result[$score->testinvite_id][$score->testcat_id] = $score->score;
@@ -463,10 +463,10 @@ class Experiment extends CI_Controller
 				}
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	/////////////////////////
 	// Form handling
 	/////////////////////////
@@ -489,7 +489,7 @@ class Experiment extends CI_Controller
 		$this->form_validation->set_rules('agetomonths', lang('agetomonths'), 'trim|required|is_natural');
 		$this->form_validation->set_rules('agetodays', lang('agetodays'), 'trim|required|is_natural|less_than[32]');
 		$this->form_validation->set_rules('target_nr_participants', lang('target_nr_participants'), 'trim|is_natural');
-		
+
 		if (!$has_attachment)
 		{
 			$this->form_validation->set_rules('attachment', lang('attachment'), 'callback_upload_attachment');
@@ -530,7 +530,7 @@ class Experiment extends CI_Controller
 
 		if ($this->attachment) $exp['attachment'] = $this->attachment;
 		if ($this->informedconsent) $exp['informedconsent'] = $this->informedconsent;
-		
+
 		return $exp;
 	}
 
@@ -570,52 +570,52 @@ class Experiment extends CI_Controller
 		}
 		return TRUE;
 	}
-	
+
 	/** Callback function to check if the WBS number is correctly. */
 	public function wbs_check($str)
 	{
-		$pattern = "/^[a-zA-Z]{2}\.?\d{6}\.?\d$/";
+		$pattern = "/^[a-zA-Z]{2}\.?\d{6}\.?\d(?:\.\d)?$/";
 		if (!preg_match($pattern, $str))
 		{
 			$this->form_validation->set_message('wbs_check', lang('form_validation_wbs_check'));
 			return FALSE;
-		} 
+		}
 		return TRUE;
 	}
-	
+
 	/** Upload the attachment */
 	public function upload_attachment()
 	{
-		if (!$this->upload->do_upload('attachment')) 
+		if (!$this->upload->do_upload('attachment'))
 		{
 			$this->form_validation->set_message('upload_attachment', $this->upload->display_errors());
-			return FALSE; 
+			return FALSE;
 		}
-		else 
+		else
 		{
 			// If there is uploaded data, set this as flashdata
 			$data = $this->upload->data();
-			if ($data['file_name']) 
+			if ($data['file_name'])
 			{
 				$this->attachment = $data['file_name'];
 			}
 			return TRUE;
 		}
 	}
-	
+
 	/** Upload the informed consent */
 	public function upload_informedconsent()
 	{
-		if (!$this->upload->do_upload('informedconsent')) 
+		if (!$this->upload->do_upload('informedconsent'))
 		{
 			$this->form_validation->set_message('upload_informedconsent', $this->upload->display_errors());
-			return FALSE; 
+			return FALSE;
 		}
-		else 
+		else
 		{
 			// If there is uploaded data, set this as flashdata
 			$data = $this->upload->data();
-			if ($data['file_name']) 
+			if ($data['file_name'])
 			{
 				$this->informedconsent = $data['file_name'];
 			}
