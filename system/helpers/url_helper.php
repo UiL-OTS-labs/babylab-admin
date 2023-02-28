@@ -254,6 +254,9 @@ if ( ! function_exists('mailto'))
 	{
 		$title = (string) $title;
 
+        $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        $title = filter_var($title, FILTER_SANITIZE_EMAIL);
+
 		if ($title === '')
 		{
 			$title = $email;

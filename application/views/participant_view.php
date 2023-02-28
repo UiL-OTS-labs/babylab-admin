@@ -123,11 +123,11 @@
 			</tr>
 			<tr>
 				<th><?=lang('phone'); ?></th>
-				<td><?=$participant->phone; ?></td>
+				<td><?=htmlentities($participant->phone); ?></td>
 			</tr>
 			<tr>
 				<th><?=lang('phonealt'); ?></th>
-				<td><?=$participant->phonealt; ?></td>
+				<td><?=htmlentities($participant->phonealt); ?></td>
 			</tr>
 			<tr>
 				<th><?=lang('email'); ?></th>

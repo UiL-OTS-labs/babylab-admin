@@ -39,7 +39,7 @@ if (!function_exists('name'))
 	/** Returns the full name of the participant */
 	function name($participant)
 	{
-		return $participant->firstname . ' ' . $participant->lastname;
+		return htmlentities($participant->firstname . ' ' . $participant->lastname);
 	}
 }
 
@@ -48,7 +48,7 @@ if (!function_exists('parent_name'))
 	/** Returns the full name of the parent of the participant */
 	function parent_name($participant)
 	{
-		return $participant->parentfirstname . ' ' . $participant->parentlastname;
+		return htmlentities($participant->parentfirstname . ' ' . $participant->parentlastname);
 	}
 }
 
