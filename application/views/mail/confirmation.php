@@ -18,7 +18,7 @@
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
     <p>
-        <strong>Gezondheidsklachten?</strong>
+        <strong>Gezondheidsklachten</strong>
     </p>
     <p>
         Wij vragen u de afspraak te verzetten wanneer uw kind vlak voor de afspraak gehoorproblemen
