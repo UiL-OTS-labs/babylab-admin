@@ -40,7 +40,7 @@ $(function() {
     $tmpl = array('table_open' => '<table class="pure-table">' );
 
     $this->table->set_template($tmpl);
-    $this->table->set_heading(ucfirst(lang('child')), lang('gender'), lang('dob'), 'Babylab Utrecht');
+    $this->table->set_heading(ucfirst(lang('child')), lang('gender'), lang('dob'), 'Babylab voor Taalonderzoek');
     foreach ($participants as $p)
     {
         $this->table->add_row(name($p), gender_sex($p->gender), output_date($p->dateofbirth), 

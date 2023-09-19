@@ -89,7 +89,7 @@
 </style>
 
 <?=heading($page_title, 2); ?>
-<p>De grafiek hieronder toont scores van alle proefpersonen van het Babylab Utrecht ten opzichte van het 50e percentiel.</p>
+<p>De grafiek hieronder toont scores van alle proefpersonen van het Babylab voor Taalonderzoek ten opzichte van het 50e percentiel.</p>
 <ul>
 	<li>De gele lijn is het 50ste percentiel.</li>
 	<li>De blauwe punten geven de scores van een kind in onze database aan.</li>

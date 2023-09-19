@@ -244,7 +244,7 @@ class Chart extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
-		$this->email->subject('Babylab Utrecht: Bedankt voor het invullen van de vragenlijst');
+		$this->email->subject('Babylab voor Taalonderzoek: Bedankt voor het invullen van de vragenlijst');
 		$this->email->message($message);
 		$this->email->send();
 	}

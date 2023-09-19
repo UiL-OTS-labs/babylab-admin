@@ -384,7 +384,7 @@ class Call extends CI_Controller
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $email);
 		$this->email->bcc(in_development() ? TO_EMAIL_DEV_MODE : $leader_emails);
-		$this->email->subject('Babylab Utrecht: Bevestiging van uw afspraak');
+		$this->email->subject('Babylab voor Taalonderzoek: Bevestiging van uw afspraak');
 		$this->email->message($message);
 		$this->add_attachments($experiment, $comb_exp);
 
@@ -432,7 +432,7 @@ class Call extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
-		$this->email->subject('Babylab Utrecht: Verzoek tot deelname aan onderzoek');
+		$this->email->subject('Babylab voor Taalonderzoek: Verzoek tot deelname aan onderzoek');
 		$this->email->message($message);
 		// Add attachment
 		if ($experiment->attachment && file_exists('uploads/' . $experiment->attachment))

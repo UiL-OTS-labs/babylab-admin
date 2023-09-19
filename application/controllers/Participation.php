@@ -229,7 +229,7 @@ class Participation extends CI_Controller
 				$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 				$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $new_leader->email);
 				$this->email->cc(in_development() ? TO_EMAIL_DEV_MODE : $old_leader->email);
-				$this->email->subject('Babylab Utrecht: Verandering experimentleider');
+				$this->email->subject('Babylab voor Taalonderzoek: Verandering experimentleider');
 				$this->email->message($message);
 
 				$this->email->send();
@@ -847,7 +847,7 @@ class Participation extends CI_Controller
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $participant->email);
 		$this->email->bcc(in_development() ? TO_EMAIL_DEV_MODE : $leader_emails);
-		$this->email->subject('Babylab Utrecht: Uw afspraak is verzet');
+		$this->email->subject('Babylab voor Taalonderzoek: Uw afspraak is verzet');
 		$this->email->message($message);
 		$this->email->send();
 
@@ -867,7 +867,7 @@ class Participation extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : $leader_emails);
-		$this->email->subject('Babylab Utrecht: Afspraak verwijderd');
+		$this->email->subject('Babylab voor Taalonderzoek: Afspraak verwijderd');
 		$this->email->message($message);
 		$this->email->send();
 	}
@@ -884,7 +884,7 @@ class Participation extends CI_Controller
 		$this->email->clear();
 		$this->email->from(FROM_EMAIL, FROM_EMAIL_NAME);
 		$this->email->to(in_development() ? TO_EMAIL_DEV_MODE : LAB_EMAIL);
-		$this->email->subject('Babylab Utrecht: Technisch probleem');
+		$this->email->subject('Babylab voor Taalonderzoek: Technisch probleem');
 		$this->email->message($message);
 		$this->email->send();
 	}
