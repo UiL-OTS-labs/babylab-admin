@@ -19,15 +19,15 @@
 </div>
 <?=form_input_and_label('dob', $dob, 'id="birth_datepicker" required'); ?>
 
-<!-- Birth weight and pregnancy duration: required during registration, not when editing -->  
+<!-- Birth weight and pregnancy duration: required during registration, not when editing -->
 <?=form_input_and_label('birthweight', $birthweight, 'class="positive-integer"' . ($is_registration ? 'required' : '')); ?>
 
 <div class="pure-control-group">
 <?=form_label(lang('pregnancy')); ?>
-<?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks), 
+<?=form_input('pregnancyweeks', set_value('pregnancyweeks', $pregnancyweeks),
 	'class="positive-integer" placeholder="' . ucfirst(lang('weeks')) . '"' . ($is_registration ? 'required' : '')); ?>
 <?=form_error('pregnancyweeks'); ?>
-<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays), 
+<?=form_input('pregnancydays', set_value('pregnancydays', $pregnancydays),
 	'class="positive-integer" placeholder="' . ucfirst(lang('days')) . '"' . ($is_registration ? 'required' : '')); ?>
 <?=form_error('pregnancydays'); ?>
 </div>
@@ -61,6 +61,9 @@
 
 <?=form_fieldset(lang('data_language')); ?>
 <div class="pure-control-group">
+    <p>
+        <?=lang('dyslexic_q_extra'); ?>
+    </p>
 <?=form_label(lang('dyslexic_q'), 'dyslexicparent'); ?>
 <?=form_radio_and_label('dyslexicparent', Gender::FEMALE, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
 <?=form_radio_and_label('dyslexicparent', Gender::MALE, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
@@ -68,22 +71,27 @@
 <?=form_radio_and_label('dyslexicparent', Gender::NONE, $dyslexicparent, lang('no'), TRUE); ?>
 </div>
 <div class="pure-control-group">
+    <p>
+        <?=lang('languagedisorderparent_q_extra'); ?>
+    </p>
 <?=form_label(lang('languagedisorderparent_q'), 'languagedisorderparent'); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::FEMALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::MALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::BOTH, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::NONE, $languagedisorderparent, lang('no'), TRUE); ?>
 </div>
-<div class="pure-control-group">
-<?=form_label(lang('speechdisorderparent_q'), 'speechdisorderparent'); ?>
-<?=form_radio_and_label('speechdisorderparent', Gender::FEMALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
-<?=form_radio_and_label('speechdisorderparent', Gender::MALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
-<?=form_radio_and_label('speechdisorderparent', Gender::BOTH, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
-<?=form_radio_and_label('speechdisorderparent', Gender::NONE, $speechdisorderparent, lang('no'), TRUE); ?>
-</div>
-<div class="pure-control-group" id="speechdisorderparent_details_group">
-<?=form_textarea_and_label('speechdisorderparent_details', $speechdisorderparent_details, lang('speechdisorderparent_details_q'), 'maxlength="200"', 'pure-control-group', $placeholder=''); ?>
-</div>
+<?php if (!$is_registration) { ?>
+    <div class="pure-control-group">
+    <?=form_label(lang('speechdisorderparent_q'), 'speechdisorderparent'); ?>
+    <?=form_radio_and_label('speechdisorderparent', Gender::FEMALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('mother'))); ?>
+    <?=form_radio_and_label('speechdisorderparent', Gender::MALE, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
+    <?=form_radio_and_label('speechdisorderparent', Gender::BOTH, $speechdisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
+    <?=form_radio_and_label('speechdisorderparent', Gender::NONE, $speechdisorderparent, lang('no'), TRUE); ?>
+    </div>
+    <div class="pure-control-group" id="speechdisorderparent_details_group">
+    <?=form_textarea_and_label('speechdisorderparent_details', $speechdisorderparent_details, lang('speechdisorderparent_details_q'), 'maxlength="200"', 'pure-control-group', $placeholder=''); ?>
+    </div>
+<?php } ?>
 <div class="pure-control-group">
 <?=form_label(lang('multilingual_q'), 'multilingual'); ?>
 <?=form_radio_and_label('multilingual', '1', $multilingual, lang('yes')); ?>
