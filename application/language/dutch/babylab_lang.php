@@ -130,11 +130,13 @@ $lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw ki
 											van mensen die niet meer benaderd willen worden. Wilt u dat uw gegevens direct verwijderd worden, mail dan naar: %s";
 
 /* Register page */
-$lang['register_info'] = "Fijn dat u uw kind wilt aanmelden om ons te helpen bij ons onderzoek! Onderstaande persoonsgegevens zullen door de manager of door studenten 
-van het Babylab gebruikt worden om te kijken aan welk experiment uw kind mee kan doen en om contact met u te kunnen opnemen. Wij willen u erop wijzen dat al uw antwoorden 
-(in overeenstemming met de gedragscode voor gebruik van persoonsgegevens in wetenschappelijk onderzoek, VSNU 2005) met de grootst mogelijke vertrouwelijkheid behandeld 
-zullen worden. Uw gegevens zullen minstens 10 jaar lang bewaard worden op een beveiligde server van de Universiteit Utrecht. Door onderstaande gegevens in te vullen gaat u 
-hiermee akkoord.<br/>
+$lang['register_info'] = "Fijn dat u uw kind wilt aanmelden om ons te helpen bij ons onderzoek! De persoonsgegevens die u hieronder opgeeft, zullen door de manager of door studenten of onderzoekers van het Babylab voor verschillende doelen worden gebruikt: 
+<ul>
+<li>om te kijken aan welk experiment uw kind kan meedoen en </li>
+<li>om contact met u te kunnen opnemen. </li>
+</ul>
+Ook kunnen de gegevens door wetenschappers worden gebruikt voor hun onderzoek. <br/>
+Alle gegevens die u in dit formulier opgeeft, worden met de grootste vertrouwelijkheid behandeld. Uw gegevens en die van uw kind worden verwijderd kort nadat uw kind een leeftijd heeft bereikt waarop het niet meer in aanmerking komt voor ons onderzoek. Meestal is dat met ongeveer 2,5 jaar.
 <br/>
 Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
 <a href='https://babylab-admin.hum.uu.nl/selfservice'/>
