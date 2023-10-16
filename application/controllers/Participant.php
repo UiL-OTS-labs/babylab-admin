@@ -6,7 +6,7 @@ class Participant extends CI_Controller
 	{
 		parent::__construct();
 		$this->authenticate->redirect_except(array(
-			'register', 'register_submit', 'register_finish', 
+			'register', 'register_submit', 'register_finish',
 			'deregister', 'deregister_submit', 'deregister_finish'));
 		reset_language(current_language());
 
@@ -186,7 +186,7 @@ class Participant extends CI_Controller
 		$data = add_fields($data, 'participant', $participant);
 
 		// Empty fields related to participant if $participant_id is set
-		if ($participant_id) 
+		if ($participant_id)
 		{
 			$data['firstname'] = '';
 			$data['lastname'] = '';
@@ -234,7 +234,7 @@ class Participant extends CI_Controller
             // Create the languages
             $this->create_languages($participant_id);
 
-			// Don't activate on registration (let admins decide) 
+			// Don't activate on registration (let admins decide)
 			$this->participantModel->deactivate($participant_id, DeactivateReason::NEW_PARTICIPANT);
 			$p = $this->participantModel->get_participant_by_id($participant_id);
 
@@ -453,7 +453,7 @@ class Participant extends CI_Controller
 	/**
 	 * Returns the JSON for the participant graph
 	 */
-	public function graph_json() 
+	public function graph_json()
 	{
 		$table = array();
 		$table['cols'] = array(
@@ -498,9 +498,9 @@ class Participant extends CI_Controller
 	{
 		if (!isset($count[$month][$type]))
 		{
-			$count[$month][$type] = 1; 
+			$count[$month][$type] = 1;
 		}
-		else 
+		else
 		{
 			$count[$month][$type]++;
 		}
@@ -550,14 +550,14 @@ class Participant extends CI_Controller
 		// Get the number of months to look in the future
 		$date = is_null($this->input->post('date')) ? output_date('now', TRUE) : $this->input->post('date');
 
-		// Set up the table 
+		// Set up the table
 		base_table();
 		$this->table->set_heading('Leeftijd in maanden', 'Aantal actieve proefpersonen', 'Aantal dyslectisch', 'Aantal meertalig', lang('actions'));
 
-		// Calculate the number of participants per month, given the data 
+		// Calculate the number of participants per month, given the data
 		foreach ($this->participantModel->get_participants_per_month($date) as $p)
 		{
-			$this->table->add_row($p->age, $p->count, $p->dyslexic, $p->multilingual, 
+			$this->table->add_row($p->age, $p->count, $p->dyslexic, $p->multilingual,
 				anchor('participant/age_overview_detail/' . $p->age . '/' . $date, img_zoom('participants')));
 		}
 
@@ -653,7 +653,7 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('email', lang('email'), 'trim|valid_email');
 		$this->form_validation->set_rules('dyslexicparent', lang('dyslexicparent'), 'required');
 		$this->form_validation->set_rules('languagedisorderparent', lang('languagedisorderparent'), 'required');
-		$this->form_validation->set_rules('speechdisorderparent', lang('speechdisorderparent'), 'required');
+        $this->form_validation->set_rules('speechdisorderparent', lang('speechdisorderparent'), 'required');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), 'required');
 		$this->form_validation->set_rules('percentage', lang('percentage'), 'callback_sum_percentage');
 		$this->form_validation->set_rules('origin', lang('origin'), 'callback_not_empty');
@@ -859,7 +859,7 @@ class Participant extends CI_Controller
 		if (current_role() == UserRole::CALLER)
 		{
 			$experiments = $this->callerModel->get_experiments_by_caller(current_user_id());
-			foreach ($experiments as $experiment) 
+			foreach ($experiments as $experiment)
 			{
 				$find_p = $this->participantModel->find_participants($experiment);
 				$part_p = $this->experimentModel->get_participants_by_experiment($experiment->id);
@@ -871,7 +871,7 @@ class Participant extends CI_Controller
 		if (current_role() == UserRole::LEADER)
 		{
 			$experiments = $this->leaderModel->get_experiments_by_leader(current_user_id());
-			foreach ($experiments as $experiment) 
+			foreach ($experiments as $experiment)
 			{
 				$part_p = $this->experimentModel->get_participants_by_experiment($experiment->id);
 
@@ -882,7 +882,7 @@ class Participant extends CI_Controller
 		$this->datatables->select('CONCAT(firstname, " ", lastname) AS p, dateofbirth, dateofbirth as age, dyslexicparent, multilingual, languagedisorderparent, phone, english_communication, id, CONCAT(parentfirstname, " ", parentlastname)', FALSE);
 		$this->datatables->from('participant');
 
-		if (!is_admin()) 
+		if (!is_admin())
 		{
 			if (empty($participant_ids)) $this->datatables->where('id', 0)	; // no participants then
 			else $this->datatables->where('id IN (' . implode(',', $participant_ids) . ')');
