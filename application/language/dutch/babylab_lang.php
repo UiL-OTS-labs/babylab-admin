@@ -4,7 +4,7 @@ $lang['table_language'] 	= "js/datatables/language/dutch.txt";
 
 $lang['not_authorized'] 	= "U bent niet geauthoriseerd deze pagina te bekijken.";
 $lang['home'] 				= "Home";
-$lang['babylab'] 			= "Babylab Utrecht";
+$lang['babylab'] 			= "Babylab voor Taalonderzoek";
 $lang['action']				= "Actie";
 $lang['actions']			= "Acties";
 $lang['filters']			= "Filters";
@@ -63,9 +63,9 @@ $lang['register_info']		= "Uw aanmelding is verwerkt. Wanneer uw kind in aanmerk
 $lang['deregister']			= "Afmelden";
 $lang['deregister_finish']	= "Bedankt voor uw afmelding";
 $lang['deregister_info']	= "Uw afmelding wordt verwerkt. Mochten we naar aanleiding van uw afmelding nog vragen hebben, dan nemen we contact met u op.";
-$lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab Utrecht.";
+$lang['deregister_pageintro'] = "Met onderstaand formulier kunt u uw kind uitschrijven als deelnemer aan experimenten van het Babylab voor Taalonderzoek.";
 
-$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('https://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab Utrecht.</p>";
+$lang['register_return']    = "U ontvangt een e-mail ter bevestiging van uw aanmelding. Klik " . anchor('https://babylab.wp.hum.uu.nl', 'hier') . " om terug te keren naar de website van het Babylab voor Taalonderzoek.</p>";
 
 /* Login page */
 $lang['login'] 				= "Inloggen";
@@ -94,12 +94,12 @@ $lang['not_loggedin_error'] = "Uw sessie was beëindigd. Gelieve opnieuw in te l
 
 /* Mails */
 $lang['mail_heading']		= "Beste %s,";
-$lang['mail_ending']		= "Bedankt, Babylab Utrecht";
+$lang['mail_ending']		= "Bedankt, Babylab voor Taalonderzoek";
 $lang['mail_disclaimer']	= "<em>Deze e-mail is automatisch gegenereerd.</em>";
 
 /* Selfservice Mails */
-$lang['selfservice_mail_subject'] = "Babylab Utrecht: Link voor selfservice";
-$lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab Utrecht een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kind(eren) aan- en afmelden voor het Babylab Utrecht en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
+$lang['selfservice_mail_subject'] = "Babylab voor Taalonderzoek: Link voor selfservice";
+$lang['selfservice_mail_introduction'] = "U heeft via de selfservice van het Babylab voor Taalonderzoek een verzoek gedaan om uw gegevens te wijzigen. U kunt in de selfservice-pagina uw contactgegevens aanpassen en u kunt uw deelnemende kind(eren) aan- en afmelden voor het Babylab voor Taalonderzoek en andere Babylabs van de Universiteit Utrecht.</p><p>U kunt uw gegevens aanpassen via %s.";
 $lang['selfservice_mail_link_failure'] = "Als deze link niet werkt, kopieer dan deze link naar uw browser:";
 $lang['selfservice_mail_valid_one_day'] = "Bovenstaande link is vanaf het moment van het verzenden van deze e-mail voor één dag geldig. Mocht de link verlopen zijn, dan kunt u opnieuw een verzoek tot aanpassen doen via de %s. Mocht u verder nog vragen of opmerkingen hebben, dan kunt u contact opnemen met %s: %s.";
 $lang['selfservice_mail_ending'] = "Hartelijke groet,<br/>%s";
@@ -111,8 +111,8 @@ $lang['selfservice'] 					= "Selfservice";
 $lang['selfservice_edit_success'] 		= "De gegevens zijn opgeslagen. U kunt dit venster sluiten.";
 $lang['selfservice_incorrect_url'] 		= "Incorrecte URL of niet langer geldig. Vraag opnieuw toegang aan door uw e-mailadres in te voeren.";
 $lang['selfservice_mail_sent'] 			= "Een e-mail met toegangscode en instructies is verstuurd naar %s";
-$lang['selfservice_welcome'] 			= "Selfservice Babylab Utrecht";
-$lang['selfservice_explanation'] 		= "Op deze pagina kunt u uw persoonsgegevens wijzigen en uw kind(eren) afmelden voor onderzoek van het Babylab Utrecht. U kunt ook nieuwe kinderen aanmelden.";
+$lang['selfservice_welcome'] 			= "Selfservice Babylab voor Taalonderzoek";
+$lang['selfservice_explanation'] 		= "Op deze pagina kunt u uw persoonsgegevens wijzigen en uw kind(eren) afmelden voor onderzoek van het Babylab voor Taalonderzoek. U kunt ook nieuwe kinderen aanmelden.";
 $lang['selfservice_contact_heading'] 	= "Uw gegevens";
 $lang['selfservice_pps_heading'] 		= "Deelnemende kind(eren)";
 $lang['child'] 							= "kind";
@@ -120,9 +120,9 @@ $lang['other_babylabs'] 				= "Andere Babylabs";
 $lang['save_changes'] 					= "Wijzigingen opslaan";
 $lang['selfservice_mail_comments_to'] 	= "Als u andere opmerkingen of wijzigingen door wilt geven, kunt u ook e-mailen naar %s.";
 $lang['selfservice_reg_pp'] 			= "Nieuw kind aanmelden";
-$lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw kind(eren) aan/afmelden voor onderzoek van het Babylab Utrecht. 
+$lang['selfservice_pps_help'] 			= "Hieronder kunt u met het selectievakje uw kind(eren) aan/afmelden voor onderzoek van het Babylab voor Taalonderzoek. 
 											Een selectievakje aangevinkt betekent dat uw kind is aangemeld, uitgevinkt betekent dat uw kind is afgemeld.<br>
-											Als u uw kind afmeldt, zult u niet meer benaderd worden voor volgende onderzoeken van het Babylab Utrecht.
+											Als u uw kind afmeldt, zult u niet meer benaderd worden voor volgende onderzoeken van het Babylab voor Taalonderzoek.
 											Mocht u in de toekomst toch weer mee willen doen aan onze onderzoeken, kunt u uw kind via de selfservice opnieuw aanmelden.<br>
 											Wanneer u al uw kinderen uitschrijft zullen de persoonsgegevens zoals die hierboven staan, worden verwijderd uit het systeem. 
 											Dit gebeurt echter niet direct. Aan het begin van academisch jaar schonen wij het bestand op en verwijderen wij de persoonsgegevens 
@@ -141,28 +141,28 @@ selfservice pagina (https://babylab-admin.hum.uu.nl/selfservice)
 </a> 
 met behulp van het e-mailadres dat u hieronder opgeeft. ";
 /* Reminders */
-$lang['rem_subject'] 		= "Babylab Utrecht: Herinnering bellen";
-$lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab Utrecht:";
+$lang['rem_subject'] 		= "Babylab voor Taalonderzoek: Herinnering bellen";
+$lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab voor Taalonderzoek:";
 $lang['rem_exp_call']		= "In experiment %s kunt u momenteel %s proefpersonen bellen.";
 /* Registration of participants */
-$lang['reg_pp_subject'] 	= "Babylab Utrecht: Aanmelding proefpersoon";
+$lang['reg_pp_subject'] 	= "Babylab voor Taalonderzoek: Aanmelding proefpersoon";
 $lang['reg_pp_body'] 		= "<p>Er is een nieuwe proefpersoon aangemeld U kunt deze proefpersoon activeren of verwijderen in de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 
-$lang['reg_subject'] 		= "Babylab Utrecht: Aanmelding";
+$lang['reg_subject'] 		= "Babylab voor Taalonderzoek: Aanmelding";
 $lang['reg_thanks'] 		= "<p>Hartelijk dank voor het aanmelden van %s. Leuk dat jullie mee willen doen!</p>";
-$lang['reg_body'] 			= "<p>Uw %s komt in het databestand van het Babylab Utrecht.<br>Zodra er een experiment is waaraan %s kan meedoen, dan wordt er telefonisch contact met u opgenomen. Wanneer het telefonisch niet lukt, zal de assistent van het babylab via de e-mail contact met u proberen op te nemen.</p>";
+$lang['reg_body'] 			= "<p>Uw %s komt in het databestand van het Babylab voor Taalonderzoek.<br>Zodra er een experiment is waaraan %s kan meedoen, dan wordt er telefonisch contact met u opgenomen. Wanneer het telefonisch niet lukt, zal de assistent van het babylab via de e-mail contact met u proberen op te nemen.</p>";
 $lang['reg_ending'] 		= "<p>Hopelijk tot snel in het Babylab!<br>" . BABYLAB_TEAM . "</p>";
 /* Deregistration of participants */
-$lang['dereg_pp_subject'] 	= "Babylab Utrecht: Afmelding proefpersoon";
+$lang['dereg_pp_subject'] 	= "Babylab voor Taalonderzoek: Afmelding proefpersoon";
 $lang['dereg_pp_body'] 		= "Er is afmelding binnengekomen voor %s (geboortedatum: %s, e-mail: %s, reden: %s). U kunt deze proefpersoon deactiveren in de administratieve interface.";
 /* Registration of users */
-$lang['reg_user_subject'] 	= "Babylab Utrecht: Aanmelding gebruiker";
+$lang['reg_user_subject'] 	= "Babylab voor Taalonderzoek: Aanmelding gebruiker";
 $lang['reg_user_body'] 		= "Er is een nieuwe gebruiker aangemeld: %s (e-mail: %s). U kunt deze gebruiker activeren of verwijderen in de administratieve interface.";
 /* Activating of a user */
-$lang['activate_subject'] 	= "Babylab Utrecht: Gebruiker geactiveerd";
+$lang['activate_subject'] 	= "Babylab voor Taalonderzoek: Gebruiker geactiveerd";
 $lang['activate_body'] 		= "Uw gebruikersaccount is geactiveerd. U kunt inloggen via " . anchor(base_url()) . ".";
 /* Reset password */
-$lang['resetpw_subject'] 	= "Babylab Utrecht: Verzoek tot wachtwoordherstel";
+$lang['resetpw_subject'] 	= "Babylab voor Taalonderzoek: Verzoek tot wachtwoordherstel";
 $lang['resetpw_body'] 		= "U heeft een verzoek tot wachtwoordherstel verzonden. U kunt uw wachtwoord veranderen via %s.";
 $lang['reset_request_sent'] = "Er is al een verzoek tot wachtwoordherstel voor dit e-mailadres verzonden. Check uw inbox. Als uw geen e-mail hebt ontvangen, contacteer dan een administrator.";
 /* Confirmation */
@@ -170,7 +170,7 @@ $lang['confirmation_sent']	= "Bevestigingsmail verstuurd naar <em>%s</em>.";
 $lang['reschedule_sent']	= "Bevestigingsmail van verzetten verstuurd naar <em>%s</em>.";
 $lang['request_participation_sent']	= "Verzoek tot deelname verstuurd naar <em>%s</em>.";
 /* Manual deactivation of participant */
-$lang['deac_pp_subject'] = "Babylab Utrecht: Proefpersoon gedeactiveerd";
+$lang['deac_pp_subject'] = "Babylab voor Taalonderzoek: Proefpersoon gedeactiveerd";
 $lang['deac_pp_body'] = "Er is een proefpersoon gedeactiveerd: %s (tel.: %s) door %s. U kunt deze actie ongedaan maken via de administratieve interface, of u kunt <a href=\"%s\">op deze link klikken</a> om de proefpersoon te bekijken en te activeren.</p><p>Als deze link niet werkt, kopieer dan deze link naar uw browser:<br/>%s</p>";
 
 /* Experiments */
@@ -346,7 +346,7 @@ $lang['girl']				= "Meisje";
 $lang['his']				= "Zijn";
 $lang['her']				= "Haar";
 $lang['both']				= "Beide";
-$lang['origin']				= "Hoe hoorde u van het Babylab Utrecht?";
+$lang['origin']				= "Hoe hoorde u van het Babylab voor Taalonderzoek?";
 $lang['control']            = "Controle";
 $lang['participant_graph']  = "Toon grafiek per jaar/maand";
 $lang['comment_space']  	= "Ruimte voor eventuele opmerkingen";

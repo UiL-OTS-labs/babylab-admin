@@ -3,7 +3,7 @@
 <?=form_open('selfservice/submit/' . $current_language, array('class' => 'pure-form')); ?>
 <?=form_fieldset($page_title); ?>
 
-<p>Vul a.u.b. het e-mailadres in waarmee u bij het Babylab Utrecht geregistreerd staat.</p>
+<p>Vul a.u.b. het e-mailadres in waarmee u bij het Babylab voor Taalonderzoek geregistreerd staat.</p>
 
 <?=form_input('email', '', 'placeholder = "' . lang('email') . '"'); ?>
 

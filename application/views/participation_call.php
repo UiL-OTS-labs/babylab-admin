@@ -252,13 +252,6 @@
 						<?=form_checkbox('concept', 1, FALSE); ?>
 						<?=form_label(sprintf(lang('concept_mail_only'), TO_EMAIL_OVERRIDE)); ?>
 						</p>
-						<!-- Temporary addition (hopefully) to select whether or not to send an VEB -->
-						<?php if ($first_visit) { ?>
-							<p>
-							<?=form_checkbox('send_veb', 1, TRUE); ?>
-							<?=form_label(lang('send_veb')); ?>
-							</p>
-						<?php } ?>
 						<?php if ($combination_exp) { ?>
 							<p>
 							<?=form_checkbox('send_combination', 1, FALSE); ?>

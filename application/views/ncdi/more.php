@@ -7,7 +7,7 @@ contact opnemen met <?=BABYLAB_MANAGER; ?> (<?=mailto(BABYLAB_MANAGER_EMAIL); ?>
 </p>
 
 <?php if (!$valid_token) { ?>
-<p>Ook meedoen aan deze test en andere experimenten? Meld uw kind dan aan voor het Babylab Utrecht.<br>
+<p>Ook meedoen aan deze test en andere experimenten? Meld uw kind dan aan voor het Babylab voor Taalonderzoek.<br>
 Lees daar <?=anchor('https://babylab.wp.hum.uu.nl/meedoen', 'hier'); ?> meer over en klik hier voor het <?=anchor('/aanmelden/', 'aanmeldingsformulier'); ?>.
 </p>
 <?php } ?>

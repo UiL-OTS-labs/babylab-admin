@@ -18,20 +18,11 @@
         Eventuele reis- en parkeerkosten worden vergoed zoals aangegeven in de bijgevoegde informatiebrief.
     </p>
     <p>
-        <strong>Gezondheidsklachten?</strong>
+        <strong>Gezondheidsklachten</strong>
     </p>
     <p>
-        Wij vragen u de afspraak af te zeggen wanneer u of uw kind op de dag van het experiment of in de dagen
-        daarvoor last heeft (gehad) van:
-    </p>
-    <p>
-        <ul>
-            <li>verkoudheidsklachten zoals neusverkoudheid, loopneus, niezen, keelpijn</li>
-            <li>hoesten</li>
-            <li>benauwdheid</li>
-            <li>verhoging of koorts</li>
-            <li>plotseling verlies van reuk en/of smaak (zonder neusverstopping)</li>
-        </ul>
+        Wij vragen u de afspraak te verzetten wanneer uw kind vlak voor de afspraak gehoorproblemen
+        en/of oorontsteking heeft en dus mogelijk minder goed hoort.
     </p>
     <p>
         <strong>Aankomst in het Babylab</strong>

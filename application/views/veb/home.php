@@ -5,7 +5,7 @@
 		Uw antwoorden zijn opgeslagen en worden met de grootste zorg behandeld.
 	</p>
 	<p>
-		Als u verder nog vragen heeft over de vragenlijst, neem dan contact op met het Babylab Utrecht via <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
+		Als u verder nog vragen heeft over de vragenlijst, neem dan contact op met het Babylab voor Taalonderzoek via <?=mailto(BABYLAB_MANAGER_EMAIL); ?>.
 	</p>
 	<p>
 		U kunt het scherm nu afsluiten of doorklikken naar onze website:
