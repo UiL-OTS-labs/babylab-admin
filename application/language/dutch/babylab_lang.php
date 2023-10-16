@@ -138,11 +138,14 @@ $lang['register_info'] = "Fijn dat u uw kind wilt aanmelden om ons te helpen bij
 Ook kunnen de gegevens door wetenschappers worden gebruikt voor hun onderzoek. <br/>
 Alle gegevens die u in dit formulier opgeeft, worden met de grootste vertrouwelijkheid behandeld. Uw gegevens en die van uw kind worden verwijderd kort nadat uw kind een leeftijd heeft bereikt waarop het niet meer in aanmerking komt voor ons onderzoek. Meestal is dat met ongeveer 2,5 jaar.
 <br/>
+<br/>
 Wanneer u uw gegevens wilt aanpassen of wilt verwijderen dan kan dat via de 
 <a href='https://babylab-admin.hum.uu.nl/selfservice'/>
 selfservice pagina (https://babylab-admin.hum.uu.nl/selfservice)
 </a> 
-met behulp van het e-mailadres dat u hieronder opgeeft. ";
+met behulp van het e-mailadres dat u hieronder opgeeft. 
+<p>
+Woont u niet in Utrecht of omgeving? Houd er dan alstublieft rekening mee dat jonge kinderen na een lange reistijd vaak te moe zijn (of geen zin meer hebben) om mee te doen met een onderzoek.</p>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab voor Taalonderzoek: Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab voor Taalonderzoek:";
