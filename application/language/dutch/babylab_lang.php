@@ -145,7 +145,7 @@ selfservice pagina (https://babylab-admin.hum.uu.nl/selfservice)
 </a> 
 met behulp van het e-mailadres dat u hieronder opgeeft. 
 <p>
-Woont u niet in Utrecht of omgeving? Houd er dan alstublieft rekening mee dat jonge kinderen na een lange reistijd vaak te moe zijn (of geen zin meer hebben) om mee te doen met een onderzoek.</p>";
+Woont u niet in Utrecht of omgeving? Houdt u er dan alstublieft rekening mee dat jonge kinderen na een lange reistijd vaak te moe zijn (of geen zin meer hebben) om mee te doen met een onderzoek.</p>";
 /* Reminders */
 $lang['rem_subject'] 		= "Babylab voor Taalonderzoek: Herinnering bellen";
 $lang['rem_body'] 			= "Dit is de wekelijkse herinnering voor het bellen voor het Babylab voor Taalonderzoek:";
@@ -328,12 +328,12 @@ $lang['data_parent']		= "Gegevens ouder";
 $lang['data_language']		= "Taalspecifieke vragen";
 $lang['data_processing']    = "Data verwerking";
 $lang['data_end']			= "Tot slot";
-$lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de (biologische) ouders dyslexie heeft?";
+$lang['dyslexic_q']			= "Zijn er aanwijzingen dat &#233;&#233;n van de biologische ouders dyslexie heeft?";
 $lang['dyslexic_q_extra']	= "Kinderen met een biologische ouder die dyslexie heeft, hebben zelf ook een grotere kans om dyslexie te hebben. Daar wordt veel onderzoek naar gedaan.";
 $lang['problems_q']			= "Heeft &#233;&#233;n van de ouders (ernstige) <b>motorische problemen</b> (gehad)?";
 $lang['languagedisorderparent_q'] = "Heeft &#233;&#233;n van de ouders een taalontwikkelingsstoornis (TOS voorheen ESM)?";
 $lang['languagedisorderparent_q_extra'] = "Het is voor veel onderzoeken ook belangrijk om te weten of &#233;&#233;n van de biologische ouders een taalontwikkelingsstoornis heeft.";
-$lang['speechdisorderparent_q'] = "Heeft &#233;&#233;n van de ouders een <b>spraakontwikkelingsprobleem</b> <gehad></gehad>?";
+$lang['speechdisorderparent_q'] = "Heeft &#233;&#233;n van de biologische ouders een taalontwikkelingsstoornis (TOS voorheen ESM)?";
 $lang['speechdisorderparent_details_q'] = "Indien ja, kunt u het probleem omschrijven?";
 $lang['multilingual_q']		= "Komt uw kind (regelmatig) in aanraking met meerdere talen?";
 $lang['newsletter']         = "Nieuwsbrief";
