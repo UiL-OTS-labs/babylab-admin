@@ -653,7 +653,6 @@ class Participant extends CI_Controller
 		$this->form_validation->set_rules('email', lang('email'), 'trim|valid_email');
 		$this->form_validation->set_rules('dyslexicparent', lang('dyslexicparent'), 'required');
 		$this->form_validation->set_rules('languagedisorderparent', lang('languagedisorderparent'), 'required');
-        $this->form_validation->set_rules('speechdisorderparent', lang('speechdisorderparent'), 'required');
 		$this->form_validation->set_rules('multilingual', lang('multilingual'), 'required');
 		$this->form_validation->set_rules('percentage', lang('percentage'), 'callback_sum_percentage');
 		$this->form_validation->set_rules('origin', lang('origin'), 'callback_not_empty');
