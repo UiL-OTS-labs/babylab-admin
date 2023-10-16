@@ -12,7 +12,7 @@ class Migration_Update_participant extends CI_Migration
             'dyslexicparent' => array('type' => 'ENUM("m", "f", "mf", "p")', 'null' => TRUE),
 		);
 
-		$this->dbforge->modify_column('participation', $fields);
+		$this->dbforge->modify_column('participant', $fields);
 	}
 
 	public function down()
@@ -22,7 +22,7 @@ class Migration_Update_participant extends CI_Migration
             'dyslexicparent' => array('type' => 'ENUM("m", "f", "mf")', 'null' => TRUE),
 		);
 
-		$this->dbforge->modify_column('participation', $fields);
+		$this->dbforge->modify_column('participant', $fields);
 	}
 
 }
