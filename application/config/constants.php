@@ -51,6 +51,8 @@ class Gender {
 	const FEMALE 		= 'f';
 	const BOTH 			= 'mf';
 	const NONE 			= 'none';
+
+    const PRIVACY_MODE  = 'p';
 }
 
 /** Call status */

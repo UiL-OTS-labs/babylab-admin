@@ -37,6 +37,7 @@ $lang['overview']	 		= "Overview";
 
 $lang['yes']				= "Yes";
 $lang['no']					= "No";
+$lang['decline_to_answer']	= "I'd rather not say";
 $lang['daily']				= "Daily";
 $lang['weekly']				= "Weekly";
 $lang['seldom']				= "Seldom";

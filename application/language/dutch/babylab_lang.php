@@ -38,6 +38,7 @@ $lang['overview']	 		= "Overzicht";
 
 $lang['yes']				= "Ja";
 $lang['no']					= "Nee";
+$lang['decline_to_answer']	= "Wil ik liever niet zeggen";
 $lang['daily']				= "Dagelijks";
 $lang['weekly']				= "Wekelijks";
 $lang['seldom']				= "Zelden";

@@ -380,6 +380,8 @@ class ParticipantModel extends CI_Model
 				return lang('father');
 			case "mf":
 				return lang('both');
+			case "p":
+				return lang('decline_to_answer');
 			default :
 				return lang('unknown');
 		}

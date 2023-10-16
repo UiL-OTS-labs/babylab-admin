@@ -127,6 +127,7 @@ if (!function_exists('gender_parent'))
 			case Gender::MALE: 		$result = lang('father');	break;
 			case Gender::FEMALE: 	$result = lang('mother');	break;
 			case Gender::BOTH: 		$result = lang('both'); 	break;
+			case Gender::PRIVACY_MODE: 		$result = lang('decline_to_answer'); 	break;
 			default: 				$result = lang('none');		break;
 		}
 		return $result;
@@ -135,6 +136,7 @@ if (!function_exists('gender_parent'))
 
 if (!function_exists('tos'))
 {
+    // Also used for dyslexia, for some reason
 	function tos($languagedisorderparent)
 	{
 		switch ($languagedisorderparent)
@@ -142,6 +144,7 @@ if (!function_exists('tos'))
 			case "m":    $result = lang('father');       break;
 			case "f":    $result = lang('mother');       break;
 			case "mf":   $result = lang('both');         break;
+            case Gender::PRIVACY_MODE: 		$result = lang('decline_to_answer'); 	break;
 			default:     $result = lang('none');         break;
 		}
 		return $result;
@@ -271,11 +274,11 @@ if (!function_exists('last_called'))
 
 if (!function_exists('reference_number'))
 {
-	/** Returns a reference number for a participant; defined as: 
-	*	- first three characters of first name 
-	* 	- first three characters of last name 
-	*	- a dot 
-	* 	- date of birth (dmY) 
+	/** Returns a reference number for a participant; defined as:
+	*	- first three characters of first name
+	* 	- first three characters of last name
+	*	- a dot
+	* 	- date of birth (dmY)
 	*/
 	function reference_number($participant)
 	{
@@ -327,19 +330,19 @@ if (!function_exists('participant_activate_link'))
 	/** Returns the activation link for a participant */
 	function participant_activate_link($participant, $text = '')
 	{
-		if (!$participant->activated) 
+		if (!$participant->activated)
 		{
 			$activate_link = anchor('participant/activate/' . $participant->id, $text ? $text : img_active(FALSE));
 			if ($participant->deactivated_reason == DeactivateReason::NEW_PARTICIPANT)
 			{
 				return $activate_link;
 			}
-			else 
+			else
 			{
 				return $text ? $text : $activate_link;
 			}
 		}
-		else 
+		else
 		{
 			return anchor('participant/deactivate/' . $participant->id, $text ? $text : img_active(TRUE));
 		}

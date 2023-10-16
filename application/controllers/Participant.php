@@ -890,9 +890,9 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
-		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
+		$this->datatables->edit_column('dyslexicparent', '$1', 'tos(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
-		$this->datatables->edit_column('languagedisorderparent', '$1', 'img_tick(languagedisorderparent)');
+		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
 		$this->datatables->edit_column('english_communication', '$1', 'img_tick_null(english_communication)');
 		$this->datatables->edit_column('id', '$1', 'participant_actions(id)');
 
@@ -928,7 +928,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
-		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
+		$this->datatables->edit_column('dyslexicparent', '$1', 'tos(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
         $this->datatables->edit_column('english_communication', '$1', 'img_tick_null(english_communication)');
@@ -954,7 +954,7 @@ class Participant extends CI_Controller
 		$this->datatables->edit_column('p', '$1', 'participant_get_link_by_id(id)');
 		$this->datatables->edit_column('dateofbirth', '$1', 'dob(dateofbirth)');
 		$this->datatables->edit_column('age', '$1', 'age_in_months_and_days(age)');
-		$this->datatables->edit_column('dyslexicparent', '$1', 'img_tick(dyslexicparent)');
+		$this->datatables->edit_column('dyslexicparent', '$1', 'tos(dyslexicparent)');
 		$this->datatables->edit_column('multilingual', '$1', 'img_tick(multilingual)');
 		$this->datatables->edit_column('languagedisorderparent', '$1', 'tos(languagedisorderparent)');
         $this->datatables->edit_column('english_communication', '$1', 'img_tick_null(english_communication)');

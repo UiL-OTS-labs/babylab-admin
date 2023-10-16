@@ -69,6 +69,7 @@
 <?=form_radio_and_label('dyslexicparent', Gender::MALE, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
 <?=form_radio_and_label('dyslexicparent', Gender::BOTH, $dyslexicparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
 <?=form_radio_and_label('dyslexicparent', Gender::NONE, $dyslexicparent, lang('no'), TRUE); ?>
+<?=form_radio_and_label('dyslexicparent', Gender::PRIVACY_MODE, $dyslexicparent, lang('decline_to_answer')); ?>
 </div>
 <div class="pure-control-group">
     <p>
@@ -79,6 +80,7 @@
 <?=form_radio_and_label('languagedisorderparent', Gender::MALE, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('father'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::BOTH, $languagedisorderparent, lang('yes') . ', ' . strtolower(lang('both'))); ?>
 <?=form_radio_and_label('languagedisorderparent', Gender::NONE, $languagedisorderparent, lang('no'), TRUE); ?>
+<?=form_radio_and_label('languagedisorderparent', Gender::PRIVACY_MODE, $languagedisorderparent, lang('decline_to_answer')); ?>
 </div>
 <?php if (!$is_registration) { ?>
     <div class="pure-control-group">
